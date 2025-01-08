@@ -101,12 +101,11 @@ const (
 	RegionNameSydney        RegionName = "sydney"
 	RegionNameTokyo         RegionName = "tokyo"
 	RegionNameWashingtondc  RegionName = "washingtondc"
-	RegionNameStaging       RegionName = "staging"
 )
 
 func (r RegionName) IsKnown() bool {
 	switch r {
-	case RegionNameAmsterdam, RegionNameChicago, RegionNameFrankfurt, RegionNameHongkong, RegionNameLondon, RegionNameMumbai, RegionNameSaopaulo, RegionNameSeattle, RegionNameSiliconvalley, RegionNameSingapore, RegionNameStockholm, RegionNameSydney, RegionNameTokyo, RegionNameWashingtondc, RegionNameStaging:
+	case RegionNameAmsterdam, RegionNameChicago, RegionNameFrankfurt, RegionNameHongkong, RegionNameLondon, RegionNameMumbai, RegionNameSaopaulo, RegionNameSeattle, RegionNameSiliconvalley, RegionNameSingapore, RegionNameStockholm, RegionNameSydney, RegionNameTokyo, RegionNameWashingtondc:
 		return true
 	}
 	return false
