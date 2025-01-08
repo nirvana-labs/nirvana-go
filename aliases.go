@@ -98,9 +98,6 @@ const RegionNameTokyo = shared.RegionNameTokyo
 // This is an alias to an internal value.
 const RegionNameWashingtondc = shared.RegionNameWashingtondc
 
-// This is an alias to an internal value.
-const RegionNameStaging = shared.RegionNameStaging
-
 // This is an alias to an internal type.
 type ResourceStatus = shared.ResourceStatus
 
