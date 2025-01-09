@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.3 (2025-01-09)
+
+Full Changelog: [v0.1.0-alpha.2...v0.1.0-alpha.3](https://github.com/nirvana-labs/nirvana-go/compare/v0.1.0-alpha.2...v0.1.0-alpha.3)
+
+### Chores
+
+* **internal:** codegen related update ([#7](https://github.com/nirvana-labs/nirvana-go/issues/7)) ([41e9e09](https://github.com/nirvana-labs/nirvana-go/commit/41e9e0909495b45dce8bccb06fa966e72adcd810))
+
 ## 0.1.0-alpha.2 (2025-01-08)
 
 Full Changelog: [v0.1.0-alpha.1...v0.1.0-alpha.2](https://github.com/nirvana-labs/nirvana-go/compare/v0.1.0-alpha.1...v0.1.0-alpha.2)
