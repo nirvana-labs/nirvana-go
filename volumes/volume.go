@@ -1,0 +1,55 @@
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+package volumes
+
+import (
+	"context"
+	"errors"
+	"fmt"
+	"net/http"
+
+	"github.com/nirvana-labs/nirvana-go/internal/apijson"
+	"github.com/nirvana-labs/nirvana-go/internal/param"
+	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
+	"github.com/nirvana-labs/nirvana-go/option"
+	"github.com/nirvana-labs/nirvana-go/shared"
+)
+
+// VolumeService contains methods and other services that help with interacting
+// with the Nirvana Labs API.
+//
+// Note, unlike clients, this service does not read variables from the environment
+// automatically. You should not instantiate this service directly, and instead use
+// the [NewVolumeService] method instead.
+type VolumeService struct {
+	Options []option.RequestOption
+}
+
+// NewVolumeService generates a new service that applies the given options to each
+// request. These options are applied after the parent client's options (if there
+// is one), and before any request-specific options.
+func NewVolumeService(opts ...option.RequestOption) (r *VolumeService) {
+	r = &VolumeService{}
+	r.Options = opts
+	return
+}
+
+// Create a Volume
+func (r *VolumeService) New(ctx context.Context, vmID string, body VolumeNewParams, opts ...option.RequestOption) (res *shared.Operation, err error) {
+	opts = append(r.Options[:], opts...)
+	if vmID == "" {
+		err = errors.New("missing required vm_id parameter")
+		return
+	}
+	path := fmt.Sprintf("vms/%s/volumes", vmID)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
+	return
+}
+
+type VolumeNewParams struct {
+	Size param.Field[int64] `json:"size,required"`
+}
+
+func (r VolumeNewParams) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r)
+}
