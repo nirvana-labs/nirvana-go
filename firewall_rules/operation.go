@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package firewall_rule
+package firewall_rules
 
 import (
 	"context"
