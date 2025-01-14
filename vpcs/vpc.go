@@ -9,7 +9,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/nirvana-labs/nirvana-go/firewall_rule"
+	"github.com/nirvana-labs/nirvana-go/firewall_rules"
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/apiquery"
 	"github.com/nirvana-labs/nirvana-go/internal/param"
@@ -110,12 +110,12 @@ func (r subnetJSON) RawJSON() string {
 
 // VPC details.
 type VPC struct {
-	ID            string                       `json:"id,required"`
-	CreatedAt     string                       `json:"created_at,required"`
-	FirewallRules []firewall_rule.FirewallRule `json:"firewall_rules,required"`
-	Name          string                       `json:"name,required"`
-	Region        shared.RegionName            `json:"region,required"`
-	Status        shared.ResourceStatus        `json:"status,required"`
+	ID            string                        `json:"id,required"`
+	CreatedAt     string                        `json:"created_at,required"`
+	FirewallRules []firewall_rules.FirewallRule `json:"firewall_rules,required"`
+	Name          string                        `json:"name,required"`
+	Region        shared.RegionName             `json:"region,required"`
+	Status        shared.ResourceStatus         `json:"status,required"`
 	// Subnet details.
 	Subnet    Subnet  `json:"subnet,required"`
 	UpdatedAt string  `json:"updated_at,required"`
