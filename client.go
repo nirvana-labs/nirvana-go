@@ -7,10 +7,11 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/nirvana-labs/nirvana-go/firewall_rule"
+	"github.com/nirvana-labs/nirvana-go/firewall_rules"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/option"
 	"github.com/nirvana-labs/nirvana-go/vms"
+	"github.com/nirvana-labs/nirvana-go/volumes"
 	"github.com/nirvana-labs/nirvana-go/vpcs"
 )
 
@@ -18,10 +19,11 @@ import (
 // interacting with the Nirvana Labs API. You should not instantiate this client
 // directly, and instead use the [NewClient] method instead.
 type Client struct {
-	Options      []option.RequestOption
-	VMs          *vms.VMService
-	VPCs         *vpcs.VPCService
-	FirewallRule *firewall_rule.FirewallRuleService
+	Options       []option.RequestOption
+	VMs           *vms.VMService
+	VPCs          *vpcs.VPCService
+	FirewallRules *firewall_rules.FirewallRuleService
+	Volumes       *volumes.VolumeService
 }
 
 // NewClient generates a new client with the default option read from the
@@ -39,7 +41,8 @@ func NewClient(opts ...option.RequestOption) (r *Client) {
 
 	r.VMs = vms.NewVMService(opts...)
 	r.VPCs = vpcs.NewVPCService(opts...)
-	r.FirewallRule = firewall_rule.NewFirewallRuleService(opts...)
+	r.FirewallRules = firewall_rules.NewFirewallRuleService(opts...)
+	r.Volumes = volumes.NewVolumeService(opts...)
 
 	return
 }

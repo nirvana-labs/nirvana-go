@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package firewall_rule_test
+package firewall_rules_test
 
 import (
 	"context"
@@ -9,7 +9,7 @@ import (
 	"testing"
 
 	"github.com/nirvana-labs/nirvana-go"
-	"github.com/nirvana-labs/nirvana-go/firewall_rule"
+	"github.com/nirvana-labs/nirvana-go/firewall_rules"
 	"github.com/nirvana-labs/nirvana-go/internal/testutil"
 	"github.com/nirvana-labs/nirvana-go/option"
 )
@@ -26,17 +26,17 @@ func TestFirewallRuleNew(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAuthToken("My Auth Token"),
 	)
-	_, err := client.FirewallRule.New(
+	_, err := client.FirewallRules.New(
 		context.TODO(),
 		"vpc_id",
-		firewall_rule.FirewallRuleNewParams{
-			Destination: nirvana.F(firewall_rule.FirewallRuleEndpointParam{
+		firewall_rules.FirewallRuleNewParams{
+			Destination: nirvana.F(firewall_rules.FirewallRuleEndpointParam{
 				Address: nirvana.F("0.0.0.0/0"),
 				Ports:   nirvana.F([]string{"22", "80", "443"}),
 			}),
 			Name:     nirvana.F("my-firewall-rule"),
 			Protocol: nirvana.F("tcp"),
-			Source: nirvana.F(firewall_rule.FirewallRuleEndpointParam{
+			Source: nirvana.F(firewall_rules.FirewallRuleEndpointParam{
 				Address: nirvana.F("0.0.0.0/0"),
 				Ports:   nirvana.F([]string{"22", "80", "443"}),
 			}),
@@ -63,18 +63,18 @@ func TestFirewallRuleUpdate(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAuthToken("My Auth Token"),
 	)
-	_, err := client.FirewallRule.Update(
+	_, err := client.FirewallRules.Update(
 		context.TODO(),
 		"vpc_id",
 		"firewall_rule_id",
-		firewall_rule.FirewallRuleUpdateParams{
-			Destination: nirvana.F(firewall_rule.FirewallRuleEndpointParam{
+		firewall_rules.FirewallRuleUpdateParams{
+			Destination: nirvana.F(firewall_rules.FirewallRuleEndpointParam{
 				Address: nirvana.F("0.0.0.0/0"),
 				Ports:   nirvana.F([]string{"22", "80", "443"}),
 			}),
 			Name:     nirvana.F("my-firewall-rule"),
-			Protocol: nirvana.F(firewall_rule.FirewallRuleUpdateParamsProtocolTcp),
-			Source: nirvana.F(firewall_rule.FirewallRuleEndpointParam{
+			Protocol: nirvana.F(firewall_rules.FirewallRuleUpdateParamsProtocolTcp),
+			Source: nirvana.F(firewall_rules.FirewallRuleEndpointParam{
 				Address: nirvana.F("0.0.0.0/0"),
 				Ports:   nirvana.F([]string{"22", "80", "443"}),
 			}),
@@ -101,7 +101,7 @@ func TestFirewallRuleList(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAuthToken("My Auth Token"),
 	)
-	_, err := client.FirewallRule.List(context.TODO(), "vpc_id")
+	_, err := client.FirewallRules.List(context.TODO(), "vpc_id")
 	if err != nil {
 		var apierr *nirvana.Error
 		if errors.As(err, &apierr) {
@@ -123,7 +123,7 @@ func TestFirewallRuleDelete(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAuthToken("My Auth Token"),
 	)
-	_, err := client.FirewallRule.Delete(
+	_, err := client.FirewallRules.Delete(
 		context.TODO(),
 		"vpc_id",
 		"firewall_rule_id",
@@ -149,7 +149,7 @@ func TestFirewallRuleGet(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAuthToken("My Auth Token"),
 	)
-	_, err := client.FirewallRule.Get(
+	_, err := client.FirewallRules.Get(
 		context.TODO(),
 		"vpc_id",
 		"firewall_rule_id",
