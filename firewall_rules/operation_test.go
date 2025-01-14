@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package firewall_rule_test
+package firewall_rules_test
 
 import (
 	"context"
@@ -25,7 +25,7 @@ func TestOperationOperations(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAuthToken("My Auth Token"),
 	)
-	_, err := client.FirewallRule.Operations.Operations(
+	_, err := client.FirewallRules.Operations.Operations(
 		context.TODO(),
 		"vpc_id",
 		"operation_id",
