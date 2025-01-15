@@ -65,7 +65,7 @@ func (r *FirewallRuleService) Update(ctx context.Context, vpcID string, firewall
 }
 
 // List all firewall rules
-func (r *FirewallRuleService) List(ctx context.Context, vpcID string, opts ...option.RequestOption) (res *FirewallRuleList, err error) {
+func (r *FirewallRuleService) List(ctx context.Context, vpcID string, opts ...option.RequestOption) (res *FirewallRuleListResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	if vpcID == "" {
 		err = errors.New("missing required vpc_id parameter")
@@ -181,24 +181,24 @@ func (r FirewallRuleEndpointParam) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
-type FirewallRuleList struct {
-	Items []FirewallRule       `json:"items,required"`
-	JSON  firewallRuleListJSON `json:"-"`
+type FirewallRuleListResponse struct {
+	Items []FirewallRule               `json:"items,required"`
+	JSON  firewallRuleListResponseJSON `json:"-"`
 }
 
-// firewallRuleListJSON contains the JSON metadata for the struct
-// [FirewallRuleList]
-type firewallRuleListJSON struct {
+// firewallRuleListResponseJSON contains the JSON metadata for the struct
+// [FirewallRuleListResponse]
+type firewallRuleListResponseJSON struct {
 	Items       apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *FirewallRuleList) UnmarshalJSON(data []byte) (err error) {
+func (r *FirewallRuleListResponse) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-func (r firewallRuleListJSON) RawJSON() string {
+func (r firewallRuleListResponseJSON) RawJSON() string {
 	return r.raw
 }
 
