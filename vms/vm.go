@@ -60,7 +60,7 @@ func (r *VMService) Update(ctx context.Context, vmID string, body VMUpdateParams
 }
 
 // List all VMs
-func (r *VMService) List(ctx context.Context, query VMListParams, opts ...option.RequestOption) (res *VMList, err error) {
+func (r *VMService) List(ctx context.Context, query VMListParams, opts ...option.RequestOption) (res *VMListResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "vms"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
@@ -303,23 +303,23 @@ func (r vmJSON) RawJSON() string {
 	return r.raw
 }
 
-type VMList struct {
-	Items []VM       `json:"items,required"`
-	JSON  vmListJSON `json:"-"`
+type VMListResponse struct {
+	Items []VM               `json:"items,required"`
+	JSON  vmListResponseJSON `json:"-"`
 }
 
-// vmListJSON contains the JSON metadata for the struct [VMList]
-type vmListJSON struct {
+// vmListResponseJSON contains the JSON metadata for the struct [VMListResponse]
+type vmListResponseJSON struct {
 	Items       apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *VMList) UnmarshalJSON(data []byte) (err error) {
+func (r *VMListResponse) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-func (r vmListJSON) RawJSON() string {
+func (r vmListResponseJSON) RawJSON() string {
 	return r.raw
 }
 
