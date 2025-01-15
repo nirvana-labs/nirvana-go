@@ -46,6 +46,22 @@ func (r *VolumeService) New(ctx context.Context, vmID string, body VolumeNewPara
 	return
 }
 
+// Delete a volume
+func (r *VolumeService) Delete(ctx context.Context, vmID string, volumeID string, opts ...option.RequestOption) (res *shared.Operation, err error) {
+	opts = append(r.Options[:], opts...)
+	if vmID == "" {
+		err = errors.New("missing required vm_id parameter")
+		return
+	}
+	if volumeID == "" {
+		err = errors.New("missing required volume_id parameter")
+		return
+	}
+	path := fmt.Sprintf("vms/%s/volumes/%s", vmID, volumeID)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
+	return
+}
+
 type VolumeNewParams struct {
 	Size param.Field[int64] `json:"size,required"`
 }
