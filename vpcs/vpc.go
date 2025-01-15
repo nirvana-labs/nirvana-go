@@ -48,7 +48,7 @@ func (r *VPCService) New(ctx context.Context, body VPCNewParams, opts ...option.
 }
 
 // List all VPCs
-func (r *VPCService) List(ctx context.Context, query VPCListParams, opts ...option.RequestOption) (res *VPCList, err error) {
+func (r *VPCService) List(ctx context.Context, query VPCListParams, opts ...option.RequestOption) (res *VPCListResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "vpcs"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
@@ -144,23 +144,23 @@ func (r vpcJSON) RawJSON() string {
 	return r.raw
 }
 
-type VPCList struct {
-	Items []VPC       `json:"items,required"`
-	JSON  vpcListJSON `json:"-"`
+type VPCListResponse struct {
+	Items []VPC               `json:"items,required"`
+	JSON  vpcListResponseJSON `json:"-"`
 }
 
-// vpcListJSON contains the JSON metadata for the struct [VPCList]
-type vpcListJSON struct {
+// vpcListResponseJSON contains the JSON metadata for the struct [VPCListResponse]
+type vpcListResponseJSON struct {
 	Items       apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *VPCList) UnmarshalJSON(data []byte) (err error) {
+func (r *VPCListResponse) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-func (r vpcListJSON) RawJSON() string {
+func (r vpcListResponseJSON) RawJSON() string {
 	return r.raw
 }
 
