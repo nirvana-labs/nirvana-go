@@ -113,9 +113,9 @@ type FirewallRule struct {
 	ID        string `json:"id,required"`
 	CreatedAt string `json:"created_at,required"`
 	// Firewall rule endpoint.
-	Dest     FirewallRuleEndpoint `json:"dest,required"`
-	Name     string               `json:"name,required"`
-	Protocol string               `json:"protocol,required"`
+	Destination FirewallRuleEndpoint `json:"destination,required"`
+	Name        string               `json:"name,required"`
+	Protocol    string               `json:"protocol,required"`
 	// Firewall rule endpoint.
 	Source    FirewallRuleEndpoint  `json:"source,required"`
 	Status    shared.ResourceStatus `json:"status,required"`
@@ -128,7 +128,7 @@ type FirewallRule struct {
 type firewallRuleJSON struct {
 	ID          apijson.Field
 	CreatedAt   apijson.Field
-	Dest        apijson.Field
+	Destination apijson.Field
 	Name        apijson.Field
 	Protocol    apijson.Field
 	Source      apijson.Field
