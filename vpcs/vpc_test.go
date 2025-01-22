@@ -53,9 +53,7 @@ func TestVPCList(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAuthToken("My Auth Token"),
 	)
-	_, err := client.VPCs.List(context.TODO(), vpcs.VPCListParams{
-		Region: nirvana.F("region"),
-	})
+	_, err := client.VPCs.List(context.TODO())
 	if err != nil {
 		var apierr *nirvana.Error
 		if errors.As(err, &apierr) {
