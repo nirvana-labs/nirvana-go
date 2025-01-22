@@ -11,6 +11,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/param"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
+	"github.com/nirvana-labs/nirvana-go/operations"
 	"github.com/nirvana-labs/nirvana-go/option"
 	"github.com/nirvana-labs/nirvana-go/shared"
 )
@@ -22,8 +23,7 @@ import (
 // automatically. You should not instantiate this service directly, and instead use
 // the [NewFirewallRuleService] method instead.
 type FirewallRuleService struct {
-	Options    []option.RequestOption
-	Operations *OperationService
+	Options []option.RequestOption
 }
 
 // NewFirewallRuleService generates a new service that applies the given options to
@@ -32,12 +32,11 @@ type FirewallRuleService struct {
 func NewFirewallRuleService(opts ...option.RequestOption) (r *FirewallRuleService) {
 	r = &FirewallRuleService{}
 	r.Options = opts
-	r.Operations = NewOperationService(opts...)
 	return
 }
 
 // Create a firewall rule
-func (r *FirewallRuleService) New(ctx context.Context, vpcID string, body FirewallRuleNewParams, opts ...option.RequestOption) (res *shared.Operation, err error) {
+func (r *FirewallRuleService) New(ctx context.Context, vpcID string, body FirewallRuleNewParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
 	opts = append(r.Options[:], opts...)
 	if vpcID == "" {
 		err = errors.New("missing required vpc_id parameter")
@@ -49,7 +48,7 @@ func (r *FirewallRuleService) New(ctx context.Context, vpcID string, body Firewa
 }
 
 // Update a firewall rule
-func (r *FirewallRuleService) Update(ctx context.Context, vpcID string, firewallRuleID string, body FirewallRuleUpdateParams, opts ...option.RequestOption) (res *shared.Operation, err error) {
+func (r *FirewallRuleService) Update(ctx context.Context, vpcID string, firewallRuleID string, body FirewallRuleUpdateParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
 	opts = append(r.Options[:], opts...)
 	if vpcID == "" {
 		err = errors.New("missing required vpc_id parameter")
@@ -77,7 +76,7 @@ func (r *FirewallRuleService) List(ctx context.Context, vpcID string, opts ...op
 }
 
 // Delete a firewall rule
-func (r *FirewallRuleService) Delete(ctx context.Context, vpcID string, firewallRuleID string, opts ...option.RequestOption) (res *shared.Operation, err error) {
+func (r *FirewallRuleService) Delete(ctx context.Context, vpcID string, firewallRuleID string, opts ...option.RequestOption) (res *operations.Operation, err error) {
 	opts = append(r.Options[:], opts...)
 	if vpcID == "" {
 		err = errors.New("missing required vpc_id parameter")
@@ -149,8 +148,8 @@ func (r firewallRuleJSON) RawJSON() string {
 
 // Firewall rule endpoint.
 type FirewallRuleEndpoint struct {
-	Address string                   `json:"address,required"`
-	Ports   []string                 `json:"ports,required"`
+	Address string                   `json:"address"`
+	Ports   []string                 `json:"ports"`
 	JSON    firewallRuleEndpointJSON `json:"-"`
 }
 
@@ -173,8 +172,8 @@ func (r firewallRuleEndpointJSON) RawJSON() string {
 
 // Firewall rule endpoint.
 type FirewallRuleEndpointParam struct {
-	Address param.Field[string]   `json:"address,required"`
-	Ports   param.Field[[]string] `json:"ports,required"`
+	Address param.Field[string]   `json:"address"`
+	Ports   param.Field[[]string] `json:"ports"`
 }
 
 func (r FirewallRuleEndpointParam) MarshalJSON() (data []byte, err error) {

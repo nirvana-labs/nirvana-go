@@ -9,6 +9,7 @@ import (
 
 	"github.com/nirvana-labs/nirvana-go/firewall_rules"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
+	"github.com/nirvana-labs/nirvana-go/operations"
 	"github.com/nirvana-labs/nirvana-go/option"
 	"github.com/nirvana-labs/nirvana-go/vms"
 	"github.com/nirvana-labs/nirvana-go/volumes"
@@ -24,6 +25,7 @@ type Client struct {
 	VPCs          *vpcs.VPCService
 	FirewallRules *firewall_rules.FirewallRuleService
 	Volumes       *volumes.VolumeService
+	Operations    *operations.OperationService
 }
 
 // NewClient generates a new client with the default option read from the
@@ -43,6 +45,7 @@ func NewClient(opts ...option.RequestOption) (r *Client) {
 	r.VPCs = vpcs.NewVPCService(opts...)
 	r.FirewallRules = firewall_rules.NewFirewallRuleService(opts...)
 	r.Volumes = volumes.NewVolumeService(opts...)
+	r.Operations = operations.NewOperationService(opts...)
 
 	return
 }
