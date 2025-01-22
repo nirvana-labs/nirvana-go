@@ -62,8 +62,51 @@ func (r *VolumeService) Delete(ctx context.Context, vmID string, volumeID string
 	return
 }
 
+// Storage type.
+type StorageType string
+
+const (
+	StorageTypeNvme StorageType = "nvme"
+)
+
+func (r StorageType) IsKnown() bool {
+	switch r {
+	case StorageTypeNvme:
+		return true
+	}
+	return false
+}
+
+// Volume details.
+type Volume struct {
+	ID   string `json:"id,required"`
+	Size int64  `json:"size,required"`
+	// Storage type.
+	Type StorageType `json:"type,required"`
+	JSON volumeJSON  `json:"-"`
+}
+
+// volumeJSON contains the JSON metadata for the struct [Volume]
+type volumeJSON struct {
+	ID          apijson.Field
+	Size        apijson.Field
+	Type        apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *Volume) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r volumeJSON) RawJSON() string {
+	return r.raw
+}
+
 type VolumeNewParams struct {
 	Size param.Field[int64] `json:"size,required"`
+	// Storage type.
+	Type param.Field[StorageType] `json:"type"`
 }
 
 func (r VolumeNewParams) MarshalJSON() (data []byte, err error) {

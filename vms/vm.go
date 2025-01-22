@@ -15,6 +15,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/option"
 	"github.com/nirvana-labs/nirvana-go/shared"
+	"github.com/nirvana-labs/nirvana-go/volumes"
 	"github.com/nirvana-labs/nirvana-go/vpcs"
 )
 
@@ -124,16 +125,13 @@ func (r CPUParam) MarshalJSON() (data []byte, err error) {
 // RAM details.
 type Ram struct {
 	// RAM size
-	Size int64 `json:"size,required"`
-	// Unit (GB, MB, etc.)
-	Unit RamUnit `json:"unit,required"`
+	Size int64   `json:"size,required"`
 	JSON ramJSON `json:"-"`
 }
 
 // ramJSON contains the JSON metadata for the struct [Ram]
 type ramJSON struct {
 	Size        apijson.Field
-	Unit        apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -150,27 +148,10 @@ func (r ramJSON) RawJSON() string {
 type RamParam struct {
 	// RAM size
 	Size param.Field[int64] `json:"size,required"`
-	// Unit (GB, MB, etc.)
-	Unit param.Field[RamUnit] `json:"unit,required"`
 }
 
 func (r RamParam) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
-}
-
-// Unit (GB, MB, etc.)
-type RamUnit string
-
-const (
-	RamUnitGB RamUnit = "GB"
-)
-
-func (r RamUnit) IsKnown() bool {
-	switch r {
-	case RamUnitGB:
-		return true
-	}
-	return false
 }
 
 // SSH key details.
@@ -182,97 +163,22 @@ func (r SSHKeyParam) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
-// Storage details.
-type Storage struct {
-	// Storage size
-	Size int64 `json:"size,required"`
-	// Storage type.
-	Type StorageType `json:"type,required"`
-	// Storage unit.
-	Unit StorageUnit `json:"unit,required"`
-	// Disk name, used later
-	DiskName string      `json:"disk_name"`
-	JSON     storageJSON `json:"-"`
-}
-
-// storageJSON contains the JSON metadata for the struct [Storage]
-type storageJSON struct {
-	Size        apijson.Field
-	Type        apijson.Field
-	Unit        apijson.Field
-	DiskName    apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *Storage) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r storageJSON) RawJSON() string {
-	return r.raw
-}
-
-// Storage details.
-type StorageParam struct {
-	// Storage size
-	Size param.Field[int64] `json:"size,required"`
-	// Storage type.
-	Type param.Field[StorageType] `json:"type,required"`
-	// Storage unit.
-	Unit param.Field[StorageUnit] `json:"unit,required"`
-	// Disk name, used later
-	DiskName param.Field[string] `json:"disk_name"`
-}
-
-func (r StorageParam) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r)
-}
-
-// Storage type.
-type StorageType string
-
-const (
-	StorageTypeNvme StorageType = "nvme"
-)
-
-func (r StorageType) IsKnown() bool {
-	switch r {
-	case StorageTypeNvme:
-		return true
-	}
-	return false
-}
-
-// Storage unit.
-type StorageUnit string
-
-const (
-	StorageUnitGB StorageUnit = "GB"
-)
-
-func (r StorageUnit) IsKnown() bool {
-	switch r {
-	case StorageUnitGB:
-		return true
-	}
-	return false
-}
-
 // VM details.
 type VM struct {
 	ID string `json:"id,required"`
+	// Volume details.
+	BootVolume volumes.Volume `json:"boot_volume,required"`
 	// CPU details.
-	CPUConfig CPU    `json:"cpu_config,required"`
-	CreatedAt string `json:"created_at,required"`
+	CPUConfig   CPU              `json:"cpu_config,required"`
+	CreatedAt   string           `json:"created_at,required"`
+	DataVolumes []volumes.Volume `json:"data_volumes,required"`
 	// RAM details.
-	MemConfig     Ram                   `json:"mem_config,required"`
-	Name          string                `json:"name,required"`
-	PublicIP      string                `json:"public_ip,required"`
-	Region        shared.RegionName     `json:"region,required"`
-	Status        shared.ResourceStatus `json:"status,required"`
-	StorageConfig []Storage             `json:"storage_config,required"`
-	UpdatedAt     string                `json:"updated_at,required"`
+	MemConfig Ram                   `json:"mem_config,required"`
+	Name      string                `json:"name,required"`
+	PublicIP  string                `json:"public_ip,required"`
+	Region    shared.RegionName     `json:"region,required"`
+	Status    shared.ResourceStatus `json:"status,required"`
+	UpdatedAt string                `json:"updated_at,required"`
 	// VPC details.
 	VPC  vpcs.VPC `json:"vpc,required"`
 	JSON vmJSON   `json:"-"`
@@ -280,19 +186,20 @@ type VM struct {
 
 // vmJSON contains the JSON metadata for the struct [VM]
 type vmJSON struct {
-	ID            apijson.Field
-	CPUConfig     apijson.Field
-	CreatedAt     apijson.Field
-	MemConfig     apijson.Field
-	Name          apijson.Field
-	PublicIP      apijson.Field
-	Region        apijson.Field
-	Status        apijson.Field
-	StorageConfig apijson.Field
-	UpdatedAt     apijson.Field
-	VPC           apijson.Field
-	raw           string
-	ExtraFields   map[string]apijson.Field
+	ID          apijson.Field
+	BootVolume  apijson.Field
+	CPUConfig   apijson.Field
+	CreatedAt   apijson.Field
+	DataVolumes apijson.Field
+	MemConfig   apijson.Field
+	Name        apijson.Field
+	PublicIP    apijson.Field
+	Region      apijson.Field
+	Status      apijson.Field
+	UpdatedAt   apijson.Field
+	VPC         apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
 }
 
 func (r *VM) UnmarshalJSON(data []byte) (err error) {
@@ -324,6 +231,8 @@ func (r vmListResponseJSON) RawJSON() string {
 }
 
 type VMNewParams struct {
+	// Boot volume create request.
+	BootVolume param.Field[VMNewParamsBootVolume] `json:"boot_volume,required"`
 	// CPU details.
 	CPU          param.Field[CPUParam] `json:"cpu,required"`
 	Name         param.Field[string]   `json:"name,required"`
@@ -335,24 +244,66 @@ type VMNewParams struct {
 	Region        param.Field[shared.RegionName] `json:"region,required"`
 	SourceAddress param.Field[string]            `json:"source_address,required"`
 	// SSH key details.
-	SSHKey   param.Field[SSHKeyParam]    `json:"ssh_key,required"`
-	Storage  param.Field[[]StorageParam] `json:"storage,required"`
-	SubnetID param.Field[string]         `json:"subnet_id"`
+	SSHKey      param.Field[SSHKeyParam]             `json:"ssh_key,required"`
+	DataVolumes param.Field[[]VMNewParamsDataVolume] `json:"data_volumes"`
+	SubnetID    param.Field[string]                  `json:"subnet_id"`
 }
 
 func (r VMNewParams) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
+// Boot volume create request.
+type VMNewParamsBootVolume struct {
+	Size param.Field[int64] `json:"size,required"`
+}
+
+func (r VMNewParamsBootVolume) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r)
+}
+
+// Data volume create request.
+type VMNewParamsDataVolume struct {
+	Size param.Field[int64] `json:"size,required"`
+	// Storage type.
+	Type param.Field[volumes.StorageType] `json:"type"`
+}
+
+func (r VMNewParamsDataVolume) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r)
+}
+
 type VMUpdateParams struct {
+	// Boot volume create request.
+	BootVolume param.Field[VMUpdateParamsBootVolume] `json:"boot_volume"`
 	// CPU details.
-	CPU param.Field[CPUParam] `json:"cpu"`
+	CPU         param.Field[CPUParam]                   `json:"cpu"`
+	DataVolumes param.Field[[]VMUpdateParamsDataVolume] `json:"data_volumes"`
 	// RAM details.
-	Ram     param.Field[RamParam]       `json:"ram"`
-	Storage param.Field[[]StorageParam] `json:"storage"`
+	Ram param.Field[RamParam] `json:"ram"`
 }
 
 func (r VMUpdateParams) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r)
+}
+
+// Boot volume create request.
+type VMUpdateParamsBootVolume struct {
+	Size param.Field[int64] `json:"size,required"`
+}
+
+func (r VMUpdateParamsBootVolume) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r)
+}
+
+// Data volume create request.
+type VMUpdateParamsDataVolume struct {
+	Size param.Field[int64] `json:"size,required"`
+	// Storage type.
+	Type param.Field[volumes.StorageType] `json:"type"`
+}
+
+func (r VMUpdateParamsDataVolume) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 

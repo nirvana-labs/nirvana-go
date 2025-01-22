@@ -40,6 +40,9 @@ func TestUserAgentHeader(t *testing.T) {
 		}),
 	)
 	client.VMs.New(context.Background(), vms.VMNewParams{
+		BootVolume: nirvana.F(vms.VMNewParamsBootVolume{
+			Size: nirvana.F(int64(100)),
+		}),
 		CPU: nirvana.F(vms.CPUParam{
 			Cores: nirvana.F(int64(2)),
 		}),
@@ -49,18 +52,12 @@ func TestUserAgentHeader(t *testing.T) {
 		Ports:        nirvana.F([]string{"22", "80", "443"}),
 		Ram: nirvana.F(vms.RamParam{
 			Size: nirvana.F(int64(2)),
-			Unit: nirvana.F(vms.RamUnitGB),
 		}),
 		Region:        nirvana.F(shared.RegionNameAmsterdam),
 		SourceAddress: nirvana.F("0.0.0.0/0"),
 		SSHKey: nirvana.F(vms.SSHKeyParam{
 			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 		}),
-		Storage: nirvana.F([]vms.StorageParam{{
-			Size: nirvana.F(int64(100)),
-			Type: nirvana.F(vms.StorageTypeNvme),
-			Unit: nirvana.F(vms.StorageUnitGB),
-		}}),
 	})
 	if userAgent != fmt.Sprintf("NirvanaLabs/Go %s", internal.PackageVersion) {
 		t.Errorf("Expected User-Agent to be correct, but got: %#v", userAgent)
@@ -85,6 +82,9 @@ func TestRetryAfter(t *testing.T) {
 		}),
 	)
 	res, err := client.VMs.New(context.Background(), vms.VMNewParams{
+		BootVolume: nirvana.F(vms.VMNewParamsBootVolume{
+			Size: nirvana.F(int64(100)),
+		}),
 		CPU: nirvana.F(vms.CPUParam{
 			Cores: nirvana.F(int64(2)),
 		}),
@@ -94,18 +94,12 @@ func TestRetryAfter(t *testing.T) {
 		Ports:        nirvana.F([]string{"22", "80", "443"}),
 		Ram: nirvana.F(vms.RamParam{
 			Size: nirvana.F(int64(2)),
-			Unit: nirvana.F(vms.RamUnitGB),
 		}),
 		Region:        nirvana.F(shared.RegionNameAmsterdam),
 		SourceAddress: nirvana.F("0.0.0.0/0"),
 		SSHKey: nirvana.F(vms.SSHKeyParam{
 			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 		}),
-		Storage: nirvana.F([]vms.StorageParam{{
-			Size: nirvana.F(int64(100)),
-			Type: nirvana.F(vms.StorageTypeNvme),
-			Unit: nirvana.F(vms.StorageUnitGB),
-		}}),
 	})
 	if err == nil || res != nil {
 		t.Error("Expected there to be a cancel error and for the response to be nil")
@@ -141,6 +135,9 @@ func TestDeleteRetryCountHeader(t *testing.T) {
 		option.WithHeaderDel("X-Stainless-Retry-Count"),
 	)
 	res, err := client.VMs.New(context.Background(), vms.VMNewParams{
+		BootVolume: nirvana.F(vms.VMNewParamsBootVolume{
+			Size: nirvana.F(int64(100)),
+		}),
 		CPU: nirvana.F(vms.CPUParam{
 			Cores: nirvana.F(int64(2)),
 		}),
@@ -150,18 +147,12 @@ func TestDeleteRetryCountHeader(t *testing.T) {
 		Ports:        nirvana.F([]string{"22", "80", "443"}),
 		Ram: nirvana.F(vms.RamParam{
 			Size: nirvana.F(int64(2)),
-			Unit: nirvana.F(vms.RamUnitGB),
 		}),
 		Region:        nirvana.F(shared.RegionNameAmsterdam),
 		SourceAddress: nirvana.F("0.0.0.0/0"),
 		SSHKey: nirvana.F(vms.SSHKeyParam{
 			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 		}),
-		Storage: nirvana.F([]vms.StorageParam{{
-			Size: nirvana.F(int64(100)),
-			Type: nirvana.F(vms.StorageTypeNvme),
-			Unit: nirvana.F(vms.StorageUnitGB),
-		}}),
 	})
 	if err == nil || res != nil {
 		t.Error("Expected there to be a cancel error and for the response to be nil")
@@ -192,6 +183,9 @@ func TestOverwriteRetryCountHeader(t *testing.T) {
 		option.WithHeader("X-Stainless-Retry-Count", "42"),
 	)
 	res, err := client.VMs.New(context.Background(), vms.VMNewParams{
+		BootVolume: nirvana.F(vms.VMNewParamsBootVolume{
+			Size: nirvana.F(int64(100)),
+		}),
 		CPU: nirvana.F(vms.CPUParam{
 			Cores: nirvana.F(int64(2)),
 		}),
@@ -201,18 +195,12 @@ func TestOverwriteRetryCountHeader(t *testing.T) {
 		Ports:        nirvana.F([]string{"22", "80", "443"}),
 		Ram: nirvana.F(vms.RamParam{
 			Size: nirvana.F(int64(2)),
-			Unit: nirvana.F(vms.RamUnitGB),
 		}),
 		Region:        nirvana.F(shared.RegionNameAmsterdam),
 		SourceAddress: nirvana.F("0.0.0.0/0"),
 		SSHKey: nirvana.F(vms.SSHKeyParam{
 			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 		}),
-		Storage: nirvana.F([]vms.StorageParam{{
-			Size: nirvana.F(int64(100)),
-			Type: nirvana.F(vms.StorageTypeNvme),
-			Unit: nirvana.F(vms.StorageUnitGB),
-		}}),
 	})
 	if err == nil || res != nil {
 		t.Error("Expected there to be a cancel error and for the response to be nil")
@@ -242,6 +230,9 @@ func TestRetryAfterMs(t *testing.T) {
 		}),
 	)
 	res, err := client.VMs.New(context.Background(), vms.VMNewParams{
+		BootVolume: nirvana.F(vms.VMNewParamsBootVolume{
+			Size: nirvana.F(int64(100)),
+		}),
 		CPU: nirvana.F(vms.CPUParam{
 			Cores: nirvana.F(int64(2)),
 		}),
@@ -251,18 +242,12 @@ func TestRetryAfterMs(t *testing.T) {
 		Ports:        nirvana.F([]string{"22", "80", "443"}),
 		Ram: nirvana.F(vms.RamParam{
 			Size: nirvana.F(int64(2)),
-			Unit: nirvana.F(vms.RamUnitGB),
 		}),
 		Region:        nirvana.F(shared.RegionNameAmsterdam),
 		SourceAddress: nirvana.F("0.0.0.0/0"),
 		SSHKey: nirvana.F(vms.SSHKeyParam{
 			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 		}),
-		Storage: nirvana.F([]vms.StorageParam{{
-			Size: nirvana.F(int64(100)),
-			Type: nirvana.F(vms.StorageTypeNvme),
-			Unit: nirvana.F(vms.StorageUnitGB),
-		}}),
 	})
 	if err == nil || res != nil {
 		t.Error("Expected there to be a cancel error and for the response to be nil")
@@ -286,6 +271,9 @@ func TestContextCancel(t *testing.T) {
 	cancelCtx, cancel := context.WithCancel(context.Background())
 	cancel()
 	res, err := client.VMs.New(cancelCtx, vms.VMNewParams{
+		BootVolume: nirvana.F(vms.VMNewParamsBootVolume{
+			Size: nirvana.F(int64(100)),
+		}),
 		CPU: nirvana.F(vms.CPUParam{
 			Cores: nirvana.F(int64(2)),
 		}),
@@ -295,18 +283,12 @@ func TestContextCancel(t *testing.T) {
 		Ports:        nirvana.F([]string{"22", "80", "443"}),
 		Ram: nirvana.F(vms.RamParam{
 			Size: nirvana.F(int64(2)),
-			Unit: nirvana.F(vms.RamUnitGB),
 		}),
 		Region:        nirvana.F(shared.RegionNameAmsterdam),
 		SourceAddress: nirvana.F("0.0.0.0/0"),
 		SSHKey: nirvana.F(vms.SSHKeyParam{
 			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 		}),
-		Storage: nirvana.F([]vms.StorageParam{{
-			Size: nirvana.F(int64(100)),
-			Type: nirvana.F(vms.StorageTypeNvme),
-			Unit: nirvana.F(vms.StorageUnitGB),
-		}}),
 	})
 	if err == nil || res != nil {
 		t.Error("Expected there to be a cancel error and for the response to be nil")
@@ -327,6 +309,9 @@ func TestContextCancelDelay(t *testing.T) {
 	cancelCtx, cancel := context.WithTimeout(context.Background(), 2*time.Millisecond)
 	defer cancel()
 	res, err := client.VMs.New(cancelCtx, vms.VMNewParams{
+		BootVolume: nirvana.F(vms.VMNewParamsBootVolume{
+			Size: nirvana.F(int64(100)),
+		}),
 		CPU: nirvana.F(vms.CPUParam{
 			Cores: nirvana.F(int64(2)),
 		}),
@@ -336,18 +321,12 @@ func TestContextCancelDelay(t *testing.T) {
 		Ports:        nirvana.F([]string{"22", "80", "443"}),
 		Ram: nirvana.F(vms.RamParam{
 			Size: nirvana.F(int64(2)),
-			Unit: nirvana.F(vms.RamUnitGB),
 		}),
 		Region:        nirvana.F(shared.RegionNameAmsterdam),
 		SourceAddress: nirvana.F("0.0.0.0/0"),
 		SSHKey: nirvana.F(vms.SSHKeyParam{
 			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 		}),
-		Storage: nirvana.F([]vms.StorageParam{{
-			Size: nirvana.F(int64(100)),
-			Type: nirvana.F(vms.StorageTypeNvme),
-			Unit: nirvana.F(vms.StorageUnitGB),
-		}}),
 	})
 	if err == nil || res != nil {
 		t.Error("expected there to be a cancel error and for the response to be nil")
@@ -374,6 +353,9 @@ func TestContextDeadline(t *testing.T) {
 			}),
 		)
 		res, err := client.VMs.New(deadlineCtx, vms.VMNewParams{
+			BootVolume: nirvana.F(vms.VMNewParamsBootVolume{
+				Size: nirvana.F(int64(100)),
+			}),
 			CPU: nirvana.F(vms.CPUParam{
 				Cores: nirvana.F(int64(2)),
 			}),
@@ -383,18 +365,12 @@ func TestContextDeadline(t *testing.T) {
 			Ports:        nirvana.F([]string{"22", "80", "443"}),
 			Ram: nirvana.F(vms.RamParam{
 				Size: nirvana.F(int64(2)),
-				Unit: nirvana.F(vms.RamUnitGB),
 			}),
 			Region:        nirvana.F(shared.RegionNameAmsterdam),
 			SourceAddress: nirvana.F("0.0.0.0/0"),
 			SSHKey: nirvana.F(vms.SSHKeyParam{
 				PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 			}),
-			Storage: nirvana.F([]vms.StorageParam{{
-				Size: nirvana.F(int64(100)),
-				Type: nirvana.F(vms.StorageTypeNvme),
-				Unit: nirvana.F(vms.StorageUnitGB),
-			}}),
 		})
 		if err == nil || res != nil {
 			t.Error("expected there to be a deadline error and for the response to be nil")

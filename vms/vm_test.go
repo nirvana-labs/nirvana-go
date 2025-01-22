@@ -13,6 +13,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/option"
 	"github.com/nirvana-labs/nirvana-go/shared"
 	"github.com/nirvana-labs/nirvana-go/vms"
+	"github.com/nirvana-labs/nirvana-go/volumes"
 )
 
 func TestVMNewWithOptionalParams(t *testing.T) {
@@ -28,6 +29,9 @@ func TestVMNewWithOptionalParams(t *testing.T) {
 		option.WithAuthToken("My Auth Token"),
 	)
 	_, err := client.VMs.New(context.TODO(), vms.VMNewParams{
+		BootVolume: nirvana.F(vms.VMNewParamsBootVolume{
+			Size: nirvana.F(int64(100)),
+		}),
 		CPU: nirvana.F(vms.CPUParam{
 			Cores: nirvana.F(int64(2)),
 		}),
@@ -37,18 +41,15 @@ func TestVMNewWithOptionalParams(t *testing.T) {
 		Ports:        nirvana.F([]string{"22", "80", "443"}),
 		Ram: nirvana.F(vms.RamParam{
 			Size: nirvana.F(int64(2)),
-			Unit: nirvana.F(vms.RamUnitGB),
 		}),
 		Region:        nirvana.F(shared.RegionNameAmsterdam),
 		SourceAddress: nirvana.F("0.0.0.0/0"),
 		SSHKey: nirvana.F(vms.SSHKeyParam{
 			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 		}),
-		Storage: nirvana.F([]vms.StorageParam{{
-			Size:     nirvana.F(int64(100)),
-			Type:     nirvana.F(vms.StorageTypeNvme),
-			Unit:     nirvana.F(vms.StorageUnitGB),
-			DiskName: nirvana.F("disk_name"),
+		DataVolumes: nirvana.F([]vms.VMNewParamsDataVolume{{
+			Size: nirvana.F(int64(100)),
+			Type: nirvana.F(volumes.StorageTypeNvme),
 		}}),
 		SubnetID: nirvana.F("123e4567-e89b-12d3-a456-426614174000"),
 	})
@@ -77,19 +78,19 @@ func TestVMUpdateWithOptionalParams(t *testing.T) {
 		context.TODO(),
 		"vm_id",
 		vms.VMUpdateParams{
+			BootVolume: nirvana.F(vms.VMUpdateParamsBootVolume{
+				Size: nirvana.F(int64(100)),
+			}),
 			CPU: nirvana.F(vms.CPUParam{
 				Cores: nirvana.F(int64(2)),
 			}),
+			DataVolumes: nirvana.F([]vms.VMUpdateParamsDataVolume{{
+				Size: nirvana.F(int64(100)),
+				Type: nirvana.F(volumes.StorageTypeNvme),
+			}}),
 			Ram: nirvana.F(vms.RamParam{
 				Size: nirvana.F(int64(2)),
-				Unit: nirvana.F(vms.RamUnitGB),
 			}),
-			Storage: nirvana.F([]vms.StorageParam{{
-				Size:     nirvana.F(int64(100)),
-				Type:     nirvana.F(vms.StorageTypeNvme),
-				Unit:     nirvana.F(vms.StorageUnitGB),
-				DiskName: nirvana.F("disk_name"),
-			}}),
 		},
 	)
 	if err != nil {
