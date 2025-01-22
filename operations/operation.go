@@ -77,13 +77,14 @@ type OperationKind string
 
 const (
 	OperationKindVM           OperationKind = "VM"
+	OperationKindVolume       OperationKind = "VOLUME"
 	OperationKindVPC          OperationKind = "VPC"
 	OperationKindFirewallRule OperationKind = "FIREWALL_RULE"
 )
 
 func (r OperationKind) IsKnown() bool {
 	switch r {
-	case OperationKindVM, OperationKindVPC, OperationKindFirewallRule:
+	case OperationKindVM, OperationKindVolume, OperationKindVPC, OperationKindFirewallRule:
 		return true
 	}
 	return false
@@ -96,11 +97,12 @@ const (
 	OperationStatusRunning OperationStatus = "RUNNING"
 	OperationStatusDone    OperationStatus = "DONE"
 	OperationStatusFailed  OperationStatus = "FAILED"
+	OperationStatusUnknown OperationStatus = "UNKNOWN"
 )
 
 func (r OperationStatus) IsKnown() bool {
 	switch r {
-	case OperationStatusPending, OperationStatusRunning, OperationStatusDone, OperationStatusFailed:
+	case OperationStatusPending, OperationStatusRunning, OperationStatusDone, OperationStatusFailed, OperationStatusUnknown:
 		return true
 	}
 	return false
