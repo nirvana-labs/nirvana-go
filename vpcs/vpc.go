@@ -12,6 +12,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/param"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
+	"github.com/nirvana-labs/nirvana-go/operations"
 	"github.com/nirvana-labs/nirvana-go/option"
 	"github.com/nirvana-labs/nirvana-go/shared"
 )
@@ -38,7 +39,7 @@ func NewVPCService(opts ...option.RequestOption) (r *VPCService) {
 }
 
 // Create a VPC
-func (r *VPCService) New(ctx context.Context, body VPCNewParams, opts ...option.RequestOption) (res *shared.Operation, err error) {
+func (r *VPCService) New(ctx context.Context, body VPCNewParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "vpcs"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
@@ -54,7 +55,7 @@ func (r *VPCService) List(ctx context.Context, opts ...option.RequestOption) (re
 }
 
 // Delete a VPC
-func (r *VPCService) Delete(ctx context.Context, vpcID string, opts ...option.RequestOption) (res *shared.Operation, err error) {
+func (r *VPCService) Delete(ctx context.Context, vpcID string, opts ...option.RequestOption) (res *operations.Operation, err error) {
 	opts = append(r.Options[:], opts...)
 	if vpcID == "" {
 		err = errors.New("missing required vpc_id parameter")

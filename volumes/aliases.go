@@ -9,50 +9,6 @@ import (
 
 type Error = apierror.Error
 
-// Operation details.
-//
-// This is an alias to an internal type.
-type Operation = shared.Operation
-
-// This is an alias to an internal type.
-type OperationKind = shared.OperationKind
-
-// This is an alias to an internal value.
-const OperationKindVM = shared.OperationKindVM
-
-// This is an alias to an internal value.
-const OperationKindVPC = shared.OperationKindVPC
-
-// This is an alias to an internal value.
-const OperationKindFirewallRule = shared.OperationKindFirewallRule
-
-// This is an alias to an internal type.
-type OperationStatus = shared.OperationStatus
-
-// This is an alias to an internal value.
-const OperationStatusPending = shared.OperationStatusPending
-
-// This is an alias to an internal value.
-const OperationStatusRunning = shared.OperationStatusRunning
-
-// This is an alias to an internal value.
-const OperationStatusDone = shared.OperationStatusDone
-
-// This is an alias to an internal value.
-const OperationStatusFailed = shared.OperationStatusFailed
-
-// This is an alias to an internal type.
-type OperationType = shared.OperationType
-
-// This is an alias to an internal value.
-const OperationTypeCreate = shared.OperationTypeCreate
-
-// This is an alias to an internal value.
-const OperationTypeUpdate = shared.OperationTypeUpdate
-
-// This is an alias to an internal value.
-const OperationTypeDelete = shared.OperationTypeDelete
-
 // This is an alias to an internal type.
 type RegionName = shared.RegionName
 

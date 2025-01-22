@@ -11,8 +11,8 @@ import (
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/param"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
+	"github.com/nirvana-labs/nirvana-go/operations"
 	"github.com/nirvana-labs/nirvana-go/option"
-	"github.com/nirvana-labs/nirvana-go/shared"
 )
 
 // VolumeService contains methods and other services that help with interacting
@@ -35,7 +35,7 @@ func NewVolumeService(opts ...option.RequestOption) (r *VolumeService) {
 }
 
 // Create a Volume
-func (r *VolumeService) New(ctx context.Context, vmID string, body VolumeNewParams, opts ...option.RequestOption) (res *shared.Operation, err error) {
+func (r *VolumeService) New(ctx context.Context, vmID string, body VolumeNewParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
 	opts = append(r.Options[:], opts...)
 	if vmID == "" {
 		err = errors.New("missing required vm_id parameter")
@@ -47,7 +47,7 @@ func (r *VolumeService) New(ctx context.Context, vmID string, body VolumeNewPara
 }
 
 // Delete a volume
-func (r *VolumeService) Delete(ctx context.Context, vmID string, volumeID string, opts ...option.RequestOption) (res *shared.Operation, err error) {
+func (r *VolumeService) Delete(ctx context.Context, vmID string, volumeID string, opts ...option.RequestOption) (res *operations.Operation, err error) {
 	opts = append(r.Options[:], opts...)
 	if vmID == "" {
 		err = errors.New("missing required vm_id parameter")

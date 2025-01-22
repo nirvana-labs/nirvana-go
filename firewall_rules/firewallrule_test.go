@@ -14,7 +14,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/option"
 )
 
-func TestFirewallRuleNew(t *testing.T) {
+func TestFirewallRuleNewWithOptionalParams(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -51,7 +51,7 @@ func TestFirewallRuleNew(t *testing.T) {
 	}
 }
 
-func TestFirewallRuleUpdate(t *testing.T) {
+func TestFirewallRuleUpdateWithOptionalParams(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
