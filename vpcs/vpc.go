@@ -7,11 +7,9 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
-	"net/url"
 
 	"github.com/nirvana-labs/nirvana-go/firewall_rules"
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
-	"github.com/nirvana-labs/nirvana-go/internal/apiquery"
 	"github.com/nirvana-labs/nirvana-go/internal/param"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/option"
@@ -48,10 +46,10 @@ func (r *VPCService) New(ctx context.Context, body VPCNewParams, opts ...option.
 }
 
 // List all VPCs
-func (r *VPCService) List(ctx context.Context, query VPCListParams, opts ...option.RequestOption) (res *VPCListResponse, err error) {
+func (r *VPCService) List(ctx context.Context, opts ...option.RequestOption) (res *VPCListResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "vpcs"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
 
@@ -172,17 +170,4 @@ type VPCNewParams struct {
 
 func (r VPCNewParams) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
-}
-
-type VPCListParams struct {
-	// Region
-	Region param.Field[string] `query:"region,required"`
-}
-
-// URLQuery serializes [VPCListParams]'s query parameters as `url.Values`.
-func (r VPCListParams) URLQuery() (v url.Values) {
-	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
-		ArrayFormat:  apiquery.ArrayQueryFormatComma,
-		NestedFormat: apiquery.NestedQueryFormatBrackets,
-	})
 }
