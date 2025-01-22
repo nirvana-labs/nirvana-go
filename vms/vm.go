@@ -11,6 +11,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/param"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
+	"github.com/nirvana-labs/nirvana-go/operations"
 	"github.com/nirvana-labs/nirvana-go/option"
 	"github.com/nirvana-labs/nirvana-go/shared"
 	"github.com/nirvana-labs/nirvana-go/volumes"
@@ -39,7 +40,7 @@ func NewVMService(opts ...option.RequestOption) (r *VMService) {
 }
 
 // Create a VM
-func (r *VMService) New(ctx context.Context, body VMNewParams, opts ...option.RequestOption) (res *shared.Operation, err error) {
+func (r *VMService) New(ctx context.Context, body VMNewParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "vms"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
@@ -47,7 +48,7 @@ func (r *VMService) New(ctx context.Context, body VMNewParams, opts ...option.Re
 }
 
 // Update a VM
-func (r *VMService) Update(ctx context.Context, vmID string, body VMUpdateParams, opts ...option.RequestOption) (res *shared.Operation, err error) {
+func (r *VMService) Update(ctx context.Context, vmID string, body VMUpdateParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
 	opts = append(r.Options[:], opts...)
 	if vmID == "" {
 		err = errors.New("missing required vm_id parameter")
@@ -67,7 +68,7 @@ func (r *VMService) List(ctx context.Context, opts ...option.RequestOption) (res
 }
 
 // Delete a VM
-func (r *VMService) Delete(ctx context.Context, vmID string, opts ...option.RequestOption) (res *shared.Operation, err error) {
+func (r *VMService) Delete(ctx context.Context, vmID string, opts ...option.RequestOption) (res *operations.Operation, err error) {
 	opts = append(r.Options[:], opts...)
 	if vmID == "" {
 		err = errors.New("missing required vm_id parameter")

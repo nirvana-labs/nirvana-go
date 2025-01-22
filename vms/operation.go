@@ -9,8 +9,8 @@ import (
 	"net/http"
 
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
+	"github.com/nirvana-labs/nirvana-go/operations"
 	"github.com/nirvana-labs/nirvana-go/option"
-	"github.com/nirvana-labs/nirvana-go/shared"
 )
 
 // OperationService contains methods and other services that help with interacting
@@ -33,7 +33,7 @@ func NewOperationService(opts ...option.RequestOption) (r *OperationService) {
 }
 
 // Get details about a specific VM operation
-func (r *OperationService) Get(ctx context.Context, operationID string, opts ...option.RequestOption) (res *shared.Operation, err error) {
+func (r *OperationService) Get(ctx context.Context, operationID string, opts ...option.RequestOption) (res *operations.Operation, err error) {
 	opts = append(r.Options[:], opts...)
 	if operationID == "" {
 		err = errors.New("missing required operation_id parameter")
