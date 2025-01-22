@@ -24,8 +24,7 @@ import (
 // automatically. You should not instantiate this service directly, and instead use
 // the [NewVPCService] method instead.
 type VPCService struct {
-	Options    []option.RequestOption
-	Operations *OperationService
+	Options []option.RequestOption
 }
 
 // NewVPCService generates a new service that applies the given options to each
@@ -34,7 +33,6 @@ type VPCService struct {
 func NewVPCService(opts ...option.RequestOption) (r *VPCService) {
 	r = &VPCService{}
 	r.Options = opts
-	r.Operations = NewOperationService(opts...)
 	return
 }
 
