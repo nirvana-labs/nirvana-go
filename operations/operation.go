@@ -32,6 +32,14 @@ func NewOperationService(opts ...option.RequestOption) (r *OperationService) {
 	return
 }
 
+// List all operations
+func (r *OperationService) List(ctx context.Context, opts ...option.RequestOption) (res *[]Operation, err error) {
+	opts = append(r.Options[:], opts...)
+	path := "operations"
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
+	return
+}
+
 // Get details about a specific operation
 func (r *OperationService) Get(ctx context.Context, operationID string, opts ...option.RequestOption) (res *Operation, err error) {
 	opts = append(r.Options[:], opts...)
