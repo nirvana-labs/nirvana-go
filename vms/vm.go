@@ -11,6 +11,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/param"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
+	"github.com/nirvana-labs/nirvana-go/operations"
 	"github.com/nirvana-labs/nirvana-go/option"
 	"github.com/nirvana-labs/nirvana-go/shared"
 	"github.com/nirvana-labs/nirvana-go/volumes"
@@ -24,8 +25,7 @@ import (
 // automatically. You should not instantiate this service directly, and instead use
 // the [NewVMService] method instead.
 type VMService struct {
-	Options    []option.RequestOption
-	Operations *OperationService
+	Options []option.RequestOption
 }
 
 // NewVMService generates a new service that applies the given options to each
@@ -34,12 +34,11 @@ type VMService struct {
 func NewVMService(opts ...option.RequestOption) (r *VMService) {
 	r = &VMService{}
 	r.Options = opts
-	r.Operations = NewOperationService(opts...)
 	return
 }
 
 // Create a VM
-func (r *VMService) New(ctx context.Context, body VMNewParams, opts ...option.RequestOption) (res *shared.Operation, err error) {
+func (r *VMService) New(ctx context.Context, body VMNewParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "vms"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
@@ -47,7 +46,7 @@ func (r *VMService) New(ctx context.Context, body VMNewParams, opts ...option.Re
 }
 
 // Update a VM
-func (r *VMService) Update(ctx context.Context, vmID string, body VMUpdateParams, opts ...option.RequestOption) (res *shared.Operation, err error) {
+func (r *VMService) Update(ctx context.Context, vmID string, body VMUpdateParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
 	opts = append(r.Options[:], opts...)
 	if vmID == "" {
 		err = errors.New("missing required vm_id parameter")
@@ -67,7 +66,7 @@ func (r *VMService) List(ctx context.Context, opts ...option.RequestOption) (res
 }
 
 // Delete a VM
-func (r *VMService) Delete(ctx context.Context, vmID string, opts ...option.RequestOption) (res *shared.Operation, err error) {
+func (r *VMService) Delete(ctx context.Context, vmID string, opts ...option.RequestOption) (res *operations.Operation, err error) {
 	opts = append(r.Options[:], opts...)
 	if vmID == "" {
 		err = errors.New("missing required vm_id parameter")
