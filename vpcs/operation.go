@@ -3,13 +3,6 @@
 package vpcs
 
 import (
-	"context"
-	"errors"
-	"fmt"
-	"net/http"
-
-	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
-	"github.com/nirvana-labs/nirvana-go/operations"
 	"github.com/nirvana-labs/nirvana-go/option"
 )
 
@@ -29,17 +22,5 @@ type OperationService struct {
 func NewOperationService(opts ...option.RequestOption) (r *OperationService) {
 	r = &OperationService{}
 	r.Options = opts
-	return
-}
-
-// Get details of a VPC operation
-func (r *OperationService) Get(ctx context.Context, operationID string, opts ...option.RequestOption) (res *operations.Operation, err error) {
-	opts = append(r.Options[:], opts...)
-	if operationID == "" {
-		err = errors.New("missing required operation_id parameter")
-		return
-	}
-	path := fmt.Sprintf("vpcs/operations/%s", operationID)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }

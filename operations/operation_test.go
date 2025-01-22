@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package vpcs_test
+package operations_test
 
 import (
 	"context"
@@ -25,7 +25,7 @@ func TestOperationGet(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAuthToken("My Auth Token"),
 	)
-	_, err := client.VPCs.Operations.Get(context.TODO(), "operation_id")
+	_, err := client.Operations.Get(context.TODO(), "operation_id")
 	if err != nil {
 		var apierr *nirvana.Error
 		if errors.As(err, &apierr) {
