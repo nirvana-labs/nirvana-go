@@ -7,10 +7,8 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
-	"net/url"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
-	"github.com/nirvana-labs/nirvana-go/internal/apiquery"
 	"github.com/nirvana-labs/nirvana-go/internal/param"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/option"
@@ -61,10 +59,10 @@ func (r *VMService) Update(ctx context.Context, vmID string, body VMUpdateParams
 }
 
 // List all VMs
-func (r *VMService) List(ctx context.Context, query VMListParams, opts ...option.RequestOption) (res *VMListResponse, err error) {
+func (r *VMService) List(ctx context.Context, opts ...option.RequestOption) (res *VMListResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "vms"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
 
@@ -305,17 +303,4 @@ type VMUpdateParamsDataVolume struct {
 
 func (r VMUpdateParamsDataVolume) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
-}
-
-type VMListParams struct {
-	// Region
-	Region param.Field[string] `query:"region,required"`
-}
-
-// URLQuery serializes [VMListParams]'s query parameters as `url.Values`.
-func (r VMListParams) URLQuery() (v url.Values) {
-	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
-		ArrayFormat:  apiquery.ArrayQueryFormatComma,
-		NestedFormat: apiquery.NestedQueryFormatBrackets,
-	})
 }
