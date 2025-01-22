@@ -27,6 +27,9 @@ func TestUsage(t *testing.T) {
 		option.WithAuthToken("My Auth Token"),
 	)
 	operation, err := client.VMs.New(context.TODO(), vms.VMNewParams{
+		BootVolume: nirvana.F(vms.VMNewParamsBootVolume{
+			Size: nirvana.F(int64(100)),
+		}),
 		CPU: nirvana.F(vms.CPUParam{
 			Cores: nirvana.F(int64(2)),
 		}),
@@ -36,18 +39,12 @@ func TestUsage(t *testing.T) {
 		Ports:        nirvana.F([]string{"22", "80", "443"}),
 		Ram: nirvana.F(vms.RamParam{
 			Size: nirvana.F(int64(2)),
-			Unit: nirvana.F(vms.RamUnitGB),
 		}),
 		Region:        nirvana.F(shared.RegionNameAmsterdam),
 		SourceAddress: nirvana.F("0.0.0.0/0"),
 		SSHKey: nirvana.F(vms.SSHKeyParam{
 			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 		}),
-		Storage: nirvana.F([]vms.StorageParam{{
-			Size: nirvana.F(int64(100)),
-			Type: nirvana.F(vms.StorageTypeNvme),
-			Unit: nirvana.F(vms.StorageUnitGB),
-		}}),
 	})
 	if err != nil {
 		t.Error(err)

@@ -14,7 +14,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/volumes"
 )
 
-func TestVolumeNew(t *testing.T) {
+func TestVolumeNewWithOptionalParams(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -31,6 +31,7 @@ func TestVolumeNew(t *testing.T) {
 		"vm_id",
 		volumes.VolumeNewParams{
 			Size: nirvana.F(int64(100)),
+			Type: nirvana.F(volumes.StorageTypeNvme),
 		},
 	)
 	if err != nil {
