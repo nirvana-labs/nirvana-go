@@ -46,6 +46,22 @@ func (r *VolumeService) New(ctx context.Context, vmID string, body VolumeNewPara
 	return
 }
 
+// Update a volume
+func (r *VolumeService) Update(ctx context.Context, vmID string, volumeID string, body VolumeUpdateParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
+	opts = append(r.Options[:], opts...)
+	if vmID == "" {
+		err = errors.New("missing required vm_id parameter")
+		return
+	}
+	if volumeID == "" {
+		err = errors.New("missing required volume_id parameter")
+		return
+	}
+	path := fmt.Sprintf("vms/%s/volumes/%s", vmID, volumeID)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
+	return
+}
+
 // Delete a volume
 func (r *VolumeService) Delete(ctx context.Context, vmID string, volumeID string, opts ...option.RequestOption) (res *operations.Operation, err error) {
 	opts = append(r.Options[:], opts...)
@@ -110,5 +126,13 @@ type VolumeNewParams struct {
 }
 
 func (r VolumeNewParams) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r)
+}
+
+type VolumeUpdateParams struct {
+	Size param.Field[int64] `json:"size,required"`
+}
+
+func (r VolumeUpdateParams) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
