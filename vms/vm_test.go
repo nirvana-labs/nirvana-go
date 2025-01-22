@@ -114,9 +114,7 @@ func TestVMList(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAuthToken("My Auth Token"),
 	)
-	_, err := client.VMs.List(context.TODO(), vms.VMListParams{
-		Region: nirvana.F("region"),
-	})
+	_, err := client.VMs.List(context.TODO())
 	if err != nil {
 		var apierr *nirvana.Error
 		if errors.As(err, &apierr) {
