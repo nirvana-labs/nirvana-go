@@ -15,7 +15,6 @@ import (
 	"github.com/nirvana-labs/nirvana-go/option"
 	"github.com/nirvana-labs/nirvana-go/shared"
 	"github.com/nirvana-labs/nirvana-go/volumes"
-	"github.com/nirvana-labs/nirvana-go/vpcs"
 )
 
 // VMService contains methods and other services that help with interacting with
@@ -202,9 +201,8 @@ type VM struct {
 	Region    shared.RegionName     `json:"region,required"`
 	Status    shared.ResourceStatus `json:"status,required"`
 	UpdatedAt string                `json:"updated_at,required"`
-	// VPC details.
-	VPC  vpcs.VPC `json:"vpc,required"`
-	JSON vmJSON   `json:"-"`
+	VPCID     string                `json:"vpc_id,required"`
+	JSON      vmJSON                `json:"-"`
 }
 
 // vmJSON contains the JSON metadata for the struct [VM]
@@ -220,7 +218,7 @@ type vmJSON struct {
 	Region      apijson.Field
 	Status      apijson.Field
 	UpdatedAt   apijson.Field
-	VPC         apijson.Field
+	VPCID       apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
