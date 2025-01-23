@@ -25,7 +25,7 @@ import (
 // the [NewVMService] method instead.
 type VMService struct {
 	Options  []option.RequestOption
-	OsImages *OsImageService
+	OSImages *OSImageService
 }
 
 // NewVMService generates a new service that applies the given options to each
@@ -34,7 +34,7 @@ type VMService struct {
 func NewVMService(opts ...option.RequestOption) (r *VMService) {
 	r = &VMService{}
 	r.Options = opts
-	r.OsImages = NewOsImageService(opts...)
+	r.OSImages = NewOSImageService(opts...)
 	return
 }
 
@@ -120,14 +120,14 @@ func (r CPUParam) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
-type OsImage struct {
+type OSImage struct {
 	CreatedAt   string      `json:"created_at,required"`
 	DisplayName string      `json:"display_name,required"`
 	Name        string      `json:"name,required"`
 	JSON        osImageJSON `json:"-"`
 }
 
-// osImageJSON contains the JSON metadata for the struct [OsImage]
+// osImageJSON contains the JSON metadata for the struct [OSImage]
 type osImageJSON struct {
 	CreatedAt   apijson.Field
 	DisplayName apijson.Field
@@ -136,7 +136,7 @@ type osImageJSON struct {
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *OsImage) UnmarshalJSON(data []byte) (err error) {
+func (r *OSImage) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -258,7 +258,7 @@ type VMNewParams struct {
 	CPU          param.Field[CPUParam] `json:"cpu,required"`
 	Name         param.Field[string]   `json:"name,required"`
 	NeedPublicIP param.Field[bool]     `json:"need_public_ip,required"`
-	OsImageID    param.Field[int64]    `json:"os_image_id,required"`
+	OSImageID    param.Field[int64]    `json:"os_image_id,required"`
 	Ports        param.Field[[]string] `json:"ports,required"`
 	// RAM details.
 	Ram           param.Field[RamParam]          `json:"ram,required"`
