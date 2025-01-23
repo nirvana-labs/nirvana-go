@@ -3,15 +3,7 @@
 package volumes
 
 import (
-	"context"
-	"errors"
-	"fmt"
-	"net/http"
-
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
-	"github.com/nirvana-labs/nirvana-go/internal/param"
-	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
-	"github.com/nirvana-labs/nirvana-go/operations"
 	"github.com/nirvana-labs/nirvana-go/option"
 )
 
@@ -31,50 +23,6 @@ type VolumeService struct {
 func NewVolumeService(opts ...option.RequestOption) (r *VolumeService) {
 	r = &VolumeService{}
 	r.Options = opts
-	return
-}
-
-// Create a Volume
-func (r *VolumeService) New(ctx context.Context, vmID string, body VolumeNewParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
-	opts = append(r.Options[:], opts...)
-	if vmID == "" {
-		err = errors.New("missing required vm_id parameter")
-		return
-	}
-	path := fmt.Sprintf("vms/%s/volumes", vmID)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
-}
-
-// Update a volume
-func (r *VolumeService) Update(ctx context.Context, vmID string, volumeID string, body VolumeUpdateParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
-	opts = append(r.Options[:], opts...)
-	if vmID == "" {
-		err = errors.New("missing required vm_id parameter")
-		return
-	}
-	if volumeID == "" {
-		err = errors.New("missing required volume_id parameter")
-		return
-	}
-	path := fmt.Sprintf("vms/%s/volumes/%s", vmID, volumeID)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
-	return
-}
-
-// Delete a volume
-func (r *VolumeService) Delete(ctx context.Context, vmID string, volumeID string, opts ...option.RequestOption) (res *operations.Operation, err error) {
-	opts = append(r.Options[:], opts...)
-	if vmID == "" {
-		err = errors.New("missing required vm_id parameter")
-		return
-	}
-	if volumeID == "" {
-		err = errors.New("missing required volume_id parameter")
-		return
-	}
-	path := fmt.Sprintf("vms/%s/volumes/%s", vmID, volumeID)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
 	return
 }
 
@@ -117,22 +65,4 @@ func (r *Volume) UnmarshalJSON(data []byte) (err error) {
 
 func (r volumeJSON) RawJSON() string {
 	return r.raw
-}
-
-type VolumeNewParams struct {
-	Size param.Field[int64] `json:"size,required"`
-	// Storage type.
-	Type param.Field[StorageType] `json:"type"`
-}
-
-func (r VolumeNewParams) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r)
-}
-
-type VolumeUpdateParams struct {
-	Size param.Field[int64] `json:"size,required"`
-}
-
-func (r VolumeUpdateParams) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r)
 }
