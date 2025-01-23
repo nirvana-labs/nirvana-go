@@ -25,7 +25,8 @@ import (
 // automatically. You should not instantiate this service directly, and instead use
 // the [NewVMService] method instead.
 type VMService struct {
-	Options []option.RequestOption
+	Options  []option.RequestOption
+	OsImages *OsImageService
 }
 
 // NewVMService generates a new service that applies the given options to each
@@ -34,6 +35,7 @@ type VMService struct {
 func NewVMService(opts ...option.RequestOption) (r *VMService) {
 	r = &VMService{}
 	r.Options = opts
+	r.OsImages = NewOsImageService(opts...)
 	return
 }
 
