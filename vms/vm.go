@@ -285,7 +285,7 @@ func (r VMNewParamsBootVolume) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
-// Data volume create request.
+// VM data volume create request.
 type VMNewParamsDataVolume struct {
 	Size param.Field[int64] `json:"size,required"`
 	// Storage type.
@@ -319,7 +319,7 @@ func (r VMUpdateParamsBootVolume) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
-// Data volume create request.
+// VM data volume create request.
 type VMUpdateParamsDataVolume struct {
 	Size param.Field[int64] `json:"size,required"`
 	// Storage type.
