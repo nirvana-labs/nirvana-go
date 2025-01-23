@@ -3,6 +3,10 @@
 package vms
 
 import (
+	"context"
+	"net/http"
+
+	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/option"
 )
 
@@ -22,5 +26,13 @@ type OsImageService struct {
 func NewOsImageService(opts ...option.RequestOption) (r *OsImageService) {
 	r = &OsImageService{}
 	r.Options = opts
+	return
+}
+
+// List all OS Images
+func (r *OsImageService) List(ctx context.Context, opts ...option.RequestOption) (res *[]OsImage, err error) {
+	opts = append(r.Options[:], opts...)
+	path := "vms/os_images"
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
