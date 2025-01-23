@@ -258,7 +258,7 @@ type VMNewParams struct {
 	CPU          param.Field[CPUParam] `json:"cpu,required"`
 	Name         param.Field[string]   `json:"name,required"`
 	NeedPublicIP param.Field[bool]     `json:"need_public_ip,required"`
-	OSImageID    param.Field[int64]    `json:"os_image_id,required"`
+	OSImageName  param.Field[string]   `json:"os_image_name,required"`
 	Ports        param.Field[[]string] `json:"ports,required"`
 	// RAM details.
 	Ram           param.Field[RamParam]          `json:"ram,required"`
