@@ -13,7 +13,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/option"
 )
 
-func TestOsImageList(t *testing.T) {
+func TestOSImageList(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -25,7 +25,7 @@ func TestOsImageList(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAuthToken("My Auth Token"),
 	)
-	_, err := client.VMs.OsImages.List(context.TODO())
+	_, err := client.VMs.OSImages.List(context.TODO())
 	if err != nil {
 		var apierr *nirvana.Error
 		if errors.As(err, &apierr) {
