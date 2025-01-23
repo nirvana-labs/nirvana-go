@@ -121,6 +121,30 @@ func (r CPUParam) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
+type OsImage struct {
+	CreatedAt   string      `json:"created_at,required"`
+	DisplayName string      `json:"display_name,required"`
+	Name        string      `json:"name,required"`
+	JSON        osImageJSON `json:"-"`
+}
+
+// osImageJSON contains the JSON metadata for the struct [OsImage]
+type osImageJSON struct {
+	CreatedAt   apijson.Field
+	DisplayName apijson.Field
+	Name        apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *OsImage) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r osImageJSON) RawJSON() string {
+	return r.raw
+}
+
 // RAM details.
 type Ram struct {
 	// RAM size
