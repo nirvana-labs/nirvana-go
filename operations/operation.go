@@ -88,10 +88,10 @@ func (r operationJSON) RawJSON() string {
 type OperationKind string
 
 const (
-	OperationKindVM           OperationKind = "VM"
-	OperationKindVolume       OperationKind = "VOLUME"
-	OperationKindVPC          OperationKind = "VPC"
-	OperationKindFirewallRule OperationKind = "FIREWALL_RULE"
+	OperationKindVM           OperationKind = "vm"
+	OperationKindVolume       OperationKind = "volume"
+	OperationKindVPC          OperationKind = "vpc"
+	OperationKindFirewallRule OperationKind = "firewall_rule"
 )
 
 func (r OperationKind) IsKnown() bool {
@@ -105,11 +105,11 @@ func (r OperationKind) IsKnown() bool {
 type OperationStatus string
 
 const (
-	OperationStatusPending OperationStatus = "PENDING"
-	OperationStatusRunning OperationStatus = "RUNNING"
-	OperationStatusDone    OperationStatus = "DONE"
-	OperationStatusFailed  OperationStatus = "FAILED"
-	OperationStatusUnknown OperationStatus = "UNKNOWN"
+	OperationStatusPending OperationStatus = "pending"
+	OperationStatusRunning OperationStatus = "running"
+	OperationStatusDone    OperationStatus = "done"
+	OperationStatusFailed  OperationStatus = "failed"
+	OperationStatusUnknown OperationStatus = "unknown"
 )
 
 func (r OperationStatus) IsKnown() bool {
@@ -123,9 +123,9 @@ func (r OperationStatus) IsKnown() bool {
 type OperationType string
 
 const (
-	OperationTypeCreate OperationType = "CREATE"
-	OperationTypeUpdate OperationType = "UPDATE"
-	OperationTypeDelete OperationType = "DELETE"
+	OperationTypeCreate OperationType = "create"
+	OperationTypeUpdate OperationType = "update"
+	OperationTypeDelete OperationType = "delete"
 )
 
 func (r OperationType) IsKnown() bool {
