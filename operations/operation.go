@@ -55,20 +55,24 @@ func (r *OperationService) Get(ctx context.Context, operationID string, opts ...
 // Operation details.
 type Operation struct {
 	ID         string          `json:"id,required"`
+	CreatedAt  string          `json:"created_at,required"`
 	Kind       OperationKind   `json:"kind,required"`
 	ResourceID string          `json:"resource_id,required"`
 	Status     OperationStatus `json:"status,required"`
 	Type       OperationType   `json:"type,required"`
+	UpdatedAt  string          `json:"updated_at,required"`
 	JSON       operationJSON   `json:"-"`
 }
 
 // operationJSON contains the JSON metadata for the struct [Operation]
 type operationJSON struct {
 	ID          apijson.Field
+	CreatedAt   apijson.Field
 	Kind        apijson.Field
 	ResourceID  apijson.Field
 	Status      apijson.Field
 	Type        apijson.Field
+	UpdatedAt   apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
