@@ -22,7 +22,7 @@ Or to pin the version:
 <!-- x-release-please-start-version -->
 
 ```sh
-go get -u 'github.com/nirvana-labs/nirvana-go@v0.1.0-alpha.11'
+go get -u 'github.com/nirvana-labs/nirvana-go@v0.1.0-alpha.12'
 ```
 
 <!-- x-release-please-end -->
@@ -61,7 +61,7 @@ func main() {
 		}),
 		Name:         nirvana.F("my-vm"),
 		NeedPublicIP: nirvana.F(true),
-		OsImageID:    nirvana.F(int64(1)),
+		OSImageName:  nirvana.F("noble-2024-12-06"),
 		Ports:        nirvana.F([]string{"22", "80", "443"}),
 		Ram: nirvana.F(vms.RamParam{
 			Size: nirvana.F(int64(2)),
@@ -202,7 +202,7 @@ _, err := client.VMs.New(context.TODO(), vms.VMNewParams{
 	}),
 	Name:         nirvana.F("my-vm"),
 	NeedPublicIP: nirvana.F(true),
-	OsImageID:    nirvana.F(int64(1)),
+	OSImageName:  nirvana.F("noble-2024-12-06"),
 	Ports:        nirvana.F([]string{"22", "80", "443"}),
 	Ram: nirvana.F(vms.RamParam{
 		Size: nirvana.F(int64(2)),
@@ -248,7 +248,7 @@ client.VMs.New(
 		}),
 		Name:         nirvana.F("my-vm"),
 		NeedPublicIP: nirvana.F(true),
-		OsImageID:    nirvana.F(int64(1)),
+		OSImageName:  nirvana.F("noble-2024-12-06"),
 		Ports:        nirvana.F([]string{"22", "80", "443"}),
 		Ram: nirvana.F(vms.RamParam{
 			Size: nirvana.F(int64(2)),
@@ -303,7 +303,7 @@ client.VMs.New(
 		}),
 		Name:         nirvana.F("my-vm"),
 		NeedPublicIP: nirvana.F(true),
-		OsImageID:    nirvana.F(int64(1)),
+		OSImageName:  nirvana.F("noble-2024-12-06"),
 		Ports:        nirvana.F([]string{"22", "80", "443"}),
 		Ram: nirvana.F(vms.RamParam{
 			Size: nirvana.F(int64(2)),

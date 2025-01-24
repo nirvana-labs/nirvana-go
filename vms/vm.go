@@ -15,7 +15,6 @@ import (
 	"github.com/nirvana-labs/nirvana-go/option"
 	"github.com/nirvana-labs/nirvana-go/shared"
 	"github.com/nirvana-labs/nirvana-go/volumes"
-	"github.com/nirvana-labs/nirvana-go/vpcs"
 )
 
 // VMService contains methods and other services that help with interacting with
@@ -25,7 +24,8 @@ import (
 // automatically. You should not instantiate this service directly, and instead use
 // the [NewVMService] method instead.
 type VMService struct {
-	Options []option.RequestOption
+	Options  []option.RequestOption
+	OSImages *OSImageService
 }
 
 // NewVMService generates a new service that applies the given options to each
@@ -34,6 +34,7 @@ type VMService struct {
 func NewVMService(opts ...option.RequestOption) (r *VMService) {
 	r = &VMService{}
 	r.Options = opts
+	r.OSImages = NewOSImageService(opts...)
 	return
 }
 
@@ -119,6 +120,30 @@ func (r CPUParam) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
+type OSImage struct {
+	CreatedAt   string      `json:"created_at,required"`
+	DisplayName string      `json:"display_name,required"`
+	Name        string      `json:"name,required"`
+	JSON        osImageJSON `json:"-"`
+}
+
+// osImageJSON contains the JSON metadata for the struct [OSImage]
+type osImageJSON struct {
+	CreatedAt   apijson.Field
+	DisplayName apijson.Field
+	Name        apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *OSImage) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r osImageJSON) RawJSON() string {
+	return r.raw
+}
+
 // RAM details.
 type Ram struct {
 	// RAM size
@@ -176,9 +201,8 @@ type VM struct {
 	Region    shared.RegionName     `json:"region,required"`
 	Status    shared.ResourceStatus `json:"status,required"`
 	UpdatedAt string                `json:"updated_at,required"`
-	// VPC details.
-	VPC  vpcs.VPC `json:"vpc,required"`
-	JSON vmJSON   `json:"-"`
+	VPCID     string                `json:"vpc_id,required"`
+	JSON      vmJSON                `json:"-"`
 }
 
 // vmJSON contains the JSON metadata for the struct [VM]
@@ -194,7 +218,7 @@ type vmJSON struct {
 	Region      apijson.Field
 	Status      apijson.Field
 	UpdatedAt   apijson.Field
-	VPC         apijson.Field
+	VPCID       apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -234,7 +258,7 @@ type VMNewParams struct {
 	CPU          param.Field[CPUParam] `json:"cpu,required"`
 	Name         param.Field[string]   `json:"name,required"`
 	NeedPublicIP param.Field[bool]     `json:"need_public_ip,required"`
-	OsImageID    param.Field[int64]    `json:"os_image_id,required"`
+	OSImageName  param.Field[string]   `json:"os_image_name,required"`
 	Ports        param.Field[[]string] `json:"ports,required"`
 	// RAM details.
 	Ram           param.Field[RamParam]          `json:"ram,required"`
@@ -259,7 +283,7 @@ func (r VMNewParamsBootVolume) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
-// Data volume create request.
+// VM data volume create request.
 type VMNewParamsDataVolume struct {
 	Size param.Field[int64] `json:"size,required"`
 	// Storage type.
@@ -293,7 +317,7 @@ func (r VMUpdateParamsBootVolume) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
-// Data volume create request.
+// VM data volume create request.
 type VMUpdateParamsDataVolume struct {
 	Size param.Field[int64] `json:"size,required"`
 	// Storage type.
