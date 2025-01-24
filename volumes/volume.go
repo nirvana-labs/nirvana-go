@@ -66,6 +66,18 @@ func (r *VolumeService) Delete(ctx context.Context, volumeID string, body Volume
 	return
 }
 
+// Get a Volume.
+func (r *VolumeService) Get(ctx context.Context, volumeID string, opts ...option.RequestOption) (res *Volume, err error) {
+	opts = append(r.Options[:], opts...)
+	if volumeID == "" {
+		err = errors.New("missing required volume_id parameter")
+		return
+	}
+	path := fmt.Sprintf("volumes/%s", volumeID)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
+	return
+}
+
 // Storage type.
 type StorageType string
 
@@ -83,18 +95,22 @@ func (r StorageType) IsKnown() bool {
 
 // Volume details.
 type Volume struct {
-	ID   string `json:"id,required"`
-	Size int64  `json:"size,required"`
+	ID        string `json:"id,required"`
+	CreatedAt string `json:"created_at,required"`
+	Size      int64  `json:"size,required"`
 	// Storage type.
-	Type StorageType `json:"type,required"`
-	JSON volumeJSON  `json:"-"`
+	Type      StorageType `json:"type,required"`
+	UpdatedAt string      `json:"updated_at,required"`
+	JSON      volumeJSON  `json:"-"`
 }
 
 // volumeJSON contains the JSON metadata for the struct [Volume]
 type volumeJSON struct {
 	ID          apijson.Field
+	CreatedAt   apijson.Field
 	Size        apijson.Field
 	Type        apijson.Field
+	UpdatedAt   apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
