@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package volumes_test
+package nirvana_test
 
 import (
 	"context"
@@ -11,10 +11,9 @@ import (
 	"github.com/nirvana-labs/nirvana-go"
 	"github.com/nirvana-labs/nirvana-go/internal/testutil"
 	"github.com/nirvana-labs/nirvana-go/option"
-	"github.com/nirvana-labs/nirvana-go/volumes"
 )
 
-func TestVolumeNewWithOptionalParams(t *testing.T) {
+func TestComputeVolumeNewWithOptionalParams(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -26,10 +25,10 @@ func TestVolumeNewWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAuthToken("My Auth Token"),
 	)
-	_, err := client.Compute.Volumes.New(context.TODO(), volumes.VolumeNewParams{
+	_, err := client.Compute.Volumes.New(context.TODO(), nirvana.ComputeVolumeNewParams{
 		Size: nirvana.F(int64(100)),
 		VMID: nirvana.F("vm_id"),
-		Type: nirvana.F(volumes.StorageTypeNvme),
+		Type: nirvana.F(nirvana.StorageTypeNvme),
 	})
 	if err != nil {
 		var apierr *nirvana.Error
@@ -40,7 +39,7 @@ func TestVolumeNewWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestVolumeUpdate(t *testing.T) {
+func TestComputeVolumeUpdate(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -55,7 +54,7 @@ func TestVolumeUpdate(t *testing.T) {
 	_, err := client.Compute.Volumes.Update(
 		context.TODO(),
 		"volume_id",
-		volumes.VolumeUpdateParams{
+		nirvana.ComputeVolumeUpdateParams{
 			Size: nirvana.F(int64(100)),
 			VMID: nirvana.F("vm_id"),
 		},
@@ -69,7 +68,7 @@ func TestVolumeUpdate(t *testing.T) {
 	}
 }
 
-func TestVolumeList(t *testing.T) {
+func TestComputeVolumeList(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -91,7 +90,7 @@ func TestVolumeList(t *testing.T) {
 	}
 }
 
-func TestVolumeDelete(t *testing.T) {
+func TestComputeVolumeDelete(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -106,7 +105,7 @@ func TestVolumeDelete(t *testing.T) {
 	_, err := client.Compute.Volumes.Delete(
 		context.TODO(),
 		"volume_id",
-		volumes.VolumeDeleteParams{
+		nirvana.ComputeVolumeDeleteParams{
 			VMID: nirvana.F("vm_id"),
 		},
 	)
@@ -119,7 +118,7 @@ func TestVolumeDelete(t *testing.T) {
 	}
 }
 
-func TestVolumeGet(t *testing.T) {
+func TestComputeVolumeGet(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
