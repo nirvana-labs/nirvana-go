@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package networking
+package nirvana
 
 import (
 	"github.com/nirvana-labs/nirvana-go/option"
@@ -14,8 +14,8 @@ import (
 // the [NewNetworkingService] method instead.
 type NetworkingService struct {
 	Options       []option.RequestOption
-	VPCs          *VPCService
-	FirewallRules *FirewallRuleService
+	VPCs          *NetworkingVPCService
+	FirewallRules *NetworkingFirewallRuleService
 }
 
 // NewNetworkingService generates a new service that applies the given options to
@@ -24,7 +24,7 @@ type NetworkingService struct {
 func NewNetworkingService(opts ...option.RequestOption) (r *NetworkingService) {
 	r = &NetworkingService{}
 	r.Options = opts
-	r.VPCs = NewVPCService(opts...)
-	r.FirewallRules = NewFirewallRuleService(opts...)
+	r.VPCs = NewNetworkingVPCService(opts...)
+	r.FirewallRules = NewNetworkingFirewallRuleService(opts...)
 	return
 }
