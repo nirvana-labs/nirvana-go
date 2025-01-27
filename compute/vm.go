@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package vms
+package compute
 
 import (
 	"context"
@@ -14,7 +14,6 @@ import (
 	"github.com/nirvana-labs/nirvana-go/operations"
 	"github.com/nirvana-labs/nirvana-go/option"
 	"github.com/nirvana-labs/nirvana-go/shared"
-	"github.com/nirvana-labs/nirvana-go/volumes"
 )
 
 // VMService contains methods and other services that help with interacting with
@@ -25,7 +24,7 @@ import (
 // the [NewVMService] method instead.
 type VMService struct {
 	Options  []option.RequestOption
-	OSImages *OSImageService
+	OSImages *VMOSImageService
 }
 
 // NewVMService generates a new service that applies the given options to each
@@ -34,14 +33,14 @@ type VMService struct {
 func NewVMService(opts ...option.RequestOption) (r *VMService) {
 	r = &VMService{}
 	r.Options = opts
-	r.OSImages = NewOSImageService(opts...)
+	r.OSImages = NewVMOSImageService(opts...)
 	return
 }
 
 // Create a VM
 func (r *VMService) New(ctx context.Context, body VMNewParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
 	opts = append(r.Options[:], opts...)
-	path := "vms"
+	path := "compute/vms"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
 }
@@ -53,7 +52,7 @@ func (r *VMService) Update(ctx context.Context, vmID string, body VMUpdateParams
 		err = errors.New("missing required vm_id parameter")
 		return
 	}
-	path := fmt.Sprintf("vms/%s", vmID)
+	path := fmt.Sprintf("compute/vms/%s", vmID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
 	return
 }
@@ -61,7 +60,7 @@ func (r *VMService) Update(ctx context.Context, vmID string, body VMUpdateParams
 // List all VMs
 func (r *VMService) List(ctx context.Context, opts ...option.RequestOption) (res *VMList, err error) {
 	opts = append(r.Options[:], opts...)
-	path := "vms"
+	path := "compute/vms"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
@@ -73,7 +72,7 @@ func (r *VMService) Delete(ctx context.Context, vmID string, opts ...option.Requ
 		err = errors.New("missing required vm_id parameter")
 		return
 	}
-	path := fmt.Sprintf("vms/%s", vmID)
+	path := fmt.Sprintf("compute/vms/%s", vmID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
 	return
 }
@@ -85,7 +84,7 @@ func (r *VMService) Get(ctx context.Context, vmID string, opts ...option.Request
 		err = errors.New("missing required vm_id parameter")
 		return
 	}
-	path := fmt.Sprintf("vms/%s", vmID)
+	path := fmt.Sprintf("compute/vms/%s", vmID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
@@ -189,11 +188,11 @@ func (r SSHKeyParam) MarshalJSON() (data []byte, err error) {
 type VM struct {
 	ID string `json:"id,required"`
 	// Volume details.
-	BootVolume volumes.Volume `json:"boot_volume,required"`
+	BootVolume Volume `json:"boot_volume,required"`
 	// CPU details.
-	CPUConfig   CPU              `json:"cpu_config,required"`
-	CreatedAt   string           `json:"created_at,required"`
-	DataVolumes []volumes.Volume `json:"data_volumes,required"`
+	CPUConfig   CPU      `json:"cpu_config,required"`
+	CreatedAt   string   `json:"created_at,required"`
+	DataVolumes []Volume `json:"data_volumes,required"`
 	// RAM details.
 	MemConfig Ram                   `json:"mem_config,required"`
 	Name      string                `json:"name,required"`
@@ -287,7 +286,7 @@ func (r VMNewParamsBootVolume) MarshalJSON() (data []byte, err error) {
 type VMNewParamsDataVolume struct {
 	Size param.Field[int64] `json:"size,required"`
 	// Storage type.
-	Type param.Field[volumes.StorageType] `json:"type"`
+	Type param.Field[StorageType] `json:"type"`
 }
 
 func (r VMNewParamsDataVolume) MarshalJSON() (data []byte, err error) {
@@ -321,7 +320,7 @@ func (r VMUpdateParamsBootVolume) MarshalJSON() (data []byte, err error) {
 type VMUpdateParamsDataVolume struct {
 	Size param.Field[int64] `json:"size,required"`
 	// Storage type.
-	Type param.Field[volumes.StorageType] `json:"type"`
+	Type param.Field[StorageType] `json:"type"`
 }
 
 func (r VMUpdateParamsDataVolume) MarshalJSON() (data []byte, err error) {

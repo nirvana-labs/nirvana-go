@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package volumes
+package compute
 
 import (
 	"context"
@@ -37,7 +37,7 @@ func NewVolumeService(opts ...option.RequestOption) (r *VolumeService) {
 // Create a Volume. Only data volumes can be created.
 func (r *VolumeService) New(ctx context.Context, body VolumeNewParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
 	opts = append(r.Options[:], opts...)
-	path := "volumes"
+	path := "compute/volumes"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
 }
@@ -49,8 +49,16 @@ func (r *VolumeService) Update(ctx context.Context, volumeID string, body Volume
 		err = errors.New("missing required volume_id parameter")
 		return
 	}
-	path := fmt.Sprintf("volumes/%s", volumeID)
+	path := fmt.Sprintf("compute/volumes/%s", volumeID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
+	return
+}
+
+// List all volumes
+func (r *VolumeService) List(ctx context.Context, opts ...option.RequestOption) (res *VolumeListResponse, err error) {
+	opts = append(r.Options[:], opts...)
+	path := "compute/volumes"
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
 
@@ -61,7 +69,7 @@ func (r *VolumeService) Delete(ctx context.Context, volumeID string, body Volume
 		err = errors.New("missing required volume_id parameter")
 		return
 	}
-	path := fmt.Sprintf("volumes/%s", volumeID)
+	path := fmt.Sprintf("compute/volumes/%s", volumeID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, body, &res, opts...)
 	return
 }
@@ -73,7 +81,7 @@ func (r *VolumeService) Get(ctx context.Context, volumeID string, opts ...option
 		err = errors.New("missing required volume_id parameter")
 		return
 	}
-	path := fmt.Sprintf("volumes/%s", volumeID)
+	path := fmt.Sprintf("compute/volumes/%s", volumeID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
@@ -97,7 +105,9 @@ func (r StorageType) IsKnown() bool {
 type Volume struct {
 	ID        string `json:"id,required"`
 	CreatedAt string `json:"created_at,required"`
-	Size      int64  `json:"size,required"`
+	// Volume kind.
+	Kind VolumeKind `json:"kind,required"`
+	Size int64      `json:"size,required"`
 	// Storage type.
 	Type      StorageType `json:"type,required"`
 	UpdatedAt string      `json:"updated_at,required"`
@@ -108,6 +118,7 @@ type Volume struct {
 type volumeJSON struct {
 	ID          apijson.Field
 	CreatedAt   apijson.Field
+	Kind        apijson.Field
 	Size        apijson.Field
 	Type        apijson.Field
 	UpdatedAt   apijson.Field
@@ -120,6 +131,43 @@ func (r *Volume) UnmarshalJSON(data []byte) (err error) {
 }
 
 func (r volumeJSON) RawJSON() string {
+	return r.raw
+}
+
+// Volume kind.
+type VolumeKind string
+
+const (
+	VolumeKindBoot VolumeKind = "boot"
+	VolumeKindData VolumeKind = "data"
+)
+
+func (r VolumeKind) IsKnown() bool {
+	switch r {
+	case VolumeKindBoot, VolumeKindData:
+		return true
+	}
+	return false
+}
+
+type VolumeListResponse struct {
+	Items []Volume               `json:"items,required"`
+	JSON  volumeListResponseJSON `json:"-"`
+}
+
+// volumeListResponseJSON contains the JSON metadata for the struct
+// [VolumeListResponse]
+type volumeListResponseJSON struct {
+	Items       apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *VolumeListResponse) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r volumeListResponseJSON) RawJSON() string {
 	return r.raw
 }
 

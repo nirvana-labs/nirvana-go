@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.1.0-alpha.14 (2025-01-27)
+
+Full Changelog: [v0.1.0-alpha.13...v0.1.0-alpha.14](https://github.com/nirvana-labs/nirvana-go/compare/v0.1.0-alpha.13...v0.1.0-alpha.14)
+
+### Features
+
+* **api:** api update ([#51](https://github.com/nirvana-labs/nirvana-go/issues/51)) ([8b35f6b](https://github.com/nirvana-labs/nirvana-go/commit/8b35f6b040cc32f244ecdb568539cfb1510f9d41))
+* **api:** api update ([#53](https://github.com/nirvana-labs/nirvana-go/issues/53)) ([a054ca1](https://github.com/nirvana-labs/nirvana-go/commit/a054ca1e8e2ddc9735f9668737cc04885a0ecbe7))
+* **api:** api update ([#54](https://github.com/nirvana-labs/nirvana-go/issues/54)) ([68cbeb0](https://github.com/nirvana-labs/nirvana-go/commit/68cbeb067e1a12c41091d2ea257125a2ded56968))
+* **api:** api update ([#55](https://github.com/nirvana-labs/nirvana-go/issues/55)) ([41770b7](https://github.com/nirvana-labs/nirvana-go/commit/41770b75c7a252d05934f0f9de57045340a64e82))
+* **api:** api update ([#56](https://github.com/nirvana-labs/nirvana-go/issues/56)) ([65af2e1](https://github.com/nirvana-labs/nirvana-go/commit/65af2e10b17a6a54e404bc1b62dc50a9fb0b8320))
+* **api:** api update ([#57](https://github.com/nirvana-labs/nirvana-go/issues/57)) ([3a5fb4d](https://github.com/nirvana-labs/nirvana-go/commit/3a5fb4dd59a349b8c65c570412ce9c0a48b61863))
+* **api:** api update ([#58](https://github.com/nirvana-labs/nirvana-go/issues/58)) ([0a3ae46](https://github.com/nirvana-labs/nirvana-go/commit/0a3ae46604201fd59738d5d97ee069a9e03e33fd))
+
 ## 0.1.0-alpha.13 (2025-01-24)
 
 Full Changelog: [v0.1.0-alpha.12...v0.1.0-alpha.13](https://github.com/nirvana-labs/nirvana-go/compare/v0.1.0-alpha.12...v0.1.0-alpha.13)

@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package volumes_test
+package networking_test
 
 import (
 	"context"
@@ -10,11 +10,11 @@ import (
 
 	"github.com/nirvana-labs/nirvana-go"
 	"github.com/nirvana-labs/nirvana-go/internal/testutil"
+	"github.com/nirvana-labs/nirvana-go/networking"
 	"github.com/nirvana-labs/nirvana-go/option"
-	"github.com/nirvana-labs/nirvana-go/volumes"
 )
 
-func TestVolumeNewWithOptionalParams(t *testing.T) {
+func TestFirewallRuleNewWithOptionalParams(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -26,38 +26,20 @@ func TestVolumeNewWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAuthToken("My Auth Token"),
 	)
-	_, err := client.Volumes.New(context.TODO(), volumes.VolumeNewParams{
-		Size: nirvana.F(int64(100)),
-		VMID: nirvana.F("vm_id"),
-		Type: nirvana.F(volumes.StorageTypeNvme),
-	})
-	if err != nil {
-		var apierr *nirvana.Error
-		if errors.As(err, &apierr) {
-			t.Log(string(apierr.DumpRequest(true)))
-		}
-		t.Fatalf("err should be nil: %s", err.Error())
-	}
-}
-
-func TestVolumeUpdate(t *testing.T) {
-	baseURL := "http://localhost:4010"
-	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
-		baseURL = envURL
-	}
-	if !testutil.CheckTestServer(t, baseURL) {
-		return
-	}
-	client := nirvana.NewClient(
-		option.WithBaseURL(baseURL),
-		option.WithAuthToken("My Auth Token"),
-	)
-	_, err := client.Volumes.Update(
+	_, err := client.Networking.FirewallRules.New(
 		context.TODO(),
-		"volume_id",
-		volumes.VolumeUpdateParams{
-			Size: nirvana.F(int64(100)),
-			VMID: nirvana.F("vm_id"),
+		"vpc_id",
+		networking.FirewallRuleNewParams{
+			Destination: nirvana.F(networking.FirewallRuleEndpointParam{
+				Address: nirvana.F("0.0.0.0/0"),
+				Ports:   nirvana.F([]string{"22", "80", "443"}),
+			}),
+			Name:     nirvana.F("my-firewall-rule"),
+			Protocol: nirvana.F("tcp"),
+			Source: nirvana.F(networking.FirewallRuleEndpointParam{
+				Address: nirvana.F("0.0.0.0/0"),
+				Ports:   nirvana.F([]string{"22", "80", "443"}),
+			}),
 		},
 	)
 	if err != nil {
@@ -69,7 +51,7 @@ func TestVolumeUpdate(t *testing.T) {
 	}
 }
 
-func TestVolumeDelete(t *testing.T) {
+func TestFirewallRuleUpdateWithOptionalParams(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -81,11 +63,21 @@ func TestVolumeDelete(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAuthToken("My Auth Token"),
 	)
-	_, err := client.Volumes.Delete(
+	_, err := client.Networking.FirewallRules.Update(
 		context.TODO(),
-		"volume_id",
-		volumes.VolumeDeleteParams{
-			VMID: nirvana.F("vm_id"),
+		"vpc_id",
+		"firewall_rule_id",
+		networking.FirewallRuleUpdateParams{
+			Destination: nirvana.F(networking.FirewallRuleEndpointParam{
+				Address: nirvana.F("0.0.0.0/0"),
+				Ports:   nirvana.F([]string{"22", "80", "443"}),
+			}),
+			Name:     nirvana.F("my-firewall-rule"),
+			Protocol: nirvana.F(networking.FirewallRuleUpdateParamsProtocolTcp),
+			Source: nirvana.F(networking.FirewallRuleEndpointParam{
+				Address: nirvana.F("0.0.0.0/0"),
+				Ports:   nirvana.F([]string{"22", "80", "443"}),
+			}),
 		},
 	)
 	if err != nil {
@@ -97,7 +89,7 @@ func TestVolumeDelete(t *testing.T) {
 	}
 }
 
-func TestVolumeGet(t *testing.T) {
+func TestFirewallRuleList(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -109,7 +101,59 @@ func TestVolumeGet(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAuthToken("My Auth Token"),
 	)
-	_, err := client.Volumes.Get(context.TODO(), "volume_id")
+	_, err := client.Networking.FirewallRules.List(context.TODO(), "vpc_id")
+	if err != nil {
+		var apierr *nirvana.Error
+		if errors.As(err, &apierr) {
+			t.Log(string(apierr.DumpRequest(true)))
+		}
+		t.Fatalf("err should be nil: %s", err.Error())
+	}
+}
+
+func TestFirewallRuleDelete(t *testing.T) {
+	baseURL := "http://localhost:4010"
+	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
+		baseURL = envURL
+	}
+	if !testutil.CheckTestServer(t, baseURL) {
+		return
+	}
+	client := nirvana.NewClient(
+		option.WithBaseURL(baseURL),
+		option.WithAuthToken("My Auth Token"),
+	)
+	_, err := client.Networking.FirewallRules.Delete(
+		context.TODO(),
+		"vpc_id",
+		"firewall_rule_id",
+	)
+	if err != nil {
+		var apierr *nirvana.Error
+		if errors.As(err, &apierr) {
+			t.Log(string(apierr.DumpRequest(true)))
+		}
+		t.Fatalf("err should be nil: %s", err.Error())
+	}
+}
+
+func TestFirewallRuleGet(t *testing.T) {
+	baseURL := "http://localhost:4010"
+	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
+		baseURL = envURL
+	}
+	if !testutil.CheckTestServer(t, baseURL) {
+		return
+	}
+	client := nirvana.NewClient(
+		option.WithBaseURL(baseURL),
+		option.WithAuthToken("My Auth Token"),
+	)
+	_, err := client.Networking.FirewallRules.Get(
+		context.TODO(),
+		"vpc_id",
+		"firewall_rule_id",
+	)
 	if err != nil {
 		var apierr *nirvana.Error
 		if errors.As(err, &apierr) {

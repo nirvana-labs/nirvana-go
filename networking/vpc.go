@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package vpcs
+package networking
 
 import (
 	"context"
@@ -8,7 +8,6 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/nirvana-labs/nirvana-go/firewall_rules"
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/param"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
@@ -39,7 +38,7 @@ func NewVPCService(opts ...option.RequestOption) (r *VPCService) {
 // Create a VPC
 func (r *VPCService) New(ctx context.Context, body VPCNewParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
 	opts = append(r.Options[:], opts...)
-	path := "vpcs"
+	path := "networking/vpcs"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
 }
@@ -47,7 +46,7 @@ func (r *VPCService) New(ctx context.Context, body VPCNewParams, opts ...option.
 // List all VPCs
 func (r *VPCService) List(ctx context.Context, opts ...option.RequestOption) (res *VPCList, err error) {
 	opts = append(r.Options[:], opts...)
-	path := "vpcs"
+	path := "networking/vpcs"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
@@ -59,7 +58,7 @@ func (r *VPCService) Delete(ctx context.Context, vpcID string, opts ...option.Re
 		err = errors.New("missing required vpc_id parameter")
 		return
 	}
-	path := fmt.Sprintf("vpcs/%s", vpcID)
+	path := fmt.Sprintf("networking/vpcs/%s", vpcID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
 	return
 }
@@ -71,7 +70,7 @@ func (r *VPCService) Get(ctx context.Context, vpcID string, opts ...option.Reque
 		err = errors.New("missing required vpc_id parameter")
 		return
 	}
-	path := fmt.Sprintf("vpcs/%s", vpcID)
+	path := fmt.Sprintf("networking/vpcs/%s", vpcID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
@@ -107,12 +106,12 @@ func (r subnetJSON) RawJSON() string {
 
 // VPC details.
 type VPC struct {
-	ID            string                        `json:"id,required"`
-	CreatedAt     string                        `json:"created_at,required"`
-	FirewallRules []firewall_rules.FirewallRule `json:"firewall_rules,required"`
-	Name          string                        `json:"name,required"`
-	Region        shared.RegionName             `json:"region,required"`
-	Status        shared.ResourceStatus         `json:"status,required"`
+	ID            string                `json:"id,required"`
+	CreatedAt     string                `json:"created_at,required"`
+	FirewallRules []FirewallRule        `json:"firewall_rules,required"`
+	Name          string                `json:"name,required"`
+	Region        shared.RegionName     `json:"region,required"`
+	Status        shared.ResourceStatus `json:"status,required"`
 	// Subnet details.
 	Subnet    Subnet  `json:"subnet,required"`
 	UpdatedAt string  `json:"updated_at,required"`

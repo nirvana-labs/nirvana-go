@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package volumes
+package compute
 
 import (
 	"github.com/nirvana-labs/nirvana-go/internal/apierror"
