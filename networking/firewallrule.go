@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nirvana
+package networking
 
 import (
 	"context"
@@ -11,31 +11,32 @@ import (
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/param"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
+	"github.com/nirvana-labs/nirvana-go/operations"
 	"github.com/nirvana-labs/nirvana-go/option"
 	"github.com/nirvana-labs/nirvana-go/shared"
 )
 
-// NetworkingFirewallRuleService contains methods and other services that help with
+// FirewallRuleService contains methods and other services that help with
 // interacting with the Nirvana Labs API.
 //
 // Note, unlike clients, this service does not read variables from the environment
 // automatically. You should not instantiate this service directly, and instead use
-// the [NewNetworkingFirewallRuleService] method instead.
-type NetworkingFirewallRuleService struct {
+// the [NewFirewallRuleService] method instead.
+type FirewallRuleService struct {
 	Options []option.RequestOption
 }
 
-// NewNetworkingFirewallRuleService generates a new service that applies the given
-// options to each request. These options are applied after the parent client's
-// options (if there is one), and before any request-specific options.
-func NewNetworkingFirewallRuleService(opts ...option.RequestOption) (r *NetworkingFirewallRuleService) {
-	r = &NetworkingFirewallRuleService{}
+// NewFirewallRuleService generates a new service that applies the given options to
+// each request. These options are applied after the parent client's options (if
+// there is one), and before any request-specific options.
+func NewFirewallRuleService(opts ...option.RequestOption) (r *FirewallRuleService) {
+	r = &FirewallRuleService{}
 	r.Options = opts
 	return
 }
 
 // Create a firewall rule
-func (r *NetworkingFirewallRuleService) New(ctx context.Context, vpcID string, body NetworkingFirewallRuleNewParams, opts ...option.RequestOption) (res *Operation, err error) {
+func (r *FirewallRuleService) New(ctx context.Context, vpcID string, body FirewallRuleNewParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
 	opts = append(r.Options[:], opts...)
 	if vpcID == "" {
 		err = errors.New("missing required vpc_id parameter")
@@ -47,7 +48,7 @@ func (r *NetworkingFirewallRuleService) New(ctx context.Context, vpcID string, b
 }
 
 // Update a firewall rule
-func (r *NetworkingFirewallRuleService) Update(ctx context.Context, vpcID string, firewallRuleID string, body NetworkingFirewallRuleUpdateParams, opts ...option.RequestOption) (res *Operation, err error) {
+func (r *FirewallRuleService) Update(ctx context.Context, vpcID string, firewallRuleID string, body FirewallRuleUpdateParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
 	opts = append(r.Options[:], opts...)
 	if vpcID == "" {
 		err = errors.New("missing required vpc_id parameter")
@@ -63,7 +64,7 @@ func (r *NetworkingFirewallRuleService) Update(ctx context.Context, vpcID string
 }
 
 // List all firewall rules
-func (r *NetworkingFirewallRuleService) List(ctx context.Context, vpcID string, opts ...option.RequestOption) (res *FirewallRuleList, err error) {
+func (r *FirewallRuleService) List(ctx context.Context, vpcID string, opts ...option.RequestOption) (res *FirewallRuleList, err error) {
 	opts = append(r.Options[:], opts...)
 	if vpcID == "" {
 		err = errors.New("missing required vpc_id parameter")
@@ -75,7 +76,7 @@ func (r *NetworkingFirewallRuleService) List(ctx context.Context, vpcID string, 
 }
 
 // Delete a firewall rule
-func (r *NetworkingFirewallRuleService) Delete(ctx context.Context, vpcID string, firewallRuleID string, opts ...option.RequestOption) (res *Operation, err error) {
+func (r *FirewallRuleService) Delete(ctx context.Context, vpcID string, firewallRuleID string, opts ...option.RequestOption) (res *operations.Operation, err error) {
 	opts = append(r.Options[:], opts...)
 	if vpcID == "" {
 		err = errors.New("missing required vpc_id parameter")
@@ -91,7 +92,7 @@ func (r *NetworkingFirewallRuleService) Delete(ctx context.Context, vpcID string
 }
 
 // Get details about a firewall rule
-func (r *NetworkingFirewallRuleService) Get(ctx context.Context, vpcID string, firewallRuleID string, opts ...option.RequestOption) (res *FirewallRule, err error) {
+func (r *FirewallRuleService) Get(ctx context.Context, vpcID string, firewallRuleID string, opts ...option.RequestOption) (res *FirewallRule, err error) {
 	opts = append(r.Options[:], opts...)
 	if vpcID == "" {
 		err = errors.New("missing required vpc_id parameter")
@@ -200,7 +201,7 @@ func (r firewallRuleListJSON) RawJSON() string {
 	return r.raw
 }
 
-type NetworkingFirewallRuleNewParams struct {
+type FirewallRuleNewParams struct {
 	// Firewall rule endpoint.
 	Destination param.Field[FirewallRuleEndpointParam] `json:"destination,required"`
 	Name        param.Field[string]                    `json:"name,required"`
@@ -210,35 +211,35 @@ type NetworkingFirewallRuleNewParams struct {
 	Source param.Field[FirewallRuleEndpointParam] `json:"source,required"`
 }
 
-func (r NetworkingFirewallRuleNewParams) MarshalJSON() (data []byte, err error) {
+func (r FirewallRuleNewParams) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
-type NetworkingFirewallRuleUpdateParams struct {
+type FirewallRuleUpdateParams struct {
 	// Firewall rule endpoint.
 	Destination param.Field[FirewallRuleEndpointParam] `json:"destination,required"`
 	Name        param.Field[string]                    `json:"name,required"`
 	// Supported protocols.
-	Protocol param.Field[NetworkingFirewallRuleUpdateParamsProtocol] `json:"protocol,required"`
+	Protocol param.Field[FirewallRuleUpdateParamsProtocol] `json:"protocol,required"`
 	// Firewall rule endpoint.
 	Source param.Field[FirewallRuleEndpointParam] `json:"source,required"`
 }
 
-func (r NetworkingFirewallRuleUpdateParams) MarshalJSON() (data []byte, err error) {
+func (r FirewallRuleUpdateParams) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
 // Supported protocols.
-type NetworkingFirewallRuleUpdateParamsProtocol string
+type FirewallRuleUpdateParamsProtocol string
 
 const (
-	NetworkingFirewallRuleUpdateParamsProtocolTcp NetworkingFirewallRuleUpdateParamsProtocol = "tcp"
-	NetworkingFirewallRuleUpdateParamsProtocolUdp NetworkingFirewallRuleUpdateParamsProtocol = "udp"
+	FirewallRuleUpdateParamsProtocolTcp FirewallRuleUpdateParamsProtocol = "tcp"
+	FirewallRuleUpdateParamsProtocolUdp FirewallRuleUpdateParamsProtocol = "udp"
 )
 
-func (r NetworkingFirewallRuleUpdateParamsProtocol) IsKnown() bool {
+func (r FirewallRuleUpdateParamsProtocol) IsKnown() bool {
 	switch r {
-	case NetworkingFirewallRuleUpdateParamsProtocolTcp, NetworkingFirewallRuleUpdateParamsProtocolUdp:
+	case FirewallRuleUpdateParamsProtocolTcp, FirewallRuleUpdateParamsProtocolUdp:
 		return true
 	}
 	return false

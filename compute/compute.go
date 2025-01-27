@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nirvana
+package compute
 
 import (
 	"github.com/nirvana-labs/nirvana-go/option"
@@ -14,8 +14,8 @@ import (
 // the [NewComputeService] method instead.
 type ComputeService struct {
 	Options []option.RequestOption
-	VMs     *ComputeVMService
-	Volumes *ComputeVolumeService
+	VMs     *VMService
+	Volumes *VolumeService
 }
 
 // NewComputeService generates a new service that applies the given options to each
@@ -24,7 +24,7 @@ type ComputeService struct {
 func NewComputeService(opts ...option.RequestOption) (r *ComputeService) {
 	r = &ComputeService{}
 	r.Options = opts
-	r.VMs = NewComputeVMService(opts...)
-	r.Volumes = NewComputeVolumeService(opts...)
+	r.VMs = NewVMService(opts...)
+	r.Volumes = NewVolumeService(opts...)
 	return
 }
