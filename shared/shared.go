@@ -32,13 +32,13 @@ func (r RegionName) IsKnown() bool {
 type ResourceStatus string
 
 const (
-	ResourceStatusPending  ResourceStatus = "PENDING"
-	ResourceStatusCreating ResourceStatus = "CREATING"
-	ResourceStatusUpdating ResourceStatus = "UPDATING"
-	ResourceStatusReady    ResourceStatus = "READY"
-	ResourceStatusDeleting ResourceStatus = "DELETING"
-	ResourceStatusDeleted  ResourceStatus = "DELETED"
-	ResourceStatusFailed   ResourceStatus = "FAILED"
+	ResourceStatusPending  ResourceStatus = "pending"
+	ResourceStatusCreating ResourceStatus = "creating"
+	ResourceStatusUpdating ResourceStatus = "updating"
+	ResourceStatusReady    ResourceStatus = "ready"
+	ResourceStatusDeleting ResourceStatus = "deleting"
+	ResourceStatusDeleted  ResourceStatus = "deleted"
+	ResourceStatusFailed   ResourceStatus = "failed"
 )
 
 func (r ResourceStatus) IsKnown() bool {

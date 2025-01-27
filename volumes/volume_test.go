@@ -26,7 +26,7 @@ func TestVolumeNewWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAuthToken("My Auth Token"),
 	)
-	_, err := client.Volumes.New(context.TODO(), volumes.VolumeNewParams{
+	_, err := client.Compute.Volumes.New(context.TODO(), volumes.VolumeNewParams{
 		Size: nirvana.F(int64(100)),
 		VMID: nirvana.F("vm_id"),
 		Type: nirvana.F(volumes.StorageTypeNvme),
@@ -52,7 +52,7 @@ func TestVolumeUpdate(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAuthToken("My Auth Token"),
 	)
-	_, err := client.Volumes.Update(
+	_, err := client.Compute.Volumes.Update(
 		context.TODO(),
 		"volume_id",
 		volumes.VolumeUpdateParams{
@@ -81,7 +81,7 @@ func TestVolumeList(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAuthToken("My Auth Token"),
 	)
-	_, err := client.Volumes.List(context.TODO())
+	_, err := client.Compute.Volumes.List(context.TODO())
 	if err != nil {
 		var apierr *nirvana.Error
 		if errors.As(err, &apierr) {
@@ -103,7 +103,7 @@ func TestVolumeDelete(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAuthToken("My Auth Token"),
 	)
-	_, err := client.Volumes.Delete(
+	_, err := client.Compute.Volumes.Delete(
 		context.TODO(),
 		"volume_id",
 		volumes.VolumeDeleteParams{
@@ -131,7 +131,7 @@ func TestVolumeGet(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAuthToken("My Auth Token"),
 	)
-	_, err := client.Volumes.Get(context.TODO(), "volume_id")
+	_, err := client.Compute.Volumes.Get(context.TODO(), "volume_id")
 	if err != nil {
 		var apierr *nirvana.Error
 		if errors.As(err, &apierr) {
