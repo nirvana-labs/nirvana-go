@@ -15,27 +15,27 @@ import (
 	"github.com/nirvana-labs/nirvana-go/option"
 )
 
-// VolumeService contains methods and other services that help with interacting
-// with the Nirvana Labs API.
+// ComputeVolumeService contains methods and other services that help with
+// interacting with the Nirvana Labs API.
 //
 // Note, unlike clients, this service does not read variables from the environment
 // automatically. You should not instantiate this service directly, and instead use
-// the [NewVolumeService] method instead.
-type VolumeService struct {
+// the [NewComputeVolumeService] method instead.
+type ComputeVolumeService struct {
 	Options []option.RequestOption
 }
 
-// NewVolumeService generates a new service that applies the given options to each
-// request. These options are applied after the parent client's options (if there
-// is one), and before any request-specific options.
-func NewVolumeService(opts ...option.RequestOption) (r *VolumeService) {
-	r = &VolumeService{}
+// NewComputeVolumeService generates a new service that applies the given options
+// to each request. These options are applied after the parent client's options (if
+// there is one), and before any request-specific options.
+func NewComputeVolumeService(opts ...option.RequestOption) (r *ComputeVolumeService) {
+	r = &ComputeVolumeService{}
 	r.Options = opts
 	return
 }
 
 // Create a Volume. Only data volumes can be created.
-func (r *VolumeService) New(ctx context.Context, body VolumeNewParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
+func (r *ComputeVolumeService) New(ctx context.Context, body ComputeVolumeNewParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "compute/volumes"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
@@ -43,7 +43,7 @@ func (r *VolumeService) New(ctx context.Context, body VolumeNewParams, opts ...o
 }
 
 // Update a Volume. Boot or data volumes can be updated.
-func (r *VolumeService) Update(ctx context.Context, volumeID string, body VolumeUpdateParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
+func (r *ComputeVolumeService) Update(ctx context.Context, volumeID string, body ComputeVolumeUpdateParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
 	opts = append(r.Options[:], opts...)
 	if volumeID == "" {
 		err = errors.New("missing required volume_id parameter")
@@ -55,7 +55,7 @@ func (r *VolumeService) Update(ctx context.Context, volumeID string, body Volume
 }
 
 // List all volumes
-func (r *VolumeService) List(ctx context.Context, opts ...option.RequestOption) (res *VolumeListResponse, err error) {
+func (r *ComputeVolumeService) List(ctx context.Context, opts ...option.RequestOption) (res *ComputeVolumeListResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "compute/volumes"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
@@ -63,7 +63,7 @@ func (r *VolumeService) List(ctx context.Context, opts ...option.RequestOption) 
 }
 
 // Delete a Volume. Boot or data volumes can be deleted.
-func (r *VolumeService) Delete(ctx context.Context, volumeID string, body VolumeDeleteParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
+func (r *ComputeVolumeService) Delete(ctx context.Context, volumeID string, body ComputeVolumeDeleteParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
 	opts = append(r.Options[:], opts...)
 	if volumeID == "" {
 		err = errors.New("missing required volume_id parameter")
@@ -75,7 +75,7 @@ func (r *VolumeService) Delete(ctx context.Context, volumeID string, body Volume
 }
 
 // Get a Volume.
-func (r *VolumeService) Get(ctx context.Context, volumeID string, opts ...option.RequestOption) (res *Volume, err error) {
+func (r *ComputeVolumeService) Get(ctx context.Context, volumeID string, opts ...option.RequestOption) (res *Volume, err error) {
 	opts = append(r.Options[:], opts...)
 	if volumeID == "" {
 		err = errors.New("missing required volume_id parameter")
@@ -150,51 +150,51 @@ func (r VolumeKind) IsKnown() bool {
 	return false
 }
 
-type VolumeListResponse struct {
-	Items []Volume               `json:"items,required"`
-	JSON  volumeListResponseJSON `json:"-"`
+type ComputeVolumeListResponse struct {
+	Items []Volume                      `json:"items,required"`
+	JSON  computeVolumeListResponseJSON `json:"-"`
 }
 
-// volumeListResponseJSON contains the JSON metadata for the struct
-// [VolumeListResponse]
-type volumeListResponseJSON struct {
+// computeVolumeListResponseJSON contains the JSON metadata for the struct
+// [ComputeVolumeListResponse]
+type computeVolumeListResponseJSON struct {
 	Items       apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *VolumeListResponse) UnmarshalJSON(data []byte) (err error) {
+func (r *ComputeVolumeListResponse) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-func (r volumeListResponseJSON) RawJSON() string {
+func (r computeVolumeListResponseJSON) RawJSON() string {
 	return r.raw
 }
 
-type VolumeNewParams struct {
+type ComputeVolumeNewParams struct {
 	Size param.Field[int64]  `json:"size,required"`
 	VMID param.Field[string] `json:"vm_id,required"`
 	// Storage type.
 	Type param.Field[StorageType] `json:"type"`
 }
 
-func (r VolumeNewParams) MarshalJSON() (data []byte, err error) {
+func (r ComputeVolumeNewParams) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
-type VolumeUpdateParams struct {
+type ComputeVolumeUpdateParams struct {
 	Size param.Field[int64]  `json:"size,required"`
 	VMID param.Field[string] `json:"vm_id,required"`
 }
 
-func (r VolumeUpdateParams) MarshalJSON() (data []byte, err error) {
+func (r ComputeVolumeUpdateParams) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
-type VolumeDeleteParams struct {
+type ComputeVolumeDeleteParams struct {
 	VMID param.Field[string] `json:"vm_id,required"`
 }
 
-func (r VolumeDeleteParams) MarshalJSON() (data []byte, err error) {
+func (r ComputeVolumeDeleteParams) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
