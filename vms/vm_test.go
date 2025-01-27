@@ -28,7 +28,7 @@ func TestVMNewWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAuthToken("My Auth Token"),
 	)
-	_, err := client.VMs.New(context.TODO(), vms.VMNewParams{
+	_, err := client.Compute.VMs.New(context.TODO(), vms.VMNewParams{
 		BootVolume: nirvana.F(vms.VMNewParamsBootVolume{
 			Size: nirvana.F(int64(100)),
 		}),
@@ -74,7 +74,7 @@ func TestVMUpdateWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAuthToken("My Auth Token"),
 	)
-	_, err := client.VMs.Update(
+	_, err := client.Compute.VMs.Update(
 		context.TODO(),
 		"vm_id",
 		vms.VMUpdateParams{
@@ -114,7 +114,7 @@ func TestVMList(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAuthToken("My Auth Token"),
 	)
-	_, err := client.VMs.List(context.TODO())
+	_, err := client.Compute.VMs.List(context.TODO())
 	if err != nil {
 		var apierr *nirvana.Error
 		if errors.As(err, &apierr) {
@@ -136,7 +136,7 @@ func TestVMDelete(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAuthToken("My Auth Token"),
 	)
-	_, err := client.VMs.Delete(context.TODO(), "vm_id")
+	_, err := client.Compute.VMs.Delete(context.TODO(), "vm_id")
 	if err != nil {
 		var apierr *nirvana.Error
 		if errors.As(err, &apierr) {
@@ -158,7 +158,7 @@ func TestVMGet(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAuthToken("My Auth Token"),
 	)
-	_, err := client.VMs.Get(context.TODO(), "vm_id")
+	_, err := client.Compute.VMs.Get(context.TODO(), "vm_id")
 	if err != nil {
 		var apierr *nirvana.Error
 		if errors.As(err, &apierr) {

@@ -42,7 +42,7 @@ func (r *FirewallRuleService) New(ctx context.Context, vpcID string, body Firewa
 		err = errors.New("missing required vpc_id parameter")
 		return
 	}
-	path := fmt.Sprintf("vpcs/%s/firewall_rules", vpcID)
+	path := fmt.Sprintf("networking/vpcs/%s/firewall_rules", vpcID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
 }
@@ -58,7 +58,7 @@ func (r *FirewallRuleService) Update(ctx context.Context, vpcID string, firewall
 		err = errors.New("missing required firewall_rule_id parameter")
 		return
 	}
-	path := fmt.Sprintf("vpcs/%s/firewall_rules/%s", vpcID, firewallRuleID)
+	path := fmt.Sprintf("networking/vpcs/%s/firewall_rules/%s", vpcID, firewallRuleID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
 	return
 }
@@ -70,7 +70,7 @@ func (r *FirewallRuleService) List(ctx context.Context, vpcID string, opts ...op
 		err = errors.New("missing required vpc_id parameter")
 		return
 	}
-	path := fmt.Sprintf("vpcs/%s/firewall_rules", vpcID)
+	path := fmt.Sprintf("networking/vpcs/%s/firewall_rules", vpcID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
@@ -86,7 +86,7 @@ func (r *FirewallRuleService) Delete(ctx context.Context, vpcID string, firewall
 		err = errors.New("missing required firewall_rule_id parameter")
 		return
 	}
-	path := fmt.Sprintf("vpcs/%s/firewall_rules/%s", vpcID, firewallRuleID)
+	path := fmt.Sprintf("networking/vpcs/%s/firewall_rules/%s", vpcID, firewallRuleID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
 	return
 }
@@ -102,7 +102,7 @@ func (r *FirewallRuleService) Get(ctx context.Context, vpcID string, firewallRul
 		err = errors.New("missing required firewall_rule_id parameter")
 		return
 	}
-	path := fmt.Sprintf("vpcs/%s/firewall_rules/%s", vpcID, firewallRuleID)
+	path := fmt.Sprintf("networking/vpcs/%s/firewall_rules/%s", vpcID, firewallRuleID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }

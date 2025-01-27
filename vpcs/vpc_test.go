@@ -27,7 +27,7 @@ func TestVPCNew(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAuthToken("My Auth Token"),
 	)
-	_, err := client.VPCs.New(context.TODO(), vpcs.VPCNewParams{
+	_, err := client.Networking.VPCs.New(context.TODO(), vpcs.VPCNewParams{
 		Name:       nirvana.F("my-vpc"),
 		Region:     nirvana.F(shared.RegionNameAmsterdam),
 		SubnetName: nirvana.F("my-subnet"),
@@ -53,7 +53,7 @@ func TestVPCList(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAuthToken("My Auth Token"),
 	)
-	_, err := client.VPCs.List(context.TODO())
+	_, err := client.Networking.VPCs.List(context.TODO())
 	if err != nil {
 		var apierr *nirvana.Error
 		if errors.As(err, &apierr) {
@@ -75,7 +75,7 @@ func TestVPCDelete(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAuthToken("My Auth Token"),
 	)
-	_, err := client.VPCs.Delete(context.TODO(), "vpc_id")
+	_, err := client.Networking.VPCs.Delete(context.TODO(), "vpc_id")
 	if err != nil {
 		var apierr *nirvana.Error
 		if errors.As(err, &apierr) {
@@ -97,7 +97,7 @@ func TestVPCGet(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAuthToken("My Auth Token"),
 	)
-	_, err := client.VPCs.Get(context.TODO(), "vpc_id")
+	_, err := client.Networking.VPCs.Get(context.TODO(), "vpc_id")
 	if err != nil {
 		var apierr *nirvana.Error
 		if errors.As(err, &apierr) {

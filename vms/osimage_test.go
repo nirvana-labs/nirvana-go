@@ -25,7 +25,7 @@ func TestOSImageList(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAuthToken("My Auth Token"),
 	)
-	_, err := client.VMs.OSImages.List(context.TODO())
+	_, err := client.Compute.VMs.OSImages.List(context.TODO())
 	if err != nil {
 		var apierr *nirvana.Error
 		if errors.As(err, &apierr) {

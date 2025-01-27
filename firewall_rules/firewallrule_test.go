@@ -26,7 +26,7 @@ func TestFirewallRuleNewWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAuthToken("My Auth Token"),
 	)
-	_, err := client.FirewallRules.New(
+	_, err := client.Networking.FirewallRules.New(
 		context.TODO(),
 		"vpc_id",
 		firewall_rules.FirewallRuleNewParams{
@@ -63,7 +63,7 @@ func TestFirewallRuleUpdateWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAuthToken("My Auth Token"),
 	)
-	_, err := client.FirewallRules.Update(
+	_, err := client.Networking.FirewallRules.Update(
 		context.TODO(),
 		"vpc_id",
 		"firewall_rule_id",
@@ -101,7 +101,7 @@ func TestFirewallRuleList(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAuthToken("My Auth Token"),
 	)
-	_, err := client.FirewallRules.List(context.TODO(), "vpc_id")
+	_, err := client.Networking.FirewallRules.List(context.TODO(), "vpc_id")
 	if err != nil {
 		var apierr *nirvana.Error
 		if errors.As(err, &apierr) {
@@ -123,7 +123,7 @@ func TestFirewallRuleDelete(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAuthToken("My Auth Token"),
 	)
-	_, err := client.FirewallRules.Delete(
+	_, err := client.Networking.FirewallRules.Delete(
 		context.TODO(),
 		"vpc_id",
 		"firewall_rule_id",
@@ -149,7 +149,7 @@ func TestFirewallRuleGet(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAuthToken("My Auth Token"),
 	)
-	_, err := client.FirewallRules.Get(
+	_, err := client.Networking.FirewallRules.Get(
 		context.TODO(),
 		"vpc_id",
 		"firewall_rule_id",
