@@ -254,11 +254,11 @@ type VMNewParams struct {
 	// Boot volume create request.
 	BootVolume param.Field[VMNewParamsBootVolume] `json:"boot_volume,required"`
 	// CPU details.
-	CPU          param.Field[CPUParam] `json:"cpu,required"`
-	Name         param.Field[string]   `json:"name,required"`
-	NeedPublicIP param.Field[bool]     `json:"need_public_ip,required"`
-	OSImageName  param.Field[string]   `json:"os_image_name,required"`
-	Ports        param.Field[[]string] `json:"ports,required"`
+	CPU             param.Field[CPUParam] `json:"cpu,required"`
+	Name            param.Field[string]   `json:"name,required"`
+	OSImageName     param.Field[string]   `json:"os_image_name,required"`
+	Ports           param.Field[[]string] `json:"ports,required"`
+	PublicIPEnabled param.Field[bool]     `json:"public_ip_enabled,required"`
 	// RAM details.
 	Ram           param.Field[RamParam]          `json:"ram,required"`
 	Region        param.Field[shared.RegionName] `json:"region,required"`
