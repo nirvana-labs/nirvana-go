@@ -52,8 +52,8 @@ func main() {
 	client := nirvana.NewClient(
 		option.WithAuthToken("My Auth Token"), // defaults to os.LookupEnv("NIRVANA_LABS_AUTH_TOKEN")
 	)
-	operation, err := client.Compute.VMs.New(context.TODO(), vms.ComputeVMNewParams{
-		BootVolume: nirvana.F(vms.ComputeVMNewParamsBootVolume{
+	operation, err := client.Compute.VMs.New(context.TODO(), vms.VMNewParams{
+		BootVolume: nirvana.F(vms.VMNewParamsBootVolume{
 			Size: nirvana.F(int64(100)),
 		}),
 		CPU: nirvana.F(vms.CPUParam{
@@ -193,8 +193,8 @@ When the API returns a non-success status code, we return an error with type
 To handle errors, we recommend that you use the `errors.As` pattern:
 
 ```go
-_, err := client.Compute.VMs.New(context.TODO(), vms.ComputeVMNewParams{
-	BootVolume: nirvana.F(vms.ComputeVMNewParamsBootVolume{
+_, err := client.Compute.VMs.New(context.TODO(), vms.VMNewParams{
+	BootVolume: nirvana.F(vms.VMNewParamsBootVolume{
 		Size: nirvana.F(int64(100)),
 	}),
 	CPU: nirvana.F(vms.CPUParam{
@@ -239,8 +239,8 @@ ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
 defer cancel()
 client.Compute.VMs.New(
 	ctx,
-	vms.ComputeVMNewParams{
-		BootVolume: nirvana.F(vms.ComputeVMNewParamsBootVolume{
+	vms.VMNewParams{
+		BootVolume: nirvana.F(vms.VMNewParamsBootVolume{
 			Size: nirvana.F(int64(100)),
 		}),
 		CPU: nirvana.F(vms.CPUParam{
@@ -294,8 +294,8 @@ client := nirvana.NewClient(
 // Override per-request:
 client.Compute.VMs.New(
 	context.TODO(),
-	vms.ComputeVMNewParams{
-		BootVolume: nirvana.F(vms.ComputeVMNewParamsBootVolume{
+	vms.VMNewParams{
+		BootVolume: nirvana.F(vms.VMNewParamsBootVolume{
 			Size: nirvana.F(int64(100)),
 		}),
 		CPU: nirvana.F(vms.CPUParam{

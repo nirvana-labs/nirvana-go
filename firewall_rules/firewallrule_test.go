@@ -14,7 +14,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/option"
 )
 
-func TestNetworkingFirewallRuleNewWithOptionalParams(t *testing.T) {
+func TestFirewallRuleNewWithOptionalParams(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -29,7 +29,7 @@ func TestNetworkingFirewallRuleNewWithOptionalParams(t *testing.T) {
 	_, err := client.Networking.FirewallRules.New(
 		context.TODO(),
 		"vpc_id",
-		firewall_rules.NetworkingFirewallRuleNewParams{
+		firewall_rules.FirewallRuleNewParams{
 			Destination: nirvana.F(firewall_rules.FirewallRuleEndpointParam{
 				Address: nirvana.F("0.0.0.0/0"),
 				Ports:   nirvana.F([]string{"22", "80", "443"}),
@@ -51,7 +51,7 @@ func TestNetworkingFirewallRuleNewWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestNetworkingFirewallRuleUpdateWithOptionalParams(t *testing.T) {
+func TestFirewallRuleUpdateWithOptionalParams(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -67,13 +67,13 @@ func TestNetworkingFirewallRuleUpdateWithOptionalParams(t *testing.T) {
 		context.TODO(),
 		"vpc_id",
 		"firewall_rule_id",
-		firewall_rules.NetworkingFirewallRuleUpdateParams{
+		firewall_rules.FirewallRuleUpdateParams{
 			Destination: nirvana.F(firewall_rules.FirewallRuleEndpointParam{
 				Address: nirvana.F("0.0.0.0/0"),
 				Ports:   nirvana.F([]string{"22", "80", "443"}),
 			}),
 			Name:     nirvana.F("my-firewall-rule"),
-			Protocol: nirvana.F(firewall_rules.NetworkingFirewallRuleUpdateParamsProtocolTcp),
+			Protocol: nirvana.F(firewall_rules.FirewallRuleUpdateParamsProtocolTcp),
 			Source: nirvana.F(firewall_rules.FirewallRuleEndpointParam{
 				Address: nirvana.F("0.0.0.0/0"),
 				Ports:   nirvana.F([]string{"22", "80", "443"}),
@@ -89,7 +89,7 @@ func TestNetworkingFirewallRuleUpdateWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestNetworkingFirewallRuleList(t *testing.T) {
+func TestFirewallRuleList(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -111,7 +111,7 @@ func TestNetworkingFirewallRuleList(t *testing.T) {
 	}
 }
 
-func TestNetworkingFirewallRuleDelete(t *testing.T) {
+func TestFirewallRuleDelete(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -137,7 +137,7 @@ func TestNetworkingFirewallRuleDelete(t *testing.T) {
 	}
 }
 
-func TestNetworkingFirewallRuleGet(t *testing.T) {
+func TestFirewallRuleGet(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
