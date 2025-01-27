@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package vpcs
+package nirvana
 
 import (
 	"context"
@@ -8,36 +8,34 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/nirvana-labs/nirvana-go/firewall_rules"
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/param"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
-	"github.com/nirvana-labs/nirvana-go/operations"
 	"github.com/nirvana-labs/nirvana-go/option"
 	"github.com/nirvana-labs/nirvana-go/shared"
 )
 
-// VPCService contains methods and other services that help with interacting with
-// the Nirvana Labs API.
+// NetworkingVPCService contains methods and other services that help with
+// interacting with the Nirvana Labs API.
 //
 // Note, unlike clients, this service does not read variables from the environment
 // automatically. You should not instantiate this service directly, and instead use
-// the [NewVPCService] method instead.
-type VPCService struct {
+// the [NewNetworkingVPCService] method instead.
+type NetworkingVPCService struct {
 	Options []option.RequestOption
 }
 
-// NewVPCService generates a new service that applies the given options to each
-// request. These options are applied after the parent client's options (if there
-// is one), and before any request-specific options.
-func NewVPCService(opts ...option.RequestOption) (r *VPCService) {
-	r = &VPCService{}
+// NewNetworkingVPCService generates a new service that applies the given options
+// to each request. These options are applied after the parent client's options (if
+// there is one), and before any request-specific options.
+func NewNetworkingVPCService(opts ...option.RequestOption) (r *NetworkingVPCService) {
+	r = &NetworkingVPCService{}
 	r.Options = opts
 	return
 }
 
 // Create a VPC
-func (r *VPCService) New(ctx context.Context, body VPCNewParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
+func (r *NetworkingVPCService) New(ctx context.Context, body NetworkingVPCNewParams, opts ...option.RequestOption) (res *Operation, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "networking/vpcs"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
@@ -45,7 +43,7 @@ func (r *VPCService) New(ctx context.Context, body VPCNewParams, opts ...option.
 }
 
 // List all VPCs
-func (r *VPCService) List(ctx context.Context, opts ...option.RequestOption) (res *VPCList, err error) {
+func (r *NetworkingVPCService) List(ctx context.Context, opts ...option.RequestOption) (res *VPCList, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "networking/vpcs"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
@@ -53,7 +51,7 @@ func (r *VPCService) List(ctx context.Context, opts ...option.RequestOption) (re
 }
 
 // Delete a VPC
-func (r *VPCService) Delete(ctx context.Context, vpcID string, opts ...option.RequestOption) (res *operations.Operation, err error) {
+func (r *NetworkingVPCService) Delete(ctx context.Context, vpcID string, opts ...option.RequestOption) (res *Operation, err error) {
 	opts = append(r.Options[:], opts...)
 	if vpcID == "" {
 		err = errors.New("missing required vpc_id parameter")
@@ -65,7 +63,7 @@ func (r *VPCService) Delete(ctx context.Context, vpcID string, opts ...option.Re
 }
 
 // Get details about a VPC
-func (r *VPCService) Get(ctx context.Context, vpcID string, opts ...option.RequestOption) (res *VPC, err error) {
+func (r *NetworkingVPCService) Get(ctx context.Context, vpcID string, opts ...option.RequestOption) (res *VPC, err error) {
 	opts = append(r.Options[:], opts...)
 	if vpcID == "" {
 		err = errors.New("missing required vpc_id parameter")
@@ -107,12 +105,12 @@ func (r subnetJSON) RawJSON() string {
 
 // VPC details.
 type VPC struct {
-	ID            string                        `json:"id,required"`
-	CreatedAt     string                        `json:"created_at,required"`
-	FirewallRules []firewall_rules.FirewallRule `json:"firewall_rules,required"`
-	Name          string                        `json:"name,required"`
-	Region        shared.RegionName             `json:"region,required"`
-	Status        shared.ResourceStatus         `json:"status,required"`
+	ID            string                `json:"id,required"`
+	CreatedAt     string                `json:"created_at,required"`
+	FirewallRules []FirewallRule        `json:"firewall_rules,required"`
+	Name          string                `json:"name,required"`
+	Region        shared.RegionName     `json:"region,required"`
+	Status        shared.ResourceStatus `json:"status,required"`
 	// Subnet details.
 	Subnet    Subnet  `json:"subnet,required"`
 	UpdatedAt string  `json:"updated_at,required"`
@@ -161,12 +159,12 @@ func (r vpcListJSON) RawJSON() string {
 	return r.raw
 }
 
-type VPCNewParams struct {
+type NetworkingVPCNewParams struct {
 	Name       param.Field[string]            `json:"name,required"`
 	Region     param.Field[shared.RegionName] `json:"region,required"`
 	SubnetName param.Field[string]            `json:"subnet_name,required"`
 }
 
-func (r VPCNewParams) MarshalJSON() (data []byte, err error) {
+func (r NetworkingVPCNewParams) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
