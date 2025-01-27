@@ -46,10 +46,10 @@ func TestUserAgentHeader(t *testing.T) {
 		CPU: nirvana.F(compute.CPUParam{
 			Cores: nirvana.F(int64(2)),
 		}),
-		Name:         nirvana.F("my-vm"),
-		NeedPublicIP: nirvana.F(true),
-		OSImageName:  nirvana.F("noble-2024-12-06"),
-		Ports:        nirvana.F([]string{"22", "80", "443"}),
+		Name:            nirvana.F("my-vm"),
+		OSImageName:     nirvana.F("noble-2024-12-06"),
+		Ports:           nirvana.F([]string{"22", "80", "443"}),
+		PublicIPEnabled: nirvana.F(true),
 		Ram: nirvana.F(compute.RamParam{
 			Size: nirvana.F(int64(2)),
 		}),
@@ -88,10 +88,10 @@ func TestRetryAfter(t *testing.T) {
 		CPU: nirvana.F(compute.CPUParam{
 			Cores: nirvana.F(int64(2)),
 		}),
-		Name:         nirvana.F("my-vm"),
-		NeedPublicIP: nirvana.F(true),
-		OSImageName:  nirvana.F("noble-2024-12-06"),
-		Ports:        nirvana.F([]string{"22", "80", "443"}),
+		Name:            nirvana.F("my-vm"),
+		OSImageName:     nirvana.F("noble-2024-12-06"),
+		Ports:           nirvana.F([]string{"22", "80", "443"}),
+		PublicIPEnabled: nirvana.F(true),
 		Ram: nirvana.F(compute.RamParam{
 			Size: nirvana.F(int64(2)),
 		}),
@@ -141,10 +141,10 @@ func TestDeleteRetryCountHeader(t *testing.T) {
 		CPU: nirvana.F(compute.CPUParam{
 			Cores: nirvana.F(int64(2)),
 		}),
-		Name:         nirvana.F("my-vm"),
-		NeedPublicIP: nirvana.F(true),
-		OSImageName:  nirvana.F("noble-2024-12-06"),
-		Ports:        nirvana.F([]string{"22", "80", "443"}),
+		Name:            nirvana.F("my-vm"),
+		OSImageName:     nirvana.F("noble-2024-12-06"),
+		Ports:           nirvana.F([]string{"22", "80", "443"}),
+		PublicIPEnabled: nirvana.F(true),
 		Ram: nirvana.F(compute.RamParam{
 			Size: nirvana.F(int64(2)),
 		}),
@@ -189,10 +189,10 @@ func TestOverwriteRetryCountHeader(t *testing.T) {
 		CPU: nirvana.F(compute.CPUParam{
 			Cores: nirvana.F(int64(2)),
 		}),
-		Name:         nirvana.F("my-vm"),
-		NeedPublicIP: nirvana.F(true),
-		OSImageName:  nirvana.F("noble-2024-12-06"),
-		Ports:        nirvana.F([]string{"22", "80", "443"}),
+		Name:            nirvana.F("my-vm"),
+		OSImageName:     nirvana.F("noble-2024-12-06"),
+		Ports:           nirvana.F([]string{"22", "80", "443"}),
+		PublicIPEnabled: nirvana.F(true),
 		Ram: nirvana.F(compute.RamParam{
 			Size: nirvana.F(int64(2)),
 		}),
@@ -236,10 +236,10 @@ func TestRetryAfterMs(t *testing.T) {
 		CPU: nirvana.F(compute.CPUParam{
 			Cores: nirvana.F(int64(2)),
 		}),
-		Name:         nirvana.F("my-vm"),
-		NeedPublicIP: nirvana.F(true),
-		OSImageName:  nirvana.F("noble-2024-12-06"),
-		Ports:        nirvana.F([]string{"22", "80", "443"}),
+		Name:            nirvana.F("my-vm"),
+		OSImageName:     nirvana.F("noble-2024-12-06"),
+		Ports:           nirvana.F([]string{"22", "80", "443"}),
+		PublicIPEnabled: nirvana.F(true),
 		Ram: nirvana.F(compute.RamParam{
 			Size: nirvana.F(int64(2)),
 		}),
@@ -277,10 +277,10 @@ func TestContextCancel(t *testing.T) {
 		CPU: nirvana.F(compute.CPUParam{
 			Cores: nirvana.F(int64(2)),
 		}),
-		Name:         nirvana.F("my-vm"),
-		NeedPublicIP: nirvana.F(true),
-		OSImageName:  nirvana.F("noble-2024-12-06"),
-		Ports:        nirvana.F([]string{"22", "80", "443"}),
+		Name:            nirvana.F("my-vm"),
+		OSImageName:     nirvana.F("noble-2024-12-06"),
+		Ports:           nirvana.F([]string{"22", "80", "443"}),
+		PublicIPEnabled: nirvana.F(true),
 		Ram: nirvana.F(compute.RamParam{
 			Size: nirvana.F(int64(2)),
 		}),
@@ -315,10 +315,10 @@ func TestContextCancelDelay(t *testing.T) {
 		CPU: nirvana.F(compute.CPUParam{
 			Cores: nirvana.F(int64(2)),
 		}),
-		Name:         nirvana.F("my-vm"),
-		NeedPublicIP: nirvana.F(true),
-		OSImageName:  nirvana.F("noble-2024-12-06"),
-		Ports:        nirvana.F([]string{"22", "80", "443"}),
+		Name:            nirvana.F("my-vm"),
+		OSImageName:     nirvana.F("noble-2024-12-06"),
+		Ports:           nirvana.F([]string{"22", "80", "443"}),
+		PublicIPEnabled: nirvana.F(true),
 		Ram: nirvana.F(compute.RamParam{
 			Size: nirvana.F(int64(2)),
 		}),
@@ -359,10 +359,10 @@ func TestContextDeadline(t *testing.T) {
 			CPU: nirvana.F(compute.CPUParam{
 				Cores: nirvana.F(int64(2)),
 			}),
-			Name:         nirvana.F("my-vm"),
-			NeedPublicIP: nirvana.F(true),
-			OSImageName:  nirvana.F("noble-2024-12-06"),
-			Ports:        nirvana.F([]string{"22", "80", "443"}),
+			Name:            nirvana.F("my-vm"),
+			OSImageName:     nirvana.F("noble-2024-12-06"),
+			Ports:           nirvana.F([]string{"22", "80", "443"}),
+			PublicIPEnabled: nirvana.F(true),
 			Ram: nirvana.F(compute.RamParam{
 				Size: nirvana.F(int64(2)),
 			}),

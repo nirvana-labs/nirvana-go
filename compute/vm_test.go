@@ -34,10 +34,10 @@ func TestVMNewWithOptionalParams(t *testing.T) {
 		CPU: nirvana.F(compute.CPUParam{
 			Cores: nirvana.F(int64(2)),
 		}),
-		Name:         nirvana.F("my-vm"),
-		NeedPublicIP: nirvana.F(true),
-		OSImageName:  nirvana.F("noble-2024-12-06"),
-		Ports:        nirvana.F([]string{"22", "80", "443"}),
+		Name:            nirvana.F("my-vm"),
+		OSImageName:     nirvana.F("noble-2024-12-06"),
+		Ports:           nirvana.F([]string{"22", "80", "443"}),
+		PublicIPEnabled: nirvana.F(true),
 		Ram: nirvana.F(compute.RamParam{
 			Size: nirvana.F(int64(2)),
 		}),
