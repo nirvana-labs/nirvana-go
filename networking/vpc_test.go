@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package nirvana_test
+package networking_test
 
 import (
 	"context"
@@ -10,11 +10,12 @@ import (
 
 	"github.com/nirvana-labs/nirvana-go"
 	"github.com/nirvana-labs/nirvana-go/internal/testutil"
+	"github.com/nirvana-labs/nirvana-go/networking"
 	"github.com/nirvana-labs/nirvana-go/option"
 	"github.com/nirvana-labs/nirvana-go/shared"
 )
 
-func TestNetworkingVPCNew(t *testing.T) {
+func TestVPCNew(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -26,7 +27,7 @@ func TestNetworkingVPCNew(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAuthToken("My Auth Token"),
 	)
-	_, err := client.Networking.VPCs.New(context.TODO(), nirvana.NetworkingVPCNewParams{
+	_, err := client.Networking.VPCs.New(context.TODO(), networking.VPCNewParams{
 		Name:       nirvana.F("my-vpc"),
 		Region:     nirvana.F(shared.RegionNameAmsterdam),
 		SubnetName: nirvana.F("my-subnet"),
@@ -40,7 +41,7 @@ func TestNetworkingVPCNew(t *testing.T) {
 	}
 }
 
-func TestNetworkingVPCList(t *testing.T) {
+func TestVPCList(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -62,7 +63,7 @@ func TestNetworkingVPCList(t *testing.T) {
 	}
 }
 
-func TestNetworkingVPCDelete(t *testing.T) {
+func TestVPCDelete(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -84,7 +85,7 @@ func TestNetworkingVPCDelete(t *testing.T) {
 	}
 }
 
-func TestNetworkingVPCGet(t *testing.T) {
+func TestVPCGet(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
