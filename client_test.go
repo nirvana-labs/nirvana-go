@@ -13,8 +13,6 @@ import (
 	"github.com/nirvana-labs/nirvana-go"
 	"github.com/nirvana-labs/nirvana-go/internal"
 	"github.com/nirvana-labs/nirvana-go/option"
-	"github.com/nirvana-labs/nirvana-go/shared"
-	"github.com/nirvana-labs/nirvana-go/vms"
 )
 
 type closureTransport struct {
@@ -39,26 +37,7 @@ func TestUserAgentHeader(t *testing.T) {
 			},
 		}),
 	)
-	client.VMs.New(context.Background(), vms.VMNewParams{
-		BootVolume: nirvana.F(vms.VMNewParamsBootVolume{
-			Size: nirvana.F(int64(100)),
-		}),
-		CPU: nirvana.F(vms.CPUParam{
-			Cores: nirvana.F(int64(2)),
-		}),
-		Name:         nirvana.F("my-vm"),
-		NeedPublicIP: nirvana.F(true),
-		OSImageName:  nirvana.F("noble-2024-12-06"),
-		Ports:        nirvana.F([]string{"22", "80", "443"}),
-		Ram: nirvana.F(vms.RamParam{
-			Size: nirvana.F(int64(2)),
-		}),
-		Region:        nirvana.F(shared.RegionNameAmsterdam),
-		SourceAddress: nirvana.F("0.0.0.0/0"),
-		SSHKey: nirvana.F(vms.SSHKeyParam{
-			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
-		}),
-	})
+	client.Operations.List(context.Background())
 	if userAgent != fmt.Sprintf("NirvanaLabs/Go %s", internal.PackageVersion) {
 		t.Errorf("Expected User-Agent to be correct, but got: %#v", userAgent)
 	}
@@ -81,26 +60,7 @@ func TestRetryAfter(t *testing.T) {
 			},
 		}),
 	)
-	res, err := client.VMs.New(context.Background(), vms.VMNewParams{
-		BootVolume: nirvana.F(vms.VMNewParamsBootVolume{
-			Size: nirvana.F(int64(100)),
-		}),
-		CPU: nirvana.F(vms.CPUParam{
-			Cores: nirvana.F(int64(2)),
-		}),
-		Name:         nirvana.F("my-vm"),
-		NeedPublicIP: nirvana.F(true),
-		OSImageName:  nirvana.F("noble-2024-12-06"),
-		Ports:        nirvana.F([]string{"22", "80", "443"}),
-		Ram: nirvana.F(vms.RamParam{
-			Size: nirvana.F(int64(2)),
-		}),
-		Region:        nirvana.F(shared.RegionNameAmsterdam),
-		SourceAddress: nirvana.F("0.0.0.0/0"),
-		SSHKey: nirvana.F(vms.SSHKeyParam{
-			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
-		}),
-	})
+	res, err := client.Operations.List(context.Background())
 	if err == nil || res != nil {
 		t.Error("Expected there to be a cancel error and for the response to be nil")
 	}
@@ -134,26 +94,7 @@ func TestDeleteRetryCountHeader(t *testing.T) {
 		}),
 		option.WithHeaderDel("X-Stainless-Retry-Count"),
 	)
-	res, err := client.VMs.New(context.Background(), vms.VMNewParams{
-		BootVolume: nirvana.F(vms.VMNewParamsBootVolume{
-			Size: nirvana.F(int64(100)),
-		}),
-		CPU: nirvana.F(vms.CPUParam{
-			Cores: nirvana.F(int64(2)),
-		}),
-		Name:         nirvana.F("my-vm"),
-		NeedPublicIP: nirvana.F(true),
-		OSImageName:  nirvana.F("noble-2024-12-06"),
-		Ports:        nirvana.F([]string{"22", "80", "443"}),
-		Ram: nirvana.F(vms.RamParam{
-			Size: nirvana.F(int64(2)),
-		}),
-		Region:        nirvana.F(shared.RegionNameAmsterdam),
-		SourceAddress: nirvana.F("0.0.0.0/0"),
-		SSHKey: nirvana.F(vms.SSHKeyParam{
-			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
-		}),
-	})
+	res, err := client.Operations.List(context.Background())
 	if err == nil || res != nil {
 		t.Error("Expected there to be a cancel error and for the response to be nil")
 	}
@@ -182,26 +123,7 @@ func TestOverwriteRetryCountHeader(t *testing.T) {
 		}),
 		option.WithHeader("X-Stainless-Retry-Count", "42"),
 	)
-	res, err := client.VMs.New(context.Background(), vms.VMNewParams{
-		BootVolume: nirvana.F(vms.VMNewParamsBootVolume{
-			Size: nirvana.F(int64(100)),
-		}),
-		CPU: nirvana.F(vms.CPUParam{
-			Cores: nirvana.F(int64(2)),
-		}),
-		Name:         nirvana.F("my-vm"),
-		NeedPublicIP: nirvana.F(true),
-		OSImageName:  nirvana.F("noble-2024-12-06"),
-		Ports:        nirvana.F([]string{"22", "80", "443"}),
-		Ram: nirvana.F(vms.RamParam{
-			Size: nirvana.F(int64(2)),
-		}),
-		Region:        nirvana.F(shared.RegionNameAmsterdam),
-		SourceAddress: nirvana.F("0.0.0.0/0"),
-		SSHKey: nirvana.F(vms.SSHKeyParam{
-			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
-		}),
-	})
+	res, err := client.Operations.List(context.Background())
 	if err == nil || res != nil {
 		t.Error("Expected there to be a cancel error and for the response to be nil")
 	}
@@ -229,26 +151,7 @@ func TestRetryAfterMs(t *testing.T) {
 			},
 		}),
 	)
-	res, err := client.VMs.New(context.Background(), vms.VMNewParams{
-		BootVolume: nirvana.F(vms.VMNewParamsBootVolume{
-			Size: nirvana.F(int64(100)),
-		}),
-		CPU: nirvana.F(vms.CPUParam{
-			Cores: nirvana.F(int64(2)),
-		}),
-		Name:         nirvana.F("my-vm"),
-		NeedPublicIP: nirvana.F(true),
-		OSImageName:  nirvana.F("noble-2024-12-06"),
-		Ports:        nirvana.F([]string{"22", "80", "443"}),
-		Ram: nirvana.F(vms.RamParam{
-			Size: nirvana.F(int64(2)),
-		}),
-		Region:        nirvana.F(shared.RegionNameAmsterdam),
-		SourceAddress: nirvana.F("0.0.0.0/0"),
-		SSHKey: nirvana.F(vms.SSHKeyParam{
-			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
-		}),
-	})
+	res, err := client.Operations.List(context.Background())
 	if err == nil || res != nil {
 		t.Error("Expected there to be a cancel error and for the response to be nil")
 	}
@@ -270,26 +173,7 @@ func TestContextCancel(t *testing.T) {
 	)
 	cancelCtx, cancel := context.WithCancel(context.Background())
 	cancel()
-	res, err := client.VMs.New(cancelCtx, vms.VMNewParams{
-		BootVolume: nirvana.F(vms.VMNewParamsBootVolume{
-			Size: nirvana.F(int64(100)),
-		}),
-		CPU: nirvana.F(vms.CPUParam{
-			Cores: nirvana.F(int64(2)),
-		}),
-		Name:         nirvana.F("my-vm"),
-		NeedPublicIP: nirvana.F(true),
-		OSImageName:  nirvana.F("noble-2024-12-06"),
-		Ports:        nirvana.F([]string{"22", "80", "443"}),
-		Ram: nirvana.F(vms.RamParam{
-			Size: nirvana.F(int64(2)),
-		}),
-		Region:        nirvana.F(shared.RegionNameAmsterdam),
-		SourceAddress: nirvana.F("0.0.0.0/0"),
-		SSHKey: nirvana.F(vms.SSHKeyParam{
-			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
-		}),
-	})
+	res, err := client.Operations.List(cancelCtx)
 	if err == nil || res != nil {
 		t.Error("Expected there to be a cancel error and for the response to be nil")
 	}
@@ -308,26 +192,7 @@ func TestContextCancelDelay(t *testing.T) {
 	)
 	cancelCtx, cancel := context.WithTimeout(context.Background(), 2*time.Millisecond)
 	defer cancel()
-	res, err := client.VMs.New(cancelCtx, vms.VMNewParams{
-		BootVolume: nirvana.F(vms.VMNewParamsBootVolume{
-			Size: nirvana.F(int64(100)),
-		}),
-		CPU: nirvana.F(vms.CPUParam{
-			Cores: nirvana.F(int64(2)),
-		}),
-		Name:         nirvana.F("my-vm"),
-		NeedPublicIP: nirvana.F(true),
-		OSImageName:  nirvana.F("noble-2024-12-06"),
-		Ports:        nirvana.F([]string{"22", "80", "443"}),
-		Ram: nirvana.F(vms.RamParam{
-			Size: nirvana.F(int64(2)),
-		}),
-		Region:        nirvana.F(shared.RegionNameAmsterdam),
-		SourceAddress: nirvana.F("0.0.0.0/0"),
-		SSHKey: nirvana.F(vms.SSHKeyParam{
-			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
-		}),
-	})
+	res, err := client.Operations.List(cancelCtx)
 	if err == nil || res != nil {
 		t.Error("expected there to be a cancel error and for the response to be nil")
 	}
@@ -352,26 +217,7 @@ func TestContextDeadline(t *testing.T) {
 				},
 			}),
 		)
-		res, err := client.VMs.New(deadlineCtx, vms.VMNewParams{
-			BootVolume: nirvana.F(vms.VMNewParamsBootVolume{
-				Size: nirvana.F(int64(100)),
-			}),
-			CPU: nirvana.F(vms.CPUParam{
-				Cores: nirvana.F(int64(2)),
-			}),
-			Name:         nirvana.F("my-vm"),
-			NeedPublicIP: nirvana.F(true),
-			OSImageName:  nirvana.F("noble-2024-12-06"),
-			Ports:        nirvana.F([]string{"22", "80", "443"}),
-			Ram: nirvana.F(vms.RamParam{
-				Size: nirvana.F(int64(2)),
-			}),
-			Region:        nirvana.F(shared.RegionNameAmsterdam),
-			SourceAddress: nirvana.F("0.0.0.0/0"),
-			SSHKey: nirvana.F(vms.SSHKeyParam{
-				PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
-			}),
-		})
+		res, err := client.Operations.List(deadlineCtx)
 		if err == nil || res != nil {
 			t.Error("expected there to be a deadline error and for the response to be nil")
 		}

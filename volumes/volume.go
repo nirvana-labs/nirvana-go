@@ -37,7 +37,7 @@ func NewVolumeService(opts ...option.RequestOption) (r *VolumeService) {
 // Create a Volume. Only data volumes can be created.
 func (r *VolumeService) New(ctx context.Context, body VolumeNewParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
 	opts = append(r.Options[:], opts...)
-	path := "volumes"
+	path := "compute/volumes"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
 }
@@ -49,7 +49,7 @@ func (r *VolumeService) Update(ctx context.Context, volumeID string, body Volume
 		err = errors.New("missing required volume_id parameter")
 		return
 	}
-	path := fmt.Sprintf("volumes/%s", volumeID)
+	path := fmt.Sprintf("compute/volumes/%s", volumeID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
 	return
 }
@@ -57,7 +57,7 @@ func (r *VolumeService) Update(ctx context.Context, volumeID string, body Volume
 // List all volumes
 func (r *VolumeService) List(ctx context.Context, opts ...option.RequestOption) (res *VolumeListResponse, err error) {
 	opts = append(r.Options[:], opts...)
-	path := "volumes"
+	path := "compute/volumes"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
@@ -69,7 +69,7 @@ func (r *VolumeService) Delete(ctx context.Context, volumeID string, body Volume
 		err = errors.New("missing required volume_id parameter")
 		return
 	}
-	path := fmt.Sprintf("volumes/%s", volumeID)
+	path := fmt.Sprintf("compute/volumes/%s", volumeID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, body, &res, opts...)
 	return
 }
@@ -81,7 +81,7 @@ func (r *VolumeService) Get(ctx context.Context, volumeID string, opts ...option
 		err = errors.New("missing required volume_id parameter")
 		return
 	}
-	path := fmt.Sprintf("volumes/%s", volumeID)
+	path := fmt.Sprintf("compute/volumes/%s", volumeID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }

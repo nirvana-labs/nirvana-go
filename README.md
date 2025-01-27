@@ -40,42 +40,19 @@ package main
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/nirvana-labs/nirvana-go"
 	"github.com/nirvana-labs/nirvana-go/option"
-	"github.com/nirvana-labs/nirvana-go/shared"
-	"github.com/nirvana-labs/nirvana-go/vms"
 )
 
 func main() {
 	client := nirvana.NewClient(
 		option.WithAuthToken("My Auth Token"), // defaults to os.LookupEnv("NIRVANA_LABS_AUTH_TOKEN")
 	)
-	operation, err := client.VMs.New(context.TODO(), vms.VMNewParams{
-		BootVolume: nirvana.F(vms.VMNewParamsBootVolume{
-			Size: nirvana.F(int64(100)),
-		}),
-		CPU: nirvana.F(vms.CPUParam{
-			Cores: nirvana.F(int64(2)),
-		}),
-		Name:         nirvana.F("my-vm"),
-		NeedPublicIP: nirvana.F(true),
-		OSImageName:  nirvana.F("noble-2024-12-06"),
-		Ports:        nirvana.F([]string{"22", "80", "443"}),
-		Ram: nirvana.F(vms.RamParam{
-			Size: nirvana.F(int64(2)),
-		}),
-		Region:        nirvana.F(shared.RegionNameAmsterdam),
-		SourceAddress: nirvana.F("0.0.0.0/0"),
-		SSHKey: nirvana.F(vms.SSHKeyParam{
-			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
-		}),
-	})
+	operations, err := client.Operations.List(context.TODO())
 	if err != nil {
 		panic(err.Error())
 	}
-	fmt.Printf("%+v\n", operation.ID)
 }
 
 ```
@@ -164,7 +141,7 @@ client := nirvana.NewClient(
 	option.WithHeader("X-Some-Header", "custom_header_info"),
 )
 
-client.VMs.New(context.TODO(), ...,
+client.Operations.List(context.TODO(), ...,
 	// Override the header
 	option.WithHeader("X-Some-Header", "some_other_custom_header_info"),
 	// Add an undocumented field to the request body, using sjson syntax
@@ -193,33 +170,14 @@ When the API returns a non-success status code, we return an error with type
 To handle errors, we recommend that you use the `errors.As` pattern:
 
 ```go
-_, err := client.VMs.New(context.TODO(), vms.VMNewParams{
-	BootVolume: nirvana.F(vms.VMNewParamsBootVolume{
-		Size: nirvana.F(int64(100)),
-	}),
-	CPU: nirvana.F(vms.CPUParam{
-		Cores: nirvana.F(int64(2)),
-	}),
-	Name:         nirvana.F("my-vm"),
-	NeedPublicIP: nirvana.F(true),
-	OSImageName:  nirvana.F("noble-2024-12-06"),
-	Ports:        nirvana.F([]string{"22", "80", "443"}),
-	Ram: nirvana.F(vms.RamParam{
-		Size: nirvana.F(int64(2)),
-	}),
-	Region:        nirvana.F(shared.RegionNameAmsterdam),
-	SourceAddress: nirvana.F("0.0.0.0/0"),
-	SSHKey: nirvana.F(vms.SSHKeyParam{
-		PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
-	}),
-})
+_, err := client.Operations.List(context.TODO())
 if err != nil {
 	var apierr *nirvana.Error
 	if errors.As(err, &apierr) {
 		println(string(apierr.DumpRequest(true)))  // Prints the serialized HTTP request
 		println(string(apierr.DumpResponse(true))) // Prints the serialized HTTP response
 	}
-	panic(err.Error()) // GET "/vms": 400 Bad Request { ... }
+	panic(err.Error()) // GET "/operations": 400 Bad Request { ... }
 }
 ```
 
@@ -237,28 +195,8 @@ To set a per-retry timeout, use `option.WithRequestTimeout()`.
 // This sets the timeout for the request, including all the retries.
 ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
 defer cancel()
-client.VMs.New(
+client.Operations.List(
 	ctx,
-	vms.VMNewParams{
-		BootVolume: nirvana.F(vms.VMNewParamsBootVolume{
-			Size: nirvana.F(int64(100)),
-		}),
-		CPU: nirvana.F(vms.CPUParam{
-			Cores: nirvana.F(int64(2)),
-		}),
-		Name:         nirvana.F("my-vm"),
-		NeedPublicIP: nirvana.F(true),
-		OSImageName:  nirvana.F("noble-2024-12-06"),
-		Ports:        nirvana.F([]string{"22", "80", "443"}),
-		Ram: nirvana.F(vms.RamParam{
-			Size: nirvana.F(int64(2)),
-		}),
-		Region:        nirvana.F(shared.RegionNameAmsterdam),
-		SourceAddress: nirvana.F("0.0.0.0/0"),
-		SSHKey: nirvana.F(vms.SSHKeyParam{
-			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
-		}),
-	},
 	// This sets the per-retry timeout
 	option.WithRequestTimeout(20*time.Second),
 )
@@ -292,30 +230,7 @@ client := nirvana.NewClient(
 )
 
 // Override per-request:
-client.VMs.New(
-	context.TODO(),
-	vms.VMNewParams{
-		BootVolume: nirvana.F(vms.VMNewParamsBootVolume{
-			Size: nirvana.F(int64(100)),
-		}),
-		CPU: nirvana.F(vms.CPUParam{
-			Cores: nirvana.F(int64(2)),
-		}),
-		Name:         nirvana.F("my-vm"),
-		NeedPublicIP: nirvana.F(true),
-		OSImageName:  nirvana.F("noble-2024-12-06"),
-		Ports:        nirvana.F([]string{"22", "80", "443"}),
-		Ram: nirvana.F(vms.RamParam{
-			Size: nirvana.F(int64(2)),
-		}),
-		Region:        nirvana.F(shared.RegionNameAmsterdam),
-		SourceAddress: nirvana.F("0.0.0.0/0"),
-		SSHKey: nirvana.F(vms.SSHKeyParam{
-			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
-		}),
-	},
-	option.WithMaxRetries(5),
-)
+client.Operations.List(context.TODO(), option.WithMaxRetries(5))
 ```
 
 ### Making custom/undocumented requests

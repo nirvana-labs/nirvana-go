@@ -7,25 +7,21 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/nirvana-labs/nirvana-go/firewall_rules"
+	"github.com/nirvana-labs/nirvana-go/compute"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
+	"github.com/nirvana-labs/nirvana-go/networking"
 	"github.com/nirvana-labs/nirvana-go/operations"
 	"github.com/nirvana-labs/nirvana-go/option"
-	"github.com/nirvana-labs/nirvana-go/vms"
-	"github.com/nirvana-labs/nirvana-go/volumes"
-	"github.com/nirvana-labs/nirvana-go/vpcs"
 )
 
 // Client creates a struct with services and top level methods that help with
 // interacting with the Nirvana Labs API. You should not instantiate this client
 // directly, and instead use the [NewClient] method instead.
 type Client struct {
-	Options       []option.RequestOption
-	VMs           *vms.VMService
-	VPCs          *vpcs.VPCService
-	FirewallRules *firewall_rules.FirewallRuleService
-	Volumes       *volumes.VolumeService
-	Operations    *operations.OperationService
+	Options    []option.RequestOption
+	Operations *operations.OperationService
+	Compute    *compute.ComputeService
+	Networking *networking.NetworkingService
 }
 
 // NewClient generates a new client with the default option read from the
@@ -41,11 +37,9 @@ func NewClient(opts ...option.RequestOption) (r *Client) {
 
 	r = &Client{Options: opts}
 
-	r.VMs = vms.NewVMService(opts...)
-	r.VPCs = vpcs.NewVPCService(opts...)
-	r.FirewallRules = firewall_rules.NewFirewallRuleService(opts...)
-	r.Volumes = volumes.NewVolumeService(opts...)
 	r.Operations = operations.NewOperationService(opts...)
+	r.Compute = compute.NewComputeService(opts...)
+	r.Networking = networking.NewNetworkingService(opts...)
 
 	return
 }

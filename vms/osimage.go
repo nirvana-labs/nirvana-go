@@ -32,7 +32,7 @@ func NewOSImageService(opts ...option.RequestOption) (r *OSImageService) {
 // List all OS Images
 func (r *OSImageService) List(ctx context.Context, opts ...option.RequestOption) (res *[]OSImage, err error) {
 	opts = append(r.Options[:], opts...)
-	path := "vms/os_images"
+	path := "compute/vms/os_images"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
