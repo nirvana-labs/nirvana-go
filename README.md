@@ -59,10 +59,10 @@ func main() {
 		CPU: nirvana.F(compute.CPUParam{
 			Cores: nirvana.F(int64(2)),
 		}),
-		Name:         nirvana.F("my-vm"),
-		NeedPublicIP: nirvana.F(true),
-		OSImageName:  nirvana.F("noble-2024-12-06"),
-		Ports:        nirvana.F([]string{"22", "80", "443"}),
+		Name:            nirvana.F("my-vm"),
+		OSImageName:     nirvana.F("noble-2024-12-06"),
+		Ports:           nirvana.F([]string{"22", "80", "443"}),
+		PublicIPEnabled: nirvana.F(true),
 		Ram: nirvana.F(compute.RamParam{
 			Size: nirvana.F(int64(2)),
 		}),
@@ -200,10 +200,10 @@ _, err := client.Compute.VMs.New(context.TODO(), compute.VMNewParams{
 	CPU: nirvana.F(compute.CPUParam{
 		Cores: nirvana.F(int64(2)),
 	}),
-	Name:         nirvana.F("my-vm"),
-	NeedPublicIP: nirvana.F(true),
-	OSImageName:  nirvana.F("noble-2024-12-06"),
-	Ports:        nirvana.F([]string{"22", "80", "443"}),
+	Name:            nirvana.F("my-vm"),
+	OSImageName:     nirvana.F("noble-2024-12-06"),
+	Ports:           nirvana.F([]string{"22", "80", "443"}),
+	PublicIPEnabled: nirvana.F(true),
 	Ram: nirvana.F(compute.RamParam{
 		Size: nirvana.F(int64(2)),
 	}),
@@ -246,10 +246,10 @@ client.Compute.VMs.New(
 		CPU: nirvana.F(compute.CPUParam{
 			Cores: nirvana.F(int64(2)),
 		}),
-		Name:         nirvana.F("my-vm"),
-		NeedPublicIP: nirvana.F(true),
-		OSImageName:  nirvana.F("noble-2024-12-06"),
-		Ports:        nirvana.F([]string{"22", "80", "443"}),
+		Name:            nirvana.F("my-vm"),
+		OSImageName:     nirvana.F("noble-2024-12-06"),
+		Ports:           nirvana.F([]string{"22", "80", "443"}),
+		PublicIPEnabled: nirvana.F(true),
 		Ram: nirvana.F(compute.RamParam{
 			Size: nirvana.F(int64(2)),
 		}),
@@ -301,10 +301,10 @@ client.Compute.VMs.New(
 		CPU: nirvana.F(compute.CPUParam{
 			Cores: nirvana.F(int64(2)),
 		}),
-		Name:         nirvana.F("my-vm"),
-		NeedPublicIP: nirvana.F(true),
-		OSImageName:  nirvana.F("noble-2024-12-06"),
-		Ports:        nirvana.F([]string{"22", "80", "443"}),
+		Name:            nirvana.F("my-vm"),
+		OSImageName:     nirvana.F("noble-2024-12-06"),
+		Ports:           nirvana.F([]string{"22", "80", "443"}),
+		PublicIPEnabled: nirvana.F(true),
 		Ram: nirvana.F(compute.RamParam{
 			Size: nirvana.F(int64(2)),
 		}),
