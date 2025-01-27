@@ -26,8 +26,8 @@ func TestUsage(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAuthToken("My Auth Token"),
 	)
-	operation, err := client.Compute.VMs.New(context.TODO(), vms.ComputeVMNewParams{
-		BootVolume: nirvana.F(vms.ComputeVMNewParamsBootVolume{
+	operation, err := client.Compute.VMs.New(context.TODO(), vms.VMNewParams{
+		BootVolume: nirvana.F(vms.VMNewParamsBootVolume{
 			Size: nirvana.F(int64(100)),
 		}),
 		CPU: nirvana.F(vms.CPUParam{

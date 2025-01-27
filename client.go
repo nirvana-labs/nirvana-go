@@ -7,7 +7,9 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/nirvana-labs/nirvana-go/compute"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
+	"github.com/nirvana-labs/nirvana-go/networking"
 	"github.com/nirvana-labs/nirvana-go/operations"
 	"github.com/nirvana-labs/nirvana-go/option"
 )
@@ -18,8 +20,8 @@ import (
 type Client struct {
 	Options    []option.RequestOption
 	Operations *operations.OperationService
-	Compute    *ComputeService
-	Networking *NetworkingService
+	Compute    *compute.ComputeService
+	Networking *networking.NetworkingService
 }
 
 // NewClient generates a new client with the default option read from the
@@ -36,8 +38,8 @@ func NewClient(opts ...option.RequestOption) (r *Client) {
 	r = &Client{Options: opts}
 
 	r.Operations = operations.NewOperationService(opts...)
-	r.Compute = NewComputeService(opts...)
-	r.Networking = NewNetworkingService(opts...)
+	r.Compute = compute.NewComputeService(opts...)
+	r.Networking = networking.NewNetworkingService(opts...)
 
 	return
 }
