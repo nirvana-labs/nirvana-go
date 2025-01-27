@@ -15,7 +15,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/vpcs"
 )
 
-func TestVPCNew(t *testing.T) {
+func TestNetworkingVPCNew(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -27,7 +27,7 @@ func TestVPCNew(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAuthToken("My Auth Token"),
 	)
-	_, err := client.Networking.VPCs.New(context.TODO(), vpcs.VPCNewParams{
+	_, err := client.Networking.VPCs.New(context.TODO(), vpcs.NetworkingVPCNewParams{
 		Name:       nirvana.F("my-vpc"),
 		Region:     nirvana.F(shared.RegionNameAmsterdam),
 		SubnetName: nirvana.F("my-subnet"),
@@ -41,7 +41,7 @@ func TestVPCNew(t *testing.T) {
 	}
 }
 
-func TestVPCList(t *testing.T) {
+func TestNetworkingVPCList(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -63,7 +63,7 @@ func TestVPCList(t *testing.T) {
 	}
 }
 
-func TestVPCDelete(t *testing.T) {
+func TestNetworkingVPCDelete(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -85,7 +85,7 @@ func TestVPCDelete(t *testing.T) {
 	}
 }
 
-func TestVPCGet(t *testing.T) {
+func TestNetworkingVPCGet(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL

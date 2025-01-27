@@ -17,29 +17,29 @@ import (
 	"github.com/nirvana-labs/nirvana-go/volumes"
 )
 
-// VMService contains methods and other services that help with interacting with
-// the Nirvana Labs API.
+// ComputeVMService contains methods and other services that help with interacting
+// with the Nirvana Labs API.
 //
 // Note, unlike clients, this service does not read variables from the environment
 // automatically. You should not instantiate this service directly, and instead use
-// the [NewVMService] method instead.
-type VMService struct {
+// the [NewComputeVMService] method instead.
+type ComputeVMService struct {
 	Options  []option.RequestOption
 	OSImages *OSImageService
 }
 
-// NewVMService generates a new service that applies the given options to each
-// request. These options are applied after the parent client's options (if there
-// is one), and before any request-specific options.
-func NewVMService(opts ...option.RequestOption) (r *VMService) {
-	r = &VMService{}
+// NewComputeVMService generates a new service that applies the given options to
+// each request. These options are applied after the parent client's options (if
+// there is one), and before any request-specific options.
+func NewComputeVMService(opts ...option.RequestOption) (r *ComputeVMService) {
+	r = &ComputeVMService{}
 	r.Options = opts
 	r.OSImages = NewOSImageService(opts...)
 	return
 }
 
 // Create a VM
-func (r *VMService) New(ctx context.Context, body VMNewParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
+func (r *ComputeVMService) New(ctx context.Context, body ComputeVMNewParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "compute/vms"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
@@ -47,7 +47,7 @@ func (r *VMService) New(ctx context.Context, body VMNewParams, opts ...option.Re
 }
 
 // Update a VM
-func (r *VMService) Update(ctx context.Context, vmID string, body VMUpdateParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
+func (r *ComputeVMService) Update(ctx context.Context, vmID string, body ComputeVMUpdateParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
 	opts = append(r.Options[:], opts...)
 	if vmID == "" {
 		err = errors.New("missing required vm_id parameter")
@@ -59,7 +59,7 @@ func (r *VMService) Update(ctx context.Context, vmID string, body VMUpdateParams
 }
 
 // List all VMs
-func (r *VMService) List(ctx context.Context, opts ...option.RequestOption) (res *VMList, err error) {
+func (r *ComputeVMService) List(ctx context.Context, opts ...option.RequestOption) (res *VMList, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "compute/vms"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
@@ -67,7 +67,7 @@ func (r *VMService) List(ctx context.Context, opts ...option.RequestOption) (res
 }
 
 // Delete a VM
-func (r *VMService) Delete(ctx context.Context, vmID string, opts ...option.RequestOption) (res *operations.Operation, err error) {
+func (r *ComputeVMService) Delete(ctx context.Context, vmID string, opts ...option.RequestOption) (res *operations.Operation, err error) {
 	opts = append(r.Options[:], opts...)
 	if vmID == "" {
 		err = errors.New("missing required vm_id parameter")
@@ -79,7 +79,7 @@ func (r *VMService) Delete(ctx context.Context, vmID string, opts ...option.Requ
 }
 
 // Get details about a VM
-func (r *VMService) Get(ctx context.Context, vmID string, opts ...option.RequestOption) (res *VM, err error) {
+func (r *ComputeVMService) Get(ctx context.Context, vmID string, opts ...option.RequestOption) (res *VM, err error) {
 	opts = append(r.Options[:], opts...)
 	if vmID == "" {
 		err = errors.New("missing required vm_id parameter")
@@ -251,9 +251,9 @@ func (r vmListJSON) RawJSON() string {
 	return r.raw
 }
 
-type VMNewParams struct {
+type ComputeVMNewParams struct {
 	// Boot volume create request.
-	BootVolume param.Field[VMNewParamsBootVolume] `json:"boot_volume,required"`
+	BootVolume param.Field[ComputeVMNewParamsBootVolume] `json:"boot_volume,required"`
 	// CPU details.
 	CPU          param.Field[CPUParam] `json:"cpu,required"`
 	Name         param.Field[string]   `json:"name,required"`
@@ -265,65 +265,65 @@ type VMNewParams struct {
 	Region        param.Field[shared.RegionName] `json:"region,required"`
 	SourceAddress param.Field[string]            `json:"source_address,required"`
 	// SSH key details.
-	SSHKey      param.Field[SSHKeyParam]             `json:"ssh_key,required"`
-	DataVolumes param.Field[[]VMNewParamsDataVolume] `json:"data_volumes"`
-	SubnetID    param.Field[string]                  `json:"subnet_id"`
+	SSHKey      param.Field[SSHKeyParam]                    `json:"ssh_key,required"`
+	DataVolumes param.Field[[]ComputeVMNewParamsDataVolume] `json:"data_volumes"`
+	SubnetID    param.Field[string]                         `json:"subnet_id"`
 }
 
-func (r VMNewParams) MarshalJSON() (data []byte, err error) {
+func (r ComputeVMNewParams) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
 // Boot volume create request.
-type VMNewParamsBootVolume struct {
+type ComputeVMNewParamsBootVolume struct {
 	Size param.Field[int64] `json:"size,required"`
 }
 
-func (r VMNewParamsBootVolume) MarshalJSON() (data []byte, err error) {
+func (r ComputeVMNewParamsBootVolume) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
 // VM data volume create request.
-type VMNewParamsDataVolume struct {
+type ComputeVMNewParamsDataVolume struct {
 	Size param.Field[int64] `json:"size,required"`
 	// Storage type.
 	Type param.Field[volumes.StorageType] `json:"type"`
 }
 
-func (r VMNewParamsDataVolume) MarshalJSON() (data []byte, err error) {
+func (r ComputeVMNewParamsDataVolume) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
-type VMUpdateParams struct {
+type ComputeVMUpdateParams struct {
 	// Boot volume create request.
-	BootVolume param.Field[VMUpdateParamsBootVolume] `json:"boot_volume"`
+	BootVolume param.Field[ComputeVMUpdateParamsBootVolume] `json:"boot_volume"`
 	// CPU details.
-	CPU         param.Field[CPUParam]                   `json:"cpu"`
-	DataVolumes param.Field[[]VMUpdateParamsDataVolume] `json:"data_volumes"`
+	CPU         param.Field[CPUParam]                          `json:"cpu"`
+	DataVolumes param.Field[[]ComputeVMUpdateParamsDataVolume] `json:"data_volumes"`
 	// RAM details.
 	Ram param.Field[RamParam] `json:"ram"`
 }
 
-func (r VMUpdateParams) MarshalJSON() (data []byte, err error) {
+func (r ComputeVMUpdateParams) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
 // Boot volume create request.
-type VMUpdateParamsBootVolume struct {
+type ComputeVMUpdateParamsBootVolume struct {
 	Size param.Field[int64] `json:"size,required"`
 }
 
-func (r VMUpdateParamsBootVolume) MarshalJSON() (data []byte, err error) {
+func (r ComputeVMUpdateParamsBootVolume) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
 // VM data volume create request.
-type VMUpdateParamsDataVolume struct {
+type ComputeVMUpdateParamsDataVolume struct {
 	Size param.Field[int64] `json:"size,required"`
 	// Storage type.
 	Type param.Field[volumes.StorageType] `json:"type"`
 }
 
-func (r VMUpdateParamsDataVolume) MarshalJSON() (data []byte, err error) {
+func (r ComputeVMUpdateParamsDataVolume) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
