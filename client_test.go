@@ -39,8 +39,8 @@ func TestUserAgentHeader(t *testing.T) {
 			},
 		}),
 	)
-	client.Compute.VMs.New(context.Background(), vms.ComputeVMNewParams{
-		BootVolume: nirvana.F(vms.ComputeVMNewParamsBootVolume{
+	client.Compute.VMs.New(context.Background(), vms.VMNewParams{
+		BootVolume: nirvana.F(vms.VMNewParamsBootVolume{
 			Size: nirvana.F(int64(100)),
 		}),
 		CPU: nirvana.F(vms.CPUParam{
@@ -81,8 +81,8 @@ func TestRetryAfter(t *testing.T) {
 			},
 		}),
 	)
-	res, err := client.Compute.VMs.New(context.Background(), vms.ComputeVMNewParams{
-		BootVolume: nirvana.F(vms.ComputeVMNewParamsBootVolume{
+	res, err := client.Compute.VMs.New(context.Background(), vms.VMNewParams{
+		BootVolume: nirvana.F(vms.VMNewParamsBootVolume{
 			Size: nirvana.F(int64(100)),
 		}),
 		CPU: nirvana.F(vms.CPUParam{
@@ -134,8 +134,8 @@ func TestDeleteRetryCountHeader(t *testing.T) {
 		}),
 		option.WithHeaderDel("X-Stainless-Retry-Count"),
 	)
-	res, err := client.Compute.VMs.New(context.Background(), vms.ComputeVMNewParams{
-		BootVolume: nirvana.F(vms.ComputeVMNewParamsBootVolume{
+	res, err := client.Compute.VMs.New(context.Background(), vms.VMNewParams{
+		BootVolume: nirvana.F(vms.VMNewParamsBootVolume{
 			Size: nirvana.F(int64(100)),
 		}),
 		CPU: nirvana.F(vms.CPUParam{
@@ -182,8 +182,8 @@ func TestOverwriteRetryCountHeader(t *testing.T) {
 		}),
 		option.WithHeader("X-Stainless-Retry-Count", "42"),
 	)
-	res, err := client.Compute.VMs.New(context.Background(), vms.ComputeVMNewParams{
-		BootVolume: nirvana.F(vms.ComputeVMNewParamsBootVolume{
+	res, err := client.Compute.VMs.New(context.Background(), vms.VMNewParams{
+		BootVolume: nirvana.F(vms.VMNewParamsBootVolume{
 			Size: nirvana.F(int64(100)),
 		}),
 		CPU: nirvana.F(vms.CPUParam{
@@ -229,8 +229,8 @@ func TestRetryAfterMs(t *testing.T) {
 			},
 		}),
 	)
-	res, err := client.Compute.VMs.New(context.Background(), vms.ComputeVMNewParams{
-		BootVolume: nirvana.F(vms.ComputeVMNewParamsBootVolume{
+	res, err := client.Compute.VMs.New(context.Background(), vms.VMNewParams{
+		BootVolume: nirvana.F(vms.VMNewParamsBootVolume{
 			Size: nirvana.F(int64(100)),
 		}),
 		CPU: nirvana.F(vms.CPUParam{
@@ -270,8 +270,8 @@ func TestContextCancel(t *testing.T) {
 	)
 	cancelCtx, cancel := context.WithCancel(context.Background())
 	cancel()
-	res, err := client.Compute.VMs.New(cancelCtx, vms.ComputeVMNewParams{
-		BootVolume: nirvana.F(vms.ComputeVMNewParamsBootVolume{
+	res, err := client.Compute.VMs.New(cancelCtx, vms.VMNewParams{
+		BootVolume: nirvana.F(vms.VMNewParamsBootVolume{
 			Size: nirvana.F(int64(100)),
 		}),
 		CPU: nirvana.F(vms.CPUParam{
@@ -308,8 +308,8 @@ func TestContextCancelDelay(t *testing.T) {
 	)
 	cancelCtx, cancel := context.WithTimeout(context.Background(), 2*time.Millisecond)
 	defer cancel()
-	res, err := client.Compute.VMs.New(cancelCtx, vms.ComputeVMNewParams{
-		BootVolume: nirvana.F(vms.ComputeVMNewParamsBootVolume{
+	res, err := client.Compute.VMs.New(cancelCtx, vms.VMNewParams{
+		BootVolume: nirvana.F(vms.VMNewParamsBootVolume{
 			Size: nirvana.F(int64(100)),
 		}),
 		CPU: nirvana.F(vms.CPUParam{
@@ -352,8 +352,8 @@ func TestContextDeadline(t *testing.T) {
 				},
 			}),
 		)
-		res, err := client.Compute.VMs.New(deadlineCtx, vms.ComputeVMNewParams{
-			BootVolume: nirvana.F(vms.ComputeVMNewParamsBootVolume{
+		res, err := client.Compute.VMs.New(deadlineCtx, vms.VMNewParams{
+			BootVolume: nirvana.F(vms.VMNewParamsBootVolume{
 				Size: nirvana.F(int64(100)),
 			}),
 			CPU: nirvana.F(vms.CPUParam{
