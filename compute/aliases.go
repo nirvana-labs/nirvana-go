@@ -22,7 +22,7 @@ const RegionNameUsSva1 = shared.RegionNameUsSva1
 const RegionNameUsChi1 = shared.RegionNameUsChi1
 
 // This is an alias to an internal value.
-const RegionNameUsDco1 = shared.RegionNameUsDco1
+const RegionNameUsWdc1 = shared.RegionNameUsWdc1
 
 // This is an alias to an internal value.
 const RegionNameEuLon1 = shared.RegionNameEuLon1

@@ -8,7 +8,7 @@ const (
 	RegionNameUsSea1 RegionName = "us-sea-1"
 	RegionNameUsSva1 RegionName = "us-sva-1"
 	RegionNameUsChi1 RegionName = "us-chi-1"
-	RegionNameUsDco1 RegionName = "us-dco-1"
+	RegionNameUsWdc1 RegionName = "us-wdc-1"
 	RegionNameEuLon1 RegionName = "eu-lon-1"
 	RegionNameEuAms1 RegionName = "eu-ams-1"
 	RegionNameEuFrk1 RegionName = "eu-frk-1"
@@ -19,7 +19,7 @@ const (
 
 func (r RegionName) IsKnown() bool {
 	switch r {
-	case RegionNameUsSea1, RegionNameUsSva1, RegionNameUsChi1, RegionNameUsDco1, RegionNameEuLon1, RegionNameEuAms1, RegionNameEuFrk1, RegionNameApMum1, RegionNameApSin1, RegionNameApTyo1:
+	case RegionNameUsSea1, RegionNameUsSva1, RegionNameUsChi1, RegionNameUsWdc1, RegionNameEuLon1, RegionNameEuAms1, RegionNameEuFrk1, RegionNameApMum1, RegionNameApSin1, RegionNameApTyo1:
 		return true
 	}
 	return false
