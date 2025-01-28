@@ -13,46 +13,34 @@ type Error = apierror.Error
 type RegionName = shared.RegionName
 
 // This is an alias to an internal value.
-const RegionNameAmsterdam = shared.RegionNameAmsterdam
+const RegionNameUsSea1 = shared.RegionNameUsSea1
 
 // This is an alias to an internal value.
-const RegionNameChicago = shared.RegionNameChicago
+const RegionNameUsSva1 = shared.RegionNameUsSva1
 
 // This is an alias to an internal value.
-const RegionNameFrankfurt = shared.RegionNameFrankfurt
+const RegionNameUsChi1 = shared.RegionNameUsChi1
 
 // This is an alias to an internal value.
-const RegionNameHongkong = shared.RegionNameHongkong
+const RegionNameUsDco1 = shared.RegionNameUsDco1
 
 // This is an alias to an internal value.
-const RegionNameLondon = shared.RegionNameLondon
+const RegionNameEuLon1 = shared.RegionNameEuLon1
 
 // This is an alias to an internal value.
-const RegionNameMumbai = shared.RegionNameMumbai
+const RegionNameEuAms1 = shared.RegionNameEuAms1
 
 // This is an alias to an internal value.
-const RegionNameSaopaulo = shared.RegionNameSaopaulo
+const RegionNameEuFrk1 = shared.RegionNameEuFrk1
 
 // This is an alias to an internal value.
-const RegionNameSeattle = shared.RegionNameSeattle
+const RegionNameApMum1 = shared.RegionNameApMum1
 
 // This is an alias to an internal value.
-const RegionNameSiliconvalley = shared.RegionNameSiliconvalley
+const RegionNameApSin1 = shared.RegionNameApSin1
 
 // This is an alias to an internal value.
-const RegionNameSingapore = shared.RegionNameSingapore
-
-// This is an alias to an internal value.
-const RegionNameStockholm = shared.RegionNameStockholm
-
-// This is an alias to an internal value.
-const RegionNameSydney = shared.RegionNameSydney
-
-// This is an alias to an internal value.
-const RegionNameTokyo = shared.RegionNameTokyo
-
-// This is an alias to an internal value.
-const RegionNameWashingtondc = shared.RegionNameWashingtondc
+const RegionNameApTyo1 = shared.RegionNameApTyo1
 
 // This is an alias to an internal type.
 type ResourceStatus = shared.ResourceStatus
