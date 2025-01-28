@@ -5,25 +5,21 @@ package shared
 type RegionName string
 
 const (
-	RegionNameAmsterdam     RegionName = "amsterdam"
-	RegionNameChicago       RegionName = "chicago"
-	RegionNameFrankfurt     RegionName = "frankfurt"
-	RegionNameHongkong      RegionName = "hongkong"
-	RegionNameLondon        RegionName = "london"
-	RegionNameMumbai        RegionName = "mumbai"
-	RegionNameSaopaulo      RegionName = "saopaulo"
-	RegionNameSeattle       RegionName = "seattle"
-	RegionNameSiliconvalley RegionName = "siliconvalley"
-	RegionNameSingapore     RegionName = "singapore"
-	RegionNameStockholm     RegionName = "stockholm"
-	RegionNameSydney        RegionName = "sydney"
-	RegionNameTokyo         RegionName = "tokyo"
-	RegionNameWashingtondc  RegionName = "washingtondc"
+	RegionNameUsSea1 RegionName = "us-sea-1"
+	RegionNameUsSva1 RegionName = "us-sva-1"
+	RegionNameUsChi1 RegionName = "us-chi-1"
+	RegionNameUsDco1 RegionName = "us-dco-1"
+	RegionNameEuLon1 RegionName = "eu-lon-1"
+	RegionNameEuAms1 RegionName = "eu-ams-1"
+	RegionNameEuFrk1 RegionName = "eu-frk-1"
+	RegionNameApMum1 RegionName = "ap-mum-1"
+	RegionNameApSin1 RegionName = "ap-sin-1"
+	RegionNameApTyo1 RegionName = "ap-tyo-1"
 )
 
 func (r RegionName) IsKnown() bool {
 	switch r {
-	case RegionNameAmsterdam, RegionNameChicago, RegionNameFrankfurt, RegionNameHongkong, RegionNameLondon, RegionNameMumbai, RegionNameSaopaulo, RegionNameSeattle, RegionNameSiliconvalley, RegionNameSingapore, RegionNameStockholm, RegionNameSydney, RegionNameTokyo, RegionNameWashingtondc:
+	case RegionNameUsSea1, RegionNameUsSva1, RegionNameUsChi1, RegionNameUsDco1, RegionNameEuLon1, RegionNameEuAms1, RegionNameEuFrk1, RegionNameApMum1, RegionNameApSin1, RegionNameApTyo1:
 		return true
 	}
 	return false
