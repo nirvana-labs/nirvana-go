@@ -186,13 +186,12 @@ func (r SSHKeyParam) MarshalJSON() (data []byte, err error) {
 
 // VM details.
 type VM struct {
-	ID string `json:"id,required"`
-	// Volume details.
-	BootVolume Volume `json:"boot_volume,required"`
+	ID           string `json:"id,required"`
+	BootVolumeID string `json:"boot_volume_id,required"`
 	// CPU details.
-	CPUConfig   CPU      `json:"cpu_config,required"`
-	CreatedAt   string   `json:"created_at,required"`
-	DataVolumes []Volume `json:"data_volumes,required"`
+	CPUConfig     CPU      `json:"cpu_config,required"`
+	CreatedAt     string   `json:"created_at,required"`
+	DataVolumeIDs []string `json:"data_volume_ids,required"`
 	// RAM details.
 	MemConfig Ram                   `json:"mem_config,required"`
 	Name      string                `json:"name,required"`
@@ -206,20 +205,20 @@ type VM struct {
 
 // vmJSON contains the JSON metadata for the struct [VM]
 type vmJSON struct {
-	ID          apijson.Field
-	BootVolume  apijson.Field
-	CPUConfig   apijson.Field
-	CreatedAt   apijson.Field
-	DataVolumes apijson.Field
-	MemConfig   apijson.Field
-	Name        apijson.Field
-	PublicIP    apijson.Field
-	Region      apijson.Field
-	Status      apijson.Field
-	UpdatedAt   apijson.Field
-	VPCID       apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
+	ID            apijson.Field
+	BootVolumeID  apijson.Field
+	CPUConfig     apijson.Field
+	CreatedAt     apijson.Field
+	DataVolumeIDs apijson.Field
+	MemConfig     apijson.Field
+	Name          apijson.Field
+	PublicIP      apijson.Field
+	Region        apijson.Field
+	Status        apijson.Field
+	UpdatedAt     apijson.Field
+	VPCID         apijson.Field
+	raw           string
+	ExtraFields   map[string]apijson.Field
 }
 
 func (r *VM) UnmarshalJSON(data []byte) (err error) {
