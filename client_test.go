@@ -48,13 +48,11 @@ func TestUserAgentHeader(t *testing.T) {
 		}),
 		Name:            nirvana.F("my-vm"),
 		OSImageName:     nirvana.F("noble-2024-12-06"),
-		Ports:           nirvana.F([]string{"22", "80", "443"}),
 		PublicIPEnabled: nirvana.F(true),
 		Ram: nirvana.F(compute.RamParam{
 			Size: nirvana.F(int64(2)),
 		}),
-		Region:        nirvana.F(shared.RegionNameUsSea1),
-		SourceAddress: nirvana.F("0.0.0.0/0"),
+		Region: nirvana.F(shared.RegionNameUsSea1),
 		SSHKey: nirvana.F(compute.SSHKeyParam{
 			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 		}),
@@ -90,13 +88,11 @@ func TestRetryAfter(t *testing.T) {
 		}),
 		Name:            nirvana.F("my-vm"),
 		OSImageName:     nirvana.F("noble-2024-12-06"),
-		Ports:           nirvana.F([]string{"22", "80", "443"}),
 		PublicIPEnabled: nirvana.F(true),
 		Ram: nirvana.F(compute.RamParam{
 			Size: nirvana.F(int64(2)),
 		}),
-		Region:        nirvana.F(shared.RegionNameUsSea1),
-		SourceAddress: nirvana.F("0.0.0.0/0"),
+		Region: nirvana.F(shared.RegionNameUsSea1),
 		SSHKey: nirvana.F(compute.SSHKeyParam{
 			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 		}),
@@ -143,13 +139,11 @@ func TestDeleteRetryCountHeader(t *testing.T) {
 		}),
 		Name:            nirvana.F("my-vm"),
 		OSImageName:     nirvana.F("noble-2024-12-06"),
-		Ports:           nirvana.F([]string{"22", "80", "443"}),
 		PublicIPEnabled: nirvana.F(true),
 		Ram: nirvana.F(compute.RamParam{
 			Size: nirvana.F(int64(2)),
 		}),
-		Region:        nirvana.F(shared.RegionNameUsSea1),
-		SourceAddress: nirvana.F("0.0.0.0/0"),
+		Region: nirvana.F(shared.RegionNameUsSea1),
 		SSHKey: nirvana.F(compute.SSHKeyParam{
 			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 		}),
@@ -191,13 +185,11 @@ func TestOverwriteRetryCountHeader(t *testing.T) {
 		}),
 		Name:            nirvana.F("my-vm"),
 		OSImageName:     nirvana.F("noble-2024-12-06"),
-		Ports:           nirvana.F([]string{"22", "80", "443"}),
 		PublicIPEnabled: nirvana.F(true),
 		Ram: nirvana.F(compute.RamParam{
 			Size: nirvana.F(int64(2)),
 		}),
-		Region:        nirvana.F(shared.RegionNameUsSea1),
-		SourceAddress: nirvana.F("0.0.0.0/0"),
+		Region: nirvana.F(shared.RegionNameUsSea1),
 		SSHKey: nirvana.F(compute.SSHKeyParam{
 			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 		}),
@@ -238,13 +230,11 @@ func TestRetryAfterMs(t *testing.T) {
 		}),
 		Name:            nirvana.F("my-vm"),
 		OSImageName:     nirvana.F("noble-2024-12-06"),
-		Ports:           nirvana.F([]string{"22", "80", "443"}),
 		PublicIPEnabled: nirvana.F(true),
 		Ram: nirvana.F(compute.RamParam{
 			Size: nirvana.F(int64(2)),
 		}),
-		Region:        nirvana.F(shared.RegionNameUsSea1),
-		SourceAddress: nirvana.F("0.0.0.0/0"),
+		Region: nirvana.F(shared.RegionNameUsSea1),
 		SSHKey: nirvana.F(compute.SSHKeyParam{
 			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 		}),
@@ -279,13 +269,11 @@ func TestContextCancel(t *testing.T) {
 		}),
 		Name:            nirvana.F("my-vm"),
 		OSImageName:     nirvana.F("noble-2024-12-06"),
-		Ports:           nirvana.F([]string{"22", "80", "443"}),
 		PublicIPEnabled: nirvana.F(true),
 		Ram: nirvana.F(compute.RamParam{
 			Size: nirvana.F(int64(2)),
 		}),
-		Region:        nirvana.F(shared.RegionNameUsSea1),
-		SourceAddress: nirvana.F("0.0.0.0/0"),
+		Region: nirvana.F(shared.RegionNameUsSea1),
 		SSHKey: nirvana.F(compute.SSHKeyParam{
 			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 		}),
@@ -317,13 +305,11 @@ func TestContextCancelDelay(t *testing.T) {
 		}),
 		Name:            nirvana.F("my-vm"),
 		OSImageName:     nirvana.F("noble-2024-12-06"),
-		Ports:           nirvana.F([]string{"22", "80", "443"}),
 		PublicIPEnabled: nirvana.F(true),
 		Ram: nirvana.F(compute.RamParam{
 			Size: nirvana.F(int64(2)),
 		}),
-		Region:        nirvana.F(shared.RegionNameUsSea1),
-		SourceAddress: nirvana.F("0.0.0.0/0"),
+		Region: nirvana.F(shared.RegionNameUsSea1),
 		SSHKey: nirvana.F(compute.SSHKeyParam{
 			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 		}),
@@ -361,13 +347,11 @@ func TestContextDeadline(t *testing.T) {
 			}),
 			Name:            nirvana.F("my-vm"),
 			OSImageName:     nirvana.F("noble-2024-12-06"),
-			Ports:           nirvana.F([]string{"22", "80", "443"}),
 			PublicIPEnabled: nirvana.F(true),
 			Ram: nirvana.F(compute.RamParam{
 				Size: nirvana.F(int64(2)),
 			}),
-			Region:        nirvana.F(shared.RegionNameUsSea1),
-			SourceAddress: nirvana.F("0.0.0.0/0"),
+			Region: nirvana.F(shared.RegionNameUsSea1),
 			SSHKey: nirvana.F(compute.SSHKeyParam{
 				PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 			}),

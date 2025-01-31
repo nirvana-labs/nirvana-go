@@ -57,7 +57,6 @@ func TestVolumeUpdate(t *testing.T) {
 		"volume_id",
 		compute.VolumeUpdateParams{
 			Size: nirvana.F(int64(100)),
-			VMID: nirvana.F("vm_id"),
 		},
 	)
 	if err != nil {
@@ -103,13 +102,7 @@ func TestVolumeDelete(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAuthToken("My Auth Token"),
 	)
-	_, err := client.Compute.Volumes.Delete(
-		context.TODO(),
-		"volume_id",
-		compute.VolumeDeleteParams{
-			VMID: nirvana.F("vm_id"),
-		},
-	)
+	_, err := client.Compute.Volumes.Delete(context.TODO(), "volume_id")
 	if err != nil {
 		var apierr *nirvana.Error
 		if errors.As(err, &apierr) {

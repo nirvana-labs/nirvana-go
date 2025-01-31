@@ -256,16 +256,16 @@ type VMNewParams struct {
 	CPU             param.Field[CPUParam] `json:"cpu,required"`
 	Name            param.Field[string]   `json:"name,required"`
 	OSImageName     param.Field[string]   `json:"os_image_name,required"`
-	Ports           param.Field[[]string] `json:"ports,required"`
 	PublicIPEnabled param.Field[bool]     `json:"public_ip_enabled,required"`
 	// RAM details.
-	Ram           param.Field[RamParam]          `json:"ram,required"`
-	Region        param.Field[shared.RegionName] `json:"region,required"`
-	SourceAddress param.Field[string]            `json:"source_address,required"`
+	Ram    param.Field[RamParam]          `json:"ram,required"`
+	Region param.Field[shared.RegionName] `json:"region,required"`
 	// SSH key details.
-	SSHKey      param.Field[SSHKeyParam]             `json:"ssh_key,required"`
-	DataVolumes param.Field[[]VMNewParamsDataVolume] `json:"data_volumes"`
-	SubnetID    param.Field[string]                  `json:"subnet_id"`
+	SSHKey        param.Field[SSHKeyParam]             `json:"ssh_key,required"`
+	DataVolumes   param.Field[[]VMNewParamsDataVolume] `json:"data_volumes"`
+	Ports         param.Field[[]string]                `json:"ports"`
+	SourceAddress param.Field[string]                  `json:"source_address"`
+	SubnetID      param.Field[string]                  `json:"subnet_id"`
 }
 
 func (r VMNewParams) MarshalJSON() (data []byte, err error) {
