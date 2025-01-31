@@ -61,13 +61,11 @@ func main() {
 		}),
 		Name:            nirvana.F("my-vm"),
 		OSImageName:     nirvana.F("noble-2024-12-06"),
-		Ports:           nirvana.F([]string{"22", "80", "443"}),
 		PublicIPEnabled: nirvana.F(true),
 		Ram: nirvana.F(compute.RamParam{
 			Size: nirvana.F(int64(2)),
 		}),
-		Region:        nirvana.F(shared.RegionNameUsSea1),
-		SourceAddress: nirvana.F("0.0.0.0/0"),
+		Region: nirvana.F(shared.RegionNameUsSea1),
 		SSHKey: nirvana.F(compute.SSHKeyParam{
 			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 		}),
@@ -202,13 +200,11 @@ _, err := client.Compute.VMs.New(context.TODO(), compute.VMNewParams{
 	}),
 	Name:            nirvana.F("my-vm"),
 	OSImageName:     nirvana.F("noble-2024-12-06"),
-	Ports:           nirvana.F([]string{"22", "80", "443"}),
 	PublicIPEnabled: nirvana.F(true),
 	Ram: nirvana.F(compute.RamParam{
 		Size: nirvana.F(int64(2)),
 	}),
-	Region:        nirvana.F(shared.RegionNameUsSea1),
-	SourceAddress: nirvana.F("0.0.0.0/0"),
+	Region: nirvana.F(shared.RegionNameUsSea1),
 	SSHKey: nirvana.F(compute.SSHKeyParam{
 		PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 	}),
@@ -248,13 +244,11 @@ client.Compute.VMs.New(
 		}),
 		Name:            nirvana.F("my-vm"),
 		OSImageName:     nirvana.F("noble-2024-12-06"),
-		Ports:           nirvana.F([]string{"22", "80", "443"}),
 		PublicIPEnabled: nirvana.F(true),
 		Ram: nirvana.F(compute.RamParam{
 			Size: nirvana.F(int64(2)),
 		}),
-		Region:        nirvana.F(shared.RegionNameUsSea1),
-		SourceAddress: nirvana.F("0.0.0.0/0"),
+		Region: nirvana.F(shared.RegionNameUsSea1),
 		SSHKey: nirvana.F(compute.SSHKeyParam{
 			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 		}),
@@ -303,13 +297,11 @@ client.Compute.VMs.New(
 		}),
 		Name:            nirvana.F("my-vm"),
 		OSImageName:     nirvana.F("noble-2024-12-06"),
-		Ports:           nirvana.F([]string{"22", "80", "443"}),
 		PublicIPEnabled: nirvana.F(true),
 		Ram: nirvana.F(compute.RamParam{
 			Size: nirvana.F(int64(2)),
 		}),
-		Region:        nirvana.F(shared.RegionNameUsSea1),
-		SourceAddress: nirvana.F("0.0.0.0/0"),
+		Region: nirvana.F(shared.RegionNameUsSea1),
 		SSHKey: nirvana.F(compute.SSHKeyParam{
 			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 		}),
