@@ -48,9 +48,7 @@ func TestVMNewWithOptionalParams(t *testing.T) {
 			Size: nirvana.F(int64(100)),
 			Type: nirvana.F(compute.StorageTypeNvme),
 		}}),
-		Ports:         nirvana.F([]string{"22", "80", "443"}),
-		SourceAddress: nirvana.F("0.0.0.0/0"),
-		SubnetID:      nirvana.F("123e4567-e89b-12d3-a456-426614174000"),
+		SubnetID: nirvana.F("123e4567-e89b-12d3-a456-426614174000"),
 	})
 	if err != nil {
 		var apierr *nirvana.Error
@@ -77,16 +75,9 @@ func TestVMUpdateWithOptionalParams(t *testing.T) {
 		context.TODO(),
 		"vm_id",
 		compute.VMUpdateParams{
-			BootVolume: nirvana.F(compute.VMUpdateParamsBootVolume{
-				Size: nirvana.F(int64(100)),
-			}),
 			CPU: nirvana.F(compute.CPUParam{
 				Cores: nirvana.F(int64(2)),
 			}),
-			DataVolumes: nirvana.F([]compute.VMUpdateParamsDataVolume{{
-				Size: nirvana.F(int64(100)),
-				Type: nirvana.F(compute.StorageTypeNvme),
-			}}),
 			Ram: nirvana.F(compute.RamParam{
 				Size: nirvana.F(int64(2)),
 			}),
