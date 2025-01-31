@@ -195,6 +195,7 @@ type VM struct {
 	// RAM details.
 	MemConfig Ram                   `json:"mem_config,required"`
 	Name      string                `json:"name,required"`
+	PrivateIP string                `json:"private_ip,required"`
 	PublicIP  string                `json:"public_ip,required"`
 	Region    shared.RegionName     `json:"region,required"`
 	Status    shared.ResourceStatus `json:"status,required"`
@@ -212,6 +213,7 @@ type vmJSON struct {
 	DataVolumeIDs apijson.Field
 	MemConfig     apijson.Field
 	Name          apijson.Field
+	PrivateIP     apijson.Field
 	PublicIP      apijson.Field
 	Region        apijson.Field
 	Status        apijson.Field
@@ -261,11 +263,9 @@ type VMNewParams struct {
 	Ram    param.Field[RamParam]          `json:"ram,required"`
 	Region param.Field[shared.RegionName] `json:"region,required"`
 	// SSH key details.
-	SSHKey        param.Field[SSHKeyParam]             `json:"ssh_key,required"`
-	DataVolumes   param.Field[[]VMNewParamsDataVolume] `json:"data_volumes"`
-	Ports         param.Field[[]string]                `json:"ports"`
-	SourceAddress param.Field[string]                  `json:"source_address"`
-	SubnetID      param.Field[string]                  `json:"subnet_id"`
+	SSHKey      param.Field[SSHKeyParam]             `json:"ssh_key,required"`
+	DataVolumes param.Field[[]VMNewParamsDataVolume] `json:"data_volumes"`
+	SubnetID    param.Field[string]                  `json:"subnet_id"`
 }
 
 func (r VMNewParams) MarshalJSON() (data []byte, err error) {
@@ -293,35 +293,12 @@ func (r VMNewParamsDataVolume) MarshalJSON() (data []byte, err error) {
 }
 
 type VMUpdateParams struct {
-	// Boot volume create request.
-	BootVolume param.Field[VMUpdateParamsBootVolume] `json:"boot_volume"`
 	// CPU details.
-	CPU         param.Field[CPUParam]                   `json:"cpu"`
-	DataVolumes param.Field[[]VMUpdateParamsDataVolume] `json:"data_volumes"`
+	CPU param.Field[CPUParam] `json:"cpu"`
 	// RAM details.
 	Ram param.Field[RamParam] `json:"ram"`
 }
 
 func (r VMUpdateParams) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r)
-}
-
-// Boot volume create request.
-type VMUpdateParamsBootVolume struct {
-	Size param.Field[int64] `json:"size,required"`
-}
-
-func (r VMUpdateParamsBootVolume) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r)
-}
-
-// VM data volume create request.
-type VMUpdateParamsDataVolume struct {
-	Size param.Field[int64] `json:"size,required"`
-	// Storage type.
-	Type param.Field[StorageType] `json:"type"`
-}
-
-func (r VMUpdateParamsDataVolume) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
