@@ -36,13 +36,11 @@ func TestVMNewWithOptionalParams(t *testing.T) {
 		}),
 		Name:            nirvana.F("my-vm"),
 		OSImageName:     nirvana.F("noble-2024-12-06"),
-		Ports:           nirvana.F([]string{"22", "80", "443"}),
 		PublicIPEnabled: nirvana.F(true),
 		Ram: nirvana.F(compute.RamParam{
 			Size: nirvana.F(int64(2)),
 		}),
-		Region:        nirvana.F(shared.RegionNameUsSea1),
-		SourceAddress: nirvana.F("0.0.0.0/0"),
+		Region: nirvana.F(shared.RegionNameUsSea1),
 		SSHKey: nirvana.F(compute.SSHKeyParam{
 			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 		}),
@@ -50,7 +48,9 @@ func TestVMNewWithOptionalParams(t *testing.T) {
 			Size: nirvana.F(int64(100)),
 			Type: nirvana.F(compute.StorageTypeNvme),
 		}}),
-		SubnetID: nirvana.F("123e4567-e89b-12d3-a456-426614174000"),
+		Ports:         nirvana.F([]string{"22", "80", "443"}),
+		SourceAddress: nirvana.F("0.0.0.0/0"),
+		SubnetID:      nirvana.F("123e4567-e89b-12d3-a456-426614174000"),
 	})
 	if err != nil {
 		var apierr *nirvana.Error
