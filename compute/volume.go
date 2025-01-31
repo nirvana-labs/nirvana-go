@@ -63,14 +63,14 @@ func (r *VolumeService) List(ctx context.Context, opts ...option.RequestOption) 
 }
 
 // Delete a Volume. Boot or data volumes can be deleted.
-func (r *VolumeService) Delete(ctx context.Context, volumeID string, body VolumeDeleteParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
+func (r *VolumeService) Delete(ctx context.Context, volumeID string, opts ...option.RequestOption) (res *operations.Operation, err error) {
 	opts = append(r.Options[:], opts...)
 	if volumeID == "" {
 		err = errors.New("missing required volume_id parameter")
 		return
 	}
 	path := fmt.Sprintf("compute/volumes/%s", volumeID)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, body, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
 	return
 }
 
@@ -183,18 +183,9 @@ func (r VolumeNewParams) MarshalJSON() (data []byte, err error) {
 }
 
 type VolumeUpdateParams struct {
-	Size param.Field[int64]  `json:"size,required"`
-	VMID param.Field[string] `json:"vm_id,required"`
+	Size param.Field[int64] `json:"size,required"`
 }
 
 func (r VolumeUpdateParams) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r)
-}
-
-type VolumeDeleteParams struct {
-	VMID param.Field[string] `json:"vm_id,required"`
-}
-
-func (r VolumeDeleteParams) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
