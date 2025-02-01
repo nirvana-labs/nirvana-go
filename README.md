@@ -310,6 +310,45 @@ client.Compute.VMs.New(
 )
 ```
 
+### Accessing raw response data (e.g. response headers)
+
+You can access the raw HTTP response data by using the `option.WithResponseInto()` request option. This is useful when
+you need to examine response headers, status codes, or other details.
+
+```go
+// Create a variable to store the HTTP response
+var response *http.Response
+operation, err := client.Compute.VMs.New(
+	context.TODO(),
+	compute.VMNewParams{
+		BootVolume: nirvana.F(compute.VMNewParamsBootVolume{
+			Size: nirvana.F(int64(100)),
+		}),
+		CPU: nirvana.F(compute.CPUParam{
+			Cores: nirvana.F(int64(2)),
+		}),
+		Name:            nirvana.F("my-vm"),
+		OSImageName:     nirvana.F("noble-2024-12-06"),
+		PublicIPEnabled: nirvana.F(true),
+		Ram: nirvana.F(compute.RamParam{
+			Size: nirvana.F(int64(2)),
+		}),
+		Region: nirvana.F(shared.RegionNameUsSea1),
+		SSHKey: nirvana.F(compute.SSHKeyParam{
+			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
+		}),
+	},
+	option.WithResponseInto(&response),
+)
+if err != nil {
+	// handle error
+}
+fmt.Printf("%+v\n", operation)
+
+fmt.Printf("Status Code: %d\n", response.StatusCode)
+fmt.Printf("Headers: %+#v\n", response.Header)
+```
+
 ### Making custom/undocumented requests
 
 This library is typed for convenient access to the documented API. If you need to access undocumented
