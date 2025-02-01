@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.0-alpha.19 (2025-02-01)
+
+Full Changelog: [v0.1.0-alpha.18...v0.1.0-alpha.19](https://github.com/nirvana-labs/nirvana-go/compare/v0.1.0-alpha.18...v0.1.0-alpha.19)
+
+### Bug Fixes
+
+* fix unicode encoding for json ([#76](https://github.com/nirvana-labs/nirvana-go/issues/76)) ([8cf4f32](https://github.com/nirvana-labs/nirvana-go/commit/8cf4f32734bc154dc7153af89542dce2d294520c))
+
+
+### Documentation
+
+* document raw responses ([#78](https://github.com/nirvana-labs/nirvana-go/issues/78)) ([7191806](https://github.com/nirvana-labs/nirvana-go/commit/7191806a52f05f6a1f19d24c2553f2a5f9c9097e))
+
 ## 0.1.0-alpha.18 (2025-01-31)
 
 Full Changelog: [v0.1.0-alpha.17...v0.1.0-alpha.18](https://github.com/nirvana-labs/nirvana-go/compare/v0.1.0-alpha.17...v0.1.0-alpha.18)
