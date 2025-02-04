@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.20 (2025-02-04)
+
+Full Changelog: [v0.1.0-alpha.19...v0.1.0-alpha.20](https://github.com/nirvana-labs/nirvana-go/compare/v0.1.0-alpha.19...v0.1.0-alpha.20)
+
+### Features
+
+* **client:** send `X-Stainless-Timeout` header ([#80](https://github.com/nirvana-labs/nirvana-go/issues/80)) ([deb01b6](https://github.com/nirvana-labs/nirvana-go/commit/deb01b607f6aa4e9af872d14269fa0c0a38e62cb))
+
 ## 0.1.0-alpha.19 (2025-02-01)
 
 Full Changelog: [v0.1.0-alpha.18...v0.1.0-alpha.19](https://github.com/nirvana-labs/nirvana-go/compare/v0.1.0-alpha.18...v0.1.0-alpha.19)
