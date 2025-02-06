@@ -46,7 +46,6 @@ func TestVMNewWithOptionalParams(t *testing.T) {
 		}),
 		DataVolumes: nirvana.F([]compute.VMNewParamsDataVolume{{
 			Size: nirvana.F(int64(100)),
-			Type: nirvana.F(compute.StorageTypeNvme),
 		}}),
 		SubnetID: nirvana.F("123e4567-e89b-12d3-a456-426614174000"),
 	})

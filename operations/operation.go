@@ -33,7 +33,7 @@ func NewOperationService(opts ...option.RequestOption) (r *OperationService) {
 }
 
 // List all operations
-func (r *OperationService) List(ctx context.Context, opts ...option.RequestOption) (res *[]Operation, err error) {
+func (r *OperationService) List(ctx context.Context, opts ...option.RequestOption) (res *OperationListResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "operations"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
@@ -134,4 +134,25 @@ func (r OperationType) IsKnown() bool {
 		return true
 	}
 	return false
+}
+
+type OperationListResponse struct {
+	Items []Operation               `json:"items,required"`
+	JSON  operationListResponseJSON `json:"-"`
+}
+
+// operationListResponseJSON contains the JSON metadata for the struct
+// [OperationListResponse]
+type operationListResponseJSON struct {
+	Items       apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *OperationListResponse) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r operationListResponseJSON) RawJSON() string {
+	return r.raw
 }
