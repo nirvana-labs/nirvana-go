@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.21 (2025-02-06)
+
+Full Changelog: [v0.1.0-alpha.20...v0.1.0-alpha.21](https://github.com/nirvana-labs/nirvana-go/compare/v0.1.0-alpha.20...v0.1.0-alpha.21)
+
+### Chores
+
+* add UnionUnmarshaler for responses that are interfaces ([#83](https://github.com/nirvana-labs/nirvana-go/issues/83)) ([cd1e275](https://github.com/nirvana-labs/nirvana-go/commit/cd1e275a084fa68290eaa1c115bdbe81c0b71d4e))
+
 ## 0.1.0-alpha.20 (2025-02-04)
 
 Full Changelog: [v0.1.0-alpha.19...v0.1.0-alpha.20](https://github.com/nirvana-labs/nirvana-go/compare/v0.1.0-alpha.19...v0.1.0-alpha.20)
