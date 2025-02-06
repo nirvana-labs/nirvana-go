@@ -111,6 +111,7 @@ type Volume struct {
 	// Storage type.
 	Type      StorageType `json:"type,required"`
 	UpdatedAt string      `json:"updated_at,required"`
+	VMID      string      `json:"vm_id"`
 	JSON      volumeJSON  `json:"-"`
 }
 
@@ -122,6 +123,7 @@ type volumeJSON struct {
 	Size        apijson.Field
 	Type        apijson.Field
 	UpdatedAt   apijson.Field
+	VMID        apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
