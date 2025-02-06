@@ -284,8 +284,6 @@ func (r VMNewParamsBootVolume) MarshalJSON() (data []byte, err error) {
 // VM data volume create request.
 type VMNewParamsDataVolume struct {
 	Size param.Field[int64] `json:"size,required"`
-	// Storage type.
-	Type param.Field[StorageType] `json:"type"`
 }
 
 func (r VMNewParamsDataVolume) MarshalJSON() (data []byte, err error) {

@@ -176,8 +176,6 @@ func (r volumeListResponseJSON) RawJSON() string {
 type VolumeNewParams struct {
 	Size param.Field[int64]  `json:"size,required"`
 	VMID param.Field[string] `json:"vm_id,required"`
-	// Storage type.
-	Type param.Field[StorageType] `json:"type"`
 }
 
 func (r VolumeNewParams) MarshalJSON() (data []byte, err error) {
