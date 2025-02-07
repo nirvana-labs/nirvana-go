@@ -43,16 +43,16 @@ func TestUserAgentHeader(t *testing.T) {
 		BootVolume: nirvana.F(compute.VMNewParamsBootVolume{
 			Size: nirvana.F(int64(100)),
 		}),
-		CPU: nirvana.F(compute.CPUParam{
-			Cores: nirvana.F(int64(2)),
+		CPUConfig: nirvana.F(compute.VMNewParamsCPUConfig{
+			Vcpu: nirvana.F(int64(2)),
+		}),
+		MemoryConfig: nirvana.F(compute.VMNewParamsMemoryConfig{
+			Size: nirvana.F(int64(2)),
 		}),
 		Name:            nirvana.F("my-vm"),
 		OSImageName:     nirvana.F("noble-2024-12-06"),
 		PublicIPEnabled: nirvana.F(true),
-		Ram: nirvana.F(compute.RamParam{
-			Size: nirvana.F(int64(2)),
-		}),
-		Region: nirvana.F(shared.RegionNameUsSea1),
+		Region:          nirvana.F(shared.RegionNameUsSea1),
 		SSHKey: nirvana.F(compute.SSHKeyParam{
 			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 		}),
@@ -83,16 +83,16 @@ func TestRetryAfter(t *testing.T) {
 		BootVolume: nirvana.F(compute.VMNewParamsBootVolume{
 			Size: nirvana.F(int64(100)),
 		}),
-		CPU: nirvana.F(compute.CPUParam{
-			Cores: nirvana.F(int64(2)),
+		CPUConfig: nirvana.F(compute.VMNewParamsCPUConfig{
+			Vcpu: nirvana.F(int64(2)),
+		}),
+		MemoryConfig: nirvana.F(compute.VMNewParamsMemoryConfig{
+			Size: nirvana.F(int64(2)),
 		}),
 		Name:            nirvana.F("my-vm"),
 		OSImageName:     nirvana.F("noble-2024-12-06"),
 		PublicIPEnabled: nirvana.F(true),
-		Ram: nirvana.F(compute.RamParam{
-			Size: nirvana.F(int64(2)),
-		}),
-		Region: nirvana.F(shared.RegionNameUsSea1),
+		Region:          nirvana.F(shared.RegionNameUsSea1),
 		SSHKey: nirvana.F(compute.SSHKeyParam{
 			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 		}),
@@ -134,16 +134,16 @@ func TestDeleteRetryCountHeader(t *testing.T) {
 		BootVolume: nirvana.F(compute.VMNewParamsBootVolume{
 			Size: nirvana.F(int64(100)),
 		}),
-		CPU: nirvana.F(compute.CPUParam{
-			Cores: nirvana.F(int64(2)),
+		CPUConfig: nirvana.F(compute.VMNewParamsCPUConfig{
+			Vcpu: nirvana.F(int64(2)),
+		}),
+		MemoryConfig: nirvana.F(compute.VMNewParamsMemoryConfig{
+			Size: nirvana.F(int64(2)),
 		}),
 		Name:            nirvana.F("my-vm"),
 		OSImageName:     nirvana.F("noble-2024-12-06"),
 		PublicIPEnabled: nirvana.F(true),
-		Ram: nirvana.F(compute.RamParam{
-			Size: nirvana.F(int64(2)),
-		}),
-		Region: nirvana.F(shared.RegionNameUsSea1),
+		Region:          nirvana.F(shared.RegionNameUsSea1),
 		SSHKey: nirvana.F(compute.SSHKeyParam{
 			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 		}),
@@ -180,16 +180,16 @@ func TestOverwriteRetryCountHeader(t *testing.T) {
 		BootVolume: nirvana.F(compute.VMNewParamsBootVolume{
 			Size: nirvana.F(int64(100)),
 		}),
-		CPU: nirvana.F(compute.CPUParam{
-			Cores: nirvana.F(int64(2)),
+		CPUConfig: nirvana.F(compute.VMNewParamsCPUConfig{
+			Vcpu: nirvana.F(int64(2)),
+		}),
+		MemoryConfig: nirvana.F(compute.VMNewParamsMemoryConfig{
+			Size: nirvana.F(int64(2)),
 		}),
 		Name:            nirvana.F("my-vm"),
 		OSImageName:     nirvana.F("noble-2024-12-06"),
 		PublicIPEnabled: nirvana.F(true),
-		Ram: nirvana.F(compute.RamParam{
-			Size: nirvana.F(int64(2)),
-		}),
-		Region: nirvana.F(shared.RegionNameUsSea1),
+		Region:          nirvana.F(shared.RegionNameUsSea1),
 		SSHKey: nirvana.F(compute.SSHKeyParam{
 			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 		}),
@@ -225,16 +225,16 @@ func TestRetryAfterMs(t *testing.T) {
 		BootVolume: nirvana.F(compute.VMNewParamsBootVolume{
 			Size: nirvana.F(int64(100)),
 		}),
-		CPU: nirvana.F(compute.CPUParam{
-			Cores: nirvana.F(int64(2)),
+		CPUConfig: nirvana.F(compute.VMNewParamsCPUConfig{
+			Vcpu: nirvana.F(int64(2)),
+		}),
+		MemoryConfig: nirvana.F(compute.VMNewParamsMemoryConfig{
+			Size: nirvana.F(int64(2)),
 		}),
 		Name:            nirvana.F("my-vm"),
 		OSImageName:     nirvana.F("noble-2024-12-06"),
 		PublicIPEnabled: nirvana.F(true),
-		Ram: nirvana.F(compute.RamParam{
-			Size: nirvana.F(int64(2)),
-		}),
-		Region: nirvana.F(shared.RegionNameUsSea1),
+		Region:          nirvana.F(shared.RegionNameUsSea1),
 		SSHKey: nirvana.F(compute.SSHKeyParam{
 			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 		}),
@@ -264,16 +264,16 @@ func TestContextCancel(t *testing.T) {
 		BootVolume: nirvana.F(compute.VMNewParamsBootVolume{
 			Size: nirvana.F(int64(100)),
 		}),
-		CPU: nirvana.F(compute.CPUParam{
-			Cores: nirvana.F(int64(2)),
+		CPUConfig: nirvana.F(compute.VMNewParamsCPUConfig{
+			Vcpu: nirvana.F(int64(2)),
+		}),
+		MemoryConfig: nirvana.F(compute.VMNewParamsMemoryConfig{
+			Size: nirvana.F(int64(2)),
 		}),
 		Name:            nirvana.F("my-vm"),
 		OSImageName:     nirvana.F("noble-2024-12-06"),
 		PublicIPEnabled: nirvana.F(true),
-		Ram: nirvana.F(compute.RamParam{
-			Size: nirvana.F(int64(2)),
-		}),
-		Region: nirvana.F(shared.RegionNameUsSea1),
+		Region:          nirvana.F(shared.RegionNameUsSea1),
 		SSHKey: nirvana.F(compute.SSHKeyParam{
 			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 		}),
@@ -300,16 +300,16 @@ func TestContextCancelDelay(t *testing.T) {
 		BootVolume: nirvana.F(compute.VMNewParamsBootVolume{
 			Size: nirvana.F(int64(100)),
 		}),
-		CPU: nirvana.F(compute.CPUParam{
-			Cores: nirvana.F(int64(2)),
+		CPUConfig: nirvana.F(compute.VMNewParamsCPUConfig{
+			Vcpu: nirvana.F(int64(2)),
+		}),
+		MemoryConfig: nirvana.F(compute.VMNewParamsMemoryConfig{
+			Size: nirvana.F(int64(2)),
 		}),
 		Name:            nirvana.F("my-vm"),
 		OSImageName:     nirvana.F("noble-2024-12-06"),
 		PublicIPEnabled: nirvana.F(true),
-		Ram: nirvana.F(compute.RamParam{
-			Size: nirvana.F(int64(2)),
-		}),
-		Region: nirvana.F(shared.RegionNameUsSea1),
+		Region:          nirvana.F(shared.RegionNameUsSea1),
 		SSHKey: nirvana.F(compute.SSHKeyParam{
 			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 		}),
@@ -342,16 +342,16 @@ func TestContextDeadline(t *testing.T) {
 			BootVolume: nirvana.F(compute.VMNewParamsBootVolume{
 				Size: nirvana.F(int64(100)),
 			}),
-			CPU: nirvana.F(compute.CPUParam{
-				Cores: nirvana.F(int64(2)),
+			CPUConfig: nirvana.F(compute.VMNewParamsCPUConfig{
+				Vcpu: nirvana.F(int64(2)),
+			}),
+			MemoryConfig: nirvana.F(compute.VMNewParamsMemoryConfig{
+				Size: nirvana.F(int64(2)),
 			}),
 			Name:            nirvana.F("my-vm"),
 			OSImageName:     nirvana.F("noble-2024-12-06"),
 			PublicIPEnabled: nirvana.F(true),
-			Ram: nirvana.F(compute.RamParam{
-				Size: nirvana.F(int64(2)),
-			}),
-			Region: nirvana.F(shared.RegionNameUsSea1),
+			Region:          nirvana.F(shared.RegionNameUsSea1),
 			SSHKey: nirvana.F(compute.SSHKeyParam{
 				PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 			}),
