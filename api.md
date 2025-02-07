@@ -25,15 +25,11 @@ Methods:
 
 Params Types:
 
-- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/compute">compute</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/compute#CPUParam">CPUParam</a>
-- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/compute">compute</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/compute#RamParam">RamParam</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/compute">compute</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/compute#SSHKeyParam">SSHKeyParam</a>
 
 Response Types:
 
-- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/compute">compute</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/compute#CPU">CPU</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/compute">compute</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/compute#OSImage">OSImage</a>
-- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/compute">compute</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/compute#Ram">Ram</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/compute">compute</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/compute#VM">VM</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/compute">compute</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/compute#VMList">VMList</a>
 
