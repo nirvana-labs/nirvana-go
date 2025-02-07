@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.0-alpha.24 (2025-02-07)
+
+Full Changelog: [v0.1.0-alpha.23...v0.1.0-alpha.24](https://github.com/nirvana-labs/nirvana-go/compare/v0.1.0-alpha.23...v0.1.0-alpha.24)
+
+### Features
+
+* **api:** api update ([#94](https://github.com/nirvana-labs/nirvana-go/issues/94)) ([3f23fd8](https://github.com/nirvana-labs/nirvana-go/commit/3f23fd8576676400b3b5c54cd0f870632c07722b))
+
+
+### Bug Fixes
+
+* fix early cancel when RequestTimeout is provided for streaming requests ([#92](https://github.com/nirvana-labs/nirvana-go/issues/92)) ([eba3e04](https://github.com/nirvana-labs/nirvana-go/commit/eba3e04ff7455d4977406a5112d169236a43f6fb))
+
 ## 0.1.0-alpha.23 (2025-02-06)
 
 Full Changelog: [v0.1.0-alpha.22...v0.1.0-alpha.23](https://github.com/nirvana-labs/nirvana-go/compare/v0.1.0-alpha.22...v0.1.0-alpha.23)
