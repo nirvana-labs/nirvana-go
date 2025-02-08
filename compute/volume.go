@@ -55,7 +55,7 @@ func (r *VolumeService) Update(ctx context.Context, volumeID string, body Volume
 }
 
 // List all volumes
-func (r *VolumeService) List(ctx context.Context, opts ...option.RequestOption) (res *VolumeListResponse, err error) {
+func (r *VolumeService) List(ctx context.Context, opts ...option.RequestOption) (res *VolumeList, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "compute/volumes"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
@@ -152,24 +152,23 @@ func (r VolumeKind) IsKnown() bool {
 	return false
 }
 
-type VolumeListResponse struct {
-	Items []Volume               `json:"items,required"`
-	JSON  volumeListResponseJSON `json:"-"`
+type VolumeList struct {
+	Items []Volume       `json:"items,required"`
+	JSON  volumeListJSON `json:"-"`
 }
 
-// volumeListResponseJSON contains the JSON metadata for the struct
-// [VolumeListResponse]
-type volumeListResponseJSON struct {
+// volumeListJSON contains the JSON metadata for the struct [VolumeList]
+type volumeListJSON struct {
 	Items       apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *VolumeListResponse) UnmarshalJSON(data []byte) (err error) {
+func (r *VolumeList) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-func (r volumeListResponseJSON) RawJSON() string {
+func (r volumeListJSON) RawJSON() string {
 	return r.raw
 }
 
