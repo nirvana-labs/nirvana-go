@@ -89,6 +89,70 @@ func (r *VMService) Get(ctx context.Context, vmID string, opts ...option.Request
 	return
 }
 
+// CPU config details.
+type CPUConfig struct {
+	// virtual CPUs
+	Vcpu int64         `json:"vcpu,required"`
+	JSON cpuConfigJSON `json:"-"`
+}
+
+// cpuConfigJSON contains the JSON metadata for the struct [CPUConfig]
+type cpuConfigJSON struct {
+	Vcpu        apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *CPUConfig) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r cpuConfigJSON) RawJSON() string {
+	return r.raw
+}
+
+// CPU config details.
+type CPUConfigParam struct {
+	// virtual CPUs
+	Vcpu param.Field[int64] `json:"vcpu,required"`
+}
+
+func (r CPUConfigParam) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r)
+}
+
+// Memory config details.
+type MemoryConfig struct {
+	// memory size
+	Size int64            `json:"size,required"`
+	JSON memoryConfigJSON `json:"-"`
+}
+
+// memoryConfigJSON contains the JSON metadata for the struct [MemoryConfig]
+type memoryConfigJSON struct {
+	Size        apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *MemoryConfig) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r memoryConfigJSON) RawJSON() string {
+	return r.raw
+}
+
+// Memory config details.
+type MemoryConfigParam struct {
+	// memory size
+	Size param.Field[int64] `json:"size,required"`
+}
+
+func (r MemoryConfigParam) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r)
+}
+
 type OSImage struct {
 	CreatedAt   string      `json:"created_at,required"`
 	DisplayName string      `json:"display_name,required"`
@@ -127,11 +191,11 @@ type VM struct {
 	ID           string `json:"id,required"`
 	BootVolumeID string `json:"boot_volume_id,required"`
 	// CPU config details.
-	CPUConfig     VMCPUConfig `json:"cpu_config,required"`
-	CreatedAt     string      `json:"created_at,required"`
-	DataVolumeIDs []string    `json:"data_volume_ids,required"`
+	CPUConfig     CPUConfig `json:"cpu_config,required"`
+	CreatedAt     string    `json:"created_at,required"`
+	DataVolumeIDs []string  `json:"data_volume_ids,required"`
 	// Memory config details.
-	MemoryConfig VMMemoryConfig        `json:"memory_config,required"`
+	MemoryConfig MemoryConfig          `json:"memory_config,required"`
 	Name         string                `json:"name,required"`
 	PrivateIP    string                `json:"private_ip,required"`
 	PublicIP     string                `json:"public_ip,required"`
@@ -169,50 +233,6 @@ func (r vmJSON) RawJSON() string {
 	return r.raw
 }
 
-// CPU config details.
-type VMCPUConfig struct {
-	// virtual CPUs
-	Vcpu int64           `json:"vcpu,required"`
-	JSON vmcpuConfigJSON `json:"-"`
-}
-
-// vmcpuConfigJSON contains the JSON metadata for the struct [VMCPUConfig]
-type vmcpuConfigJSON struct {
-	Vcpu        apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *VMCPUConfig) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r vmcpuConfigJSON) RawJSON() string {
-	return r.raw
-}
-
-// Memory config details.
-type VMMemoryConfig struct {
-	// memory size
-	Size int64              `json:"size,required"`
-	JSON vmMemoryConfigJSON `json:"-"`
-}
-
-// vmMemoryConfigJSON contains the JSON metadata for the struct [VMMemoryConfig]
-type vmMemoryConfigJSON struct {
-	Size        apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *VMMemoryConfig) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r vmMemoryConfigJSON) RawJSON() string {
-	return r.raw
-}
-
 type VMList struct {
 	Items []VM       `json:"items,required"`
 	JSON  vmListJSON `json:"-"`
@@ -237,13 +257,13 @@ type VMNewParams struct {
 	// Boot volume create request.
 	BootVolume param.Field[VMNewParamsBootVolume] `json:"boot_volume,required"`
 	// CPU config details.
-	CPUConfig param.Field[VMNewParamsCPUConfig] `json:"cpu_config,required"`
+	CPUConfig param.Field[CPUConfigParam] `json:"cpu_config,required"`
 	// Memory config details.
-	MemoryConfig    param.Field[VMNewParamsMemoryConfig] `json:"memory_config,required"`
-	Name            param.Field[string]                  `json:"name,required"`
-	OSImageName     param.Field[string]                  `json:"os_image_name,required"`
-	PublicIPEnabled param.Field[bool]                    `json:"public_ip_enabled,required"`
-	Region          param.Field[shared.RegionName]       `json:"region,required"`
+	MemoryConfig    param.Field[MemoryConfigParam] `json:"memory_config,required"`
+	Name            param.Field[string]            `json:"name,required"`
+	OSImageName     param.Field[string]            `json:"os_image_name,required"`
+	PublicIPEnabled param.Field[bool]              `json:"public_ip_enabled,required"`
+	Region          param.Field[shared.RegionName] `json:"region,required"`
 	// SSH key details.
 	SSHKey      param.Field[SSHKeyParam]             `json:"ssh_key,required"`
 	DataVolumes param.Field[[]VMNewParamsDataVolume] `json:"data_volumes"`
@@ -263,26 +283,6 @@ func (r VMNewParamsBootVolume) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
-// CPU config details.
-type VMNewParamsCPUConfig struct {
-	// virtual CPUs
-	Vcpu param.Field[int64] `json:"vcpu,required"`
-}
-
-func (r VMNewParamsCPUConfig) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r)
-}
-
-// Memory config details.
-type VMNewParamsMemoryConfig struct {
-	// memory size
-	Size param.Field[int64] `json:"size,required"`
-}
-
-func (r VMNewParamsMemoryConfig) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r)
-}
-
 // VM data volume create request.
 type VMNewParamsDataVolume struct {
 	Size param.Field[int64] `json:"size,required"`
@@ -294,31 +294,11 @@ func (r VMNewParamsDataVolume) MarshalJSON() (data []byte, err error) {
 
 type VMUpdateParams struct {
 	// CPU config details.
-	CPUConfig param.Field[VMUpdateParamsCPUConfig] `json:"cpu_config"`
+	CPUConfig param.Field[CPUConfigParam] `json:"cpu_config"`
 	// Memory config details.
-	MemoryConfig param.Field[VMUpdateParamsMemoryConfig] `json:"memory_config"`
+	MemoryConfig param.Field[MemoryConfigParam] `json:"memory_config"`
 }
 
 func (r VMUpdateParams) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r)
-}
-
-// CPU config details.
-type VMUpdateParamsCPUConfig struct {
-	// virtual CPUs
-	Vcpu param.Field[int64] `json:"vcpu,required"`
-}
-
-func (r VMUpdateParamsCPUConfig) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r)
-}
-
-// Memory config details.
-type VMUpdateParamsMemoryConfig struct {
-	// memory size
-	Size param.Field[int64] `json:"size,required"`
-}
-
-func (r VMUpdateParamsMemoryConfig) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }

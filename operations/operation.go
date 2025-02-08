@@ -102,6 +102,22 @@ func (r OperationKind) IsKnown() bool {
 	return false
 }
 
+type OperationType string
+
+const (
+	OperationTypeCreate OperationType = "create"
+	OperationTypeUpdate OperationType = "update"
+	OperationTypeDelete OperationType = "delete"
+)
+
+func (r OperationType) IsKnown() bool {
+	switch r {
+	case OperationTypeCreate, OperationTypeUpdate, OperationTypeDelete:
+		return true
+	}
+	return false
+}
+
 type OperationStatus string
 
 const (
@@ -115,22 +131,6 @@ const (
 func (r OperationStatus) IsKnown() bool {
 	switch r {
 	case OperationStatusPending, OperationStatusRunning, OperationStatusDone, OperationStatusFailed, OperationStatusUnknown:
-		return true
-	}
-	return false
-}
-
-type OperationType string
-
-const (
-	OperationTypeCreate OperationType = "create"
-	OperationTypeUpdate OperationType = "update"
-	OperationTypeDelete OperationType = "delete"
-)
-
-func (r OperationType) IsKnown() bool {
-	switch r {
-	case OperationTypeCreate, OperationTypeUpdate, OperationTypeDelete:
 		return true
 	}
 	return false
