@@ -43,10 +43,10 @@ func TestUserAgentHeader(t *testing.T) {
 		BootVolume: nirvana.F(compute.VMNewParamsBootVolume{
 			Size: nirvana.F(int64(100)),
 		}),
-		CPUConfig: nirvana.F(compute.VMNewParamsCPUConfig{
+		CPUConfig: nirvana.F(compute.CPUConfigParam{
 			Vcpu: nirvana.F(int64(2)),
 		}),
-		MemoryConfig: nirvana.F(compute.VMNewParamsMemoryConfig{
+		MemoryConfig: nirvana.F(compute.MemoryConfigParam{
 			Size: nirvana.F(int64(2)),
 		}),
 		Name:            nirvana.F("my-vm"),
@@ -83,10 +83,10 @@ func TestRetryAfter(t *testing.T) {
 		BootVolume: nirvana.F(compute.VMNewParamsBootVolume{
 			Size: nirvana.F(int64(100)),
 		}),
-		CPUConfig: nirvana.F(compute.VMNewParamsCPUConfig{
+		CPUConfig: nirvana.F(compute.CPUConfigParam{
 			Vcpu: nirvana.F(int64(2)),
 		}),
-		MemoryConfig: nirvana.F(compute.VMNewParamsMemoryConfig{
+		MemoryConfig: nirvana.F(compute.MemoryConfigParam{
 			Size: nirvana.F(int64(2)),
 		}),
 		Name:            nirvana.F("my-vm"),
@@ -134,10 +134,10 @@ func TestDeleteRetryCountHeader(t *testing.T) {
 		BootVolume: nirvana.F(compute.VMNewParamsBootVolume{
 			Size: nirvana.F(int64(100)),
 		}),
-		CPUConfig: nirvana.F(compute.VMNewParamsCPUConfig{
+		CPUConfig: nirvana.F(compute.CPUConfigParam{
 			Vcpu: nirvana.F(int64(2)),
 		}),
-		MemoryConfig: nirvana.F(compute.VMNewParamsMemoryConfig{
+		MemoryConfig: nirvana.F(compute.MemoryConfigParam{
 			Size: nirvana.F(int64(2)),
 		}),
 		Name:            nirvana.F("my-vm"),
@@ -180,10 +180,10 @@ func TestOverwriteRetryCountHeader(t *testing.T) {
 		BootVolume: nirvana.F(compute.VMNewParamsBootVolume{
 			Size: nirvana.F(int64(100)),
 		}),
-		CPUConfig: nirvana.F(compute.VMNewParamsCPUConfig{
+		CPUConfig: nirvana.F(compute.CPUConfigParam{
 			Vcpu: nirvana.F(int64(2)),
 		}),
-		MemoryConfig: nirvana.F(compute.VMNewParamsMemoryConfig{
+		MemoryConfig: nirvana.F(compute.MemoryConfigParam{
 			Size: nirvana.F(int64(2)),
 		}),
 		Name:            nirvana.F("my-vm"),
@@ -225,10 +225,10 @@ func TestRetryAfterMs(t *testing.T) {
 		BootVolume: nirvana.F(compute.VMNewParamsBootVolume{
 			Size: nirvana.F(int64(100)),
 		}),
-		CPUConfig: nirvana.F(compute.VMNewParamsCPUConfig{
+		CPUConfig: nirvana.F(compute.CPUConfigParam{
 			Vcpu: nirvana.F(int64(2)),
 		}),
-		MemoryConfig: nirvana.F(compute.VMNewParamsMemoryConfig{
+		MemoryConfig: nirvana.F(compute.MemoryConfigParam{
 			Size: nirvana.F(int64(2)),
 		}),
 		Name:            nirvana.F("my-vm"),
@@ -264,10 +264,10 @@ func TestContextCancel(t *testing.T) {
 		BootVolume: nirvana.F(compute.VMNewParamsBootVolume{
 			Size: nirvana.F(int64(100)),
 		}),
-		CPUConfig: nirvana.F(compute.VMNewParamsCPUConfig{
+		CPUConfig: nirvana.F(compute.CPUConfigParam{
 			Vcpu: nirvana.F(int64(2)),
 		}),
-		MemoryConfig: nirvana.F(compute.VMNewParamsMemoryConfig{
+		MemoryConfig: nirvana.F(compute.MemoryConfigParam{
 			Size: nirvana.F(int64(2)),
 		}),
 		Name:            nirvana.F("my-vm"),
@@ -300,10 +300,10 @@ func TestContextCancelDelay(t *testing.T) {
 		BootVolume: nirvana.F(compute.VMNewParamsBootVolume{
 			Size: nirvana.F(int64(100)),
 		}),
-		CPUConfig: nirvana.F(compute.VMNewParamsCPUConfig{
+		CPUConfig: nirvana.F(compute.CPUConfigParam{
 			Vcpu: nirvana.F(int64(2)),
 		}),
-		MemoryConfig: nirvana.F(compute.VMNewParamsMemoryConfig{
+		MemoryConfig: nirvana.F(compute.MemoryConfigParam{
 			Size: nirvana.F(int64(2)),
 		}),
 		Name:            nirvana.F("my-vm"),
@@ -342,10 +342,10 @@ func TestContextDeadline(t *testing.T) {
 			BootVolume: nirvana.F(compute.VMNewParamsBootVolume{
 				Size: nirvana.F(int64(100)),
 			}),
-			CPUConfig: nirvana.F(compute.VMNewParamsCPUConfig{
+			CPUConfig: nirvana.F(compute.CPUConfigParam{
 				Vcpu: nirvana.F(int64(2)),
 			}),
-			MemoryConfig: nirvana.F(compute.VMNewParamsMemoryConfig{
+			MemoryConfig: nirvana.F(compute.MemoryConfigParam{
 				Size: nirvana.F(int64(2)),
 			}),
 			Name:            nirvana.F("my-vm"),
