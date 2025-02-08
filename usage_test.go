@@ -30,10 +30,10 @@ func TestUsage(t *testing.T) {
 		BootVolume: nirvana.F(compute.VMNewParamsBootVolume{
 			Size: nirvana.F(int64(100)),
 		}),
-		CPUConfig: nirvana.F(compute.VMNewParamsCPUConfig{
+		CPUConfig: nirvana.F(compute.CPUConfigParam{
 			Vcpu: nirvana.F(int64(2)),
 		}),
-		MemoryConfig: nirvana.F(compute.VMNewParamsMemoryConfig{
+		MemoryConfig: nirvana.F(compute.MemoryConfigParam{
 			Size: nirvana.F(int64(2)),
 		}),
 		Name:            nirvana.F("my-vm"),

@@ -33,7 +33,7 @@ func NewOperationService(opts ...option.RequestOption) (r *OperationService) {
 }
 
 // List all operations
-func (r *OperationService) List(ctx context.Context, opts ...option.RequestOption) (res *OperationListResponse, err error) {
+func (r *OperationService) List(ctx context.Context, opts ...option.RequestOption) (res *OperationList, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "operations"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
@@ -102,6 +102,26 @@ func (r OperationKind) IsKnown() bool {
 	return false
 }
 
+type OperationList struct {
+	Items []Operation       `json:"items,required"`
+	JSON  operationListJSON `json:"-"`
+}
+
+// operationListJSON contains the JSON metadata for the struct [OperationList]
+type operationListJSON struct {
+	Items       apijson.Field
+	raw         string
+	ExtraFields map[string]apijson.Field
+}
+
+func (r *OperationList) UnmarshalJSON(data []byte) (err error) {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+func (r operationListJSON) RawJSON() string {
+	return r.raw
+}
+
 type OperationStatus string
 
 const (
@@ -134,25 +154,4 @@ func (r OperationType) IsKnown() bool {
 		return true
 	}
 	return false
-}
-
-type OperationListResponse struct {
-	Items []Operation               `json:"items,required"`
-	JSON  operationListResponseJSON `json:"-"`
-}
-
-// operationListResponseJSON contains the JSON metadata for the struct
-// [OperationListResponse]
-type operationListResponseJSON struct {
-	Items       apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *OperationListResponse) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r operationListResponseJSON) RawJSON() string {
-	return r.raw
 }
