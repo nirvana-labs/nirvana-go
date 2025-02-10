@@ -107,6 +107,7 @@ type Volume struct {
 	CreatedAt string `json:"created_at,required"`
 	// Volume kind.
 	Kind VolumeKind `json:"kind,required"`
+	Name string     `json:"name,required"`
 	Size int64      `json:"size,required"`
 	// Storage type.
 	Type      StorageType `json:"type,required"`
@@ -120,6 +121,7 @@ type volumeJSON struct {
 	ID          apijson.Field
 	CreatedAt   apijson.Field
 	Kind        apijson.Field
+	Name        apijson.Field
 	Size        apijson.Field
 	Type        apijson.Field
 	UpdatedAt   apijson.Field
