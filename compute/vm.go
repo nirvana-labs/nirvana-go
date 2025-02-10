@@ -24,6 +24,7 @@ import (
 // the [NewVMService] method instead.
 type VMService struct {
 	Options  []option.RequestOption
+	Volumes  *VMVolumeService
 	OSImages *VMOSImageService
 }
 
@@ -33,6 +34,7 @@ type VMService struct {
 func NewVMService(opts ...option.RequestOption) (r *VMService) {
 	r = &VMService{}
 	r.Options = opts
+	r.Volumes = NewVMVolumeService(opts...)
 	r.OSImages = NewVMOSImageService(opts...)
 	return
 }
