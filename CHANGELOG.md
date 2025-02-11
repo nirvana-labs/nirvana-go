@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.29 (2025-02-11)
+
+Full Changelog: [v0.1.0-alpha.28...v0.1.0-alpha.29](https://github.com/nirvana-labs/nirvana-go/compare/v0.1.0-alpha.28...v0.1.0-alpha.29)
+
+### Bug Fixes
+
+* do not call path.Base on ContentType ([#110](https://github.com/nirvana-labs/nirvana-go/issues/110)) ([158f992](https://github.com/nirvana-labs/nirvana-go/commit/158f99242b4377a05cc98e3f08a66fe01408e0cd))
+
 ## 0.1.0-alpha.28 (2025-02-11)
 
 Full Changelog: [v0.1.0-alpha.27...v0.1.0-alpha.28](https://github.com/nirvana-labs/nirvana-go/compare/v0.1.0-alpha.27...v0.1.0-alpha.28)
