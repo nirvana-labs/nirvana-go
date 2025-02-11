@@ -199,11 +199,11 @@ type VM struct {
 	// Memory config details.
 	MemoryConfig MemoryConfig          `json:"memory_config,required"`
 	Name         string                `json:"name,required"`
-	PrivateIP    string                `json:"private_ip,required"`
 	Region       shared.RegionName     `json:"region,required"`
 	Status       shared.ResourceStatus `json:"status,required"`
 	UpdatedAt    string                `json:"updated_at,required"`
 	VPCID        string                `json:"vpc_id,required"`
+	PrivateIP    string                `json:"private_ip"`
 	PublicIP     string                `json:"public_ip"`
 	JSON         vmJSON                `json:"-"`
 }
@@ -217,11 +217,11 @@ type vmJSON struct {
 	DataVolumeIDs apijson.Field
 	MemoryConfig  apijson.Field
 	Name          apijson.Field
-	PrivateIP     apijson.Field
 	Region        apijson.Field
 	Status        apijson.Field
 	UpdatedAt     apijson.Field
 	VPCID         apijson.Field
+	PrivateIP     apijson.Field
 	PublicIP      apijson.Field
 	raw           string
 	ExtraFields   map[string]apijson.Field
