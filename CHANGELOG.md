@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.30 (2025-02-15)
+
+Full Changelog: [v0.1.0-alpha.29...v0.1.0-alpha.30](https://github.com/nirvana-labs/nirvana-go/compare/v0.1.0-alpha.29...v0.1.0-alpha.30)
+
+### Bug Fixes
+
+* **client:** don't truncate manually specified filenames ([#113](https://github.com/nirvana-labs/nirvana-go/issues/113)) ([42e5039](https://github.com/nirvana-labs/nirvana-go/commit/42e5039bf4ba98326a1be7daf2173439635ed23c))
+
 ## 0.1.0-alpha.29 (2025-02-11)
 
 Full Changelog: [v0.1.0-alpha.28...v0.1.0-alpha.29](https://github.com/nirvana-labs/nirvana-go/compare/v0.1.0-alpha.28...v0.1.0-alpha.29)
