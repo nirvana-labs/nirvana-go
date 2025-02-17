@@ -114,7 +114,8 @@ type FirewallRule struct {
 	// Firewall rule endpoint.
 	Destination FirewallRuleEndpoint `json:"destination,required"`
 	Name        string               `json:"name,required"`
-	Protocol    string               `json:"protocol,required"`
+	// Supported Firewall Rule protocols.
+	Protocol FirewallRuleProtocol `json:"protocol,required"`
 	// Firewall rule endpoint.
 	Source    FirewallRuleEndpoint  `json:"source,required"`
 	Status    shared.ResourceStatus `json:"status,required"`
@@ -144,6 +145,22 @@ func (r *FirewallRule) UnmarshalJSON(data []byte) (err error) {
 
 func (r firewallRuleJSON) RawJSON() string {
 	return r.raw
+}
+
+// Supported Firewall Rule protocols.
+type FirewallRuleProtocol string
+
+const (
+	FirewallRuleProtocolTcp FirewallRuleProtocol = "tcp"
+	FirewallRuleProtocolUdp FirewallRuleProtocol = "udp"
+)
+
+func (r FirewallRuleProtocol) IsKnown() bool {
+	switch r {
+	case FirewallRuleProtocolTcp, FirewallRuleProtocolUdp:
+		return true
+	}
+	return false
 }
 
 // Firewall rule endpoint.
@@ -205,7 +222,7 @@ type FirewallRuleNewParams struct {
 	// Firewall rule endpoint.
 	Destination param.Field[FirewallRuleEndpointParam] `json:"destination,required"`
 	Name        param.Field[string]                    `json:"name,required"`
-	// Supported protocols.
+	// Supported Firewall Rule protocols.
 	Protocol param.Field[string] `json:"protocol,required"`
 	// Firewall rule endpoint.
 	Source param.Field[FirewallRuleEndpointParam] `json:"source,required"`
@@ -219,7 +236,7 @@ type FirewallRuleUpdateParams struct {
 	// Firewall rule endpoint.
 	Destination param.Field[FirewallRuleEndpointParam] `json:"destination,required"`
 	Name        param.Field[string]                    `json:"name,required"`
-	// Supported protocols.
+	// Supported Firewall Rule protocols.
 	Protocol param.Field[FirewallRuleUpdateParamsProtocol] `json:"protocol,required"`
 	// Firewall rule endpoint.
 	Source param.Field[FirewallRuleEndpointParam] `json:"source,required"`
@@ -229,7 +246,7 @@ func (r FirewallRuleUpdateParams) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
-// Supported protocols.
+// Supported Firewall Rule protocols.
 type FirewallRuleUpdateParamsProtocol string
 
 const (
