@@ -109,34 +109,34 @@ func (r *FirewallRuleService) Get(ctx context.Context, vpcID string, firewallRul
 
 // Firewall rule details.
 type FirewallRule struct {
-	ID        string `json:"id,required"`
-	CreatedAt string `json:"created_at,required"`
-	Name      string `json:"name,required"`
+	ID                 string   `json:"id,required"`
+	CreatedAt          string   `json:"created_at,required"`
+	DestinationAddress string   `json:"destination_address,required"`
+	DestinationPorts   []string `json:"destination_ports,required"`
+	Name               string   `json:"name,required"`
 	// Supported Firewall Rule protocols.
-	Protocol           FirewallRuleProtocol  `json:"protocol,required"`
-	Status             shared.ResourceStatus `json:"status,required"`
-	UpdatedAt          string                `json:"updated_at,required"`
-	VPCID              string                `json:"vpc_id,required"`
-	DestinationAddress string                `json:"destination_address"`
-	DestinationPorts   []string              `json:"destination_ports"`
-	SourceAddress      string                `json:"source_address"`
-	SourcePorts        []string              `json:"source_ports"`
-	JSON               firewallRuleJSON      `json:"-"`
+	Protocol      FirewallRuleProtocol  `json:"protocol,required"`
+	SourceAddress string                `json:"source_address,required"`
+	SourcePorts   []string              `json:"source_ports,required"`
+	Status        shared.ResourceStatus `json:"status,required"`
+	UpdatedAt     string                `json:"updated_at,required"`
+	VPCID         string                `json:"vpc_id,required"`
+	JSON          firewallRuleJSON      `json:"-"`
 }
 
 // firewallRuleJSON contains the JSON metadata for the struct [FirewallRule]
 type firewallRuleJSON struct {
 	ID                 apijson.Field
 	CreatedAt          apijson.Field
+	DestinationAddress apijson.Field
+	DestinationPorts   apijson.Field
 	Name               apijson.Field
 	Protocol           apijson.Field
+	SourceAddress      apijson.Field
+	SourcePorts        apijson.Field
 	Status             apijson.Field
 	UpdatedAt          apijson.Field
 	VPCID              apijson.Field
-	DestinationAddress apijson.Field
-	DestinationPorts   apijson.Field
-	SourceAddress      apijson.Field
-	SourcePorts        apijson.Field
 	raw                string
 	ExtraFields        map[string]apijson.Field
 }

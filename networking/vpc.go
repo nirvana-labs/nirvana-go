@@ -106,28 +106,28 @@ func (r subnetJSON) RawJSON() string {
 
 // VPC details.
 type VPC struct {
-	ID              string                `json:"id,required"`
-	CreatedAt       string                `json:"created_at,required"`
-	FirewallRuleIDs []string              `json:"firewall_rule_ids,required"`
-	Name            string                `json:"name,required"`
-	Region          shared.RegionName     `json:"region,required"`
-	Status          shared.ResourceStatus `json:"status,required"`
+	ID        string                `json:"id,required"`
+	CreatedAt string                `json:"created_at,required"`
+	Name      string                `json:"name,required"`
+	Region    shared.RegionName     `json:"region,required"`
+	Status    shared.ResourceStatus `json:"status,required"`
 	// Subnet details.
-	Subnet    Subnet  `json:"subnet,required"`
-	UpdatedAt string  `json:"updated_at,required"`
-	JSON      vpcJSON `json:"-"`
+	Subnet          Subnet   `json:"subnet,required"`
+	UpdatedAt       string   `json:"updated_at,required"`
+	FirewallRuleIDs []string `json:"firewall_rule_ids"`
+	JSON            vpcJSON  `json:"-"`
 }
 
 // vpcJSON contains the JSON metadata for the struct [VPC]
 type vpcJSON struct {
 	ID              apijson.Field
 	CreatedAt       apijson.Field
-	FirewallRuleIDs apijson.Field
 	Name            apijson.Field
 	Region          apijson.Field
 	Status          apijson.Field
 	Subnet          apijson.Field
 	UpdatedAt       apijson.Field
+	FirewallRuleIDs apijson.Field
 	raw             string
 	ExtraFields     map[string]apijson.Field
 }
