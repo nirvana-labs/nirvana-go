@@ -109,34 +109,36 @@ func (r *FirewallRuleService) Get(ctx context.Context, vpcID string, firewallRul
 
 // Firewall rule details.
 type FirewallRule struct {
-	ID        string `json:"id,required"`
-	CreatedAt string `json:"created_at,required"`
-	// Firewall rule endpoint.
-	Destination FirewallRuleEndpoint `json:"destination,required"`
-	Name        string               `json:"name,required"`
+	ID                 string   `json:"id,required"`
+	CreatedAt          string   `json:"created_at,required"`
+	DestinationAddress string   `json:"destination_address,required"`
+	DestinationPorts   []string `json:"destination_ports,required"`
+	Name               string   `json:"name,required"`
 	// Supported Firewall Rule protocols.
-	Protocol FirewallRuleProtocol `json:"protocol,required"`
-	// Firewall rule endpoint.
-	Source    FirewallRuleEndpoint  `json:"source,required"`
-	Status    shared.ResourceStatus `json:"status,required"`
-	UpdatedAt string                `json:"updated_at,required"`
-	VPCID     string                `json:"vpc_id,required"`
-	JSON      firewallRuleJSON      `json:"-"`
+	Protocol      FirewallRuleProtocol  `json:"protocol,required"`
+	SourceAddress string                `json:"source_address,required"`
+	SourcePorts   []string              `json:"source_ports,required"`
+	Status        shared.ResourceStatus `json:"status,required"`
+	UpdatedAt     string                `json:"updated_at,required"`
+	VPCID         string                `json:"vpc_id,required"`
+	JSON          firewallRuleJSON      `json:"-"`
 }
 
 // firewallRuleJSON contains the JSON metadata for the struct [FirewallRule]
 type firewallRuleJSON struct {
-	ID          apijson.Field
-	CreatedAt   apijson.Field
-	Destination apijson.Field
-	Name        apijson.Field
-	Protocol    apijson.Field
-	Source      apijson.Field
-	Status      apijson.Field
-	UpdatedAt   apijson.Field
-	VPCID       apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
+	ID                 apijson.Field
+	CreatedAt          apijson.Field
+	DestinationAddress apijson.Field
+	DestinationPorts   apijson.Field
+	Name               apijson.Field
+	Protocol           apijson.Field
+	SourceAddress      apijson.Field
+	SourcePorts        apijson.Field
+	Status             apijson.Field
+	UpdatedAt          apijson.Field
+	VPCID              apijson.Field
+	raw                string
+	ExtraFields        map[string]apijson.Field
 }
 
 func (r *FirewallRule) UnmarshalJSON(data []byte) (err error) {
@@ -163,40 +165,6 @@ func (r FirewallRuleProtocol) IsKnown() bool {
 	return false
 }
 
-// Firewall rule endpoint.
-type FirewallRuleEndpoint struct {
-	Address string                   `json:"address"`
-	Ports   []string                 `json:"ports"`
-	JSON    firewallRuleEndpointJSON `json:"-"`
-}
-
-// firewallRuleEndpointJSON contains the JSON metadata for the struct
-// [FirewallRuleEndpoint]
-type firewallRuleEndpointJSON struct {
-	Address     apijson.Field
-	Ports       apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *FirewallRuleEndpoint) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r firewallRuleEndpointJSON) RawJSON() string {
-	return r.raw
-}
-
-// Firewall rule endpoint.
-type FirewallRuleEndpointParam struct {
-	Address param.Field[string]   `json:"address"`
-	Ports   param.Field[[]string] `json:"ports"`
-}
-
-func (r FirewallRuleEndpointParam) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r)
-}
-
 type FirewallRuleList struct {
 	Items []FirewallRule       `json:"items,required"`
 	JSON  firewallRuleListJSON `json:"-"`
@@ -219,13 +187,15 @@ func (r firewallRuleListJSON) RawJSON() string {
 }
 
 type FirewallRuleNewParams struct {
-	// Firewall rule endpoint.
-	Destination param.Field[FirewallRuleEndpointParam] `json:"destination,required"`
-	Name        param.Field[string]                    `json:"name,required"`
+	DestinationAddress param.Field[string] `json:"destination_address,required"`
+	Name               param.Field[string] `json:"name,required"`
 	// Supported Firewall Rule protocols.
-	Protocol param.Field[string] `json:"protocol,required"`
-	// Firewall rule endpoint.
-	Source param.Field[FirewallRuleEndpointParam] `json:"source,required"`
+	Protocol      param.Field[string] `json:"protocol,required"`
+	SourceAddress param.Field[string] `json:"source_address,required"`
+	// required for TCP, should not be provided for UDP
+	DestinationPorts param.Field[[]string] `json:"destination_ports"`
+	// required for UDP, should not be provided for TCP
+	SourcePorts param.Field[[]string] `json:"source_ports"`
 }
 
 func (r FirewallRuleNewParams) MarshalJSON() (data []byte, err error) {
@@ -233,13 +203,13 @@ func (r FirewallRuleNewParams) MarshalJSON() (data []byte, err error) {
 }
 
 type FirewallRuleUpdateParams struct {
-	// Firewall rule endpoint.
-	Destination param.Field[FirewallRuleEndpointParam] `json:"destination,required"`
-	Name        param.Field[string]                    `json:"name,required"`
+	DestinationAddress param.Field[string]   `json:"destination_address"`
+	DestinationPorts   param.Field[[]string] `json:"destination_ports"`
+	Name               param.Field[string]   `json:"name"`
 	// Supported Firewall Rule protocols.
-	Protocol param.Field[FirewallRuleUpdateParamsProtocol] `json:"protocol,required"`
-	// Firewall rule endpoint.
-	Source param.Field[FirewallRuleEndpointParam] `json:"source,required"`
+	Protocol      param.Field[FirewallRuleUpdateParamsProtocol] `json:"protocol"`
+	SourceAddress param.Field[string]                           `json:"source_address"`
+	SourcePorts   param.Field[[]string]                         `json:"source_ports"`
 }
 
 func (r FirewallRuleUpdateParams) MarshalJSON() (data []byte, err error) {

@@ -96,14 +96,9 @@ Methods:
 
 ## FirewallRules
 
-Params Types:
-
-- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/networking">networking</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/networking#FirewallRuleEndpointParam">FirewallRuleEndpointParam</a>
-
 Response Types:
 
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/networking">networking</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/networking#FirewallRule">FirewallRule</a>
-- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/networking">networking</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/networking#FirewallRuleEndpoint">FirewallRuleEndpoint</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/networking">networking</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/networking#FirewallRuleList">FirewallRuleList</a>
 
 Methods:
