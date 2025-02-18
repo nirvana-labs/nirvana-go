@@ -199,8 +199,8 @@ type VM struct {
 	// Memory config details.
 	MemoryConfig MemoryConfig          `json:"memory_config,required"`
 	Name         string                `json:"name,required"`
-	PrivateIP    string                `json:"private_ip,required"`
-	PublicIP     string                `json:"public_ip,required"`
+	PrivateIP    string                `json:"private_ip,required,nullable"`
+	PublicIP     string                `json:"public_ip,required,nullable"`
 	Region       shared.RegionName     `json:"region,required"`
 	Status       shared.ResourceStatus `json:"status,required"`
 	UpdatedAt    string                `json:"updated_at,required"`
