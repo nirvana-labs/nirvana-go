@@ -112,7 +112,7 @@ type Volume struct {
 	// Storage type.
 	Type      StorageType `json:"type,required"`
 	UpdatedAt string      `json:"updated_at,required"`
-	VMID      string      `json:"vm_id,required,nullable"`
+	VMID      string      `json:"vm_id,required"`
 	JSON      volumeJSON  `json:"-"`
 }
 
