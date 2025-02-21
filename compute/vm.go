@@ -268,8 +268,8 @@ type VMNewParams struct {
 	Region          param.Field[shared.RegionName] `json:"region,required"`
 	// SSH key details.
 	SSHKey      param.Field[SSHKeyParam]             `json:"ssh_key,required"`
+	SubnetID    param.Field[string]                  `json:"subnet_id,required"`
 	DataVolumes param.Field[[]VMNewParamsDataVolume] `json:"data_volumes"`
-	SubnetID    param.Field[string]                  `json:"subnet_id"`
 }
 
 func (r VMNewParams) MarshalJSON() (data []byte, err error) {
