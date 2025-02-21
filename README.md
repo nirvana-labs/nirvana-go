@@ -22,7 +22,7 @@ Or to pin the version:
 <!-- x-release-please-start-version -->
 
 ```sh
-go get -u 'github.com/nirvana-labs/nirvana-go@v0.1.0-alpha.33'
+go get -u 'github.com/nirvana-labs/nirvana-go@v0.1.0-alpha.34'
 ```
 
 <!-- x-release-please-end -->
@@ -69,6 +69,7 @@ func main() {
 		SSHKey: nirvana.F(compute.SSHKeyParam{
 			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 		}),
+		SubnetID: nirvana.F("123e4567-e89b-12d3-a456-426614174000"),
 	})
 	if err != nil {
 		panic(err.Error())
@@ -208,6 +209,7 @@ _, err := client.Compute.VMs.New(context.TODO(), compute.VMNewParams{
 	SSHKey: nirvana.F(compute.SSHKeyParam{
 		PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 	}),
+	SubnetID: nirvana.F("123e4567-e89b-12d3-a456-426614174000"),
 })
 if err != nil {
 	var apierr *nirvana.Error
@@ -252,6 +254,7 @@ client.Compute.VMs.New(
 		SSHKey: nirvana.F(compute.SSHKeyParam{
 			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 		}),
+		SubnetID: nirvana.F("123e4567-e89b-12d3-a456-426614174000"),
 	},
 	// This sets the per-retry timeout
 	option.WithRequestTimeout(20*time.Second),
@@ -305,6 +308,7 @@ client.Compute.VMs.New(
 		SSHKey: nirvana.F(compute.SSHKeyParam{
 			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 		}),
+		SubnetID: nirvana.F("123e4567-e89b-12d3-a456-426614174000"),
 	},
 	option.WithMaxRetries(5),
 )
@@ -337,6 +341,7 @@ operation, err := client.Compute.VMs.New(
 		SSHKey: nirvana.F(compute.SSHKeyParam{
 			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 		}),
+		SubnetID: nirvana.F("123e4567-e89b-12d3-a456-426614174000"),
 	},
 	option.WithResponseInto(&response),
 )
