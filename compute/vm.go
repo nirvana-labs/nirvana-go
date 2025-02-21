@@ -91,7 +91,7 @@ func (r *VMService) Get(ctx context.Context, vmID string, opts ...option.Request
 	return
 }
 
-// CPU config details.
+// CPU configuration details.
 type CPUConfig struct {
 	// virtual CPUs
 	Vcpu int64         `json:"vcpu,required"`
@@ -113,7 +113,7 @@ func (r cpuConfigJSON) RawJSON() string {
 	return r.raw
 }
 
-// CPU config details.
+// CPU configuration details.
 type CPUConfigParam struct {
 	// virtual CPUs
 	Vcpu param.Field[int64] `json:"vcpu,required"`
@@ -123,7 +123,7 @@ func (r CPUConfigParam) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
-// Memory config details.
+// Memory configuration details.
 type MemoryConfig struct {
 	// memory size
 	Size int64            `json:"size,required"`
@@ -145,7 +145,7 @@ func (r memoryConfigJSON) RawJSON() string {
 	return r.raw
 }
 
-// Memory config details.
+// Memory configuration details.
 type MemoryConfigParam struct {
 	// memory size
 	Size param.Field[int64] `json:"size,required"`
@@ -192,15 +192,15 @@ func (r SSHKeyParam) MarshalJSON() (data []byte, err error) {
 type VM struct {
 	ID           string `json:"id,required"`
 	BootVolumeID string `json:"boot_volume_id,required"`
-	// CPU config details.
+	// CPU configuration details.
 	CPUConfig     CPUConfig `json:"cpu_config,required"`
 	CreatedAt     string    `json:"created_at,required"`
 	DataVolumeIDs []string  `json:"data_volume_ids,required"`
-	// Memory config details.
+	// Memory configuration details.
 	MemoryConfig MemoryConfig          `json:"memory_config,required"`
 	Name         string                `json:"name,required"`
-	PrivateIP    string                `json:"private_ip,required"`
-	PublicIP     string                `json:"public_ip,required"`
+	PrivateIP    string                `json:"private_ip,required,nullable"`
+	PublicIP     string                `json:"public_ip,required,nullable"`
 	Region       shared.RegionName     `json:"region,required"`
 	Status       shared.ResourceStatus `json:"status,required"`
 	UpdatedAt    string                `json:"updated_at,required"`
@@ -258,9 +258,9 @@ func (r vmListJSON) RawJSON() string {
 type VMNewParams struct {
 	// Boot volume create request.
 	BootVolume param.Field[VMNewParamsBootVolume] `json:"boot_volume,required"`
-	// CPU config details.
+	// CPU configuration details.
 	CPUConfig param.Field[CPUConfigParam] `json:"cpu_config,required"`
-	// Memory config details.
+	// Memory configuration details.
 	MemoryConfig    param.Field[MemoryConfigParam] `json:"memory_config,required"`
 	Name            param.Field[string]            `json:"name,required"`
 	OSImageName     param.Field[string]            `json:"os_image_name,required"`
@@ -295,9 +295,9 @@ func (r VMNewParamsDataVolume) MarshalJSON() (data []byte, err error) {
 }
 
 type VMUpdateParams struct {
-	// CPU config details.
+	// CPU configuration details.
 	CPUConfig param.Field[CPUConfigParam] `json:"cpu_config"`
-	// Memory config details.
+	// Memory configuration details.
 	MemoryConfig param.Field[MemoryConfigParam] `json:"memory_config"`
 }
 
