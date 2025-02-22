@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.35 (2025-02-22)
+
+Full Changelog: [v0.1.0-alpha.34...v0.1.0-alpha.35](https://github.com/nirvana-labs/nirvana-go/compare/v0.1.0-alpha.34...v0.1.0-alpha.35)
+
+### Chores
+
+* **internal:** fix devcontainers setup ([#132](https://github.com/nirvana-labs/nirvana-go/issues/132)) ([42a5b08](https://github.com/nirvana-labs/nirvana-go/commit/42a5b0824442ee86001530fbd9d79d47aad19a48))
+
 ## 0.1.0-alpha.34 (2025-02-21)
 
 Full Changelog: [v0.1.0-alpha.33...v0.1.0-alpha.34](https://github.com/nirvana-labs/nirvana-go/compare/v0.1.0-alpha.33...v0.1.0-alpha.34)
