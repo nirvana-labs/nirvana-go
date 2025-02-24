@@ -117,7 +117,6 @@ type FirewallRule struct {
 	// Supported Firewall Rule protocols.
 	Protocol      FirewallRuleProtocol  `json:"protocol,required"`
 	SourceAddress string                `json:"source_address,required"`
-	SourcePorts   []string              `json:"source_ports,required"`
 	Status        shared.ResourceStatus `json:"status,required"`
 	UpdatedAt     string                `json:"updated_at,required"`
 	VPCID         string                `json:"vpc_id,required"`
@@ -133,7 +132,6 @@ type firewallRuleJSON struct {
 	Name               apijson.Field
 	Protocol           apijson.Field
 	SourceAddress      apijson.Field
-	SourcePorts        apijson.Field
 	Status             apijson.Field
 	UpdatedAt          apijson.Field
 	VPCID              apijson.Field
@@ -187,15 +185,12 @@ func (r firewallRuleListJSON) RawJSON() string {
 }
 
 type FirewallRuleNewParams struct {
-	DestinationAddress param.Field[string] `json:"destination_address,required"`
-	Name               param.Field[string] `json:"name,required"`
+	DestinationAddress param.Field[string]   `json:"destination_address,required"`
+	DestinationPorts   param.Field[[]string] `json:"destination_ports,required"`
+	Name               param.Field[string]   `json:"name,required"`
 	// Supported Firewall Rule protocols.
 	Protocol      param.Field[string] `json:"protocol,required"`
 	SourceAddress param.Field[string] `json:"source_address,required"`
-	// required for TCP, should not be provided for UDP
-	DestinationPorts param.Field[[]string] `json:"destination_ports"`
-	// required for UDP, should not be provided for TCP
-	SourcePorts param.Field[[]string] `json:"source_ports"`
 }
 
 func (r FirewallRuleNewParams) MarshalJSON() (data []byte, err error) {
@@ -209,7 +204,6 @@ type FirewallRuleUpdateParams struct {
 	// Supported Firewall Rule protocols.
 	Protocol      param.Field[FirewallRuleUpdateParamsProtocol] `json:"protocol"`
 	SourceAddress param.Field[string]                           `json:"source_address"`
-	SourcePorts   param.Field[[]string]                         `json:"source_ports"`
 }
 
 func (r FirewallRuleUpdateParams) MarshalJSON() (data []byte, err error) {
