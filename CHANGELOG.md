@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.37 (2025-03-01)
+
+Full Changelog: [v0.1.0-alpha.36...v0.1.0-alpha.37](https://github.com/nirvana-labs/nirvana-go/compare/v0.1.0-alpha.36...v0.1.0-alpha.37)
+
+### Documentation
+
+* update URLs from stainlessapi.com to stainless.com ([#138](https://github.com/nirvana-labs/nirvana-go/issues/138)) ([ad6df0a](https://github.com/nirvana-labs/nirvana-go/commit/ad6df0a4477c809999b4d0b622506117d80c9360))
+
 ## 0.1.0-alpha.36 (2025-02-24)
 
 Full Changelog: [v0.1.0-alpha.35...v0.1.0-alpha.36](https://github.com/nirvana-labs/nirvana-go/compare/v0.1.0-alpha.35...v0.1.0-alpha.36)
