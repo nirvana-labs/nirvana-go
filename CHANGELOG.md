@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.38 (2025-03-06)
+
+Full Changelog: [v0.1.0-alpha.37...v0.1.0-alpha.38](https://github.com/nirvana-labs/nirvana-go/compare/v0.1.0-alpha.37...v0.1.0-alpha.38)
+
+### Features
+
+* **api:** api update ([#141](https://github.com/nirvana-labs/nirvana-go/issues/141)) ([1e23eec](https://github.com/nirvana-labs/nirvana-go/commit/1e23eec8196d93a3cb6bdacdfc1368cdcec5e0e7))
+
 ## 0.1.0-alpha.37 (2025-03-01)
 
 Full Changelog: [v0.1.0-alpha.36...v0.1.0-alpha.37](https://github.com/nirvana-labs/nirvana-go/compare/v0.1.0-alpha.36...v0.1.0-alpha.37)
