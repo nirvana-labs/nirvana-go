@@ -13,6 +13,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/operations"
 	"github.com/nirvana-labs/nirvana-go/option"
+	"github.com/nirvana-labs/nirvana-go/shared"
 )
 
 // VolumeService contains methods and other services that help with interacting
@@ -106,9 +107,10 @@ type Volume struct {
 	ID        string `json:"id,required"`
 	CreatedAt string `json:"created_at,required"`
 	// Volume kind.
-	Kind VolumeKind `json:"kind,required"`
-	Name string     `json:"name,required"`
-	Size int64      `json:"size,required"`
+	Kind   VolumeKind            `json:"kind,required"`
+	Name   string                `json:"name,required"`
+	Size   int64                 `json:"size,required"`
+	Status shared.ResourceStatus `json:"status,required"`
 	// Storage type.
 	Type      StorageType `json:"type,required"`
 	UpdatedAt string      `json:"updated_at,required"`
@@ -123,6 +125,7 @@ type volumeJSON struct {
 	Kind        apijson.Field
 	Name        apijson.Field
 	Size        apijson.Field
+	Status      apijson.Field
 	Type        apijson.Field
 	UpdatedAt   apijson.Field
 	VMID        apijson.Field
