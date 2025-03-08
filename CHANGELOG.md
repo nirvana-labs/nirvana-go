@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.39 (2025-03-08)
+
+Full Changelog: [v0.1.0-alpha.38...v0.1.0-alpha.39](https://github.com/nirvana-labs/nirvana-go/compare/v0.1.0-alpha.38...v0.1.0-alpha.39)
+
+### Features
+
+* **client:** allow custom baseurls without trailing slash ([#144](https://github.com/nirvana-labs/nirvana-go/issues/144)) ([562dfc1](https://github.com/nirvana-labs/nirvana-go/commit/562dfc1b280383e641c90027402284fa6c365e83))
+
 ## 0.1.0-alpha.38 (2025-03-06)
 
 Full Changelog: [v0.1.0-alpha.37...v0.1.0-alpha.38](https://github.com/nirvana-labs/nirvana-go/compare/v0.1.0-alpha.37...v0.1.0-alpha.38)
