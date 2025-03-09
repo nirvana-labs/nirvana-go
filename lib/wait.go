@@ -14,7 +14,8 @@ func WaitForOperation(ctx context.Context, client *nirvana.Client, operationID s
 	ticker := time.NewTicker(1 * time.Second)
 	defer ticker.Stop()
 
-	timeout := time.After(10 * time.Minute)
+	timeoutDuration := 10 * time.Minute
+	timeout := time.After(timeoutDuration)
 
 	for {
 		select {
@@ -32,7 +33,7 @@ func WaitForOperation(ctx context.Context, client *nirvana.Client, operationID s
 				return errors.New("operation failed")
 			}
 		case <-timeout:
-			return errors.New("operation timed out after 10 minutes")
+			return errors.New("operation timed out after " + timeoutDuration.String() + " secs")
 		case <-ctx.Done():
 			return errors.New("context cancelled: " + ctx.Err().Error())
 		}
