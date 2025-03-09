@@ -9,8 +9,8 @@ import (
 	"github.com/nirvana-labs/nirvana-go/operations"
 )
 
-// WaitForOperation polls the operation status until it's 'done' or times out.
-func WaitForOperation(ctx context.Context, client *nirvana.Client, operationID string) error {
+// Wait polls the operation status until it's 'done' or times out.
+func Wait(ctx context.Context, client *nirvana.Client, operationID string) error {
 	ticker := time.NewTicker(1 * time.Second)
 	defer ticker.Stop()
 
