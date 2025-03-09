@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.40 (2025-03-09)
+
+Full Changelog: [v0.1.0-alpha.39...v0.1.0-alpha.40](https://github.com/nirvana-labs/nirvana-go/compare/v0.1.0-alpha.39...v0.1.0-alpha.40)
+
+### Features
+
+* feat(lib): add WaitForOperation function ([#147](https://github.com/nirvana-labs/nirvana-go/issues/147)) ([b8737f3](https://github.com/nirvana-labs/nirvana-go/commit/b8737f3f911560acf7c343308250fa2d73825f98))
+
 ## 0.1.0-alpha.39 (2025-03-08)
 
 Full Changelog: [v0.1.0-alpha.38...v0.1.0-alpha.39](https://github.com/nirvana-labs/nirvana-go/compare/v0.1.0-alpha.38...v0.1.0-alpha.39)
