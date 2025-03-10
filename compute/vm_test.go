@@ -42,7 +42,7 @@ func TestVMNewWithOptionalParams(t *testing.T) {
 		PublicIPEnabled: nirvana.F(true),
 		Region:          nirvana.F(shared.RegionNameUsSea1),
 		SSHKey: nirvana.F(compute.SSHKeyParam{
-			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
+			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname"),
 		}),
 		SubnetID: nirvana.F("123e4567-e89b-12d3-a456-426614174000"),
 		DataVolumes: nirvana.F([]compute.VMNewParamsDataVolume{{
