@@ -54,7 +54,7 @@ func TestUserAgentHeader(t *testing.T) {
 		PublicIPEnabled: nirvana.F(true),
 		Region:          nirvana.F(shared.RegionNameUsSea1),
 		SSHKey: nirvana.F(compute.SSHKeyParam{
-			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname"),
+			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 		}),
 		SubnetID: nirvana.F("123e4567-e89b-12d3-a456-426614174000"),
 	})
@@ -95,7 +95,7 @@ func TestRetryAfter(t *testing.T) {
 		PublicIPEnabled: nirvana.F(true),
 		Region:          nirvana.F(shared.RegionNameUsSea1),
 		SSHKey: nirvana.F(compute.SSHKeyParam{
-			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname"),
+			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 		}),
 		SubnetID: nirvana.F("123e4567-e89b-12d3-a456-426614174000"),
 	})
@@ -147,7 +147,7 @@ func TestDeleteRetryCountHeader(t *testing.T) {
 		PublicIPEnabled: nirvana.F(true),
 		Region:          nirvana.F(shared.RegionNameUsSea1),
 		SSHKey: nirvana.F(compute.SSHKeyParam{
-			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname"),
+			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 		}),
 		SubnetID: nirvana.F("123e4567-e89b-12d3-a456-426614174000"),
 	})
@@ -194,7 +194,7 @@ func TestOverwriteRetryCountHeader(t *testing.T) {
 		PublicIPEnabled: nirvana.F(true),
 		Region:          nirvana.F(shared.RegionNameUsSea1),
 		SSHKey: nirvana.F(compute.SSHKeyParam{
-			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname"),
+			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 		}),
 		SubnetID: nirvana.F("123e4567-e89b-12d3-a456-426614174000"),
 	})
@@ -240,7 +240,7 @@ func TestRetryAfterMs(t *testing.T) {
 		PublicIPEnabled: nirvana.F(true),
 		Region:          nirvana.F(shared.RegionNameUsSea1),
 		SSHKey: nirvana.F(compute.SSHKeyParam{
-			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname"),
+			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 		}),
 		SubnetID: nirvana.F("123e4567-e89b-12d3-a456-426614174000"),
 	})
@@ -280,7 +280,7 @@ func TestContextCancel(t *testing.T) {
 		PublicIPEnabled: nirvana.F(true),
 		Region:          nirvana.F(shared.RegionNameUsSea1),
 		SSHKey: nirvana.F(compute.SSHKeyParam{
-			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname"),
+			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 		}),
 		SubnetID: nirvana.F("123e4567-e89b-12d3-a456-426614174000"),
 	})
@@ -317,7 +317,7 @@ func TestContextCancelDelay(t *testing.T) {
 		PublicIPEnabled: nirvana.F(true),
 		Region:          nirvana.F(shared.RegionNameUsSea1),
 		SSHKey: nirvana.F(compute.SSHKeyParam{
-			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname"),
+			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 		}),
 		SubnetID: nirvana.F("123e4567-e89b-12d3-a456-426614174000"),
 	})
@@ -360,7 +360,7 @@ func TestContextDeadline(t *testing.T) {
 			PublicIPEnabled: nirvana.F(true),
 			Region:          nirvana.F(shared.RegionNameUsSea1),
 			SSHKey: nirvana.F(compute.SSHKeyParam{
-				PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname"),
+				PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1234567890"),
 			}),
 			SubnetID: nirvana.F("123e4567-e89b-12d3-a456-426614174000"),
 		})
