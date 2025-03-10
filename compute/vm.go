@@ -203,6 +203,7 @@ type VM struct {
 	PublicIP     string                `json:"public_ip,required,nullable"`
 	Region       shared.RegionName     `json:"region,required"`
 	Status       shared.ResourceStatus `json:"status,required"`
+	SubnetID     string                `json:"subnet_id,required"`
 	UpdatedAt    string                `json:"updated_at,required"`
 	VPCID        string                `json:"vpc_id,required"`
 	JSON         vmJSON                `json:"-"`
@@ -221,6 +222,7 @@ type vmJSON struct {
 	PublicIP      apijson.Field
 	Region        apijson.Field
 	Status        apijson.Field
+	SubnetID      apijson.Field
 	UpdatedAt     apijson.Field
 	VPCID         apijson.Field
 	raw           string
