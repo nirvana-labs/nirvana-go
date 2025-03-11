@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.1.0-alpha.45 (2025-03-11)
+
+Full Changelog: [v0.1.0-alpha.44...v0.1.0-alpha.45](https://github.com/nirvana-labs/nirvana-go/compare/v0.1.0-alpha.44...v0.1.0-alpha.45)
+
+### Features
+
+* add SKIP_BREW env var to ./scripts/bootstrap ([#163](https://github.com/nirvana-labs/nirvana-go/issues/163)) ([6db6e88](https://github.com/nirvana-labs/nirvana-go/commit/6db6e88ee4e5f9a651ddd4b8132b988f11e1034b))
+* **client:** accept RFC6838 JSON content types ([#165](https://github.com/nirvana-labs/nirvana-go/issues/165)) ([1d844ea](https://github.com/nirvana-labs/nirvana-go/commit/1d844ead31ad24f403c8f320f0ae7954c84f0ab4))
+
+
+### Refactors
+
+* tidy up dependencies ([#166](https://github.com/nirvana-labs/nirvana-go/issues/166)) ([42b1a4b](https://github.com/nirvana-labs/nirvana-go/commit/42b1a4b9f59565044b922880491767d654e89b98))
+
 ## 0.1.0-alpha.44 (2025-03-11)
 
 Full Changelog: [v0.1.0-alpha.43...v0.1.0-alpha.44](https://github.com/nirvana-labs/nirvana-go/compare/v0.1.0-alpha.43...v0.1.0-alpha.44)
