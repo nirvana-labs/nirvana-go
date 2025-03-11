@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/param"
@@ -79,9 +80,9 @@ func (r *VPCService) Get(ctx context.Context, vpcID string, opts ...option.Reque
 type Subnet struct {
 	ID        string     `json:"id,required"`
 	Cidr      string     `json:"cidr,required"`
-	CreatedAt string     `json:"created_at,required"`
+	CreatedAt time.Time  `json:"created_at,required" format:"date-time"`
 	Name      string     `json:"name,required"`
-	UpdatedAt string     `json:"updated_at,required"`
+	UpdatedAt time.Time  `json:"updated_at,required" format:"date-time"`
 	JSON      subnetJSON `json:"-"`
 }
 
@@ -107,15 +108,15 @@ func (r subnetJSON) RawJSON() string {
 // VPC details.
 type VPC struct {
 	ID              string                `json:"id,required"`
-	CreatedAt       string                `json:"created_at,required"`
+	CreatedAt       time.Time             `json:"created_at,required" format:"date-time"`
 	FirewallRuleIDs []string              `json:"firewall_rule_ids,required"`
 	Name            string                `json:"name,required"`
 	Region          shared.RegionName     `json:"region,required"`
 	Status          shared.ResourceStatus `json:"status,required"`
 	// Subnet details.
-	Subnet    Subnet  `json:"subnet,required"`
-	UpdatedAt string  `json:"updated_at,required"`
-	JSON      vpcJSON `json:"-"`
+	Subnet    Subnet    `json:"subnet,required"`
+	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
+	JSON      vpcJSON   `json:"-"`
 }
 
 // vpcJSON contains the JSON metadata for the struct [VPC]
