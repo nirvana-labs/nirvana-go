@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/param"
@@ -156,7 +157,7 @@ func (r MemoryConfigParam) MarshalJSON() (data []byte, err error) {
 }
 
 type OSImage struct {
-	CreatedAt   string      `json:"created_at,required"`
+	CreatedAt   time.Time   `json:"created_at,required" format:"date-time"`
 	DisplayName string      `json:"display_name,required"`
 	Name        string      `json:"name,required"`
 	JSON        osImageJSON `json:"-"`
@@ -194,7 +195,7 @@ type VM struct {
 	BootVolumeID string `json:"boot_volume_id,required"`
 	// CPU configuration details.
 	CPUConfig     CPUConfig `json:"cpu_config,required"`
-	CreatedAt     string    `json:"created_at,required"`
+	CreatedAt     time.Time `json:"created_at,required" format:"date-time"`
 	DataVolumeIDs []string  `json:"data_volume_ids,required"`
 	// Memory configuration details.
 	MemoryConfig MemoryConfig          `json:"memory_config,required"`
@@ -204,7 +205,7 @@ type VM struct {
 	Region       shared.RegionName     `json:"region,required"`
 	Status       shared.ResourceStatus `json:"status,required"`
 	SubnetID     string                `json:"subnet_id,required"`
-	UpdatedAt    string                `json:"updated_at,required"`
+	UpdatedAt    time.Time             `json:"updated_at,required" format:"date-time"`
 	VPCID        string                `json:"vpc_id,required"`
 	JSON         vmJSON                `json:"-"`
 }
