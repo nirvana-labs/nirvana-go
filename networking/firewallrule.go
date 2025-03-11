@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/param"
@@ -109,16 +110,16 @@ func (r *FirewallRuleService) Get(ctx context.Context, vpcID string, firewallRul
 
 // Firewall rule details.
 type FirewallRule struct {
-	ID                 string   `json:"id,required"`
-	CreatedAt          string   `json:"created_at,required"`
-	DestinationAddress string   `json:"destination_address,required"`
-	DestinationPorts   []string `json:"destination_ports,required"`
-	Name               string   `json:"name,required"`
+	ID                 string    `json:"id,required"`
+	CreatedAt          time.Time `json:"created_at,required" format:"date-time"`
+	DestinationAddress string    `json:"destination_address,required"`
+	DestinationPorts   []string  `json:"destination_ports,required"`
+	Name               string    `json:"name,required"`
 	// Supported Firewall Rule protocols.
 	Protocol      FirewallRuleProtocol  `json:"protocol,required"`
 	SourceAddress string                `json:"source_address,required"`
 	Status        shared.ResourceStatus `json:"status,required"`
-	UpdatedAt     string                `json:"updated_at,required"`
+	UpdatedAt     time.Time             `json:"updated_at,required" format:"date-time"`
 	VPCID         string                `json:"vpc_id,required"`
 	JSON          firewallRuleJSON      `json:"-"`
 }

@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/param"
@@ -104,8 +105,8 @@ func (r StorageType) IsKnown() bool {
 
 // Volume details.
 type Volume struct {
-	ID        string `json:"id,required"`
-	CreatedAt string `json:"created_at,required"`
+	ID        string    `json:"id,required"`
+	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
 	// Volume kind.
 	Kind   VolumeKind            `json:"kind,required"`
 	Name   string                `json:"name,required"`
@@ -113,7 +114,7 @@ type Volume struct {
 	Status shared.ResourceStatus `json:"status,required"`
 	// Storage type.
 	Type      StorageType `json:"type,required"`
-	UpdatedAt string      `json:"updated_at,required"`
+	UpdatedAt time.Time   `json:"updated_at,required" format:"date-time"`
 	VMID      string      `json:"vm_id,required,nullable"`
 	JSON      volumeJSON  `json:"-"`
 }
