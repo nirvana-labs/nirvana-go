@@ -44,6 +44,18 @@ func (r *VPCService) New(ctx context.Context, body VPCNewParams, opts ...option.
 	return
 }
 
+// Update a VPC
+func (r *VPCService) Update(ctx context.Context, vpcID string, body VPCUpdateParams, opts ...option.RequestOption) (res *VPC, err error) {
+	opts = append(r.Options[:], opts...)
+	if vpcID == "" {
+		err = errors.New("missing required vpc_id parameter")
+		return
+	}
+	path := fmt.Sprintf("networking/vpcs/%s", vpcID)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
+	return
+}
+
 // List all VPCs
 func (r *VPCService) List(ctx context.Context, opts ...option.RequestOption) (res *VPCList, err error) {
 	opts = append(r.Options[:], opts...)
@@ -168,5 +180,14 @@ type VPCNewParams struct {
 }
 
 func (r VPCNewParams) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r)
+}
+
+type VPCUpdateParams struct {
+	Name       param.Field[string] `json:"name"`
+	SubnetName param.Field[string] `json:"subnet_name"`
+}
+
+func (r VPCUpdateParams) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }

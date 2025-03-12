@@ -41,6 +41,35 @@ func TestVPCNew(t *testing.T) {
 	}
 }
 
+func TestVPCUpdateWithOptionalParams(t *testing.T) {
+	baseURL := "http://localhost:4010"
+	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
+		baseURL = envURL
+	}
+	if !testutil.CheckTestServer(t, baseURL) {
+		return
+	}
+	client := nirvana.NewClient(
+		option.WithBaseURL(baseURL),
+		option.WithAuthToken("My Auth Token"),
+	)
+	_, err := client.Networking.VPCs.Update(
+		context.TODO(),
+		"vpc_id",
+		networking.VPCUpdateParams{
+			Name:       nirvana.F("my-vpc"),
+			SubnetName: nirvana.F("my-subnet"),
+		},
+	)
+	if err != nil {
+		var apierr *nirvana.Error
+		if errors.As(err, &apierr) {
+			t.Log(string(apierr.DumpRequest(true)))
+		}
+		t.Fatalf("err should be nil: %s", err.Error())
+	}
+}
+
 func TestVPCList(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
