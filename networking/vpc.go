@@ -45,7 +45,7 @@ func (r *VPCService) New(ctx context.Context, body VPCNewParams, opts ...option.
 }
 
 // Update a VPC
-func (r *VPCService) Update(ctx context.Context, vpcID string, body VPCUpdateParams, opts ...option.RequestOption) (res *VPC, err error) {
+func (r *VPCService) Update(ctx context.Context, vpcID string, body VPCUpdateParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
 	opts = append(r.Options[:], opts...)
 	if vpcID == "" {
 		err = errors.New("missing required vpc_id parameter")
