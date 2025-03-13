@@ -40,6 +40,9 @@ const RegionNameApMum1 = shared.RegionNameApMum1
 const RegionNameApSin1 = shared.RegionNameApSin1
 
 // This is an alias to an internal value.
+const RegionNameApSeo1 = shared.RegionNameApSeo1
+
+// This is an alias to an internal value.
 const RegionNameApTyo1 = shared.RegionNameApTyo1
 
 // This is an alias to an internal type.

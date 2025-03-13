@@ -14,12 +14,13 @@ const (
 	RegionNameEuFrk1 RegionName = "eu-frk-1"
 	RegionNameApMum1 RegionName = "ap-mum-1"
 	RegionNameApSin1 RegionName = "ap-sin-1"
+	RegionNameApSeo1 RegionName = "ap-seo-1"
 	RegionNameApTyo1 RegionName = "ap-tyo-1"
 )
 
 func (r RegionName) IsKnown() bool {
 	switch r {
-	case RegionNameUsSea1, RegionNameUsSva1, RegionNameUsChi1, RegionNameUsWdc1, RegionNameEuLon1, RegionNameEuAms1, RegionNameEuFrk1, RegionNameApMum1, RegionNameApSin1, RegionNameApTyo1:
+	case RegionNameUsSea1, RegionNameUsSva1, RegionNameUsChi1, RegionNameUsWdc1, RegionNameEuLon1, RegionNameEuAms1, RegionNameEuFrk1, RegionNameApMum1, RegionNameApSin1, RegionNameApSeo1, RegionNameApTyo1:
 		return true
 	}
 	return false
