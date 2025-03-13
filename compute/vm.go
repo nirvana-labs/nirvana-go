@@ -290,7 +290,8 @@ func (r VMNewParamsBootVolume) MarshalJSON() (data []byte, err error) {
 
 // VM data volume create request.
 type VMNewParamsDataVolume struct {
-	Size param.Field[int64] `json:"size,required"`
+	Name param.Field[string] `json:"name,required"`
+	Size param.Field[int64]  `json:"size,required"`
 }
 
 func (r VMNewParamsDataVolume) MarshalJSON() (data []byte, err error) {
