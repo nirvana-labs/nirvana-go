@@ -27,6 +27,7 @@ func TestVolumeNew(t *testing.T) {
 		option.WithAuthToken("My Auth Token"),
 	)
 	_, err := client.Compute.Volumes.New(context.TODO(), compute.VolumeNewParams{
+		Name: nirvana.F("my-data-volume"),
 		Size: nirvana.F(int64(100)),
 		VMID: nirvana.F("vm_id"),
 	})
