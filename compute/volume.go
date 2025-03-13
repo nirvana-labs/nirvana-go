@@ -116,6 +116,7 @@ type Volume struct {
 	Type      StorageType `json:"type,required"`
 	UpdatedAt time.Time   `json:"updated_at,required" format:"date-time"`
 	VMID      string      `json:"vm_id,required,nullable"`
+	VMName    string      `json:"vm_name,required,nullable"`
 	JSON      volumeJSON  `json:"-"`
 }
 
@@ -130,6 +131,7 @@ type volumeJSON struct {
 	Type        apijson.Field
 	UpdatedAt   apijson.Field
 	VMID        apijson.Field
+	VMName      apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -179,6 +181,7 @@ func (r volumeListJSON) RawJSON() string {
 }
 
 type VolumeNewParams struct {
+	Name param.Field[string] `json:"name,required"`
 	Size param.Field[int64]  `json:"size,required"`
 	VMID param.Field[string] `json:"vm_id,required"`
 }
