@@ -3,7 +3,7 @@
 <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go"><img src="https://pkg.go.dev/badge/github.com/nirvana-labs/nirvana-go.svg" alt="Go Reference"></a>
 
 The Nirvana Labs Go library provides convenient access to [the Nirvana Labs REST
-API](https://docs.nirvanalabs.io/) from applications written in Go. The full API of this library can be found in [api.md](api.md).
+API](https://docs.nirvanalabs.io) from applications written in Go. The full API of this library can be found in [api.md](api.md).
 
 ## Installation
 
@@ -22,7 +22,7 @@ Or to pin the version:
 <!-- x-release-please-start-version -->
 
 ```sh
-go get -u 'github.com/nirvana-labs/nirvana-go@v0.1.0-alpha.50'
+go get -u 'github.com/nirvana-labs/nirvana-go@v0.1.0-alpha.51'
 ```
 
 <!-- x-release-please-end -->
