@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.1.0-alpha.51 (2025-03-14)
+
+Full Changelog: [v0.1.0-alpha.50...v0.1.0-alpha.51](https://github.com/nirvana-labs/nirvana-go/compare/v0.1.0-alpha.50...v0.1.0-alpha.51)
+
+### Features
+
+* **api:** api update ([#176](https://github.com/nirvana-labs/nirvana-go/issues/176)) ([7307ba4](https://github.com/nirvana-labs/nirvana-go/commit/7307ba45d59dc164d209944605a1121910bd4afd))
+* **api:** api update ([#186](https://github.com/nirvana-labs/nirvana-go/issues/186)) ([3cc5ad9](https://github.com/nirvana-labs/nirvana-go/commit/3cc5ad968b9d35a9d5c1696e9577aceb3018bfb4))
+* **api:** manual updates ([#174](https://github.com/nirvana-labs/nirvana-go/issues/174)) ([26c4248](https://github.com/nirvana-labs/nirvana-go/commit/26c424854388b3a2865bfd38396eb321f05cd578))
+* **client:** improve default client options support ([#184](https://github.com/nirvana-labs/nirvana-go/issues/184)) ([d27b189](https://github.com/nirvana-labs/nirvana-go/commit/d27b189827f94ced525cbd1d74cec1bf7887e5a2))
+
+
+### Chores
+
+* **internal:** remove extra empty newlines ([#185](https://github.com/nirvana-labs/nirvana-go/issues/185)) ([db87b44](https://github.com/nirvana-labs/nirvana-go/commit/db87b44646620ee76cf28aa79ad3ae7ef1b0bb1a))
+
 ## 0.1.0-alpha.50 (2025-03-13)
 
 Full Changelog: [v0.1.0-alpha.49...v0.1.0-alpha.50](https://github.com/nirvana-labs/nirvana-go/compare/v0.1.0-alpha.49...v0.1.0-alpha.50)
