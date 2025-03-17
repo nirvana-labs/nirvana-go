@@ -303,6 +303,7 @@ type VMUpdateParams struct {
 	CPUConfig param.Field[CPUConfigParam] `json:"cpu_config"`
 	// Memory configuration details.
 	MemoryConfig param.Field[MemoryConfigParam] `json:"memory_config"`
+	Name         param.Field[string]            `json:"name"`
 }
 
 func (r VMUpdateParams) MarshalJSON() (data []byte, err error) {
