@@ -191,7 +191,8 @@ func (r VolumeNewParams) MarshalJSON() (data []byte, err error) {
 }
 
 type VolumeUpdateParams struct {
-	Size param.Field[int64] `json:"size,required"`
+	Name param.Field[string] `json:"name"`
+	Size param.Field[int64]  `json:"size"`
 }
 
 func (r VolumeUpdateParams) MarshalJSON() (data []byte, err error) {
