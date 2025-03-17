@@ -38,7 +38,7 @@ func TestVMNewWithOptionalParams(t *testing.T) {
 			Size: nirvana.F(int64(2)),
 		}),
 		Name:            nirvana.F("my-vm"),
-		OSImageName:     nirvana.F("noble-2024-12-06"),
+		OSImageName:     nirvana.F("noble-2025-03-04"),
 		PublicIPEnabled: nirvana.F(true),
 		Region:          nirvana.F(shared.RegionNameUsSea1),
 		SSHKey: nirvana.F(compute.SSHKeyParam{
