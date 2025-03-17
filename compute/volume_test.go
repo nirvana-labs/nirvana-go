@@ -40,7 +40,7 @@ func TestVolumeNew(t *testing.T) {
 	}
 }
 
-func TestVolumeUpdate(t *testing.T) {
+func TestVolumeUpdateWithOptionalParams(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -56,6 +56,7 @@ func TestVolumeUpdate(t *testing.T) {
 		context.TODO(),
 		"volume_id",
 		compute.VolumeUpdateParams{
+			Name: nirvana.F("my-data-volume"),
 			Size: nirvana.F(int64(100)),
 		},
 	)
