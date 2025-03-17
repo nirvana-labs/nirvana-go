@@ -81,6 +81,7 @@ func TestVMUpdateWithOptionalParams(t *testing.T) {
 			MemoryConfig: nirvana.F(compute.MemoryConfigParam{
 				Size: nirvana.F(int64(2)),
 			}),
+			Name: nirvana.F("name"),
 		},
 	)
 	if err != nil {
