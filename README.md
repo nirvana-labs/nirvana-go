@@ -22,7 +22,7 @@ Or to pin the version:
 <!-- x-release-please-start-version -->
 
 ```sh
-go get -u 'github.com/nirvana-labs/nirvana-go@v0.1.0-alpha.51'
+go get -u 'github.com/nirvana-labs/nirvana-go@v0.1.0-alpha.52'
 ```
 
 <!-- x-release-please-end -->
@@ -63,7 +63,7 @@ func main() {
 			Size: nirvana.F(int64(2)),
 		}),
 		Name:            nirvana.F("my-vm"),
-		OSImageName:     nirvana.F("noble-2024-12-06"),
+		OSImageName:     nirvana.F("noble-2025-03-04"),
 		PublicIPEnabled: nirvana.F(true),
 		Region:          nirvana.F(shared.RegionNameUsSea1),
 		SSHKey: nirvana.F(compute.SSHKeyParam{
@@ -203,7 +203,7 @@ _, err := client.Compute.VMs.New(context.TODO(), compute.VMNewParams{
 		Size: nirvana.F(int64(2)),
 	}),
 	Name:            nirvana.F("my-vm"),
-	OSImageName:     nirvana.F("noble-2024-12-06"),
+	OSImageName:     nirvana.F("noble-2025-03-04"),
 	PublicIPEnabled: nirvana.F(true),
 	Region:          nirvana.F(shared.RegionNameUsSea1),
 	SSHKey: nirvana.F(compute.SSHKeyParam{
@@ -248,7 +248,7 @@ client.Compute.VMs.New(
 			Size: nirvana.F(int64(2)),
 		}),
 		Name:            nirvana.F("my-vm"),
-		OSImageName:     nirvana.F("noble-2024-12-06"),
+		OSImageName:     nirvana.F("noble-2025-03-04"),
 		PublicIPEnabled: nirvana.F(true),
 		Region:          nirvana.F(shared.RegionNameUsSea1),
 		SSHKey: nirvana.F(compute.SSHKeyParam{
@@ -302,7 +302,7 @@ client.Compute.VMs.New(
 			Size: nirvana.F(int64(2)),
 		}),
 		Name:            nirvana.F("my-vm"),
-		OSImageName:     nirvana.F("noble-2024-12-06"),
+		OSImageName:     nirvana.F("noble-2025-03-04"),
 		PublicIPEnabled: nirvana.F(true),
 		Region:          nirvana.F(shared.RegionNameUsSea1),
 		SSHKey: nirvana.F(compute.SSHKeyParam{
@@ -335,7 +335,7 @@ operation, err := client.Compute.VMs.New(
 			Size: nirvana.F(int64(2)),
 		}),
 		Name:            nirvana.F("my-vm"),
-		OSImageName:     nirvana.F("noble-2024-12-06"),
+		OSImageName:     nirvana.F("noble-2025-03-04"),
 		PublicIPEnabled: nirvana.F(true),
 		Region:          nirvana.F(shared.RegionNameUsSea1),
 		SSHKey: nirvana.F(compute.SSHKeyParam{
