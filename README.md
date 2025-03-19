@@ -22,7 +22,7 @@ Or to pin the version:
 <!-- x-release-please-start-version -->
 
 ```sh
-go get -u 'github.com/nirvana-labs/nirvana-go@v0.1.0-alpha.54'
+go get -u 'github.com/nirvana-labs/nirvana-go@v0.1.0-alpha.55'
 ```
 
 <!-- x-release-please-end -->
