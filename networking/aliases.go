@@ -67,4 +67,4 @@ const ResourceStatusDeleting = shared.ResourceStatusDeleting
 const ResourceStatusDeleted = shared.ResourceStatusDeleted
 
 // This is an alias to an internal value.
-const ResourceStatusFailed = shared.ResourceStatusFailed
+const ResourceStatusError = shared.ResourceStatusError
