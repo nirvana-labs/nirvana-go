@@ -35,12 +35,12 @@ const (
 	ResourceStatusReady    ResourceStatus = "ready"
 	ResourceStatusDeleting ResourceStatus = "deleting"
 	ResourceStatusDeleted  ResourceStatus = "deleted"
-	ResourceStatusFailed   ResourceStatus = "failed"
+	ResourceStatusError    ResourceStatus = "error"
 )
 
 func (r ResourceStatus) IsKnown() bool {
 	switch r {
-	case ResourceStatusPending, ResourceStatusCreating, ResourceStatusUpdating, ResourceStatusReady, ResourceStatusDeleting, ResourceStatusDeleted, ResourceStatusFailed:
+	case ResourceStatusPending, ResourceStatusCreating, ResourceStatusUpdating, ResourceStatusReady, ResourceStatusDeleting, ResourceStatusDeleted, ResourceStatusError:
 		return true
 	}
 	return false
