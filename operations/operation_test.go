@@ -23,7 +23,7 @@ func TestOperationList(t *testing.T) {
 	}
 	client := nirvana.NewClient(
 		option.WithBaseURL(baseURL),
-		option.WithAuthToken("My Auth Token"),
+		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Operations.List(context.TODO())
 	if err != nil {
@@ -45,7 +45,7 @@ func TestOperationGet(t *testing.T) {
 	}
 	client := nirvana.NewClient(
 		option.WithBaseURL(baseURL),
-		option.WithAuthToken("My Auth Token"),
+		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Operations.Get(context.TODO(), "operation_id")
 	if err != nil {

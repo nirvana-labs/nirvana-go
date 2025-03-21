@@ -24,7 +24,7 @@ func TestFirewallRuleNew(t *testing.T) {
 	}
 	client := nirvana.NewClient(
 		option.WithBaseURL(baseURL),
-		option.WithAuthToken("My Auth Token"),
+		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Networking.FirewallRules.New(
 		context.TODO(),
@@ -56,7 +56,7 @@ func TestFirewallRuleUpdateWithOptionalParams(t *testing.T) {
 	}
 	client := nirvana.NewClient(
 		option.WithBaseURL(baseURL),
-		option.WithAuthToken("My Auth Token"),
+		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Networking.FirewallRules.Update(
 		context.TODO(),
@@ -89,7 +89,7 @@ func TestFirewallRuleList(t *testing.T) {
 	}
 	client := nirvana.NewClient(
 		option.WithBaseURL(baseURL),
-		option.WithAuthToken("My Auth Token"),
+		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Networking.FirewallRules.List(context.TODO(), "vpc_id")
 	if err != nil {
@@ -111,7 +111,7 @@ func TestFirewallRuleDelete(t *testing.T) {
 	}
 	client := nirvana.NewClient(
 		option.WithBaseURL(baseURL),
-		option.WithAuthToken("My Auth Token"),
+		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Networking.FirewallRules.Delete(
 		context.TODO(),
@@ -137,7 +137,7 @@ func TestFirewallRuleGet(t *testing.T) {
 	}
 	client := nirvana.NewClient(
 		option.WithBaseURL(baseURL),
-		option.WithAuthToken("My Auth Token"),
+		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Networking.FirewallRules.Get(
 		context.TODO(),

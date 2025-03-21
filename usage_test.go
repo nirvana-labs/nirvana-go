@@ -24,7 +24,7 @@ func TestUsage(t *testing.T) {
 	}
 	client := nirvana.NewClient(
 		option.WithBaseURL(baseURL),
-		option.WithAuthToken("My Auth Token"),
+		option.WithAPIKey("My API Key"),
 	)
 	operation, err := client.Compute.VMs.New(context.TODO(), compute.VMNewParams{
 		BootVolume: nirvana.F(compute.VMNewParamsBootVolume{
