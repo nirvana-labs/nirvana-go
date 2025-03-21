@@ -50,7 +50,7 @@ func TestUserAgentHeader(t *testing.T) {
 			Size: nirvana.F(int64(2)),
 		}),
 		Name:            nirvana.F("my-vm"),
-		OSImageName:     nirvana.F("noble-2025-03-04"),
+		OSImageName:     nirvana.F("ubuntu-noble-2025-03-04"),
 		PublicIPEnabled: nirvana.F(true),
 		Region:          nirvana.F(shared.RegionNameUsSea1),
 		SSHKey: nirvana.F(compute.SSHKeyParam{
@@ -91,7 +91,7 @@ func TestRetryAfter(t *testing.T) {
 			Size: nirvana.F(int64(2)),
 		}),
 		Name:            nirvana.F("my-vm"),
-		OSImageName:     nirvana.F("noble-2025-03-04"),
+		OSImageName:     nirvana.F("ubuntu-noble-2025-03-04"),
 		PublicIPEnabled: nirvana.F(true),
 		Region:          nirvana.F(shared.RegionNameUsSea1),
 		SSHKey: nirvana.F(compute.SSHKeyParam{
@@ -143,7 +143,7 @@ func TestDeleteRetryCountHeader(t *testing.T) {
 			Size: nirvana.F(int64(2)),
 		}),
 		Name:            nirvana.F("my-vm"),
-		OSImageName:     nirvana.F("noble-2025-03-04"),
+		OSImageName:     nirvana.F("ubuntu-noble-2025-03-04"),
 		PublicIPEnabled: nirvana.F(true),
 		Region:          nirvana.F(shared.RegionNameUsSea1),
 		SSHKey: nirvana.F(compute.SSHKeyParam{
@@ -190,7 +190,7 @@ func TestOverwriteRetryCountHeader(t *testing.T) {
 			Size: nirvana.F(int64(2)),
 		}),
 		Name:            nirvana.F("my-vm"),
-		OSImageName:     nirvana.F("noble-2025-03-04"),
+		OSImageName:     nirvana.F("ubuntu-noble-2025-03-04"),
 		PublicIPEnabled: nirvana.F(true),
 		Region:          nirvana.F(shared.RegionNameUsSea1),
 		SSHKey: nirvana.F(compute.SSHKeyParam{
@@ -236,7 +236,7 @@ func TestRetryAfterMs(t *testing.T) {
 			Size: nirvana.F(int64(2)),
 		}),
 		Name:            nirvana.F("my-vm"),
-		OSImageName:     nirvana.F("noble-2025-03-04"),
+		OSImageName:     nirvana.F("ubuntu-noble-2025-03-04"),
 		PublicIPEnabled: nirvana.F(true),
 		Region:          nirvana.F(shared.RegionNameUsSea1),
 		SSHKey: nirvana.F(compute.SSHKeyParam{
@@ -276,7 +276,7 @@ func TestContextCancel(t *testing.T) {
 			Size: nirvana.F(int64(2)),
 		}),
 		Name:            nirvana.F("my-vm"),
-		OSImageName:     nirvana.F("noble-2025-03-04"),
+		OSImageName:     nirvana.F("ubuntu-noble-2025-03-04"),
 		PublicIPEnabled: nirvana.F(true),
 		Region:          nirvana.F(shared.RegionNameUsSea1),
 		SSHKey: nirvana.F(compute.SSHKeyParam{
@@ -313,7 +313,7 @@ func TestContextCancelDelay(t *testing.T) {
 			Size: nirvana.F(int64(2)),
 		}),
 		Name:            nirvana.F("my-vm"),
-		OSImageName:     nirvana.F("noble-2025-03-04"),
+		OSImageName:     nirvana.F("ubuntu-noble-2025-03-04"),
 		PublicIPEnabled: nirvana.F(true),
 		Region:          nirvana.F(shared.RegionNameUsSea1),
 		SSHKey: nirvana.F(compute.SSHKeyParam{
@@ -356,7 +356,7 @@ func TestContextDeadline(t *testing.T) {
 				Size: nirvana.F(int64(2)),
 			}),
 			Name:            nirvana.F("my-vm"),
-			OSImageName:     nirvana.F("noble-2025-03-04"),
+			OSImageName:     nirvana.F("ubuntu-noble-2025-03-04"),
 			PublicIPEnabled: nirvana.F(true),
 			Region:          nirvana.F(shared.RegionNameUsSea1),
 			SSHKey: nirvana.F(compute.SSHKeyParam{
