@@ -207,6 +207,7 @@ type VM struct {
 	SubnetID     string                `json:"subnet_id,required"`
 	UpdatedAt    time.Time             `json:"updated_at,required" format:"date-time"`
 	VPCID        string                `json:"vpc_id,required"`
+	VPCName      string                `json:"vpc_name,required"`
 	JSON         vmJSON                `json:"-"`
 }
 
@@ -226,6 +227,7 @@ type vmJSON struct {
 	SubnetID      apijson.Field
 	UpdatedAt     apijson.Field
 	VPCID         apijson.Field
+	VPCName       apijson.Field
 	raw           string
 	ExtraFields   map[string]apijson.Field
 }
