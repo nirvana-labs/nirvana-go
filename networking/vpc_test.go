@@ -25,7 +25,7 @@ func TestVPCNew(t *testing.T) {
 	}
 	client := nirvana.NewClient(
 		option.WithBaseURL(baseURL),
-		option.WithAuthToken("My Auth Token"),
+		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Networking.VPCs.New(context.TODO(), networking.VPCNewParams{
 		Name:       nirvana.F("my-vpc"),
@@ -51,7 +51,7 @@ func TestVPCUpdateWithOptionalParams(t *testing.T) {
 	}
 	client := nirvana.NewClient(
 		option.WithBaseURL(baseURL),
-		option.WithAuthToken("My Auth Token"),
+		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Networking.VPCs.Update(
 		context.TODO(),
@@ -80,7 +80,7 @@ func TestVPCList(t *testing.T) {
 	}
 	client := nirvana.NewClient(
 		option.WithBaseURL(baseURL),
-		option.WithAuthToken("My Auth Token"),
+		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Networking.VPCs.List(context.TODO())
 	if err != nil {
@@ -102,7 +102,7 @@ func TestVPCDelete(t *testing.T) {
 	}
 	client := nirvana.NewClient(
 		option.WithBaseURL(baseURL),
-		option.WithAuthToken("My Auth Token"),
+		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Networking.VPCs.Delete(context.TODO(), "vpc_id")
 	if err != nil {
@@ -124,7 +124,7 @@ func TestVPCGet(t *testing.T) {
 	}
 	client := nirvana.NewClient(
 		option.WithBaseURL(baseURL),
-		option.WithAuthToken("My Auth Token"),
+		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Networking.VPCs.Get(context.TODO(), "vpc_id")
 	if err != nil {

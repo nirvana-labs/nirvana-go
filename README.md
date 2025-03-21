@@ -22,7 +22,7 @@ Or to pin the version:
 <!-- x-release-please-start-version -->
 
 ```sh
-go get -u 'github.com/nirvana-labs/nirvana-go@v0.1.0-alpha.56'
+go get -u 'github.com/nirvana-labs/nirvana-go@v0.1.0-alpha.57'
 ```
 
 <!-- x-release-please-end -->
@@ -50,7 +50,7 @@ import (
 
 func main() {
 	client := nirvana.NewClient(
-		option.WithAuthToken("My Auth Token"), // defaults to os.LookupEnv("NIRVANA_LABS_AUTH_TOKEN")
+		option.WithAPIKey("My API Key"), // defaults to os.LookupEnv("NIRVANA_LABS_API_KEY")
 	)
 	operation, err := client.Compute.VMs.New(context.TODO(), compute.VMNewParams{
 		BootVolume: nirvana.F(compute.VMNewParamsBootVolume{

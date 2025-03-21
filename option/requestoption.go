@@ -232,10 +232,10 @@ func WithEnvironmentProduction() RequestOption {
 	return WithBaseURL("https://api.nirvanalabs.io//")
 }
 
-// WithAuthToken returns a RequestOption that sets the client setting "auth_token".
-func WithAuthToken(value string) RequestOption {
+// WithAPIKey returns a RequestOption that sets the client setting "api_key".
+func WithAPIKey(value string) RequestOption {
 	return requestconfig.RequestOptionFunc(func(r *requestconfig.RequestConfig) error {
-		r.AuthToken = value
-		return r.Apply(WithHeader("authorization", fmt.Sprintf("Bearer %s", r.AuthToken)))
+		r.APIKey = value
+		return r.Apply(WithHeader("authorization", fmt.Sprintf("Bearer %s", r.APIKey)))
 	})
 }
