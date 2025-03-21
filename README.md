@@ -50,7 +50,7 @@ import (
 
 func main() {
 	client := nirvana.NewClient(
-		option.WithAuthToken("My Auth Token"), // defaults to os.LookupEnv("NIRVANA_LABS_AUTH_TOKEN")
+		option.WithAPIKey("My API Key"), // defaults to os.LookupEnv("NIRVANA_LABS_API_KEY")
 	)
 	operation, err := client.Compute.VMs.New(context.TODO(), compute.VMNewParams{
 		BootVolume: nirvana.F(compute.VMNewParamsBootVolume{

@@ -23,7 +23,7 @@ func TestVMVolumeList(t *testing.T) {
 	}
 	client := nirvana.NewClient(
 		option.WithBaseURL(baseURL),
-		option.WithAuthToken("My Auth Token"),
+		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Compute.VMs.Volumes.List(context.TODO(), "vm_id")
 	if err != nil {

@@ -24,7 +24,7 @@ func TestVolumeNew(t *testing.T) {
 	}
 	client := nirvana.NewClient(
 		option.WithBaseURL(baseURL),
-		option.WithAuthToken("My Auth Token"),
+		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Compute.Volumes.New(context.TODO(), compute.VolumeNewParams{
 		Name: nirvana.F("my-data-volume"),
@@ -50,7 +50,7 @@ func TestVolumeUpdateWithOptionalParams(t *testing.T) {
 	}
 	client := nirvana.NewClient(
 		option.WithBaseURL(baseURL),
-		option.WithAuthToken("My Auth Token"),
+		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Compute.Volumes.Update(
 		context.TODO(),
@@ -79,7 +79,7 @@ func TestVolumeList(t *testing.T) {
 	}
 	client := nirvana.NewClient(
 		option.WithBaseURL(baseURL),
-		option.WithAuthToken("My Auth Token"),
+		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Compute.Volumes.List(context.TODO())
 	if err != nil {
@@ -101,7 +101,7 @@ func TestVolumeDelete(t *testing.T) {
 	}
 	client := nirvana.NewClient(
 		option.WithBaseURL(baseURL),
-		option.WithAuthToken("My Auth Token"),
+		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Compute.Volumes.Delete(context.TODO(), "volume_id")
 	if err != nil {
@@ -123,7 +123,7 @@ func TestVolumeGet(t *testing.T) {
 	}
 	client := nirvana.NewClient(
 		option.WithBaseURL(baseURL),
-		option.WithAuthToken("My Auth Token"),
+		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Compute.Volumes.Get(context.TODO(), "volume_id")
 	if err != nil {

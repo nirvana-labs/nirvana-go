@@ -25,7 +25,7 @@ func TestVMNewWithOptionalParams(t *testing.T) {
 	}
 	client := nirvana.NewClient(
 		option.WithBaseURL(baseURL),
-		option.WithAuthToken("My Auth Token"),
+		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Compute.VMs.New(context.TODO(), compute.VMNewParams{
 		BootVolume: nirvana.F(compute.VMNewParamsBootVolume{
@@ -69,7 +69,7 @@ func TestVMUpdateWithOptionalParams(t *testing.T) {
 	}
 	client := nirvana.NewClient(
 		option.WithBaseURL(baseURL),
-		option.WithAuthToken("My Auth Token"),
+		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Compute.VMs.Update(
 		context.TODO(),
@@ -104,7 +104,7 @@ func TestVMList(t *testing.T) {
 	}
 	client := nirvana.NewClient(
 		option.WithBaseURL(baseURL),
-		option.WithAuthToken("My Auth Token"),
+		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Compute.VMs.List(context.TODO())
 	if err != nil {
@@ -126,7 +126,7 @@ func TestVMDelete(t *testing.T) {
 	}
 	client := nirvana.NewClient(
 		option.WithBaseURL(baseURL),
-		option.WithAuthToken("My Auth Token"),
+		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Compute.VMs.Delete(context.TODO(), "vm_id")
 	if err != nil {
@@ -148,7 +148,7 @@ func TestVMGet(t *testing.T) {
 	}
 	client := nirvana.NewClient(
 		option.WithBaseURL(baseURL),
-		option.WithAuthToken("My Auth Token"),
+		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Compute.VMs.Get(context.TODO(), "vm_id")
 	if err != nil {
