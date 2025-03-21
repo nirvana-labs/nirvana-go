@@ -23,7 +23,7 @@ func TestVMOSImageList(t *testing.T) {
 	}
 	client := nirvana.NewClient(
 		option.WithBaseURL(baseURL),
-		option.WithAuthToken("My Auth Token"),
+		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Compute.VMs.OSImages.List(context.TODO())
 	if err != nil {
