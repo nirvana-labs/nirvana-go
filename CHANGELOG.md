@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.1 (2025-03-25)
+
+Full Changelog: [v0.2.0...v0.2.1](https://github.com/nirvana-labs/nirvana-go/compare/v0.2.0...v0.2.1)
+
+### Chores
+
+* **docs:** improve security documentation ([#214](https://github.com/nirvana-labs/nirvana-go/issues/214)) ([c458c7a](https://github.com/nirvana-labs/nirvana-go/commit/c458c7a60a56ec69883d765c8bf7dd423c7f410c))
+
 ## 0.2.0 (2025-03-25)
 
 Full Changelog: [v0.1.0...v0.2.0](https://github.com/nirvana-labs/nirvana-go/compare/v0.1.0...v0.2.0)
