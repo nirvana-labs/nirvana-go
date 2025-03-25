@@ -12,6 +12,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/networking"
 	"github.com/nirvana-labs/nirvana-go/operations"
 	"github.com/nirvana-labs/nirvana-go/option"
+	"github.com/nirvana-labs/nirvana-go/user"
 )
 
 // Client creates a struct with services and top level methods that help with
@@ -19,6 +20,7 @@ import (
 // directly, and instead use the [NewClient] method instead.
 type Client struct {
 	Options    []option.RequestOption
+	User       *user.UserService
 	Operations *operations.OperationService
 	Compute    *compute.ComputeService
 	Networking *networking.NetworkingService
@@ -43,6 +45,7 @@ func NewClient(opts ...option.RequestOption) (r *Client) {
 
 	r = &Client{Options: opts}
 
+	r.User = user.NewUserService(opts...)
 	r.Operations = operations.NewOperationService(opts...)
 	r.Compute = compute.NewComputeService(opts...)
 	r.Networking = networking.NewNetworkingService(opts...)
