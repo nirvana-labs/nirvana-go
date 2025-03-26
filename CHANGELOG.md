@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.2.2 (2025-03-26)
+
+Full Changelog: [v0.2.1...v0.2.2](https://github.com/nirvana-labs/nirvana-go/compare/v0.2.1...v0.2.2)
+
+### Bug Fixes
+
+* **test:** return early after test failure ([#219](https://github.com/nirvana-labs/nirvana-go/issues/219)) ([fa782ea](https://github.com/nirvana-labs/nirvana-go/commit/fa782ea2238e877796f4d8d0c39b8709a36ad91b))
+
+
+### Chores
+
+* add request options to client tests ([#217](https://github.com/nirvana-labs/nirvana-go/issues/217)) ([4703de2](https://github.com/nirvana-labs/nirvana-go/commit/4703de22d0725d7077d588373e15cb54347a43fa))
+
 ## 0.2.1 (2025-03-25)
 
 Full Changelog: [v0.2.0...v0.2.1](https://github.com/nirvana-labs/nirvana-go/compare/v0.2.0...v0.2.1)
