@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.3 (2025-03-27)
+
+Full Changelog: [v0.2.2...v0.2.3](https://github.com/nirvana-labs/nirvana-go/compare/v0.2.2...v0.2.3)
+
+### Chores
+
+* fix typos ([#221](https://github.com/nirvana-labs/nirvana-go/issues/221)) ([a862e01](https://github.com/nirvana-labs/nirvana-go/commit/a862e014e847bf9a6edb9a52c38d9c36b7b0233b))
+
 ## 0.2.2 (2025-03-26)
 
 Full Changelog: [v0.2.1...v0.2.2](https://github.com/nirvana-labs/nirvana-go/compare/v0.2.1...v0.2.2)
