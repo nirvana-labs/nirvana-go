@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/nirvana-labs/nirvana-go/api_keys"
 	"github.com/nirvana-labs/nirvana-go/compute"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/networking"
@@ -21,6 +22,7 @@ import (
 type Client struct {
 	Options    []option.RequestOption
 	User       *user.UserService
+	APIKeys    *api_keys.APIKeyService
 	Operations *operations.OperationService
 	Compute    *compute.ComputeService
 	Networking *networking.NetworkingService
@@ -46,6 +48,7 @@ func NewClient(opts ...option.RequestOption) (r *Client) {
 	r = &Client{Options: opts}
 
 	r.User = user.NewUserService(opts...)
+	r.APIKeys = api_keys.NewAPIKeyService(opts...)
 	r.Operations = operations.NewOperationService(opts...)
 	r.Compute = compute.NewComputeService(opts...)
 	r.Networking = networking.NewNetworkingService(opts...)
