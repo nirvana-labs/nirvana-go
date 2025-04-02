@@ -50,14 +50,27 @@ func (r *APIKeyService) List(ctx context.Context, opts ...option.RequestOption) 
 }
 
 // Delete an API key
-func (r *APIKeyService) Delete(ctx context.Context, apiKeyID string, opts ...option.RequestOption) (res *APIKeyDeleteResponse, err error) {
+func (r *APIKeyService) Delete(ctx context.Context, apiKeyID string, opts ...option.RequestOption) (err error) {
+	opts = append(r.Options[:], opts...)
+	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
+	if apiKeyID == "" {
+		err = errors.New("missing required api_key_id parameter")
+		return
+	}
+	path := fmt.Sprintf("api_keys/%s", apiKeyID)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, nil, opts...)
+	return
+}
+
+// Get details about an API key
+func (r *APIKeyService) Get(ctx context.Context, apiKeyID string, opts ...option.RequestOption) (res *APIKey, err error) {
 	opts = append(r.Options[:], opts...)
 	if apiKeyID == "" {
 		err = errors.New("missing required api_key_id parameter")
 		return
 	}
 	path := fmt.Sprintf("api_keys/%s", apiKeyID)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
 
@@ -120,5 +133,3 @@ func (r *APIKeyList) UnmarshalJSON(data []byte) (err error) {
 func (r apiKeyListJSON) RawJSON() string {
 	return r.raw
 }
-
-type APIKeyDeleteResponse = interface{}
