@@ -84,6 +84,8 @@ type APIKey struct {
 	ExpiresAt time.Time `json:"expires_at,required" format:"date-time"`
 	// API key name.
 	Name string `json:"name,required"`
+	// Status of the API key.
+	Status APIKeyStatus `json:"status,required"`
 	// User ID that owns the API key.
 	UserID string `json:"user_id,required"`
 	// API key.
@@ -99,6 +101,7 @@ type apiKeyJSON struct {
 	CreatedAt   apijson.Field
 	ExpiresAt   apijson.Field
 	Name        apijson.Field
+	Status      apijson.Field
 	UserID      apijson.Field
 	Key         apijson.Field
 	NotBefore   apijson.Field
@@ -112,6 +115,23 @@ func (r *APIKey) UnmarshalJSON(data []byte) (err error) {
 
 func (r apiKeyJSON) RawJSON() string {
 	return r.raw
+}
+
+// Status of the API key.
+type APIKeyStatus string
+
+const (
+	APIKeyStatusActive   APIKeyStatus = "active"
+	APIKeyStatusInactive APIKeyStatus = "inactive"
+	APIKeyStatusExpired  APIKeyStatus = "expired"
+)
+
+func (r APIKeyStatus) IsKnown() bool {
+	switch r {
+	case APIKeyStatusActive, APIKeyStatusInactive, APIKeyStatusExpired:
+		return true
+	}
+	return false
 }
 
 type APIKeyList struct {
