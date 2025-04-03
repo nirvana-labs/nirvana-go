@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.3.0 (2025-04-03)
+
+Full Changelog: [v0.2.3...v0.3.0](https://github.com/nirvana-labs/nirvana-go/compare/v0.2.3...v0.3.0)
+
+### Features
+
+* **api:** api update ([#224](https://github.com/nirvana-labs/nirvana-go/issues/224)) ([581d8e2](https://github.com/nirvana-labs/nirvana-go/commit/581d8e259428a13556bcab88ad4b2c40e11f70b6))
+* **api:** api update ([#226](https://github.com/nirvana-labs/nirvana-go/issues/226)) ([12156c6](https://github.com/nirvana-labs/nirvana-go/commit/12156c69b4ea7053359dd69783dba52c7db8ccb7))
+* **api:** api update ([#227](https://github.com/nirvana-labs/nirvana-go/issues/227)) ([e371457](https://github.com/nirvana-labs/nirvana-go/commit/e3714578b7f7ccb8160c947055783379ab853e78))
+* **api:** api update ([#229](https://github.com/nirvana-labs/nirvana-go/issues/229)) ([7854cf0](https://github.com/nirvana-labs/nirvana-go/commit/7854cf05f108c516ad867a1688a4f82cbbfe099a))
+
+
+### Bug Fixes
+
+* **client:** dedup slashes in URL ([#228](https://github.com/nirvana-labs/nirvana-go/issues/228)) ([97ee0ee](https://github.com/nirvana-labs/nirvana-go/commit/97ee0eef4263e18d24dc7842880807ebdf8eabc0))
+* **client:** return error on bad custom url instead of panic ([#230](https://github.com/nirvana-labs/nirvana-go/issues/230)) ([1d99a88](https://github.com/nirvana-labs/nirvana-go/commit/1d99a888ab15657abd5beac623becb33d1e61f46))
+
 ## 0.2.3 (2025-03-27)
 
 Full Changelog: [v0.2.2...v0.2.3](https://github.com/nirvana-labs/nirvana-go/compare/v0.2.2...v0.2.3)
