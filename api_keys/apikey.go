@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
+	"github.com/nirvana-labs/nirvana-go/internal/param"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/option"
 )
@@ -34,10 +35,10 @@ func NewAPIKeyService(opts ...option.RequestOption) (r *APIKeyService) {
 }
 
 // Create a new API key
-func (r *APIKeyService) New(ctx context.Context, opts ...option.RequestOption) (res *APIKey, err error) {
+func (r *APIKeyService) New(ctx context.Context, body APIKeyNewParams, opts ...option.RequestOption) (res *APIKey, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "api_keys"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
 }
 
@@ -152,4 +153,17 @@ func (r *APIKeyList) UnmarshalJSON(data []byte) (err error) {
 
 func (r apiKeyListJSON) RawJSON() string {
 	return r.raw
+}
+
+type APIKeyNewParams struct {
+	// Time after which the API key is not valid.
+	ExpiresAt param.Field[time.Time] `json:"expires_at,required" format:"date-time"`
+	// API key name.
+	Name param.Field[string] `json:"name,required"`
+	// Time before which the API key is not valid.
+	NotBefore param.Field[time.Time] `json:"not_before" format:"date-time"`
+}
+
+func (r APIKeyNewParams) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r)
 }

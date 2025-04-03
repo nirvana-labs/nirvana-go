@@ -7,13 +7,15 @@ import (
 	"errors"
 	"os"
 	"testing"
+	"time"
 
 	"github.com/nirvana-labs/nirvana-go"
+	"github.com/nirvana-labs/nirvana-go/api_keys"
 	"github.com/nirvana-labs/nirvana-go/internal/testutil"
 	"github.com/nirvana-labs/nirvana-go/option"
 )
 
-func TestAPIKeyNew(t *testing.T) {
+func TestAPIKeyNewWithOptionalParams(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -25,7 +27,11 @@ func TestAPIKeyNew(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.APIKeys.New(context.TODO())
+	_, err := client.APIKeys.New(context.TODO(), api_keys.APIKeyNewParams{
+		ExpiresAt: nirvana.F(time.Now()),
+		Name:      nirvana.F("my-api-key"),
+		NotBefore: nirvana.F(time.Now()),
+	})
 	if err != nil {
 		var apierr *nirvana.Error
 		if errors.As(err, &apierr) {
