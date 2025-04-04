@@ -42,6 +42,18 @@ func (r *APIKeyService) New(ctx context.Context, body APIKeyNewParams, opts ...o
 	return
 }
 
+// Update an API key's name
+func (r *APIKeyService) Update(ctx context.Context, apiKeyID string, body APIKeyUpdateParams, opts ...option.RequestOption) (res *APIKey, err error) {
+	opts = append(r.Options[:], opts...)
+	if apiKeyID == "" {
+		err = errors.New("missing required api_key_id parameter")
+		return
+	}
+	path := fmt.Sprintf("api_keys/%s", apiKeyID)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
+	return
+}
+
 // List all API keys you created
 func (r *APIKeyService) List(ctx context.Context, opts ...option.RequestOption) (res *APIKeyList, err error) {
 	opts = append(r.Options[:], opts...)
@@ -165,5 +177,14 @@ type APIKeyNewParams struct {
 }
 
 func (r APIKeyNewParams) MarshalJSON() (data []byte, err error) {
+	return apijson.MarshalRoot(r)
+}
+
+type APIKeyUpdateParams struct {
+	// API key name.
+	Name param.Field[string] `json:"name"`
+}
+
+func (r APIKeyUpdateParams) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
