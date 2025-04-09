@@ -29,7 +29,7 @@ func TestVPCNew(t *testing.T) {
 	)
 	_, err := client.Networking.VPCs.New(context.TODO(), networking.VPCNewParams{
 		Name:       nirvana.F("my-vpc"),
-		Region:     nirvana.F(shared.RegionNameUsSea1),
+		Region:     nirvana.F(shared.RegionNameUsWdc1),
 		SubnetName: nirvana.F("my-subnet"),
 	})
 	if err != nil {

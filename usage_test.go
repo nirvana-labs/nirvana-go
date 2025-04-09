@@ -39,7 +39,7 @@ func TestUsage(t *testing.T) {
 		Name:            nirvana.F("my-vm"),
 		OSImageName:     nirvana.F("ubuntu-noble-2025-04-03"),
 		PublicIPEnabled: nirvana.F(true),
-		Region:          nirvana.F(shared.RegionNameUsSea1),
+		Region:          nirvana.F(shared.RegionNameUsWdc1),
 		SSHKey: nirvana.F(compute.SSHKeyParam{
 			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname"),
 		}),
