@@ -22,7 +22,7 @@ Or to pin the version:
 <!-- x-release-please-start-version -->
 
 ```sh
-go get -u 'github.com/nirvana-labs/nirvana-go@v0.6.1'
+go get -u 'github.com/nirvana-labs/nirvana-go@v0.7.0'
 ```
 
 <!-- x-release-please-end -->
@@ -217,7 +217,7 @@ if err != nil {
 		println(string(apierr.DumpRequest(true)))  // Prints the serialized HTTP request
 		println(string(apierr.DumpResponse(true))) // Prints the serialized HTTP response
 	}
-	panic(err.Error()) // GET "/compute/vms": 400 Bad Request { ... }
+	panic(err.Error()) // GET "/v1/compute/vms": 400 Bad Request { ... }
 }
 ```
 
