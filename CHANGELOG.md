@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.6.1 (2025-04-09)
+
+Full Changelog: [v0.6.0...v0.6.1](https://github.com/nirvana-labs/nirvana-go/compare/v0.6.0...v0.6.1)
+
+### Features
+
+* **client:** support custom http clients ([#241](https://github.com/nirvana-labs/nirvana-go/issues/241)) ([45a3030](https://github.com/nirvana-labs/nirvana-go/commit/45a30300df318e4609725a9269179ac8fccca854))
+
+
+### Chores
+
+* **tests:** improve enum examples ([#243](https://github.com/nirvana-labs/nirvana-go/issues/243)) ([fa39905](https://github.com/nirvana-labs/nirvana-go/commit/fa39905473d9c442287a72ce4f772ec9924eb059))
+
 ## 0.6.0 (2025-04-07)
 
 Full Changelog: [v0.5.0...v0.6.0](https://github.com/nirvana-labs/nirvana-go/compare/v0.5.0...v0.6.0)
