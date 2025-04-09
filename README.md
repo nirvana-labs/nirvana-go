@@ -217,7 +217,7 @@ if err != nil {
 		println(string(apierr.DumpRequest(true)))  // Prints the serialized HTTP request
 		println(string(apierr.DumpResponse(true))) // Prints the serialized HTTP response
 	}
-	panic(err.Error()) // GET "/compute/vms": 400 Bad Request { ... }
+	panic(err.Error()) // GET "/v1/compute/vms": 400 Bad Request { ... }
 }
 ```
 

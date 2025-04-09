@@ -39,7 +39,7 @@ func NewVPCService(opts ...option.RequestOption) (r *VPCService) {
 // Create a VPC
 func (r *VPCService) New(ctx context.Context, body VPCNewParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
 	opts = append(r.Options[:], opts...)
-	path := "networking/vpcs"
+	path := "v1/networking/vpcs"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
 }
@@ -51,7 +51,7 @@ func (r *VPCService) Update(ctx context.Context, vpcID string, body VPCUpdatePar
 		err = errors.New("missing required vpc_id parameter")
 		return
 	}
-	path := fmt.Sprintf("networking/vpcs/%s", vpcID)
+	path := fmt.Sprintf("v1/networking/vpcs/%s", vpcID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
 	return
 }
@@ -59,7 +59,7 @@ func (r *VPCService) Update(ctx context.Context, vpcID string, body VPCUpdatePar
 // List all VPCs
 func (r *VPCService) List(ctx context.Context, opts ...option.RequestOption) (res *VPCList, err error) {
 	opts = append(r.Options[:], opts...)
-	path := "networking/vpcs"
+	path := "v1/networking/vpcs"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
@@ -71,7 +71,7 @@ func (r *VPCService) Delete(ctx context.Context, vpcID string, opts ...option.Re
 		err = errors.New("missing required vpc_id parameter")
 		return
 	}
-	path := fmt.Sprintf("networking/vpcs/%s", vpcID)
+	path := fmt.Sprintf("v1/networking/vpcs/%s", vpcID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
 	return
 }
@@ -83,7 +83,7 @@ func (r *VPCService) Get(ctx context.Context, vpcID string, opts ...option.Reque
 		err = errors.New("missing required vpc_id parameter")
 		return
 	}
-	path := fmt.Sprintf("networking/vpcs/%s", vpcID)
+	path := fmt.Sprintf("v1/networking/vpcs/%s", vpcID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }

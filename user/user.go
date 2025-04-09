@@ -33,7 +33,7 @@ func NewUserService(opts ...option.RequestOption) (r *UserService) {
 // Get details about an authenticated user
 func (r *UserService) Get(ctx context.Context, opts ...option.RequestOption) (res *User, err error) {
 	opts = append(r.Options[:], opts...)
-	path := "user"
+	path := "v1/user"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }

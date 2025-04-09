@@ -35,7 +35,7 @@ func NewOperationService(opts ...option.RequestOption) (r *OperationService) {
 // List all operations
 func (r *OperationService) List(ctx context.Context, opts ...option.RequestOption) (res *OperationList, err error) {
 	opts = append(r.Options[:], opts...)
-	path := "operations"
+	path := "v1/operations"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
@@ -47,7 +47,7 @@ func (r *OperationService) Get(ctx context.Context, operationID string, opts ...
 		err = errors.New("missing required operation_id parameter")
 		return
 	}
-	path := fmt.Sprintf("operations/%s", operationID)
+	path := fmt.Sprintf("v1/operations/%s", operationID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
