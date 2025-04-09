@@ -37,7 +37,7 @@ func NewAPIKeyService(opts ...option.RequestOption) (r *APIKeyService) {
 // Create a new API key
 func (r *APIKeyService) New(ctx context.Context, body APIKeyNewParams, opts ...option.RequestOption) (res *APIKey, err error) {
 	opts = append(r.Options[:], opts...)
-	path := "api_keys"
+	path := "v1/api_keys"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
 }
@@ -49,7 +49,7 @@ func (r *APIKeyService) Update(ctx context.Context, apiKeyID string, body APIKey
 		err = errors.New("missing required api_key_id parameter")
 		return
 	}
-	path := fmt.Sprintf("api_keys/%s", apiKeyID)
+	path := fmt.Sprintf("v1/api_keys/%s", apiKeyID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
 	return
 }
@@ -57,7 +57,7 @@ func (r *APIKeyService) Update(ctx context.Context, apiKeyID string, body APIKey
 // List all API keys you created
 func (r *APIKeyService) List(ctx context.Context, opts ...option.RequestOption) (res *APIKeyList, err error) {
 	opts = append(r.Options[:], opts...)
-	path := "api_keys"
+	path := "v1/api_keys"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
@@ -70,7 +70,7 @@ func (r *APIKeyService) Delete(ctx context.Context, apiKeyID string, opts ...opt
 		err = errors.New("missing required api_key_id parameter")
 		return
 	}
-	path := fmt.Sprintf("api_keys/%s", apiKeyID)
+	path := fmt.Sprintf("v1/api_keys/%s", apiKeyID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, nil, opts...)
 	return
 }
@@ -82,7 +82,7 @@ func (r *APIKeyService) Get(ctx context.Context, apiKeyID string, opts ...option
 		err = errors.New("missing required api_key_id parameter")
 		return
 	}
-	path := fmt.Sprintf("api_keys/%s", apiKeyID)
+	path := fmt.Sprintf("v1/api_keys/%s", apiKeyID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }

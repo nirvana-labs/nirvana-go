@@ -43,7 +43,7 @@ func NewVMService(opts ...option.RequestOption) (r *VMService) {
 // Create a VM
 func (r *VMService) New(ctx context.Context, body VMNewParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
 	opts = append(r.Options[:], opts...)
-	path := "compute/vms"
+	path := "v1/compute/vms"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
 }
@@ -55,7 +55,7 @@ func (r *VMService) Update(ctx context.Context, vmID string, body VMUpdateParams
 		err = errors.New("missing required vm_id parameter")
 		return
 	}
-	path := fmt.Sprintf("compute/vms/%s", vmID)
+	path := fmt.Sprintf("v1/compute/vms/%s", vmID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
 	return
 }
@@ -63,7 +63,7 @@ func (r *VMService) Update(ctx context.Context, vmID string, body VMUpdateParams
 // List all VMs
 func (r *VMService) List(ctx context.Context, opts ...option.RequestOption) (res *VMList, err error) {
 	opts = append(r.Options[:], opts...)
-	path := "compute/vms"
+	path := "v1/compute/vms"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
@@ -75,7 +75,7 @@ func (r *VMService) Delete(ctx context.Context, vmID string, opts ...option.Requ
 		err = errors.New("missing required vm_id parameter")
 		return
 	}
-	path := fmt.Sprintf("compute/vms/%s", vmID)
+	path := fmt.Sprintf("v1/compute/vms/%s", vmID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
 	return
 }
@@ -87,7 +87,7 @@ func (r *VMService) Get(ctx context.Context, vmID string, opts ...option.Request
 		err = errors.New("missing required vm_id parameter")
 		return
 	}
-	path := fmt.Sprintf("compute/vms/%s", vmID)
+	path := fmt.Sprintf("v1/compute/vms/%s", vmID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
