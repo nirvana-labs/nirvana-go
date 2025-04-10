@@ -30,7 +30,7 @@ func TestAPIKeyNewWithOptionalParams(t *testing.T) {
 	_, err := client.APIKeys.New(context.TODO(), api_keys.APIKeyNewParams{
 		ExpiresAt: nirvana.F(time.Now()),
 		Name:      nirvana.F("my-api-key"),
-		NotBefore: nirvana.F(time.Now()),
+		StartsAt:  nirvana.F(time.Now()),
 	})
 	if err != nil {
 		var apierr *nirvana.Error

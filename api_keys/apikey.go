@@ -104,8 +104,8 @@ type APIKey struct {
 	// API key.
 	Key string `json:"key"`
 	// Time before which the API key is not valid.
-	NotBefore time.Time  `json:"not_before" format:"date-time"`
-	JSON      apiKeyJSON `json:"-"`
+	StartsAt time.Time  `json:"starts_at" format:"date-time"`
+	JSON     apiKeyJSON `json:"-"`
 }
 
 // apiKeyJSON contains the JSON metadata for the struct [APIKey]
@@ -117,7 +117,7 @@ type apiKeyJSON struct {
 	Status      apijson.Field
 	UserID      apijson.Field
 	Key         apijson.Field
-	NotBefore   apijson.Field
+	StartsAt    apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -173,7 +173,7 @@ type APIKeyNewParams struct {
 	// API key name.
 	Name param.Field[string] `json:"name,required"`
 	// Time before which the API key is not valid.
-	NotBefore param.Field[time.Time] `json:"not_before" format:"date-time"`
+	StartsAt param.Field[time.Time] `json:"starts_at" format:"date-time"`
 }
 
 func (r APIKeyNewParams) MarshalJSON() (data []byte, err error) {
