@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.8.1 (2025-04-10)
+
+Full Changelog: [v0.8.0...v0.8.1](https://github.com/nirvana-labs/nirvana-go/compare/v0.8.0...v0.8.1)
+
+### Chores
+
+* **internal:** expand CI branch coverage ([4d98a01](https://github.com/nirvana-labs/nirvana-go/commit/4d98a01ef346d28eb49feac8cad1225cd7232f15))
+* **internal:** reduce CI branch coverage ([52dce3f](https://github.com/nirvana-labs/nirvana-go/commit/52dce3f0240ad61c9ad4a341f51e294b38f3fdba))
+
 ## 0.8.0 (2025-04-10)
 
 Full Changelog: [v0.7.0...v0.8.0](https://github.com/nirvana-labs/nirvana-go/compare/v0.7.0...v0.8.0)
