@@ -99,6 +99,8 @@ type APIKey struct {
 	Name string `json:"name,required"`
 	// Status of the API key.
 	Status APIKeyStatus `json:"status,required"`
+	// Time on which the API key was updated.
+	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
 	// User ID that owns the API key.
 	UserID string `json:"user_id,required"`
 	// API key.
@@ -115,6 +117,7 @@ type apiKeyJSON struct {
 	ExpiresAt   apijson.Field
 	Name        apijson.Field
 	Status      apijson.Field
+	UpdatedAt   apijson.Field
 	UserID      apijson.Field
 	Key         apijson.Field
 	StartsAt    apijson.Field
