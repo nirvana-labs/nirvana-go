@@ -88,7 +88,7 @@ func (r *VolumeService) Get(ctx context.Context, volumeID string, opts ...option
 	return
 }
 
-// Type of the volume.
+// Storage type the volume is using.
 type StorageType string
 
 const (
@@ -107,9 +107,9 @@ func (r StorageType) IsKnown() bool {
 type Volume struct {
 	// Unique identifier for the volume.
 	ID string `json:"id,required"`
-	// Time the volume was created.
+	// When the volume was created.
 	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
-	// Kind of the volume.
+	// Volume kind.
 	Kind VolumeKind `json:"kind,required"`
 	// Name of the volume.
 	Name string `json:"name,required"`
@@ -117,9 +117,9 @@ type Volume struct {
 	Size int64 `json:"size,required"`
 	// Status of the resource.
 	Status shared.ResourceStatus `json:"status,required"`
-	// Type of the volume.
+	// Storage type the volume is using.
 	Type StorageType `json:"type,required"`
-	// Time the volume was updated.
+	// When the volume was updated.
 	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
 	// ID of the VM the volume is attached to.
 	VMID string `json:"vm_id,required,nullable"`
@@ -152,7 +152,7 @@ func (r volumeJSON) RawJSON() string {
 	return r.raw
 }
 
-// Kind of the volume.
+// Volume kind.
 type VolumeKind string
 
 const (

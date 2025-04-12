@@ -91,21 +91,21 @@ func (r *APIKeyService) Get(ctx context.Context, apiKeyID string, opts ...option
 type APIKey struct {
 	// API key ID.
 	ID string `json:"id,required"`
-	// Time on which the API key was created.
+	// When the API key was created.
 	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
-	// Time after which the API key is not valid.
+	// When the API key expires and is no longer valid.
 	ExpiresAt time.Time `json:"expires_at,required" format:"date-time"`
 	// API key name.
 	Name string `json:"name,required"`
 	// Status of the API key.
 	Status APIKeyStatus `json:"status,required"`
-	// Time on which the API key was updated.
+	// When the API key was updated.
 	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
 	// User ID that owns the API key.
 	UserID string `json:"user_id,required"`
 	// API key.
 	Key string `json:"key"`
-	// Time before which the API key is not valid.
+	// When the API key starts to be valid.
 	StartsAt time.Time  `json:"starts_at" format:"date-time"`
 	JSON     apiKeyJSON `json:"-"`
 }
@@ -171,11 +171,11 @@ func (r apiKeyListJSON) RawJSON() string {
 }
 
 type APIKeyNewParams struct {
-	// Time after which the API key is not valid.
+	// When the API key expires and is no longer valid.
 	ExpiresAt param.Field[time.Time] `json:"expires_at,required" format:"date-time"`
 	// API key name.
 	Name param.Field[string] `json:"name,required"`
-	// Time before which the API key is not valid.
+	// When the API key starts to be valid.
 	StartsAt param.Field[time.Time] `json:"starts_at" format:"date-time"`
 }
 

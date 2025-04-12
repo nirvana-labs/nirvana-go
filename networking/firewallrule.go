@@ -112,7 +112,7 @@ func (r *FirewallRuleService) Get(ctx context.Context, vpcID string, firewallRul
 type FirewallRule struct {
 	// Unique identifier for the firewall rule.
 	ID string `json:"id,required"`
-	// Time the firewall rule was created.
+	// When the firewall rule was created.
 	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
 	// Destination address of the firewall rule.
 	DestinationAddress string `json:"destination_address,required"`
@@ -126,7 +126,7 @@ type FirewallRule struct {
 	SourceAddress string `json:"source_address,required"`
 	// Status of the resource.
 	Status shared.ResourceStatus `json:"status,required"`
-	// Time the firewall rule was updated.
+	// When the firewall rule was updated.
 	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
 	// ID of the VPC the firewall rule belongs to.
 	VPCID string           `json:"vpc_id,required"`
