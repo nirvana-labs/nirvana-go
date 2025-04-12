@@ -54,14 +54,21 @@ func (r *OperationService) Get(ctx context.Context, operationID string, opts ...
 
 // Operation details.
 type Operation struct {
-	ID         string          `json:"id,required"`
-	CreatedAt  string          `json:"created_at,required"`
-	Kind       OperationKind   `json:"kind,required"`
-	ResourceID string          `json:"resource_id,required"`
-	Status     OperationStatus `json:"status,required"`
-	Type       OperationType   `json:"type,required"`
-	UpdatedAt  string          `json:"updated_at,required"`
-	JSON       operationJSON   `json:"-"`
+	// Unique identifier for the operation.
+	ID string `json:"id,required"`
+	// When the operation was created.
+	CreatedAt string `json:"created_at,required"`
+	// Kind of operation.
+	Kind OperationKind `json:"kind,required"`
+	// ID of the resource that the operation is acting on.
+	ResourceID string `json:"resource_id,required"`
+	// Status of the operation.
+	Status OperationStatus `json:"status,required"`
+	// Type of operation.
+	Type OperationType `json:"type,required"`
+	// When the operation was updated.
+	UpdatedAt string        `json:"updated_at,required"`
+	JSON      operationJSON `json:"-"`
 }
 
 // operationJSON contains the JSON metadata for the struct [Operation]
@@ -85,6 +92,7 @@ func (r operationJSON) RawJSON() string {
 	return r.raw
 }
 
+// Kind of operation.
 type OperationKind string
 
 const (
@@ -122,6 +130,7 @@ func (r operationListJSON) RawJSON() string {
 	return r.raw
 }
 
+// Status of the operation.
 type OperationStatus string
 
 const (
@@ -140,6 +149,7 @@ func (r OperationStatus) IsKnown() bool {
 	return false
 }
 
+// Type of operation.
 type OperationType string
 
 const (

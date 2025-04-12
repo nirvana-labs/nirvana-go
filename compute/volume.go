@@ -88,7 +88,7 @@ func (r *VolumeService) Get(ctx context.Context, volumeID string, opts ...option
 	return
 }
 
-// Storage type.
+// Storage type the volume is using.
 type StorageType string
 
 const (
@@ -105,19 +105,27 @@ func (r StorageType) IsKnown() bool {
 
 // Volume details.
 type Volume struct {
-	ID        string    `json:"id,required"`
+	// Unique identifier for the volume.
+	ID string `json:"id,required"`
+	// When the volume was created.
 	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
 	// Volume kind.
-	Kind   VolumeKind            `json:"kind,required"`
-	Name   string                `json:"name,required"`
-	Size   int64                 `json:"size,required"`
+	Kind VolumeKind `json:"kind,required"`
+	// Name of the volume.
+	Name string `json:"name,required"`
+	// Size of the volume in GB.
+	Size int64 `json:"size,required"`
+	// Status of the resource.
 	Status shared.ResourceStatus `json:"status,required"`
-	// Storage type.
-	Type      StorageType `json:"type,required"`
-	UpdatedAt time.Time   `json:"updated_at,required" format:"date-time"`
-	VMID      string      `json:"vm_id,required,nullable"`
-	VMName    string      `json:"vm_name,required,nullable"`
-	JSON      volumeJSON  `json:"-"`
+	// Storage type the volume is using.
+	Type StorageType `json:"type,required"`
+	// When the volume was updated.
+	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
+	// ID of the VM the volume is attached to.
+	VMID string `json:"vm_id,required,nullable"`
+	// Name of the VM the volume is attached to.
+	VMName string     `json:"vm_name,required,nullable"`
+	JSON   volumeJSON `json:"-"`
 }
 
 // volumeJSON contains the JSON metadata for the struct [Volume]
@@ -181,8 +189,11 @@ func (r volumeListJSON) RawJSON() string {
 }
 
 type VolumeNewParams struct {
+	// Name of the volume.
 	Name param.Field[string] `json:"name,required"`
-	Size param.Field[int64]  `json:"size,required"`
+	// Size of the volume in GB.
+	Size param.Field[int64] `json:"size,required"`
+	// ID of the VM the volume is attached to.
 	VMID param.Field[string] `json:"vm_id,required"`
 }
 
@@ -191,8 +202,10 @@ func (r VolumeNewParams) MarshalJSON() (data []byte, err error) {
 }
 
 type VolumeUpdateParams struct {
+	// Name of the volume.
 	Name param.Field[string] `json:"name"`
-	Size param.Field[int64]  `json:"size"`
+	// Size of the volume in GB.
+	Size param.Field[int64] `json:"size"`
 }
 
 func (r VolumeUpdateParams) MarshalJSON() (data []byte, err error) {

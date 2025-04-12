@@ -9,6 +9,8 @@ import (
 
 type Error = apierror.Error
 
+// Region the resource is in.
+//
 // This is an alias to an internal type.
 type RegionName = shared.RegionName
 
@@ -42,6 +44,8 @@ const RegionNameApSeo1 = shared.RegionNameApSeo1
 // This is an alias to an internal value.
 const RegionNameApTyo1 = shared.RegionNameApTyo1
 
+// Status of the resource.
+//
 // This is an alias to an internal type.
 type ResourceStatus = shared.ResourceStatus
 

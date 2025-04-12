@@ -2,6 +2,7 @@
 
 package shared
 
+// Region the resource is in.
 type RegionName string
 
 const (
@@ -25,6 +26,7 @@ func (r RegionName) IsKnown() bool {
 	return false
 }
 
+// Status of the resource.
 type ResourceStatus string
 
 const (
