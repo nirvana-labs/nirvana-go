@@ -196,26 +196,37 @@ func (r SSHKeyParam) MarshalJSON() (data []byte, err error) {
 
 // VM details.
 type VM struct {
-	ID           string `json:"id,required"`
+	// Unique identifier for the VM.
+	ID string `json:"id,required"`
+	// ID of the boot volume for the VM.
 	BootVolumeID string `json:"boot_volume_id,required"`
 	// CPU configuration for the VM.
-	CPUConfig     CPUConfig `json:"cpu_config,required"`
-	CreatedAt     time.Time `json:"created_at,required" format:"date-time"`
-	DataVolumeIDs []string  `json:"data_volume_ids,required"`
+	CPUConfig CPUConfig `json:"cpu_config,required"`
+	// Time the VM was created.
+	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
+	// IDs of the data volumes for the VM.
+	DataVolumeIDs []string `json:"data_volume_ids,required"`
 	// Memory configuration for the VM.
 	MemoryConfig MemoryConfig `json:"memory_config,required"`
-	Name         string       `json:"name,required"`
-	PrivateIP    string       `json:"private_ip,required,nullable"`
-	PublicIP     string       `json:"public_ip,required,nullable"`
-	// Region of the VPC.
+	// Name of the VM.
+	Name string `json:"name,required"`
+	// Private IP of the VM.
+	PrivateIP string `json:"private_ip,required,nullable"`
+	// Public IP of the VM.
+	PublicIP string `json:"public_ip,required,nullable"`
+	// Region the resource is in.
 	Region shared.RegionName `json:"region,required"`
-	// Status of the VPC.
-	Status    shared.ResourceStatus `json:"status,required"`
-	SubnetID  string                `json:"subnet_id,required"`
-	UpdatedAt time.Time             `json:"updated_at,required" format:"date-time"`
-	VPCID     string                `json:"vpc_id,required"`
-	VPCName   string                `json:"vpc_name,required"`
-	JSON      vmJSON                `json:"-"`
+	// Status of the resource.
+	Status shared.ResourceStatus `json:"status,required"`
+	// ID of the subnet for the VM.
+	SubnetID string `json:"subnet_id,required"`
+	// Time the VM was updated.
+	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
+	// ID of the VPC for the VM.
+	VPCID string `json:"vpc_id,required"`
+	// Name of the VPC for the VM.
+	VPCName string `json:"vpc_name,required"`
+	JSON    vmJSON `json:"-"`
 }
 
 // vmJSON contains the JSON metadata for the struct [VM]
@@ -280,7 +291,7 @@ type VMNewParams struct {
 	OSImageName param.Field[string] `json:"os_image_name,required"`
 	// Whether to enable public IP for the VM.
 	PublicIPEnabled param.Field[bool] `json:"public_ip_enabled,required"`
-	// Region of the VPC.
+	// Region the resource is in.
 	Region param.Field[shared.RegionName] `json:"region,required"`
 	// Public SSH key to and and use to access the VM.
 	SSHKey param.Field[SSHKeyParam] `json:"ssh_key,required"`
