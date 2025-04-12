@@ -158,7 +158,7 @@ func (r MemoryConfigParam) MarshalJSON() (data []byte, err error) {
 
 // OS image details.
 type OSImage struct {
-	// Time the OS image was created.
+	// When the OS image was created.
 	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
 	// Display name of the OS image.
 	DisplayName string `json:"display_name,required"`
@@ -184,7 +184,7 @@ func (r osImageJSON) RawJSON() string {
 	return r.raw
 }
 
-// Public SSH key to and and use to access the VM.
+// Public SSH key configuration for the VM.
 type SSHKeyParam struct {
 	// Public key to and and use to access the VM.
 	PublicKey param.Field[string] `json:"public_key,required"`
@@ -202,7 +202,7 @@ type VM struct {
 	BootVolumeID string `json:"boot_volume_id,required"`
 	// CPU configuration for the VM.
 	CPUConfig CPUConfig `json:"cpu_config,required"`
-	// Time the VM was created.
+	// When the VM was created.
 	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
 	// IDs of the data volumes for the VM.
 	DataVolumeIDs []string `json:"data_volume_ids,required"`
@@ -220,7 +220,7 @@ type VM struct {
 	Status shared.ResourceStatus `json:"status,required"`
 	// ID of the subnet for the VM.
 	SubnetID string `json:"subnet_id,required"`
-	// Time the VM was updated.
+	// When the VM was updated.
 	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
 	// ID of the VPC for the VM.
 	VPCID string `json:"vpc_id,required"`
@@ -293,7 +293,7 @@ type VMNewParams struct {
 	PublicIPEnabled param.Field[bool] `json:"public_ip_enabled,required"`
 	// Region the resource is in.
 	Region param.Field[shared.RegionName] `json:"region,required"`
-	// Public SSH key to and and use to access the VM.
+	// Public SSH key configuration for the VM.
 	SSHKey param.Field[SSHKeyParam] `json:"ssh_key,required"`
 	// ID of the subnet to use for the VM.
 	SubnetID param.Field[string] `json:"subnet_id,required"`

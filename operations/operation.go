@@ -56,7 +56,7 @@ func (r *OperationService) Get(ctx context.Context, operationID string, opts ...
 type Operation struct {
 	// Unique identifier for the operation.
 	ID string `json:"id,required"`
-	// Time the operation was created.
+	// When the operation was created.
 	CreatedAt string `json:"created_at,required"`
 	// Kind of operation.
 	Kind OperationKind `json:"kind,required"`
@@ -66,7 +66,7 @@ type Operation struct {
 	Status OperationStatus `json:"status,required"`
 	// Type of operation.
 	Type OperationType `json:"type,required"`
-	// Time the operation was updated.
+	// When the operation was updated.
 	UpdatedAt string        `json:"updated_at,required"`
 	JSON      operationJSON `json:"-"`
 }

@@ -94,11 +94,11 @@ type Subnet struct {
 	ID string `json:"id,required"`
 	// CIDR block for the subnet.
 	Cidr string `json:"cidr,required"`
-	// Time the subnet was created.
+	// When the subnet was created.
 	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
 	// Name of the subnet.
 	Name string `json:"name,required"`
-	// Time the subnet was updated.
+	// When the subnet was updated.
 	UpdatedAt time.Time  `json:"updated_at,required" format:"date-time"`
 	JSON      subnetJSON `json:"-"`
 }
@@ -126,7 +126,7 @@ func (r subnetJSON) RawJSON() string {
 type VPC struct {
 	// Unique identifier for the VPC.
 	ID string `json:"id,required"`
-	// Time the VPC was created.
+	// When the VPC was created.
 	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
 	// IDs of the firewall rules associated with the VPC.
 	FirewallRuleIDs []string `json:"firewall_rule_ids,required"`
@@ -138,7 +138,7 @@ type VPC struct {
 	Status shared.ResourceStatus `json:"status,required"`
 	// Subnet of the VPC.
 	Subnet Subnet `json:"subnet,required"`
-	// Time the VPC was updated.
+	// When the VPC was updated.
 	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
 	JSON      vpcJSON   `json:"-"`
 }
