@@ -88,12 +88,17 @@ func (r *VPCService) Get(ctx context.Context, vpcID string, opts ...option.Reque
 	return
 }
 
-// Subnet details.
+// Subnet of the VPC.
 type Subnet struct {
-	ID        string     `json:"id,required"`
-	Cidr      string     `json:"cidr,required"`
-	CreatedAt time.Time  `json:"created_at,required" format:"date-time"`
-	Name      string     `json:"name,required"`
+	// Unique identifier for the subnet.
+	ID string `json:"id,required"`
+	// CIDR block for the subnet.
+	Cidr string `json:"cidr,required"`
+	// Time the subnet was created.
+	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
+	// Name of the subnet.
+	Name string `json:"name,required"`
+	// Time the subnet was updated.
 	UpdatedAt time.Time  `json:"updated_at,required" format:"date-time"`
 	JSON      subnetJSON `json:"-"`
 }
@@ -119,14 +124,21 @@ func (r subnetJSON) RawJSON() string {
 
 // VPC details.
 type VPC struct {
-	ID              string                `json:"id,required"`
-	CreatedAt       time.Time             `json:"created_at,required" format:"date-time"`
-	FirewallRuleIDs []string              `json:"firewall_rule_ids,required"`
-	Name            string                `json:"name,required"`
-	Region          shared.RegionName     `json:"region,required"`
-	Status          shared.ResourceStatus `json:"status,required"`
-	// Subnet details.
-	Subnet    Subnet    `json:"subnet,required"`
+	// Unique identifier for the VPC.
+	ID string `json:"id,required"`
+	// Time the VPC was created.
+	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
+	// IDs of the firewall rules associated with the VPC.
+	FirewallRuleIDs []string `json:"firewall_rule_ids,required"`
+	// Name of the VPC.
+	Name string `json:"name,required"`
+	// Region of the VPC.
+	Region shared.RegionName `json:"region,required"`
+	// Status of the VPC.
+	Status shared.ResourceStatus `json:"status,required"`
+	// Subnet of the VPC.
+	Subnet Subnet `json:"subnet,required"`
+	// Time the VPC was updated.
 	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
 	JSON      vpcJSON   `json:"-"`
 }
@@ -174,9 +186,12 @@ func (r vpcListJSON) RawJSON() string {
 }
 
 type VPCNewParams struct {
-	Name       param.Field[string]            `json:"name,required"`
-	Region     param.Field[shared.RegionName] `json:"region,required"`
-	SubnetName param.Field[string]            `json:"subnet_name,required"`
+	// Name of the VPC.
+	Name param.Field[string] `json:"name,required"`
+	// Region of the VPC.
+	Region param.Field[shared.RegionName] `json:"region,required"`
+	// Name of the subnet to create.
+	SubnetName param.Field[string] `json:"subnet_name,required"`
 }
 
 func (r VPCNewParams) MarshalJSON() (data []byte, err error) {
@@ -184,7 +199,9 @@ func (r VPCNewParams) MarshalJSON() (data []byte, err error) {
 }
 
 type VPCUpdateParams struct {
-	Name       param.Field[string] `json:"name"`
+	// Name of the VPC.
+	Name param.Field[string] `json:"name"`
+	// Name of the subnet to create.
 	SubnetName param.Field[string] `json:"subnet_name"`
 }
 
