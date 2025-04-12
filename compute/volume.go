@@ -115,7 +115,7 @@ type Volume struct {
 	Name string `json:"name,required"`
 	// Size of the volume in GB.
 	Size int64 `json:"size,required"`
-	// Status of the VPC.
+	// Status of the resource.
 	Status shared.ResourceStatus `json:"status,required"`
 	// Type of the volume.
 	Type StorageType `json:"type,required"`

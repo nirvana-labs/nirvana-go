@@ -132,9 +132,9 @@ type VPC struct {
 	FirewallRuleIDs []string `json:"firewall_rule_ids,required"`
 	// Name of the VPC.
 	Name string `json:"name,required"`
-	// Region of the VPC.
+	// Region the resource is in.
 	Region shared.RegionName `json:"region,required"`
-	// Status of the VPC.
+	// Status of the resource.
 	Status shared.ResourceStatus `json:"status,required"`
 	// Subnet of the VPC.
 	Subnet Subnet `json:"subnet,required"`
@@ -188,7 +188,7 @@ func (r vpcListJSON) RawJSON() string {
 type VPCNewParams struct {
 	// Name of the VPC.
 	Name param.Field[string] `json:"name,required"`
-	// Region of the VPC.
+	// Region the resource is in.
 	Region param.Field[shared.RegionName] `json:"region,required"`
 	// Name of the subnet to create.
 	SubnetName param.Field[string] `json:"subnet_name,required"`

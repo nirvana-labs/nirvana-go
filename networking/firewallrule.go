@@ -124,7 +124,7 @@ type FirewallRule struct {
 	Protocol FirewallRuleProtocol `json:"protocol,required"`
 	// Source address of the firewall rule.
 	SourceAddress string `json:"source_address,required"`
-	// Status of the VPC.
+	// Status of the resource.
 	Status shared.ResourceStatus `json:"status,required"`
 	// Time the firewall rule was updated.
 	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`

@@ -2,7 +2,7 @@
 
 package shared
 
-// Region of the VPC.
+// Region the resource is in.
 type RegionName string
 
 const (
@@ -26,7 +26,7 @@ func (r RegionName) IsKnown() bool {
 	return false
 }
 
-// Status of the VPC.
+// Status of the resource.
 type ResourceStatus string
 
 const (
