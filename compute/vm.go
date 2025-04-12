@@ -156,13 +156,13 @@ func (r MemoryConfigParam) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
-// OS image details.
+// OS Image details.
 type OSImage struct {
-	// When the OS image was created.
+	// When the OS Image was created.
 	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
-	// Display name of the OS image.
+	// Display name of the OS Image.
 	DisplayName string `json:"display_name,required"`
-	// Name of the OS image.
+	// Name of the OS Image.
 	Name string      `json:"name,required"`
 	JSON osImageJSON `json:"-"`
 }
@@ -287,7 +287,7 @@ type VMNewParams struct {
 	MemoryConfig param.Field[MemoryConfigParam] `json:"memory_config,required"`
 	// Name of the VM.
 	Name param.Field[string] `json:"name,required"`
-	// Name of the OS image to use for the VM.
+	// Name of the OS Image to use for the VM.
 	OSImageName param.Field[string] `json:"os_image_name,required"`
 	// Whether to enable public IP for the VM.
 	PublicIPEnabled param.Field[bool] `json:"public_ip_enabled,required"`
