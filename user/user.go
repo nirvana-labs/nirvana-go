@@ -39,8 +39,11 @@ func (r *UserService) Get(ctx context.Context, opts ...option.RequestOption) (re
 }
 
 type User struct {
-	ID       string       `json:"id,required"`
-	Email    string       `json:"email,required"`
+	// Unique identifier for the user.
+	ID string `json:"id,required"`
+	// Email address of the user.
+	Email string `json:"email,required"`
+	// Services that the user has access to.
 	Services UserServices `json:"services,required"`
 	JSON     userJSON     `json:"-"`
 }
@@ -62,6 +65,7 @@ func (r userJSON) RawJSON() string {
 	return r.raw
 }
 
+// Services that the user has access to.
 type UserServices struct {
 	Cloud bool             `json:"cloud"`
 	JSON  userServicesJSON `json:"-"`

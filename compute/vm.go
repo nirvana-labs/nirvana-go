@@ -92,9 +92,9 @@ func (r *VMService) Get(ctx context.Context, vmID string, opts ...option.Request
 	return
 }
 
-// CPU configuration details.
+// CPU configuration for the VM.
 type CPUConfig struct {
-	// virtual CPUs
+	// Number of virtual CPUs.
 	Vcpu int64         `json:"vcpu,required"`
 	JSON cpuConfigJSON `json:"-"`
 }
@@ -114,9 +114,9 @@ func (r cpuConfigJSON) RawJSON() string {
 	return r.raw
 }
 
-// CPU configuration details.
+// CPU configuration for the VM.
 type CPUConfigParam struct {
-	// virtual CPUs
+	// Number of virtual CPUs.
 	Vcpu param.Field[int64] `json:"vcpu,required"`
 }
 
@@ -124,9 +124,9 @@ func (r CPUConfigParam) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
-// Memory configuration details.
+// Memory configuration for the VM.
 type MemoryConfig struct {
-	// memory size
+	// Size of the memory in GB.
 	Size int64            `json:"size,required"`
 	JSON memoryConfigJSON `json:"-"`
 }
@@ -146,9 +146,9 @@ func (r memoryConfigJSON) RawJSON() string {
 	return r.raw
 }
 
-// Memory configuration details.
+// Memory configuration for the VM.
 type MemoryConfigParam struct {
-	// memory size
+	// Size of the memory in GB.
 	Size param.Field[int64] `json:"size,required"`
 }
 
@@ -156,11 +156,15 @@ func (r MemoryConfigParam) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
+// OS image details.
 type OSImage struct {
-	CreatedAt   time.Time   `json:"created_at,required" format:"date-time"`
-	DisplayName string      `json:"display_name,required"`
-	Name        string      `json:"name,required"`
-	JSON        osImageJSON `json:"-"`
+	// Time the OS image was created.
+	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
+	// Display name of the OS image.
+	DisplayName string `json:"display_name,required"`
+	// Name of the OS image.
+	Name string      `json:"name,required"`
+	JSON osImageJSON `json:"-"`
 }
 
 // osImageJSON contains the JSON metadata for the struct [OSImage]
@@ -180,8 +184,9 @@ func (r osImageJSON) RawJSON() string {
 	return r.raw
 }
 
-// SSH key details.
+// Public SSH key to and and use to access the VM.
 type SSHKeyParam struct {
+	// Public key to and and use to access the VM.
 	PublicKey param.Field[string] `json:"public_key,required"`
 }
 
@@ -193,22 +198,24 @@ func (r SSHKeyParam) MarshalJSON() (data []byte, err error) {
 type VM struct {
 	ID           string `json:"id,required"`
 	BootVolumeID string `json:"boot_volume_id,required"`
-	// CPU configuration details.
+	// CPU configuration for the VM.
 	CPUConfig     CPUConfig `json:"cpu_config,required"`
 	CreatedAt     time.Time `json:"created_at,required" format:"date-time"`
 	DataVolumeIDs []string  `json:"data_volume_ids,required"`
-	// Memory configuration details.
-	MemoryConfig MemoryConfig          `json:"memory_config,required"`
-	Name         string                `json:"name,required"`
-	PrivateIP    string                `json:"private_ip,required,nullable"`
-	PublicIP     string                `json:"public_ip,required,nullable"`
-	Region       shared.RegionName     `json:"region,required"`
-	Status       shared.ResourceStatus `json:"status,required"`
-	SubnetID     string                `json:"subnet_id,required"`
-	UpdatedAt    time.Time             `json:"updated_at,required" format:"date-time"`
-	VPCID        string                `json:"vpc_id,required"`
-	VPCName      string                `json:"vpc_name,required"`
-	JSON         vmJSON                `json:"-"`
+	// Memory configuration for the VM.
+	MemoryConfig MemoryConfig `json:"memory_config,required"`
+	Name         string       `json:"name,required"`
+	PrivateIP    string       `json:"private_ip,required,nullable"`
+	PublicIP     string       `json:"public_ip,required,nullable"`
+	// Region of the VPC.
+	Region shared.RegionName `json:"region,required"`
+	// Status of the VPC.
+	Status    shared.ResourceStatus `json:"status,required"`
+	SubnetID  string                `json:"subnet_id,required"`
+	UpdatedAt time.Time             `json:"updated_at,required" format:"date-time"`
+	VPCID     string                `json:"vpc_id,required"`
+	VPCName   string                `json:"vpc_name,required"`
+	JSON      vmJSON                `json:"-"`
 }
 
 // vmJSON contains the JSON metadata for the struct [VM]
@@ -261,19 +268,25 @@ func (r vmListJSON) RawJSON() string {
 }
 
 type VMNewParams struct {
-	// Boot volume create request.
+	// Boot volume for the VM.
 	BootVolume param.Field[VMNewParamsBootVolume] `json:"boot_volume,required"`
-	// CPU configuration details.
+	// CPU configuration for the VM.
 	CPUConfig param.Field[CPUConfigParam] `json:"cpu_config,required"`
-	// Memory configuration details.
-	MemoryConfig    param.Field[MemoryConfigParam] `json:"memory_config,required"`
-	Name            param.Field[string]            `json:"name,required"`
-	OSImageName     param.Field[string]            `json:"os_image_name,required"`
-	PublicIPEnabled param.Field[bool]              `json:"public_ip_enabled,required"`
-	Region          param.Field[shared.RegionName] `json:"region,required"`
-	// SSH key details.
-	SSHKey      param.Field[SSHKeyParam]             `json:"ssh_key,required"`
-	SubnetID    param.Field[string]                  `json:"subnet_id,required"`
+	// Memory configuration for the VM.
+	MemoryConfig param.Field[MemoryConfigParam] `json:"memory_config,required"`
+	// Name of the VM.
+	Name param.Field[string] `json:"name,required"`
+	// Name of the OS image to use for the VM.
+	OSImageName param.Field[string] `json:"os_image_name,required"`
+	// Whether to enable public IP for the VM.
+	PublicIPEnabled param.Field[bool] `json:"public_ip_enabled,required"`
+	// Region of the VPC.
+	Region param.Field[shared.RegionName] `json:"region,required"`
+	// Public SSH key to and and use to access the VM.
+	SSHKey param.Field[SSHKeyParam] `json:"ssh_key,required"`
+	// ID of the subnet to use for the VM.
+	SubnetID param.Field[string] `json:"subnet_id,required"`
+	// Data volumes for the VM.
 	DataVolumes param.Field[[]VMNewParamsDataVolume] `json:"data_volumes"`
 }
 
@@ -281,8 +294,9 @@ func (r VMNewParams) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
-// Boot volume create request.
+// Boot volume for the VM.
 type VMNewParamsBootVolume struct {
+	// Size of the volume in GB.
 	Size param.Field[int64] `json:"size,required"`
 }
 
@@ -292,8 +306,10 @@ func (r VMNewParamsBootVolume) MarshalJSON() (data []byte, err error) {
 
 // VM data volume create request.
 type VMNewParamsDataVolume struct {
+	// Name of the volume.
 	Name param.Field[string] `json:"name,required"`
-	Size param.Field[int64]  `json:"size,required"`
+	// Size of the volume in GB.
+	Size param.Field[int64] `json:"size,required"`
 }
 
 func (r VMNewParamsDataVolume) MarshalJSON() (data []byte, err error) {
@@ -301,12 +317,14 @@ func (r VMNewParamsDataVolume) MarshalJSON() (data []byte, err error) {
 }
 
 type VMUpdateParams struct {
-	// CPU configuration details.
+	// CPU configuration for the VM.
 	CPUConfig param.Field[CPUConfigParam] `json:"cpu_config"`
-	// Memory configuration details.
-	MemoryConfig    param.Field[MemoryConfigParam] `json:"memory_config"`
-	Name            param.Field[string]            `json:"name"`
-	PublicIPEnabled param.Field[bool]              `json:"public_ip_enabled"`
+	// Memory configuration for the VM.
+	MemoryConfig param.Field[MemoryConfigParam] `json:"memory_config"`
+	// Name of the VM.
+	Name param.Field[string] `json:"name"`
+	// Whether to enable public IP for the VM.
+	PublicIPEnabled param.Field[bool] `json:"public_ip_enabled"`
 }
 
 func (r VMUpdateParams) MarshalJSON() (data []byte, err error) {

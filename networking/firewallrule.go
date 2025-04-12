@@ -110,18 +110,27 @@ func (r *FirewallRuleService) Get(ctx context.Context, vpcID string, firewallRul
 
 // Firewall rule details.
 type FirewallRule struct {
-	ID                 string    `json:"id,required"`
-	CreatedAt          time.Time `json:"created_at,required" format:"date-time"`
-	DestinationAddress string    `json:"destination_address,required"`
-	DestinationPorts   []string  `json:"destination_ports,required"`
-	Name               string    `json:"name,required"`
-	// Supported Firewall Rule protocols.
-	Protocol      FirewallRuleProtocol  `json:"protocol,required"`
-	SourceAddress string                `json:"source_address,required"`
-	Status        shared.ResourceStatus `json:"status,required"`
-	UpdatedAt     time.Time             `json:"updated_at,required" format:"date-time"`
-	VPCID         string                `json:"vpc_id,required"`
-	JSON          firewallRuleJSON      `json:"-"`
+	// Unique identifier for the firewall rule.
+	ID string `json:"id,required"`
+	// Time the firewall rule was created.
+	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
+	// Destination address of the firewall rule.
+	DestinationAddress string `json:"destination_address,required"`
+	// Destination ports of the firewall rule.
+	DestinationPorts []string `json:"destination_ports,required"`
+	// Name of the firewall rule.
+	Name string `json:"name,required"`
+	// Protocol of the firewall rule.
+	Protocol FirewallRuleProtocol `json:"protocol,required"`
+	// Source address of the firewall rule.
+	SourceAddress string `json:"source_address,required"`
+	// Status of the VPC.
+	Status shared.ResourceStatus `json:"status,required"`
+	// Time the firewall rule was updated.
+	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
+	// ID of the VPC the firewall rule belongs to.
+	VPCID string           `json:"vpc_id,required"`
+	JSON  firewallRuleJSON `json:"-"`
 }
 
 // firewallRuleJSON contains the JSON metadata for the struct [FirewallRule]
@@ -148,7 +157,7 @@ func (r firewallRuleJSON) RawJSON() string {
 	return r.raw
 }
 
-// Supported Firewall Rule protocols.
+// Protocol of the firewall rule.
 type FirewallRuleProtocol string
 
 const (
@@ -186,11 +195,15 @@ func (r firewallRuleListJSON) RawJSON() string {
 }
 
 type FirewallRuleNewParams struct {
-	DestinationAddress param.Field[string]   `json:"destination_address,required"`
-	DestinationPorts   param.Field[[]string] `json:"destination_ports,required"`
-	Name               param.Field[string]   `json:"name,required"`
-	// Supported Firewall Rule protocols.
-	Protocol      param.Field[string] `json:"protocol,required"`
+	// Destination address of the firewall rule.
+	DestinationAddress param.Field[string] `json:"destination_address,required"`
+	// Destination ports of the firewall rule.
+	DestinationPorts param.Field[[]string] `json:"destination_ports,required"`
+	// Name of the firewall rule.
+	Name param.Field[string] `json:"name,required"`
+	// Protocol of the firewall rule.
+	Protocol param.Field[string] `json:"protocol,required"`
+	// Source address of the firewall rule.
 	SourceAddress param.Field[string] `json:"source_address,required"`
 }
 
@@ -199,19 +212,23 @@ func (r FirewallRuleNewParams) MarshalJSON() (data []byte, err error) {
 }
 
 type FirewallRuleUpdateParams struct {
-	DestinationAddress param.Field[string]   `json:"destination_address"`
-	DestinationPorts   param.Field[[]string] `json:"destination_ports"`
-	Name               param.Field[string]   `json:"name"`
-	// Supported Firewall Rule protocols.
-	Protocol      param.Field[FirewallRuleUpdateParamsProtocol] `json:"protocol"`
-	SourceAddress param.Field[string]                           `json:"source_address"`
+	// Destination address of the firewall rule.
+	DestinationAddress param.Field[string] `json:"destination_address"`
+	// Destination ports of the firewall rule.
+	DestinationPorts param.Field[[]string] `json:"destination_ports"`
+	// Name of the firewall rule.
+	Name param.Field[string] `json:"name"`
+	// Protocol of the firewall rule.
+	Protocol param.Field[FirewallRuleUpdateParamsProtocol] `json:"protocol"`
+	// Source address of the firewall rule.
+	SourceAddress param.Field[string] `json:"source_address"`
 }
 
 func (r FirewallRuleUpdateParams) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
-// Supported Firewall Rule protocols.
+// Protocol of the firewall rule.
 type FirewallRuleUpdateParamsProtocol string
 
 const (
