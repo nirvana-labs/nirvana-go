@@ -198,13 +198,13 @@ func (r SSHKeyParam) MarshalJSON() (data []byte, err error) {
 type VM struct {
 	// Unique identifier for the VM.
 	ID string `json:"id,required"`
-	// ID of the boot volume for the VM.
+	// ID of the boot volume attached to the VM.
 	BootVolumeID string `json:"boot_volume_id,required"`
 	// CPU configuration for the VM.
 	CPUConfig CPUConfig `json:"cpu_config,required"`
 	// When the VM was created.
 	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
-	// IDs of the data volumes for the VM.
+	// IDs of the data volumes attached to the VM.
 	DataVolumeIDs []string `json:"data_volume_ids,required"`
 	// Memory configuration for the VM.
 	MemoryConfig MemoryConfig `json:"memory_config,required"`
@@ -218,13 +218,13 @@ type VM struct {
 	Region shared.RegionName `json:"region,required"`
 	// Status of the resource.
 	Status shared.ResourceStatus `json:"status,required"`
-	// ID of the subnet for the VM.
+	// ID of the subnet the VM is in.
 	SubnetID string `json:"subnet_id,required"`
 	// When the VM was updated.
 	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
-	// ID of the VPC for the VM.
+	// ID of the VPC the VM is in.
 	VPCID string `json:"vpc_id,required"`
-	// Name of the VPC for the VM.
+	// Name of the VPC the VM is in.
 	VPCName string `json:"vpc_name,required"`
 	JSON    vmJSON `json:"-"`
 }
