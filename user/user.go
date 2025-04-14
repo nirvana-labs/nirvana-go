@@ -30,7 +30,7 @@ func NewUserService(opts ...option.RequestOption) (r *UserService) {
 	return
 }
 
-// Get details about an authenticated user.
+// Get details about an authenticated user
 func (r *UserService) Get(ctx context.Context, opts ...option.RequestOption) (res *User, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "v1/user"
