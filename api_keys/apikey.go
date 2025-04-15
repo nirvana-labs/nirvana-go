@@ -103,7 +103,7 @@ type APIKey struct {
 	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
 	// User ID that owns the API key.
 	UserID string `json:"user_id,required"`
-	// API key.
+	// API key. Only returned on creation.
 	Key string `json:"key"`
 	// When the API key starts to be valid.
 	StartsAt time.Time  `json:"starts_at" format:"date-time"`
