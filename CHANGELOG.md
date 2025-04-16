@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.0.2 (2025-04-16)
+
+Full Changelog: [v1.0.1...v1.0.2](https://github.com/nirvana-labs/nirvana-go/compare/v1.0.1...v1.0.2)
+
+### Features
+
+* **client:** add support for reading base URL from environment variable ([93f3844](https://github.com/nirvana-labs/nirvana-go/commit/93f38441f2e70075d7b01182d9b352d4fe639e19))
+
+
+### Chores
+
+* **docs:** document pre-request options ([a0deeaf](https://github.com/nirvana-labs/nirvana-go/commit/a0deeaf4a4d841c5b9e2c6741750ff8fa3136e4e))
+
 ## 1.0.1 (2025-04-15)
 
 Full Changelog: [v1.0.1...v1.0.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.0.1...v1.0.1)
