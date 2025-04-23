@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.3 (2025-04-23)
+
+Full Changelog: [v1.0.2...v1.0.3](https://github.com/nirvana-labs/nirvana-go/compare/v1.0.2...v1.0.3)
+
+### Chores
+
+* **ci:** add timeout thresholds for CI jobs ([97ba05e](https://github.com/nirvana-labs/nirvana-go/commit/97ba05ee9cd74b8cf90c7c257b3be02675d9fd2c))
+
 ## 1.0.2 (2025-04-16)
 
 Full Changelog: [v1.0.1...v1.0.2](https://github.com/nirvana-labs/nirvana-go/compare/v1.0.1...v1.0.2)
