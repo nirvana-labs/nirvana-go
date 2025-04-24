@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.4 (2025-04-24)
+
+Full Changelog: [v1.0.3...v1.0.4](https://github.com/nirvana-labs/nirvana-go/compare/v1.0.3...v1.0.4)
+
+### Chores
+
+* **ci:** only use depot for staging repos ([b2609a9](https://github.com/nirvana-labs/nirvana-go/commit/b2609a9b603ec41d6a7474f39b70192d45444e74))
+* **internal:** codegen related update ([19372ec](https://github.com/nirvana-labs/nirvana-go/commit/19372ecc83b71891aeb4781c9694e03629ddfe0e))
+
 ## 1.0.3 (2025-04-23)
 
 Full Changelog: [v1.0.2...v1.0.3](https://github.com/nirvana-labs/nirvana-go/compare/v1.0.2...v1.0.3)
