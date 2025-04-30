@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.5 (2025-04-30)
+
+Full Changelog: [v1.0.4...v1.0.5](https://github.com/nirvana-labs/nirvana-go/compare/v1.0.4...v1.0.5)
+
+### Bug Fixes
+
+* handle empty bodies in WithJSONSet ([e547dcc](https://github.com/nirvana-labs/nirvana-go/commit/e547dcc33967ffa3bf4b95bd456e829f76603753))
+
 ## 1.0.4 (2025-04-24)
 
 Full Changelog: [v1.0.3...v1.0.4](https://github.com/nirvana-labs/nirvana-go/compare/v1.0.3...v1.0.4)
