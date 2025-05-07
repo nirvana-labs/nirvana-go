@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.6 (2025-05-07)
+
+Full Changelog: [v1.0.5...v1.0.6](https://github.com/nirvana-labs/nirvana-go/compare/v1.0.5...v1.0.6)
+
+### Bug Fixes
+
+* **client:** clean up reader resources ([8a1cd61](https://github.com/nirvana-labs/nirvana-go/commit/8a1cd61bb4025e7637d6a3f5a55a6b30684a7fdb))
+* **client:** correctly update body in WithJSONSet ([819e46f](https://github.com/nirvana-labs/nirvana-go/commit/819e46f08098d409c8aacee68fda01bc8f0ec1f3))
+
 ## 1.0.5 (2025-04-30)
 
 Full Changelog: [v1.0.4...v1.0.5](https://github.com/nirvana-labs/nirvana-go/compare/v1.0.4...v1.0.5)
