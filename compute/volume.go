@@ -10,10 +10,11 @@ import (
 	"time"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
-	"github.com/nirvana-labs/nirvana-go/internal/param"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/operations"
 	"github.com/nirvana-labs/nirvana-go/option"
+	"github.com/nirvana-labs/nirvana-go/packages/param"
+	"github.com/nirvana-labs/nirvana-go/packages/respjson"
 	"github.com/nirvana-labs/nirvana-go/shared"
 )
 
@@ -30,8 +31,8 @@ type VolumeService struct {
 // NewVolumeService generates a new service that applies the given options to each
 // request. These options are applied after the parent client's options (if there
 // is one), and before any request-specific options.
-func NewVolumeService(opts ...option.RequestOption) (r *VolumeService) {
-	r = &VolumeService{}
+func NewVolumeService(opts ...option.RequestOption) (r VolumeService) {
+	r = VolumeService{}
 	r.Options = opts
 	return
 }
@@ -95,14 +96,6 @@ const (
 	StorageTypeNvme StorageType = "nvme"
 )
 
-func (r StorageType) IsKnown() bool {
-	switch r {
-	case StorageTypeNvme:
-		return true
-	}
-	return false
-}
-
 // Volume details.
 type Volume struct {
 	// Unique identifier for the volume.
@@ -110,46 +103,49 @@ type Volume struct {
 	// When the volume was created.
 	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
 	// Volume kind.
+	//
+	// Any of "boot", "data".
 	Kind VolumeKind `json:"kind,required"`
 	// Name of the volume.
 	Name string `json:"name,required"`
 	// Size of the volume in GB.
 	Size int64 `json:"size,required"`
 	// Status of the resource.
+	//
+	// Any of "pending", "creating", "updating", "ready", "deleting", "deleted",
+	// "error".
 	Status shared.ResourceStatus `json:"status,required"`
 	// Storage type the volume is using.
+	//
+	// Any of "nvme".
 	Type StorageType `json:"type,required"`
 	// When the volume was updated.
 	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
 	// ID of the VM the volume is attached to.
-	VMID string `json:"vm_id,required,nullable"`
+	VMID string `json:"vm_id,required"`
 	// Name of the VM the volume is attached to.
-	VMName string     `json:"vm_name,required,nullable"`
-	JSON   volumeJSON `json:"-"`
+	VMName string `json:"vm_name,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		ID          respjson.Field
+		CreatedAt   respjson.Field
+		Kind        respjson.Field
+		Name        respjson.Field
+		Size        respjson.Field
+		Status      respjson.Field
+		Type        respjson.Field
+		UpdatedAt   respjson.Field
+		VMID        respjson.Field
+		VMName      respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
 }
 
-// volumeJSON contains the JSON metadata for the struct [Volume]
-type volumeJSON struct {
-	ID          apijson.Field
-	CreatedAt   apijson.Field
-	Kind        apijson.Field
-	Name        apijson.Field
-	Size        apijson.Field
-	Status      apijson.Field
-	Type        apijson.Field
-	UpdatedAt   apijson.Field
-	VMID        apijson.Field
-	VMName      apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *Volume) UnmarshalJSON(data []byte) (err error) {
+// Returns the unmodified JSON received from the API
+func (r Volume) RawJSON() string { return r.JSON.raw }
+func (r *Volume) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r volumeJSON) RawJSON() string {
-	return r.raw
 }
 
 // Volume kind.
@@ -160,54 +156,52 @@ const (
 	VolumeKindData VolumeKind = "data"
 )
 
-func (r VolumeKind) IsKnown() bool {
-	switch r {
-	case VolumeKindBoot, VolumeKindData:
-		return true
-	}
-	return false
-}
-
 type VolumeList struct {
-	Items []Volume       `json:"items,required"`
-	JSON  volumeListJSON `json:"-"`
+	Items []Volume `json:"items,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Items       respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
 }
 
-// volumeListJSON contains the JSON metadata for the struct [VolumeList]
-type volumeListJSON struct {
-	Items       apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *VolumeList) UnmarshalJSON(data []byte) (err error) {
+// Returns the unmodified JSON received from the API
+func (r VolumeList) RawJSON() string { return r.JSON.raw }
+func (r *VolumeList) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r volumeListJSON) RawJSON() string {
-	return r.raw
 }
 
 type VolumeNewParams struct {
 	// Name of the volume.
-	Name param.Field[string] `json:"name,required"`
+	Name string `json:"name,required"`
 	// Size of the volume in GB.
-	Size param.Field[int64] `json:"size,required"`
+	Size int64 `json:"size,required"`
 	// ID of the VM the volume is attached to.
-	VMID param.Field[string] `json:"vm_id,required"`
+	VMID string `json:"vm_id,required"`
+	paramObj
 }
 
 func (r VolumeNewParams) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r)
+	type shadow VolumeNewParams
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *VolumeNewParams) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
 }
 
 type VolumeUpdateParams struct {
 	// Name of the volume.
-	Name param.Field[string] `json:"name"`
+	Name param.Opt[string] `json:"name,omitzero"`
 	// Size of the volume in GB.
-	Size param.Field[int64] `json:"size"`
+	Size param.Opt[int64] `json:"size,omitzero"`
+	paramObj
 }
 
 func (r VolumeUpdateParams) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r)
+	type shadow VolumeUpdateParams
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *VolumeUpdateParams) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
 }

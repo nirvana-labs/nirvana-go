@@ -25,8 +25,8 @@ type VMVolumeService struct {
 // NewVMVolumeService generates a new service that applies the given options to
 // each request. These options are applied after the parent client's options (if
 // there is one), and before any request-specific options.
-func NewVMVolumeService(opts ...option.RequestOption) (r *VMVolumeService) {
-	r = &VMVolumeService{}
+func NewVMVolumeService(opts ...option.RequestOption) (r VMVolumeService) {
+	r = VMVolumeService{}
 	r.Options = opts
 	return
 }

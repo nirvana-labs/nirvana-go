@@ -9,6 +9,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/option"
+	"github.com/nirvana-labs/nirvana-go/packages/respjson"
 )
 
 // UserService contains methods and other services that help with interacting with
@@ -24,8 +25,8 @@ type UserService struct {
 // NewUserService generates a new service that applies the given options to each
 // request. These options are applied after the parent client's options (if there
 // is one), and before any request-specific options.
-func NewUserService(opts ...option.RequestOption) (r *UserService) {
-	r = &UserService{}
+func NewUserService(opts ...option.RequestOption) (r UserService) {
+	r = UserService{}
 	r.Options = opts
 	return
 }
@@ -45,43 +46,35 @@ type User struct {
 	Email string `json:"email,required"`
 	// Services that the user has access to.
 	Services UserServices `json:"services,required"`
-	JSON     userJSON     `json:"-"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		ID          respjson.Field
+		Email       respjson.Field
+		Services    respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
 }
 
-// userJSON contains the JSON metadata for the struct [User]
-type userJSON struct {
-	ID          apijson.Field
-	Email       apijson.Field
-	Services    apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *User) UnmarshalJSON(data []byte) (err error) {
+// Returns the unmodified JSON received from the API
+func (r User) RawJSON() string { return r.JSON.raw }
+func (r *User) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r userJSON) RawJSON() string {
-	return r.raw
 }
 
 // Services that the user has access to.
 type UserServices struct {
-	Cloud bool             `json:"cloud"`
-	JSON  userServicesJSON `json:"-"`
+	Cloud bool `json:"cloud"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Cloud       respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
 }
 
-// userServicesJSON contains the JSON metadata for the struct [UserServices]
-type userServicesJSON struct {
-	Cloud       apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *UserServices) UnmarshalJSON(data []byte) (err error) {
+// Returns the unmodified JSON received from the API
+func (r UserServices) RawJSON() string { return r.JSON.raw }
+func (r *UserServices) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r userServicesJSON) RawJSON() string {
-	return r.raw
 }

@@ -14,15 +14,15 @@ import (
 // the [NewComputeService] method instead.
 type ComputeService struct {
 	Options []option.RequestOption
-	VMs     *VMService
-	Volumes *VolumeService
+	VMs     VMService
+	Volumes VolumeService
 }
 
 // NewComputeService generates a new service that applies the given options to each
 // request. These options are applied after the parent client's options (if there
 // is one), and before any request-specific options.
-func NewComputeService(opts ...option.RequestOption) (r *ComputeService) {
-	r = &ComputeService{}
+func NewComputeService(opts ...option.RequestOption) (r ComputeService) {
+	r = ComputeService{}
 	r.Options = opts
 	r.VMs = NewVMService(opts...)
 	r.Volumes = NewVolumeService(opts...)

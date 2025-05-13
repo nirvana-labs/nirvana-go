@@ -10,9 +10,10 @@ import (
 	"time"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
-	"github.com/nirvana-labs/nirvana-go/internal/param"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/option"
+	"github.com/nirvana-labs/nirvana-go/packages/param"
+	"github.com/nirvana-labs/nirvana-go/packages/respjson"
 )
 
 // APIKeyService contains methods and other services that help with interacting
@@ -28,8 +29,8 @@ type APIKeyService struct {
 // NewAPIKeyService generates a new service that applies the given options to each
 // request. These options are applied after the parent client's options (if there
 // is one), and before any request-specific options.
-func NewAPIKeyService(opts ...option.RequestOption) (r *APIKeyService) {
-	r = &APIKeyService{}
+func NewAPIKeyService(opts ...option.RequestOption) (r APIKeyService) {
+	r = APIKeyService{}
 	r.Options = opts
 	return
 }
@@ -98,6 +99,8 @@ type APIKey struct {
 	// API key name.
 	Name string `json:"name,required"`
 	// Status of the API key.
+	//
+	// Any of "active", "inactive", "expired".
 	Status APIKeyStatus `json:"status,required"`
 	// When the API key was updated.
 	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
@@ -106,31 +109,27 @@ type APIKey struct {
 	// API key. Only returned on creation.
 	Key string `json:"key"`
 	// When the API key starts to be valid.
-	StartsAt time.Time  `json:"starts_at" format:"date-time"`
-	JSON     apiKeyJSON `json:"-"`
+	StartsAt time.Time `json:"starts_at" format:"date-time"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		ID          respjson.Field
+		CreatedAt   respjson.Field
+		ExpiresAt   respjson.Field
+		Name        respjson.Field
+		Status      respjson.Field
+		UpdatedAt   respjson.Field
+		UserID      respjson.Field
+		Key         respjson.Field
+		StartsAt    respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
 }
 
-// apiKeyJSON contains the JSON metadata for the struct [APIKey]
-type apiKeyJSON struct {
-	ID          apijson.Field
-	CreatedAt   apijson.Field
-	ExpiresAt   apijson.Field
-	Name        apijson.Field
-	Status      apijson.Field
-	UpdatedAt   apijson.Field
-	UserID      apijson.Field
-	Key         apijson.Field
-	StartsAt    apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *APIKey) UnmarshalJSON(data []byte) (err error) {
+// Returns the unmodified JSON received from the API
+func (r APIKey) RawJSON() string { return r.JSON.raw }
+func (r *APIKey) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r apiKeyJSON) RawJSON() string {
-	return r.raw
 }
 
 // Status of the API key.
@@ -142,52 +141,50 @@ const (
 	APIKeyStatusExpired  APIKeyStatus = "expired"
 )
 
-func (r APIKeyStatus) IsKnown() bool {
-	switch r {
-	case APIKeyStatusActive, APIKeyStatusInactive, APIKeyStatusExpired:
-		return true
-	}
-	return false
-}
-
 type APIKeyList struct {
-	Items []APIKey       `json:"items,required"`
-	JSON  apiKeyListJSON `json:"-"`
+	Items []APIKey `json:"items,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Items       respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
 }
 
-// apiKeyListJSON contains the JSON metadata for the struct [APIKeyList]
-type apiKeyListJSON struct {
-	Items       apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *APIKeyList) UnmarshalJSON(data []byte) (err error) {
+// Returns the unmodified JSON received from the API
+func (r APIKeyList) RawJSON() string { return r.JSON.raw }
+func (r *APIKeyList) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r apiKeyListJSON) RawJSON() string {
-	return r.raw
 }
 
 type APIKeyNewParams struct {
 	// When the API key expires and is no longer valid.
-	ExpiresAt param.Field[time.Time] `json:"expires_at,required" format:"date-time"`
+	ExpiresAt time.Time `json:"expires_at,required" format:"date-time"`
 	// API key name.
-	Name param.Field[string] `json:"name,required"`
+	Name string `json:"name,required"`
 	// When the API key starts to be valid.
-	StartsAt param.Field[time.Time] `json:"starts_at" format:"date-time"`
+	StartsAt param.Opt[time.Time] `json:"starts_at,omitzero" format:"date-time"`
+	paramObj
 }
 
 func (r APIKeyNewParams) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r)
+	type shadow APIKeyNewParams
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *APIKeyNewParams) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
 }
 
 type APIKeyUpdateParams struct {
 	// API key name.
-	Name param.Field[string] `json:"name"`
+	Name param.Opt[string] `json:"name,omitzero"`
+	paramObj
 }
 
 func (r APIKeyUpdateParams) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r)
+	type shadow APIKeyUpdateParams
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *APIKeyUpdateParams) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
 }

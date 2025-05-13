@@ -11,6 +11,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/option"
+	"github.com/nirvana-labs/nirvana-go/packages/respjson"
 )
 
 // OperationService contains methods and other services that help with interacting
@@ -26,8 +27,8 @@ type OperationService struct {
 // NewOperationService generates a new service that applies the given options to
 // each request. These options are applied after the parent client's options (if
 // there is one), and before any request-specific options.
-func NewOperationService(opts ...option.RequestOption) (r *OperationService) {
-	r = &OperationService{}
+func NewOperationService(opts ...option.RequestOption) (r OperationService) {
+	r = OperationService{}
 	r.Options = opts
 	return
 }
@@ -59,37 +60,39 @@ type Operation struct {
 	// When the operation was created.
 	CreatedAt string `json:"created_at,required"`
 	// Kind of operation.
+	//
+	// Any of "vm", "volume", "vpc", "firewall_rule".
 	Kind OperationKind `json:"kind,required"`
 	// ID of the resource that the operation is acting on.
 	ResourceID string `json:"resource_id,required"`
 	// Status of the operation.
+	//
+	// Any of "pending", "running", "done", "failed", "unknown".
 	Status OperationStatus `json:"status,required"`
 	// Type of operation.
+	//
+	// Any of "create", "update", "delete".
 	Type OperationType `json:"type,required"`
 	// When the operation was updated.
-	UpdatedAt string        `json:"updated_at,required"`
-	JSON      operationJSON `json:"-"`
+	UpdatedAt string `json:"updated_at,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		ID          respjson.Field
+		CreatedAt   respjson.Field
+		Kind        respjson.Field
+		ResourceID  respjson.Field
+		Status      respjson.Field
+		Type        respjson.Field
+		UpdatedAt   respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
 }
 
-// operationJSON contains the JSON metadata for the struct [Operation]
-type operationJSON struct {
-	ID          apijson.Field
-	CreatedAt   apijson.Field
-	Kind        apijson.Field
-	ResourceID  apijson.Field
-	Status      apijson.Field
-	Type        apijson.Field
-	UpdatedAt   apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *Operation) UnmarshalJSON(data []byte) (err error) {
+// Returns the unmodified JSON received from the API
+func (r Operation) RawJSON() string { return r.JSON.raw }
+func (r *Operation) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r operationJSON) RawJSON() string {
-	return r.raw
 }
 
 // Kind of operation.
@@ -102,32 +105,20 @@ const (
 	OperationKindFirewallRule OperationKind = "firewall_rule"
 )
 
-func (r OperationKind) IsKnown() bool {
-	switch r {
-	case OperationKindVM, OperationKindVolume, OperationKindVPC, OperationKindFirewallRule:
-		return true
-	}
-	return false
-}
-
 type OperationList struct {
-	Items []Operation       `json:"items,required"`
-	JSON  operationListJSON `json:"-"`
+	Items []Operation `json:"items,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Items       respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
 }
 
-// operationListJSON contains the JSON metadata for the struct [OperationList]
-type operationListJSON struct {
-	Items       apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *OperationList) UnmarshalJSON(data []byte) (err error) {
+// Returns the unmodified JSON received from the API
+func (r OperationList) RawJSON() string { return r.JSON.raw }
+func (r *OperationList) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r operationListJSON) RawJSON() string {
-	return r.raw
 }
 
 // Status of the operation.
@@ -141,14 +132,6 @@ const (
 	OperationStatusUnknown OperationStatus = "unknown"
 )
 
-func (r OperationStatus) IsKnown() bool {
-	switch r {
-	case OperationStatusPending, OperationStatusRunning, OperationStatusDone, OperationStatusFailed, OperationStatusUnknown:
-		return true
-	}
-	return false
-}
-
 // Type of operation.
 type OperationType string
 
@@ -157,11 +140,3 @@ const (
 	OperationTypeUpdate OperationType = "update"
 	OperationTypeDelete OperationType = "delete"
 )
-
-func (r OperationType) IsKnown() bool {
-	switch r {
-	case OperationTypeCreate, OperationTypeUpdate, OperationTypeDelete:
-		return true
-	}
-	return false
-}

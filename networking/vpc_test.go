@@ -28,9 +28,9 @@ func TestVPCNew(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Networking.VPCs.New(context.TODO(), networking.VPCNewParams{
-		Name:       nirvana.F("my-vpc"),
-		Region:     nirvana.F(shared.RegionNameUsWdc1),
-		SubnetName: nirvana.F("my-subnet"),
+		Name:       "my-vpc",
+		Region:     shared.RegionNameUsWdc1,
+		SubnetName: "my-subnet",
 	})
 	if err != nil {
 		var apierr *nirvana.Error
@@ -57,8 +57,8 @@ func TestVPCUpdateWithOptionalParams(t *testing.T) {
 		context.TODO(),
 		"vpc_id",
 		networking.VPCUpdateParams{
-			Name:       nirvana.F("my-vpc"),
-			SubnetName: nirvana.F("my-subnet"),
+			Name:       nirvana.String("my-vpc"),
+			SubnetName: nirvana.String("my-subnet"),
 		},
 	)
 	if err != nil {
