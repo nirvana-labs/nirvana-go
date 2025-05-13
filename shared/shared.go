@@ -2,6 +2,16 @@
 
 package shared
 
+import (
+	"github.com/nirvana-labs/nirvana-go/packages/param"
+)
+
+// aliased to make [param.APIUnion] private when embedding
+type paramUnion = param.APIUnion
+
+// aliased to make [param.APIObject] private when embedding
+type paramObj = param.APIObject
+
 // Region the resource is in.
 type RegionName string
 
@@ -18,14 +28,6 @@ const (
 	RegionNameApTyo1 RegionName = "ap-tyo-1"
 )
 
-func (r RegionName) IsKnown() bool {
-	switch r {
-	case RegionNameUsSea1, RegionNameUsSva1, RegionNameUsChi1, RegionNameUsWdc1, RegionNameEuLon1, RegionNameEuAms1, RegionNameEuFrk1, RegionNameApSin1, RegionNameApSeo1, RegionNameApTyo1:
-		return true
-	}
-	return false
-}
-
 // Status of the resource.
 type ResourceStatus string
 
@@ -38,11 +40,3 @@ const (
 	ResourceStatusDeleted  ResourceStatus = "deleted"
 	ResourceStatusError    ResourceStatus = "error"
 )
-
-func (r ResourceStatus) IsKnown() bool {
-	switch r {
-	case ResourceStatusPending, ResourceStatusCreating, ResourceStatusUpdating, ResourceStatusReady, ResourceStatusDeleting, ResourceStatusDeleted, ResourceStatusError:
-		return true
-	}
-	return false
-}

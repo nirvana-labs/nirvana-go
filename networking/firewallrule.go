@@ -10,10 +10,11 @@ import (
 	"time"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
-	"github.com/nirvana-labs/nirvana-go/internal/param"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/operations"
 	"github.com/nirvana-labs/nirvana-go/option"
+	"github.com/nirvana-labs/nirvana-go/packages/param"
+	"github.com/nirvana-labs/nirvana-go/packages/respjson"
 	"github.com/nirvana-labs/nirvana-go/shared"
 )
 
@@ -30,8 +31,8 @@ type FirewallRuleService struct {
 // NewFirewallRuleService generates a new service that applies the given options to
 // each request. These options are applied after the parent client's options (if
 // there is one), and before any request-specific options.
-func NewFirewallRuleService(opts ...option.RequestOption) (r *FirewallRuleService) {
-	r = &FirewallRuleService{}
+func NewFirewallRuleService(opts ...option.RequestOption) (r FirewallRuleService) {
+	r = FirewallRuleService{}
 	r.Options = opts
 	return
 }
@@ -121,40 +122,41 @@ type FirewallRule struct {
 	// Name of the firewall rule.
 	Name string `json:"name,required"`
 	// Protocol of the firewall rule.
+	//
+	// Any of "tcp", "udp".
 	Protocol FirewallRuleProtocol `json:"protocol,required"`
 	// Source address of the firewall rule.
 	SourceAddress string `json:"source_address,required"`
 	// Status of the resource.
+	//
+	// Any of "pending", "creating", "updating", "ready", "deleting", "deleted",
+	// "error".
 	Status shared.ResourceStatus `json:"status,required"`
 	// When the firewall rule was updated.
 	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
 	// ID of the VPC the firewall rule belongs to.
-	VPCID string           `json:"vpc_id,required"`
-	JSON  firewallRuleJSON `json:"-"`
+	VPCID string `json:"vpc_id,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		ID                 respjson.Field
+		CreatedAt          respjson.Field
+		DestinationAddress respjson.Field
+		DestinationPorts   respjson.Field
+		Name               respjson.Field
+		Protocol           respjson.Field
+		SourceAddress      respjson.Field
+		Status             respjson.Field
+		UpdatedAt          respjson.Field
+		VPCID              respjson.Field
+		ExtraFields        map[string]respjson.Field
+		raw                string
+	} `json:"-"`
 }
 
-// firewallRuleJSON contains the JSON metadata for the struct [FirewallRule]
-type firewallRuleJSON struct {
-	ID                 apijson.Field
-	CreatedAt          apijson.Field
-	DestinationAddress apijson.Field
-	DestinationPorts   apijson.Field
-	Name               apijson.Field
-	Protocol           apijson.Field
-	SourceAddress      apijson.Field
-	Status             apijson.Field
-	UpdatedAt          apijson.Field
-	VPCID              apijson.Field
-	raw                string
-	ExtraFields        map[string]apijson.Field
-}
-
-func (r *FirewallRule) UnmarshalJSON(data []byte) (err error) {
+// Returns the unmodified JSON received from the API
+func (r FirewallRule) RawJSON() string { return r.JSON.raw }
+func (r *FirewallRule) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r firewallRuleJSON) RawJSON() string {
-	return r.raw
 }
 
 // Protocol of the firewall rule.
@@ -165,67 +167,66 @@ const (
 	FirewallRuleProtocolUdp FirewallRuleProtocol = "udp"
 )
 
-func (r FirewallRuleProtocol) IsKnown() bool {
-	switch r {
-	case FirewallRuleProtocolTcp, FirewallRuleProtocolUdp:
-		return true
-	}
-	return false
-}
-
 type FirewallRuleList struct {
-	Items []FirewallRule       `json:"items,required"`
-	JSON  firewallRuleListJSON `json:"-"`
+	Items []FirewallRule `json:"items,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Items       respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
 }
 
-// firewallRuleListJSON contains the JSON metadata for the struct
-// [FirewallRuleList]
-type firewallRuleListJSON struct {
-	Items       apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *FirewallRuleList) UnmarshalJSON(data []byte) (err error) {
+// Returns the unmodified JSON received from the API
+func (r FirewallRuleList) RawJSON() string { return r.JSON.raw }
+func (r *FirewallRuleList) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r firewallRuleListJSON) RawJSON() string {
-	return r.raw
 }
 
 type FirewallRuleNewParams struct {
 	// Destination address of the firewall rule.
-	DestinationAddress param.Field[string] `json:"destination_address,required"`
+	DestinationAddress string `json:"destination_address,required"`
 	// Destination ports of the firewall rule.
-	DestinationPorts param.Field[[]string] `json:"destination_ports,required"`
+	DestinationPorts []string `json:"destination_ports,omitzero,required"`
 	// Name of the firewall rule.
-	Name param.Field[string] `json:"name,required"`
+	Name string `json:"name,required"`
 	// Protocol of the firewall rule.
-	Protocol param.Field[string] `json:"protocol,required"`
+	Protocol string `json:"protocol,required"`
 	// Source address of the firewall rule.
-	SourceAddress param.Field[string] `json:"source_address,required"`
+	SourceAddress string `json:"source_address,required"`
+	paramObj
 }
 
 func (r FirewallRuleNewParams) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r)
+	type shadow FirewallRuleNewParams
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *FirewallRuleNewParams) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
 }
 
 type FirewallRuleUpdateParams struct {
 	// Destination address of the firewall rule.
-	DestinationAddress param.Field[string] `json:"destination_address"`
-	// Destination ports of the firewall rule.
-	DestinationPorts param.Field[[]string] `json:"destination_ports"`
+	DestinationAddress param.Opt[string] `json:"destination_address,omitzero"`
 	// Name of the firewall rule.
-	Name param.Field[string] `json:"name"`
-	// Protocol of the firewall rule.
-	Protocol param.Field[FirewallRuleUpdateParamsProtocol] `json:"protocol"`
+	Name param.Opt[string] `json:"name,omitzero"`
 	// Source address of the firewall rule.
-	SourceAddress param.Field[string] `json:"source_address"`
+	SourceAddress param.Opt[string] `json:"source_address,omitzero"`
+	// Destination ports of the firewall rule.
+	DestinationPorts []string `json:"destination_ports,omitzero"`
+	// Protocol of the firewall rule.
+	//
+	// Any of "tcp", "udp".
+	Protocol FirewallRuleUpdateParamsProtocol `json:"protocol,omitzero"`
+	paramObj
 }
 
 func (r FirewallRuleUpdateParams) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r)
+	type shadow FirewallRuleUpdateParams
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *FirewallRuleUpdateParams) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
 }
 
 // Protocol of the firewall rule.
@@ -235,11 +236,3 @@ const (
 	FirewallRuleUpdateParamsProtocolTcp FirewallRuleUpdateParamsProtocol = "tcp"
 	FirewallRuleUpdateParamsProtocolUdp FirewallRuleUpdateParamsProtocol = "udp"
 )
-
-func (r FirewallRuleUpdateParamsProtocol) IsKnown() bool {
-	switch r {
-	case FirewallRuleUpdateParamsProtocolTcp, FirewallRuleUpdateParamsProtocolUdp:
-		return true
-	}
-	return false
-}

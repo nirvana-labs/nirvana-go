@@ -41,23 +41,23 @@ func TestUserAgentHeader(t *testing.T) {
 		}),
 	)
 	client.Compute.VMs.New(context.Background(), compute.VMNewParams{
-		BootVolume: nirvana.F(compute.VMNewParamsBootVolume{
-			Size: nirvana.F(int64(100)),
-		}),
-		CPUConfig: nirvana.F(compute.CPUConfigParam{
-			Vcpu: nirvana.F(int64(2)),
-		}),
-		MemoryConfig: nirvana.F(compute.MemoryConfigParam{
-			Size: nirvana.F(int64(2)),
-		}),
-		Name:            nirvana.F("my-vm"),
-		OSImageName:     nirvana.F("ubuntu-noble-2025-04-03"),
-		PublicIPEnabled: nirvana.F(true),
-		Region:          nirvana.F(shared.RegionNameUsWdc1),
-		SSHKey: nirvana.F(compute.SSHKeyParam{
-			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname"),
-		}),
-		SubnetID: nirvana.F("123e4567-e89b-12d3-a456-426614174000"),
+		BootVolume: compute.VMNewParamsBootVolume{
+			Size: 100,
+		},
+		CPUConfig: compute.CPUConfigParam{
+			Vcpu: 2,
+		},
+		MemoryConfig: compute.MemoryConfigParam{
+			Size: 2,
+		},
+		Name:            "my-vm",
+		OSImageName:     "ubuntu-noble-2025-04-03",
+		PublicIPEnabled: true,
+		Region:          shared.RegionNameUsWdc1,
+		SSHKey: compute.SSHKeyParam{
+			PublicKey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname",
+		},
+		SubnetID: "123e4567-e89b-12d3-a456-426614174000",
 	})
 	if userAgent != fmt.Sprintf("NirvanaLabs/Go %s", internal.PackageVersion) {
 		t.Errorf("Expected User-Agent to be correct, but got: %#v", userAgent)
@@ -83,23 +83,23 @@ func TestRetryAfter(t *testing.T) {
 		}),
 	)
 	_, err := client.Compute.VMs.New(context.Background(), compute.VMNewParams{
-		BootVolume: nirvana.F(compute.VMNewParamsBootVolume{
-			Size: nirvana.F(int64(100)),
-		}),
-		CPUConfig: nirvana.F(compute.CPUConfigParam{
-			Vcpu: nirvana.F(int64(2)),
-		}),
-		MemoryConfig: nirvana.F(compute.MemoryConfigParam{
-			Size: nirvana.F(int64(2)),
-		}),
-		Name:            nirvana.F("my-vm"),
-		OSImageName:     nirvana.F("ubuntu-noble-2025-04-03"),
-		PublicIPEnabled: nirvana.F(true),
-		Region:          nirvana.F(shared.RegionNameUsWdc1),
-		SSHKey: nirvana.F(compute.SSHKeyParam{
-			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname"),
-		}),
-		SubnetID: nirvana.F("123e4567-e89b-12d3-a456-426614174000"),
+		BootVolume: compute.VMNewParamsBootVolume{
+			Size: 100,
+		},
+		CPUConfig: compute.CPUConfigParam{
+			Vcpu: 2,
+		},
+		MemoryConfig: compute.MemoryConfigParam{
+			Size: 2,
+		},
+		Name:            "my-vm",
+		OSImageName:     "ubuntu-noble-2025-04-03",
+		PublicIPEnabled: true,
+		Region:          shared.RegionNameUsWdc1,
+		SSHKey: compute.SSHKeyParam{
+			PublicKey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname",
+		},
+		SubnetID: "123e4567-e89b-12d3-a456-426614174000",
 	})
 	if err == nil {
 		t.Error("Expected there to be a cancel error")
@@ -136,23 +136,23 @@ func TestDeleteRetryCountHeader(t *testing.T) {
 		option.WithHeaderDel("X-Stainless-Retry-Count"),
 	)
 	_, err := client.Compute.VMs.New(context.Background(), compute.VMNewParams{
-		BootVolume: nirvana.F(compute.VMNewParamsBootVolume{
-			Size: nirvana.F(int64(100)),
-		}),
-		CPUConfig: nirvana.F(compute.CPUConfigParam{
-			Vcpu: nirvana.F(int64(2)),
-		}),
-		MemoryConfig: nirvana.F(compute.MemoryConfigParam{
-			Size: nirvana.F(int64(2)),
-		}),
-		Name:            nirvana.F("my-vm"),
-		OSImageName:     nirvana.F("ubuntu-noble-2025-04-03"),
-		PublicIPEnabled: nirvana.F(true),
-		Region:          nirvana.F(shared.RegionNameUsWdc1),
-		SSHKey: nirvana.F(compute.SSHKeyParam{
-			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname"),
-		}),
-		SubnetID: nirvana.F("123e4567-e89b-12d3-a456-426614174000"),
+		BootVolume: compute.VMNewParamsBootVolume{
+			Size: 100,
+		},
+		CPUConfig: compute.CPUConfigParam{
+			Vcpu: 2,
+		},
+		MemoryConfig: compute.MemoryConfigParam{
+			Size: 2,
+		},
+		Name:            "my-vm",
+		OSImageName:     "ubuntu-noble-2025-04-03",
+		PublicIPEnabled: true,
+		Region:          shared.RegionNameUsWdc1,
+		SSHKey: compute.SSHKeyParam{
+			PublicKey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname",
+		},
+		SubnetID: "123e4567-e89b-12d3-a456-426614174000",
 	})
 	if err == nil {
 		t.Error("Expected there to be a cancel error")
@@ -184,23 +184,23 @@ func TestOverwriteRetryCountHeader(t *testing.T) {
 		option.WithHeader("X-Stainless-Retry-Count", "42"),
 	)
 	_, err := client.Compute.VMs.New(context.Background(), compute.VMNewParams{
-		BootVolume: nirvana.F(compute.VMNewParamsBootVolume{
-			Size: nirvana.F(int64(100)),
-		}),
-		CPUConfig: nirvana.F(compute.CPUConfigParam{
-			Vcpu: nirvana.F(int64(2)),
-		}),
-		MemoryConfig: nirvana.F(compute.MemoryConfigParam{
-			Size: nirvana.F(int64(2)),
-		}),
-		Name:            nirvana.F("my-vm"),
-		OSImageName:     nirvana.F("ubuntu-noble-2025-04-03"),
-		PublicIPEnabled: nirvana.F(true),
-		Region:          nirvana.F(shared.RegionNameUsWdc1),
-		SSHKey: nirvana.F(compute.SSHKeyParam{
-			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname"),
-		}),
-		SubnetID: nirvana.F("123e4567-e89b-12d3-a456-426614174000"),
+		BootVolume: compute.VMNewParamsBootVolume{
+			Size: 100,
+		},
+		CPUConfig: compute.CPUConfigParam{
+			Vcpu: 2,
+		},
+		MemoryConfig: compute.MemoryConfigParam{
+			Size: 2,
+		},
+		Name:            "my-vm",
+		OSImageName:     "ubuntu-noble-2025-04-03",
+		PublicIPEnabled: true,
+		Region:          shared.RegionNameUsWdc1,
+		SSHKey: compute.SSHKeyParam{
+			PublicKey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname",
+		},
+		SubnetID: "123e4567-e89b-12d3-a456-426614174000",
 	})
 	if err == nil {
 		t.Error("Expected there to be a cancel error")
@@ -231,23 +231,23 @@ func TestRetryAfterMs(t *testing.T) {
 		}),
 	)
 	_, err := client.Compute.VMs.New(context.Background(), compute.VMNewParams{
-		BootVolume: nirvana.F(compute.VMNewParamsBootVolume{
-			Size: nirvana.F(int64(100)),
-		}),
-		CPUConfig: nirvana.F(compute.CPUConfigParam{
-			Vcpu: nirvana.F(int64(2)),
-		}),
-		MemoryConfig: nirvana.F(compute.MemoryConfigParam{
-			Size: nirvana.F(int64(2)),
-		}),
-		Name:            nirvana.F("my-vm"),
-		OSImageName:     nirvana.F("ubuntu-noble-2025-04-03"),
-		PublicIPEnabled: nirvana.F(true),
-		Region:          nirvana.F(shared.RegionNameUsWdc1),
-		SSHKey: nirvana.F(compute.SSHKeyParam{
-			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname"),
-		}),
-		SubnetID: nirvana.F("123e4567-e89b-12d3-a456-426614174000"),
+		BootVolume: compute.VMNewParamsBootVolume{
+			Size: 100,
+		},
+		CPUConfig: compute.CPUConfigParam{
+			Vcpu: 2,
+		},
+		MemoryConfig: compute.MemoryConfigParam{
+			Size: 2,
+		},
+		Name:            "my-vm",
+		OSImageName:     "ubuntu-noble-2025-04-03",
+		PublicIPEnabled: true,
+		Region:          shared.RegionNameUsWdc1,
+		SSHKey: compute.SSHKeyParam{
+			PublicKey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname",
+		},
+		SubnetID: "123e4567-e89b-12d3-a456-426614174000",
 	})
 	if err == nil {
 		t.Error("Expected there to be a cancel error")
@@ -272,23 +272,23 @@ func TestContextCancel(t *testing.T) {
 	cancelCtx, cancel := context.WithCancel(context.Background())
 	cancel()
 	_, err := client.Compute.VMs.New(cancelCtx, compute.VMNewParams{
-		BootVolume: nirvana.F(compute.VMNewParamsBootVolume{
-			Size: nirvana.F(int64(100)),
-		}),
-		CPUConfig: nirvana.F(compute.CPUConfigParam{
-			Vcpu: nirvana.F(int64(2)),
-		}),
-		MemoryConfig: nirvana.F(compute.MemoryConfigParam{
-			Size: nirvana.F(int64(2)),
-		}),
-		Name:            nirvana.F("my-vm"),
-		OSImageName:     nirvana.F("ubuntu-noble-2025-04-03"),
-		PublicIPEnabled: nirvana.F(true),
-		Region:          nirvana.F(shared.RegionNameUsWdc1),
-		SSHKey: nirvana.F(compute.SSHKeyParam{
-			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname"),
-		}),
-		SubnetID: nirvana.F("123e4567-e89b-12d3-a456-426614174000"),
+		BootVolume: compute.VMNewParamsBootVolume{
+			Size: 100,
+		},
+		CPUConfig: compute.CPUConfigParam{
+			Vcpu: 2,
+		},
+		MemoryConfig: compute.MemoryConfigParam{
+			Size: 2,
+		},
+		Name:            "my-vm",
+		OSImageName:     "ubuntu-noble-2025-04-03",
+		PublicIPEnabled: true,
+		Region:          shared.RegionNameUsWdc1,
+		SSHKey: compute.SSHKeyParam{
+			PublicKey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname",
+		},
+		SubnetID: "123e4567-e89b-12d3-a456-426614174000",
 	})
 	if err == nil {
 		t.Error("Expected there to be a cancel error")
@@ -310,23 +310,23 @@ func TestContextCancelDelay(t *testing.T) {
 	cancelCtx, cancel := context.WithTimeout(context.Background(), 2*time.Millisecond)
 	defer cancel()
 	_, err := client.Compute.VMs.New(cancelCtx, compute.VMNewParams{
-		BootVolume: nirvana.F(compute.VMNewParamsBootVolume{
-			Size: nirvana.F(int64(100)),
-		}),
-		CPUConfig: nirvana.F(compute.CPUConfigParam{
-			Vcpu: nirvana.F(int64(2)),
-		}),
-		MemoryConfig: nirvana.F(compute.MemoryConfigParam{
-			Size: nirvana.F(int64(2)),
-		}),
-		Name:            nirvana.F("my-vm"),
-		OSImageName:     nirvana.F("ubuntu-noble-2025-04-03"),
-		PublicIPEnabled: nirvana.F(true),
-		Region:          nirvana.F(shared.RegionNameUsWdc1),
-		SSHKey: nirvana.F(compute.SSHKeyParam{
-			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname"),
-		}),
-		SubnetID: nirvana.F("123e4567-e89b-12d3-a456-426614174000"),
+		BootVolume: compute.VMNewParamsBootVolume{
+			Size: 100,
+		},
+		CPUConfig: compute.CPUConfigParam{
+			Vcpu: 2,
+		},
+		MemoryConfig: compute.MemoryConfigParam{
+			Size: 2,
+		},
+		Name:            "my-vm",
+		OSImageName:     "ubuntu-noble-2025-04-03",
+		PublicIPEnabled: true,
+		Region:          shared.RegionNameUsWdc1,
+		SSHKey: compute.SSHKeyParam{
+			PublicKey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname",
+		},
+		SubnetID: "123e4567-e89b-12d3-a456-426614174000",
 	})
 	if err == nil {
 		t.Error("expected there to be a cancel error")
@@ -354,23 +354,23 @@ func TestContextDeadline(t *testing.T) {
 			}),
 		)
 		_, err := client.Compute.VMs.New(deadlineCtx, compute.VMNewParams{
-			BootVolume: nirvana.F(compute.VMNewParamsBootVolume{
-				Size: nirvana.F(int64(100)),
-			}),
-			CPUConfig: nirvana.F(compute.CPUConfigParam{
-				Vcpu: nirvana.F(int64(2)),
-			}),
-			MemoryConfig: nirvana.F(compute.MemoryConfigParam{
-				Size: nirvana.F(int64(2)),
-			}),
-			Name:            nirvana.F("my-vm"),
-			OSImageName:     nirvana.F("ubuntu-noble-2025-04-03"),
-			PublicIPEnabled: nirvana.F(true),
-			Region:          nirvana.F(shared.RegionNameUsWdc1),
-			SSHKey: nirvana.F(compute.SSHKeyParam{
-				PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname"),
-			}),
-			SubnetID: nirvana.F("123e4567-e89b-12d3-a456-426614174000"),
+			BootVolume: compute.VMNewParamsBootVolume{
+				Size: 100,
+			},
+			CPUConfig: compute.CPUConfigParam{
+				Vcpu: 2,
+			},
+			MemoryConfig: compute.MemoryConfigParam{
+				Size: 2,
+			},
+			Name:            "my-vm",
+			OSImageName:     "ubuntu-noble-2025-04-03",
+			PublicIPEnabled: true,
+			Region:          shared.RegionNameUsWdc1,
+			SSHKey: compute.SSHKeyParam{
+				PublicKey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname",
+			},
+			SubnetID: "123e4567-e89b-12d3-a456-426614174000",
 		})
 		if err == nil {
 			t.Error("expected there to be a deadline error")

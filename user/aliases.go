@@ -4,8 +4,15 @@ package user
 
 import (
 	"github.com/nirvana-labs/nirvana-go/internal/apierror"
+	"github.com/nirvana-labs/nirvana-go/packages/param"
 	"github.com/nirvana-labs/nirvana-go/shared"
 )
+
+// aliased to make [param.APIUnion] private when embedding
+type paramUnion = param.APIUnion
+
+// aliased to make [param.APIObject] private when embedding
+type paramObj = param.APIObject
 
 type Error = apierror.Error
 
@@ -14,34 +21,34 @@ type Error = apierror.Error
 // This is an alias to an internal type.
 type RegionName = shared.RegionName
 
-// This is an alias to an internal value.
+// Equals "us-sea-1"
 const RegionNameUsSea1 = shared.RegionNameUsSea1
 
-// This is an alias to an internal value.
+// Equals "us-sva-1"
 const RegionNameUsSva1 = shared.RegionNameUsSva1
 
-// This is an alias to an internal value.
+// Equals "us-chi-1"
 const RegionNameUsChi1 = shared.RegionNameUsChi1
 
-// This is an alias to an internal value.
+// Equals "us-wdc-1"
 const RegionNameUsWdc1 = shared.RegionNameUsWdc1
 
-// This is an alias to an internal value.
+// Equals "eu-lon-1"
 const RegionNameEuLon1 = shared.RegionNameEuLon1
 
-// This is an alias to an internal value.
+// Equals "eu-ams-1"
 const RegionNameEuAms1 = shared.RegionNameEuAms1
 
-// This is an alias to an internal value.
+// Equals "eu-frk-1"
 const RegionNameEuFrk1 = shared.RegionNameEuFrk1
 
-// This is an alias to an internal value.
+// Equals "ap-sin-1"
 const RegionNameApSin1 = shared.RegionNameApSin1
 
-// This is an alias to an internal value.
+// Equals "ap-seo-1"
 const RegionNameApSeo1 = shared.RegionNameApSeo1
 
-// This is an alias to an internal value.
+// Equals "ap-tyo-1"
 const RegionNameApTyo1 = shared.RegionNameApTyo1
 
 // Status of the resource.
@@ -49,23 +56,23 @@ const RegionNameApTyo1 = shared.RegionNameApTyo1
 // This is an alias to an internal type.
 type ResourceStatus = shared.ResourceStatus
 
-// This is an alias to an internal value.
+// Equals "pending"
 const ResourceStatusPending = shared.ResourceStatusPending
 
-// This is an alias to an internal value.
+// Equals "creating"
 const ResourceStatusCreating = shared.ResourceStatusCreating
 
-// This is an alias to an internal value.
+// Equals "updating"
 const ResourceStatusUpdating = shared.ResourceStatusUpdating
 
-// This is an alias to an internal value.
+// Equals "ready"
 const ResourceStatusReady = shared.ResourceStatusReady
 
-// This is an alias to an internal value.
+// Equals "deleting"
 const ResourceStatusDeleting = shared.ResourceStatusDeleting
 
-// This is an alias to an internal value.
+// Equals "deleted"
 const ResourceStatusDeleted = shared.ResourceStatusDeleted
 
-// This is an alias to an internal value.
+// Equals "error"
 const ResourceStatusError = shared.ResourceStatusError

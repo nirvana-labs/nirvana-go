@@ -10,10 +10,11 @@ import (
 	"time"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
-	"github.com/nirvana-labs/nirvana-go/internal/param"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/operations"
 	"github.com/nirvana-labs/nirvana-go/option"
+	"github.com/nirvana-labs/nirvana-go/packages/param"
+	"github.com/nirvana-labs/nirvana-go/packages/respjson"
 	"github.com/nirvana-labs/nirvana-go/shared"
 )
 
@@ -30,8 +31,8 @@ type VPCService struct {
 // NewVPCService generates a new service that applies the given options to each
 // request. These options are applied after the parent client's options (if there
 // is one), and before any request-specific options.
-func NewVPCService(opts ...option.RequestOption) (r *VPCService) {
-	r = &VPCService{}
+func NewVPCService(opts ...option.RequestOption) (r VPCService) {
+	r = VPCService{}
 	r.Options = opts
 	return
 }
@@ -99,27 +100,23 @@ type Subnet struct {
 	// Name of the subnet.
 	Name string `json:"name,required"`
 	// When the subnet was updated.
-	UpdatedAt time.Time  `json:"updated_at,required" format:"date-time"`
-	JSON      subnetJSON `json:"-"`
+	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		ID          respjson.Field
+		Cidr        respjson.Field
+		CreatedAt   respjson.Field
+		Name        respjson.Field
+		UpdatedAt   respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
 }
 
-// subnetJSON contains the JSON metadata for the struct [Subnet]
-type subnetJSON struct {
-	ID          apijson.Field
-	Cidr        apijson.Field
-	CreatedAt   apijson.Field
-	Name        apijson.Field
-	UpdatedAt   apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *Subnet) UnmarshalJSON(data []byte) (err error) {
+// Returns the unmodified JSON received from the API
+func (r Subnet) RawJSON() string { return r.JSON.raw }
+func (r *Subnet) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r subnetJSON) RawJSON() string {
-	return r.raw
 }
 
 // VPC details.
@@ -133,78 +130,89 @@ type VPC struct {
 	// Name of the VPC.
 	Name string `json:"name,required"`
 	// Region the resource is in.
+	//
+	// Any of "us-sea-1", "us-sva-1", "us-chi-1", "us-wdc-1", "eu-lon-1", "eu-ams-1",
+	// "eu-frk-1", "ap-sin-1", "ap-seo-1", "ap-tyo-1".
 	Region shared.RegionName `json:"region,required"`
 	// Status of the resource.
+	//
+	// Any of "pending", "creating", "updating", "ready", "deleting", "deleted",
+	// "error".
 	Status shared.ResourceStatus `json:"status,required"`
 	// Subnet of the VPC.
 	Subnet Subnet `json:"subnet,required"`
 	// When the VPC was updated.
 	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
-	JSON      vpcJSON   `json:"-"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		ID              respjson.Field
+		CreatedAt       respjson.Field
+		FirewallRuleIDs respjson.Field
+		Name            respjson.Field
+		Region          respjson.Field
+		Status          respjson.Field
+		Subnet          respjson.Field
+		UpdatedAt       respjson.Field
+		ExtraFields     map[string]respjson.Field
+		raw             string
+	} `json:"-"`
 }
 
-// vpcJSON contains the JSON metadata for the struct [VPC]
-type vpcJSON struct {
-	ID              apijson.Field
-	CreatedAt       apijson.Field
-	FirewallRuleIDs apijson.Field
-	Name            apijson.Field
-	Region          apijson.Field
-	Status          apijson.Field
-	Subnet          apijson.Field
-	UpdatedAt       apijson.Field
-	raw             string
-	ExtraFields     map[string]apijson.Field
-}
-
-func (r *VPC) UnmarshalJSON(data []byte) (err error) {
+// Returns the unmodified JSON received from the API
+func (r VPC) RawJSON() string { return r.JSON.raw }
+func (r *VPC) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r vpcJSON) RawJSON() string {
-	return r.raw
 }
 
 type VPCList struct {
-	Items []VPC       `json:"items,required"`
-	JSON  vpcListJSON `json:"-"`
+	Items []VPC `json:"items,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Items       respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
 }
 
-// vpcListJSON contains the JSON metadata for the struct [VPCList]
-type vpcListJSON struct {
-	Items       apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *VPCList) UnmarshalJSON(data []byte) (err error) {
+// Returns the unmodified JSON received from the API
+func (r VPCList) RawJSON() string { return r.JSON.raw }
+func (r *VPCList) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
-}
-
-func (r vpcListJSON) RawJSON() string {
-	return r.raw
 }
 
 type VPCNewParams struct {
 	// Name of the VPC.
-	Name param.Field[string] `json:"name,required"`
+	Name string `json:"name,required"`
 	// Region the resource is in.
-	Region param.Field[shared.RegionName] `json:"region,required"`
+	//
+	// Any of "us-sea-1", "us-sva-1", "us-chi-1", "us-wdc-1", "eu-lon-1", "eu-ams-1",
+	// "eu-frk-1", "ap-sin-1", "ap-seo-1", "ap-tyo-1".
+	Region shared.RegionName `json:"region,omitzero,required"`
 	// Name of the subnet to create.
-	SubnetName param.Field[string] `json:"subnet_name,required"`
+	SubnetName string `json:"subnet_name,required"`
+	paramObj
 }
 
 func (r VPCNewParams) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r)
+	type shadow VPCNewParams
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *VPCNewParams) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
 }
 
 type VPCUpdateParams struct {
 	// Name of the VPC.
-	Name param.Field[string] `json:"name"`
+	Name param.Opt[string] `json:"name,omitzero"`
 	// Name of the subnet to create.
-	SubnetName param.Field[string] `json:"subnet_name"`
+	SubnetName param.Opt[string] `json:"subnet_name,omitzero"`
+	paramObj
 }
 
 func (r VPCUpdateParams) MarshalJSON() (data []byte, err error) {
-	return apijson.MarshalRoot(r)
+	type shadow VPCUpdateParams
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *VPCUpdateParams) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
 }
