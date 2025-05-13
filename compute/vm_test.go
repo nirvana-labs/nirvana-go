@@ -28,27 +28,27 @@ func TestVMNewWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Compute.VMs.New(context.TODO(), compute.VMNewParams{
-		BootVolume: nirvana.F(compute.VMNewParamsBootVolume{
-			Size: nirvana.F(int64(100)),
-		}),
-		CPUConfig: nirvana.F(compute.CPUConfigParam{
-			Vcpu: nirvana.F(int64(2)),
-		}),
-		MemoryConfig: nirvana.F(compute.MemoryConfigParam{
-			Size: nirvana.F(int64(2)),
-		}),
-		Name:            nirvana.F("my-vm"),
-		OSImageName:     nirvana.F("ubuntu-noble-2025-04-03"),
-		PublicIPEnabled: nirvana.F(true),
-		Region:          nirvana.F(shared.RegionNameUsWdc1),
-		SSHKey: nirvana.F(compute.SSHKeyParam{
-			PublicKey: nirvana.F("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname"),
-		}),
-		SubnetID: nirvana.F("123e4567-e89b-12d3-a456-426614174000"),
-		DataVolumes: nirvana.F([]compute.VMNewParamsDataVolume{{
-			Name: nirvana.F("my-data-volume"),
-			Size: nirvana.F(int64(100)),
-		}}),
+		BootVolume: compute.VMNewParamsBootVolume{
+			Size: 100,
+		},
+		CPUConfig: compute.CPUConfigParam{
+			Vcpu: 2,
+		},
+		MemoryConfig: compute.MemoryConfigParam{
+			Size: 2,
+		},
+		Name:            "my-vm",
+		OSImageName:     "ubuntu-noble-2025-04-03",
+		PublicIPEnabled: true,
+		Region:          shared.RegionNameUsWdc1,
+		SSHKey: compute.SSHKeyParam{
+			PublicKey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname",
+		},
+		SubnetID: "123e4567-e89b-12d3-a456-426614174000",
+		DataVolumes: []compute.VMNewParamsDataVolume{{
+			Name: "my-data-volume",
+			Size: 100,
+		}},
 	})
 	if err != nil {
 		var apierr *nirvana.Error
@@ -75,14 +75,14 @@ func TestVMUpdateWithOptionalParams(t *testing.T) {
 		context.TODO(),
 		"vm_id",
 		compute.VMUpdateParams{
-			CPUConfig: nirvana.F(compute.CPUConfigParam{
-				Vcpu: nirvana.F(int64(2)),
-			}),
-			MemoryConfig: nirvana.F(compute.MemoryConfigParam{
-				Size: nirvana.F(int64(2)),
-			}),
-			Name:            nirvana.F("my-vm"),
-			PublicIPEnabled: nirvana.F(true),
+			CPUConfig: compute.CPUConfigParam{
+				Vcpu: 2,
+			},
+			MemoryConfig: compute.MemoryConfigParam{
+				Size: 2,
+			},
+			Name:            nirvana.String("my-vm"),
+			PublicIPEnabled: nirvana.Bool(true),
 		},
 	)
 	if err != nil {

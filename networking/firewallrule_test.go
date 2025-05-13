@@ -30,11 +30,11 @@ func TestFirewallRuleNew(t *testing.T) {
 		context.TODO(),
 		"vpc_id",
 		networking.FirewallRuleNewParams{
-			DestinationAddress: nirvana.F("0.0.0.0/0"),
-			DestinationPorts:   nirvana.F([]string{"22", "80", "443"}),
-			Name:               nirvana.F("my-firewall-rule"),
-			Protocol:           nirvana.F("tcp"),
-			SourceAddress:      nirvana.F("0.0.0.0/0"),
+			DestinationAddress: "0.0.0.0/0",
+			DestinationPorts:   []string{"22", "80", "443"},
+			Name:               "my-firewall-rule",
+			Protocol:           "tcp",
+			SourceAddress:      "0.0.0.0/0",
 		},
 	)
 	if err != nil {
@@ -63,11 +63,11 @@ func TestFirewallRuleUpdateWithOptionalParams(t *testing.T) {
 		"vpc_id",
 		"firewall_rule_id",
 		networking.FirewallRuleUpdateParams{
-			DestinationAddress: nirvana.F("0.0.0.0/0"),
-			DestinationPorts:   nirvana.F([]string{"22", "80", "443"}),
-			Name:               nirvana.F("my-firewall-rule"),
-			Protocol:           nirvana.F(networking.FirewallRuleUpdateParamsProtocolTcp),
-			SourceAddress:      nirvana.F("0.0.0.0/0"),
+			DestinationAddress: nirvana.String("0.0.0.0/0"),
+			DestinationPorts:   []string{"22", "80", "443"},
+			Name:               nirvana.String("my-firewall-rule"),
+			Protocol:           networking.FirewallRuleUpdateParamsProtocolTcp,
+			SourceAddress:      nirvana.String("0.0.0.0/0"),
 		},
 	)
 	if err != nil {
