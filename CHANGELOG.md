@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.1.1 (2025-05-14)
+
+Full Changelog: [v1.1.0...v1.1.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.1.0...v1.1.1)
+
+### Features
+
+* **api:** manual updates ([f36fa7e](https://github.com/nirvana-labs/nirvana-go/commit/f36fa7e377d68a11098bb5236f7d9bd0e3d5a1d5))
+* **client:** add support for endpoint-specific base URLs in python ([c6fc702](https://github.com/nirvana-labs/nirvana-go/commit/c6fc70286e188c7de2ee57df1117593f8a879603))
+
 ## 1.1.0 (2025-05-13)
 
 Full Changelog: [v1.0.6...v1.1.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.0.6...v1.1.0)
