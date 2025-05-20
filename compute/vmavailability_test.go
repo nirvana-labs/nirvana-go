@@ -15,7 +15,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/shared"
 )
 
-func TestVMNewWithOptionalParams(t *testing.T) {
+func TestVMAvailabilityNewWithOptionalParams(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -27,7 +27,7 @@ func TestVMNewWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Compute.VMs.New(context.TODO(), compute.VMNewParams{
+	err := client.Compute.VMs.Availability.New(context.TODO(), compute.VMAvailabilityNewParams{
 		VMCreateRequest: compute.VMCreateRequestParam{
 			BootVolume: compute.VMBootVolumeCreateRequestParam{
 				Size: 100,
@@ -61,7 +61,7 @@ func TestVMNewWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestVMUpdateWithOptionalParams(t *testing.T) {
+func TestVMAvailabilityUpdateWithOptionalParams(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -73,10 +73,10 @@ func TestVMUpdateWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Compute.VMs.Update(
+	err := client.Compute.VMs.Availability.Update(
 		context.TODO(),
 		"vm_id",
-		compute.VMUpdateParams{
+		compute.VMAvailabilityUpdateParams{
 			VMUpdateRequest: compute.VMUpdateRequestParam{
 				CPUConfig: compute.CPUConfigParam{
 					Vcpu: 2,
@@ -89,72 +89,6 @@ func TestVMUpdateWithOptionalParams(t *testing.T) {
 			},
 		},
 	)
-	if err != nil {
-		var apierr *nirvana.Error
-		if errors.As(err, &apierr) {
-			t.Log(string(apierr.DumpRequest(true)))
-		}
-		t.Fatalf("err should be nil: %s", err.Error())
-	}
-}
-
-func TestVMList(t *testing.T) {
-	baseURL := "http://localhost:4010"
-	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
-		baseURL = envURL
-	}
-	if !testutil.CheckTestServer(t, baseURL) {
-		return
-	}
-	client := nirvana.NewClient(
-		option.WithBaseURL(baseURL),
-		option.WithAPIKey("My API Key"),
-	)
-	_, err := client.Compute.VMs.List(context.TODO())
-	if err != nil {
-		var apierr *nirvana.Error
-		if errors.As(err, &apierr) {
-			t.Log(string(apierr.DumpRequest(true)))
-		}
-		t.Fatalf("err should be nil: %s", err.Error())
-	}
-}
-
-func TestVMDelete(t *testing.T) {
-	baseURL := "http://localhost:4010"
-	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
-		baseURL = envURL
-	}
-	if !testutil.CheckTestServer(t, baseURL) {
-		return
-	}
-	client := nirvana.NewClient(
-		option.WithBaseURL(baseURL),
-		option.WithAPIKey("My API Key"),
-	)
-	_, err := client.Compute.VMs.Delete(context.TODO(), "vm_id")
-	if err != nil {
-		var apierr *nirvana.Error
-		if errors.As(err, &apierr) {
-			t.Log(string(apierr.DumpRequest(true)))
-		}
-		t.Fatalf("err should be nil: %s", err.Error())
-	}
-}
-
-func TestVMGet(t *testing.T) {
-	baseURL := "http://localhost:4010"
-	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
-		baseURL = envURL
-	}
-	if !testutil.CheckTestServer(t, baseURL) {
-		return
-	}
-	client := nirvana.NewClient(
-		option.WithBaseURL(baseURL),
-		option.WithAPIKey("My API Key"),
-	)
-	_, err := client.Compute.VMs.Get(context.TODO(), "vm_id")
 	if err != nil {
 		var apierr *nirvana.Error
 		if errors.As(err, &apierr) {

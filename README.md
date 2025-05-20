@@ -57,23 +57,25 @@ func main() {
 		option.WithAPIKey("My API Key"), // defaults to os.LookupEnv("NIRVANA_LABS_API_KEY")
 	)
 	operation, err := client.Compute.VMs.New(context.TODO(), compute.VMNewParams{
-		BootVolume: compute.VMNewParamsBootVolume{
-			Size: 100,
+		VMCreateRequest: compute.VMCreateRequestParam{
+			BootVolume: compute.VMBootVolumeCreateRequestParam{
+				Size: 100,
+			},
+			CPUConfig: compute.CPUConfigParam{
+				Vcpu: 2,
+			},
+			MemoryConfig: compute.MemoryConfigParam{
+				Size: 2,
+			},
+			Name:            "my-vm",
+			OSImageName:     "ubuntu-noble-2025-04-03",
+			PublicIPEnabled: true,
+			Region:          shared.RegionNameUsWdc1,
+			SSHKey: compute.SSHKeyParam{
+				PublicKey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname",
+			},
+			SubnetID: "123e4567-e89b-12d3-a456-426614174000",
 		},
-		CPUConfig: compute.CPUConfigParam{
-			Vcpu: 2,
-		},
-		MemoryConfig: compute.MemoryConfigParam{
-			Size: 2,
-		},
-		Name:            "my-vm",
-		OSImageName:     "ubuntu-noble-2025-04-03",
-		PublicIPEnabled: true,
-		Region:          shared.RegionNameUsWdc1,
-		SSHKey: compute.SSHKeyParam{
-			PublicKey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname",
-		},
-		SubnetID: "123e4567-e89b-12d3-a456-426614174000",
 	})
 	if err != nil {
 		panic(err.Error())
@@ -314,23 +316,25 @@ To handle errors, we recommend that you use the `errors.As` pattern:
 
 ```go
 _, err := client.Compute.VMs.New(context.TODO(), compute.VMNewParams{
-	BootVolume: compute.VMNewParamsBootVolume{
-		Size: 100,
+	VMCreateRequest: compute.VMCreateRequestParam{
+		BootVolume: compute.VMBootVolumeCreateRequestParam{
+			Size: 100,
+		},
+		CPUConfig: compute.CPUConfigParam{
+			Vcpu: 2,
+		},
+		MemoryConfig: compute.MemoryConfigParam{
+			Size: 2,
+		},
+		Name:            "my-vm",
+		OSImageName:     "ubuntu-noble-2025-04-03",
+		PublicIPEnabled: true,
+		Region:          shared.RegionNameUsWdc1,
+		SSHKey: compute.SSHKeyParam{
+			PublicKey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname",
+		},
+		SubnetID: "123e4567-e89b-12d3-a456-426614174000",
 	},
-	CPUConfig: compute.CPUConfigParam{
-		Vcpu: 2,
-	},
-	MemoryConfig: compute.MemoryConfigParam{
-		Size: 2,
-	},
-	Name:            "my-vm",
-	OSImageName:     "ubuntu-noble-2025-04-03",
-	PublicIPEnabled: true,
-	Region:          shared.RegionNameUsWdc1,
-	SSHKey: compute.SSHKeyParam{
-		PublicKey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname",
-	},
-	SubnetID: "123e4567-e89b-12d3-a456-426614174000",
 })
 if err != nil {
 	var apierr *nirvana.Error
@@ -359,23 +363,25 @@ defer cancel()
 client.Compute.VMs.New(
 	ctx,
 	compute.VMNewParams{
-		BootVolume: compute.VMNewParamsBootVolume{
-			Size: 100,
+		VMCreateRequest: compute.VMCreateRequestParam{
+			BootVolume: compute.VMBootVolumeCreateRequestParam{
+				Size: 100,
+			},
+			CPUConfig: compute.CPUConfigParam{
+				Vcpu: 2,
+			},
+			MemoryConfig: compute.MemoryConfigParam{
+				Size: 2,
+			},
+			Name:            "my-vm",
+			OSImageName:     "ubuntu-noble-2025-04-03",
+			PublicIPEnabled: true,
+			Region:          shared.RegionNameUsWdc1,
+			SSHKey: compute.SSHKeyParam{
+				PublicKey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname",
+			},
+			SubnetID: "123e4567-e89b-12d3-a456-426614174000",
 		},
-		CPUConfig: compute.CPUConfigParam{
-			Vcpu: 2,
-		},
-		MemoryConfig: compute.MemoryConfigParam{
-			Size: 2,
-		},
-		Name:            "my-vm",
-		OSImageName:     "ubuntu-noble-2025-04-03",
-		PublicIPEnabled: true,
-		Region:          shared.RegionNameUsWdc1,
-		SSHKey: compute.SSHKeyParam{
-			PublicKey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname",
-		},
-		SubnetID: "123e4567-e89b-12d3-a456-426614174000",
 	},
 	// This sets the per-retry timeout
 	option.WithRequestTimeout(20*time.Second),
@@ -413,23 +419,25 @@ client := nirvana.NewClient(
 client.Compute.VMs.New(
 	context.TODO(),
 	compute.VMNewParams{
-		BootVolume: compute.VMNewParamsBootVolume{
-			Size: 100,
+		VMCreateRequest: compute.VMCreateRequestParam{
+			BootVolume: compute.VMBootVolumeCreateRequestParam{
+				Size: 100,
+			},
+			CPUConfig: compute.CPUConfigParam{
+				Vcpu: 2,
+			},
+			MemoryConfig: compute.MemoryConfigParam{
+				Size: 2,
+			},
+			Name:            "my-vm",
+			OSImageName:     "ubuntu-noble-2025-04-03",
+			PublicIPEnabled: true,
+			Region:          shared.RegionNameUsWdc1,
+			SSHKey: compute.SSHKeyParam{
+				PublicKey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname",
+			},
+			SubnetID: "123e4567-e89b-12d3-a456-426614174000",
 		},
-		CPUConfig: compute.CPUConfigParam{
-			Vcpu: 2,
-		},
-		MemoryConfig: compute.MemoryConfigParam{
-			Size: 2,
-		},
-		Name:            "my-vm",
-		OSImageName:     "ubuntu-noble-2025-04-03",
-		PublicIPEnabled: true,
-		Region:          shared.RegionNameUsWdc1,
-		SSHKey: compute.SSHKeyParam{
-			PublicKey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname",
-		},
-		SubnetID: "123e4567-e89b-12d3-a456-426614174000",
 	},
 	option.WithMaxRetries(5),
 )
@@ -446,23 +454,25 @@ var response *http.Response
 operation, err := client.Compute.VMs.New(
 	context.TODO(),
 	compute.VMNewParams{
-		BootVolume: compute.VMNewParamsBootVolume{
-			Size: 100,
+		VMCreateRequest: compute.VMCreateRequestParam{
+			BootVolume: compute.VMBootVolumeCreateRequestParam{
+				Size: 100,
+			},
+			CPUConfig: compute.CPUConfigParam{
+				Vcpu: 2,
+			},
+			MemoryConfig: compute.MemoryConfigParam{
+				Size: 2,
+			},
+			Name:            "my-vm",
+			OSImageName:     "ubuntu-noble-2025-04-03",
+			PublicIPEnabled: true,
+			Region:          shared.RegionNameUsWdc1,
+			SSHKey: compute.SSHKeyParam{
+				PublicKey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname",
+			},
+			SubnetID: "123e4567-e89b-12d3-a456-426614174000",
 		},
-		CPUConfig: compute.CPUConfigParam{
-			Vcpu: 2,
-		},
-		MemoryConfig: compute.MemoryConfigParam{
-			Size: 2,
-		},
-		Name:            "my-vm",
-		OSImageName:     "ubuntu-noble-2025-04-03",
-		PublicIPEnabled: true,
-		Region:          shared.RegionNameUsWdc1,
-		SSHKey: compute.SSHKeyParam{
-			PublicKey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname",
-		},
-		SubnetID: "123e4567-e89b-12d3-a456-426614174000",
 	},
 	option.WithResponseInto(&response),
 )
