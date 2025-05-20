@@ -4,6 +4,7 @@ package compute
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"net/http"
@@ -25,7 +26,8 @@ import (
 // automatically. You should not instantiate this service directly, and instead use
 // the [NewVolumeService] method instead.
 type VolumeService struct {
-	Options []option.RequestOption
+	Options      []option.RequestOption
+	Availability VolumeAvailabilityService
 }
 
 // NewVolumeService generates a new service that applies the given options to each
@@ -34,6 +36,7 @@ type VolumeService struct {
 func NewVolumeService(opts ...option.RequestOption) (r VolumeService) {
 	r = VolumeService{}
 	r.Options = opts
+	r.Availability = NewVolumeAvailabilityService(opts...)
 	return
 }
 
@@ -148,6 +151,27 @@ func (r *Volume) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
+// Volume data volume create request.
+//
+// The properties Name, Size, VMID are required.
+type VolumeCreateRequestParam struct {
+	// Name of the volume.
+	Name string `json:"name,required"`
+	// Size of the volume in GB.
+	Size int64 `json:"size,required"`
+	// ID of the VM the volume is attached to.
+	VMID string `json:"vm_id,required"`
+	paramObj
+}
+
+func (r VolumeCreateRequestParam) MarshalJSON() (data []byte, err error) {
+	type shadow VolumeCreateRequestParam
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *VolumeCreateRequestParam) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
 // Volume kind.
 type VolumeKind string
 
@@ -172,25 +196,8 @@ func (r *VolumeList) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type VolumeNewParams struct {
-	// Name of the volume.
-	Name string `json:"name,required"`
-	// Size of the volume in GB.
-	Size int64 `json:"size,required"`
-	// ID of the VM the volume is attached to.
-	VMID string `json:"vm_id,required"`
-	paramObj
-}
-
-func (r VolumeNewParams) MarshalJSON() (data []byte, err error) {
-	type shadow VolumeNewParams
-	return param.MarshalObject(r, (*shadow)(&r))
-}
-func (r *VolumeNewParams) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-type VolumeUpdateParams struct {
+// Volume update request.
+type VolumeUpdateRequestParam struct {
 	// Name of the volume.
 	Name param.Opt[string] `json:"name,omitzero"`
 	// Size of the volume in GB.
@@ -198,10 +205,36 @@ type VolumeUpdateParams struct {
 	paramObj
 }
 
-func (r VolumeUpdateParams) MarshalJSON() (data []byte, err error) {
-	type shadow VolumeUpdateParams
+func (r VolumeUpdateRequestParam) MarshalJSON() (data []byte, err error) {
+	type shadow VolumeUpdateRequestParam
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *VolumeUpdateParams) UnmarshalJSON(data []byte) error {
+func (r *VolumeUpdateRequestParam) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
+}
+
+type VolumeNewParams struct {
+	// Volume data volume create request.
+	VolumeCreateRequest VolumeCreateRequestParam
+	paramObj
+}
+
+func (r VolumeNewParams) MarshalJSON() (data []byte, err error) {
+	return json.Marshal(r.VolumeCreateRequest)
+}
+func (r *VolumeNewParams) UnmarshalJSON(data []byte) error {
+	return r.VolumeCreateRequest.UnmarshalJSON(data)
+}
+
+type VolumeUpdateParams struct {
+	// Volume update request.
+	VolumeUpdateRequest VolumeUpdateRequestParam
+	paramObj
+}
+
+func (r VolumeUpdateParams) MarshalJSON() (data []byte, err error) {
+	return json.Marshal(r.VolumeUpdateRequest)
+}
+func (r *VolumeUpdateParams) UnmarshalJSON(data []byte) error {
+	return r.VolumeUpdateRequest.UnmarshalJSON(data)
 }

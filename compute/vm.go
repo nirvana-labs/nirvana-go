@@ -4,6 +4,7 @@ package compute
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"net/http"
@@ -25,9 +26,10 @@ import (
 // automatically. You should not instantiate this service directly, and instead use
 // the [NewVMService] method instead.
 type VMService struct {
-	Options  []option.RequestOption
-	Volumes  VMVolumeService
-	OSImages VMOSImageService
+	Options      []option.RequestOption
+	Availability VMAvailabilityService
+	Volumes      VMVolumeService
+	OSImages     VMOSImageService
 }
 
 // NewVMService generates a new service that applies the given options to each
@@ -36,6 +38,7 @@ type VMService struct {
 func NewVMService(opts ...option.RequestOption) (r VMService) {
 	r = VMService{}
 	r.Options = opts
+	r.Availability = NewVMAvailabilityService(opts...)
 	r.Volumes = NewVMVolumeService(opts...)
 	r.OSImages = NewVMOSImageService(opts...)
 	return
@@ -288,25 +291,30 @@ func (r *VM) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type VMList struct {
-	Items []VM `json:"items,required"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		Items       respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
-	} `json:"-"`
+// Boot volume for the VM.
+//
+// The property Size is required.
+type VMBootVolumeCreateRequestParam struct {
+	// Size of the volume in GB.
+	Size int64 `json:"size,required"`
+	paramObj
 }
 
-// Returns the unmodified JSON received from the API
-func (r VMList) RawJSON() string { return r.JSON.raw }
-func (r *VMList) UnmarshalJSON(data []byte) error {
+func (r VMBootVolumeCreateRequestParam) MarshalJSON() (data []byte, err error) {
+	type shadow VMBootVolumeCreateRequestParam
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *VMBootVolumeCreateRequestParam) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type VMNewParams struct {
+// VM create request.
+//
+// The properties BootVolume, CPUConfig, MemoryConfig, Name, OSImageName,
+// PublicIPEnabled, Region, SSHKey, SubnetID are required.
+type VMCreateRequestParam struct {
 	// Boot volume for the VM.
-	BootVolume VMNewParamsBootVolume `json:"boot_volume,omitzero,required"`
+	BootVolume VMBootVolumeCreateRequestParam `json:"boot_volume,omitzero,required"`
 	// CPU configuration for the VM.
 	CPUConfig CPUConfigParam `json:"cpu_config,omitzero,required"`
 	// Memory configuration for the VM.
@@ -327,39 +335,22 @@ type VMNewParams struct {
 	// ID of the subnet to use for the VM.
 	SubnetID string `json:"subnet_id,required"`
 	// Data volumes for the VM.
-	DataVolumes []VMNewParamsDataVolume `json:"data_volumes,omitzero"`
+	DataVolumes []VMDataVolumeCreateRequestParam `json:"data_volumes,omitzero"`
 	paramObj
 }
 
-func (r VMNewParams) MarshalJSON() (data []byte, err error) {
-	type shadow VMNewParams
+func (r VMCreateRequestParam) MarshalJSON() (data []byte, err error) {
+	type shadow VMCreateRequestParam
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *VMNewParams) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// Boot volume for the VM.
-//
-// The property Size is required.
-type VMNewParamsBootVolume struct {
-	// Size of the volume in GB.
-	Size int64 `json:"size,required"`
-	paramObj
-}
-
-func (r VMNewParamsBootVolume) MarshalJSON() (data []byte, err error) {
-	type shadow VMNewParamsBootVolume
-	return param.MarshalObject(r, (*shadow)(&r))
-}
-func (r *VMNewParamsBootVolume) UnmarshalJSON(data []byte) error {
+func (r *VMCreateRequestParam) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // VM data volume create request.
 //
 // The properties Name, Size are required.
-type VMNewParamsDataVolume struct {
+type VMDataVolumeCreateRequestParam struct {
 	// Name of the volume.
 	Name string `json:"name,required"`
 	// Size of the volume in GB.
@@ -367,15 +358,32 @@ type VMNewParamsDataVolume struct {
 	paramObj
 }
 
-func (r VMNewParamsDataVolume) MarshalJSON() (data []byte, err error) {
-	type shadow VMNewParamsDataVolume
+func (r VMDataVolumeCreateRequestParam) MarshalJSON() (data []byte, err error) {
+	type shadow VMDataVolumeCreateRequestParam
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *VMNewParamsDataVolume) UnmarshalJSON(data []byte) error {
+func (r *VMDataVolumeCreateRequestParam) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type VMUpdateParams struct {
+type VMList struct {
+	Items []VM `json:"items,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Items       respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r VMList) RawJSON() string { return r.JSON.raw }
+func (r *VMList) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// VM update request.
+type VMUpdateRequestParam struct {
 	// Name of the VM.
 	Name param.Opt[string] `json:"name,omitzero"`
 	// Whether to enable public IP for the VM.
@@ -387,10 +395,36 @@ type VMUpdateParams struct {
 	paramObj
 }
 
-func (r VMUpdateParams) MarshalJSON() (data []byte, err error) {
-	type shadow VMUpdateParams
+func (r VMUpdateRequestParam) MarshalJSON() (data []byte, err error) {
+	type shadow VMUpdateRequestParam
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *VMUpdateParams) UnmarshalJSON(data []byte) error {
+func (r *VMUpdateRequestParam) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
+}
+
+type VMNewParams struct {
+	// VM create request.
+	VMCreateRequest VMCreateRequestParam
+	paramObj
+}
+
+func (r VMNewParams) MarshalJSON() (data []byte, err error) {
+	return json.Marshal(r.VMCreateRequest)
+}
+func (r *VMNewParams) UnmarshalJSON(data []byte) error {
+	return r.VMCreateRequest.UnmarshalJSON(data)
+}
+
+type VMUpdateParams struct {
+	// VM update request.
+	VMUpdateRequest VMUpdateRequestParam
+	paramObj
+}
+
+func (r VMUpdateParams) MarshalJSON() (data []byte, err error) {
+	return json.Marshal(r.VMUpdateRequest)
+}
+func (r *VMUpdateParams) UnmarshalJSON(data []byte) error {
+	return r.VMUpdateRequest.UnmarshalJSON(data)
 }
