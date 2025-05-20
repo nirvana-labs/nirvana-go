@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.1.2 (2025-05-20)
+
+Full Changelog: [v1.1.1...v1.1.2](https://github.com/nirvana-labs/nirvana-go/compare/v1.1.1...v1.1.2)
+
+### Bug Fixes
+
+* **client:** correctly set stream key for multipart ([14151a9](https://github.com/nirvana-labs/nirvana-go/commit/14151a959b74b02841f899fe40281b4b9d012a17))
+* **client:** don't panic on marshal with extra null field ([82dc756](https://github.com/nirvana-labs/nirvana-go/commit/82dc75636b0a4c2672a88f2d1eb7f16fba1308a5))
+
 ## 1.1.1 (2025-05-14)
 
 Full Changelog: [v1.1.0...v1.1.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.1.0...v1.1.1)
