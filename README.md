@@ -58,7 +58,7 @@ func main() {
 	)
 	operation, err := client.Compute.VMs.New(context.TODO(), compute.VMNewParams{
 		VMCreateRequest: compute.VMCreateRequestParam{
-			BootVolume: compute.VMBootVolumeCreateRequestParam{
+			BootVolume: compute.VMCreateRequestBootVolumeParam{
 				Size: 100,
 			},
 			CPUConfig: compute.CPUConfigParam{
@@ -317,7 +317,7 @@ To handle errors, we recommend that you use the `errors.As` pattern:
 ```go
 _, err := client.Compute.VMs.New(context.TODO(), compute.VMNewParams{
 	VMCreateRequest: compute.VMCreateRequestParam{
-		BootVolume: compute.VMBootVolumeCreateRequestParam{
+		BootVolume: compute.VMCreateRequestBootVolumeParam{
 			Size: 100,
 		},
 		CPUConfig: compute.CPUConfigParam{
@@ -364,7 +364,7 @@ client.Compute.VMs.New(
 	ctx,
 	compute.VMNewParams{
 		VMCreateRequest: compute.VMCreateRequestParam{
-			BootVolume: compute.VMBootVolumeCreateRequestParam{
+			BootVolume: compute.VMCreateRequestBootVolumeParam{
 				Size: 100,
 			},
 			CPUConfig: compute.CPUConfigParam{
@@ -420,7 +420,7 @@ client.Compute.VMs.New(
 	context.TODO(),
 	compute.VMNewParams{
 		VMCreateRequest: compute.VMCreateRequestParam{
-			BootVolume: compute.VMBootVolumeCreateRequestParam{
+			BootVolume: compute.VMCreateRequestBootVolumeParam{
 				Size: 100,
 			},
 			CPUConfig: compute.CPUConfigParam{
@@ -455,7 +455,7 @@ operation, err := client.Compute.VMs.New(
 	context.TODO(),
 	compute.VMNewParams{
 		VMCreateRequest: compute.VMCreateRequestParam{
-			BootVolume: compute.VMBootVolumeCreateRequestParam{
+			BootVolume: compute.VMCreateRequestBootVolumeParam{
 				Size: 100,
 			},
 			CPUConfig: compute.CPUConfigParam{

@@ -27,11 +27,9 @@ func TestVolumeNew(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Compute.Volumes.New(context.TODO(), compute.VolumeNewParams{
-		VolumeCreateRequest: compute.VolumeCreateRequestParam{
-			Name: "my-data-volume",
-			Size: 100,
-			VMID: "vm_id",
-		},
+		Name: "my-data-volume",
+		Size: 100,
+		VMID: "vm_id",
 	})
 	if err != nil {
 		var apierr *nirvana.Error
@@ -58,10 +56,8 @@ func TestVolumeUpdateWithOptionalParams(t *testing.T) {
 		context.TODO(),
 		"volume_id",
 		compute.VolumeUpdateParams{
-			VolumeUpdateRequest: compute.VolumeUpdateRequestParam{
-				Name: nirvana.String("my-data-volume"),
-				Size: nirvana.Int(100),
-			},
+			Name: nirvana.String("my-data-volume"),
+			Size: nirvana.Int(100),
 		},
 	)
 	if err != nil {

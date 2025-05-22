@@ -291,30 +291,13 @@ func (r *VM) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// Boot volume for the VM.
-//
-// The property Size is required.
-type VMBootVolumeCreateRequestParam struct {
-	// Size of the volume in GB.
-	Size int64 `json:"size,required"`
-	paramObj
-}
-
-func (r VMBootVolumeCreateRequestParam) MarshalJSON() (data []byte, err error) {
-	type shadow VMBootVolumeCreateRequestParam
-	return param.MarshalObject(r, (*shadow)(&r))
-}
-func (r *VMBootVolumeCreateRequestParam) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
 // VM create request.
 //
 // The properties BootVolume, CPUConfig, MemoryConfig, Name, OSImageName,
 // PublicIPEnabled, Region, SSHKey, SubnetID are required.
 type VMCreateRequestParam struct {
 	// Boot volume for the VM.
-	BootVolume VMBootVolumeCreateRequestParam `json:"boot_volume,omitzero,required"`
+	BootVolume VMCreateRequestBootVolumeParam `json:"boot_volume,omitzero,required"`
 	// CPU configuration for the VM.
 	CPUConfig CPUConfigParam `json:"cpu_config,omitzero,required"`
 	// Memory configuration for the VM.
@@ -335,7 +318,7 @@ type VMCreateRequestParam struct {
 	// ID of the subnet to use for the VM.
 	SubnetID string `json:"subnet_id,required"`
 	// Data volumes for the VM.
-	DataVolumes []VMDataVolumeCreateRequestParam `json:"data_volumes,omitzero"`
+	DataVolumes []VMCreateRequestDataVolumeParam `json:"data_volumes,omitzero"`
 	paramObj
 }
 
@@ -347,10 +330,27 @@ func (r *VMCreateRequestParam) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
+// Boot volume for the VM.
+//
+// The property Size is required.
+type VMCreateRequestBootVolumeParam struct {
+	// Size of the volume in GB.
+	Size int64 `json:"size,required"`
+	paramObj
+}
+
+func (r VMCreateRequestBootVolumeParam) MarshalJSON() (data []byte, err error) {
+	type shadow VMCreateRequestBootVolumeParam
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *VMCreateRequestBootVolumeParam) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
 // VM data volume create request.
 //
 // The properties Name, Size are required.
-type VMDataVolumeCreateRequestParam struct {
+type VMCreateRequestDataVolumeParam struct {
 	// Name of the volume.
 	Name string `json:"name,required"`
 	// Size of the volume in GB.
@@ -358,11 +358,11 @@ type VMDataVolumeCreateRequestParam struct {
 	paramObj
 }
 
-func (r VMDataVolumeCreateRequestParam) MarshalJSON() (data []byte, err error) {
-	type shadow VMDataVolumeCreateRequestParam
+func (r VMCreateRequestDataVolumeParam) MarshalJSON() (data []byte, err error) {
+	type shadow VMCreateRequestDataVolumeParam
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *VMDataVolumeCreateRequestParam) UnmarshalJSON(data []byte) error {
+func (r *VMCreateRequestDataVolumeParam) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 

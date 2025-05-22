@@ -4,13 +4,14 @@ package compute
 
 import (
 	"context"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"net/http"
 
+	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/option"
+	"github.com/nirvana-labs/nirvana-go/packages/param"
 )
 
 // VolumeAvailabilityService contains methods and other services that help with
@@ -55,27 +56,35 @@ func (r *VolumeAvailabilityService) Update(ctx context.Context, volumeID string,
 }
 
 type VolumeAvailabilityNewParams struct {
-	// Volume data volume create request.
-	VolumeCreateRequest VolumeCreateRequestParam
+	// Name of the volume.
+	Name string `json:"name,required"`
+	// Size of the volume in GB.
+	Size int64 `json:"size,required"`
+	// ID of the VM the volume is attached to.
+	VMID string `json:"vm_id,required"`
 	paramObj
 }
 
 func (r VolumeAvailabilityNewParams) MarshalJSON() (data []byte, err error) {
-	return json.Marshal(r.VolumeCreateRequest)
+	type shadow VolumeAvailabilityNewParams
+	return param.MarshalObject(r, (*shadow)(&r))
 }
 func (r *VolumeAvailabilityNewParams) UnmarshalJSON(data []byte) error {
-	return r.VolumeCreateRequest.UnmarshalJSON(data)
+	return apijson.UnmarshalRoot(data, r)
 }
 
 type VolumeAvailabilityUpdateParams struct {
-	// Volume update request.
-	VolumeUpdateRequest VolumeUpdateRequestParam
+	// Name of the volume.
+	Name param.Opt[string] `json:"name,omitzero"`
+	// Size of the volume in GB.
+	Size param.Opt[int64] `json:"size,omitzero"`
 	paramObj
 }
 
 func (r VolumeAvailabilityUpdateParams) MarshalJSON() (data []byte, err error) {
-	return json.Marshal(r.VolumeUpdateRequest)
+	type shadow VolumeAvailabilityUpdateParams
+	return param.MarshalObject(r, (*shadow)(&r))
 }
 func (r *VolumeAvailabilityUpdateParams) UnmarshalJSON(data []byte) error {
-	return r.VolumeUpdateRequest.UnmarshalJSON(data)
+	return apijson.UnmarshalRoot(data, r)
 }
