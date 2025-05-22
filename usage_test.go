@@ -27,25 +27,23 @@ func TestUsage(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	operation, err := client.Compute.VMs.New(context.TODO(), compute.VMNewParams{
-		VMCreateRequest: compute.VMCreateRequestParam{
-			BootVolume: compute.VMCreateRequestBootVolumeParam{
-				Size: 100,
-			},
-			CPUConfig: compute.CPUConfigParam{
-				Vcpu: 2,
-			},
-			MemoryConfig: compute.MemoryConfigParam{
-				Size: 2,
-			},
-			Name:            "my-vm",
-			OSImageName:     "ubuntu-noble-2025-04-03",
-			PublicIPEnabled: true,
-			Region:          shared.RegionNameUsWdc1,
-			SSHKey: compute.SSHKeyParam{
-				PublicKey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname",
-			},
-			SubnetID: "123e4567-e89b-12d3-a456-426614174000",
+		BootVolume: compute.VMNewParamsBootVolume{
+			Size: 100,
 		},
+		CPUConfig: compute.CPUConfigParam{
+			Vcpu: 2,
+		},
+		MemoryConfig: compute.MemoryConfigParam{
+			Size: 2,
+		},
+		Name:            "my-vm",
+		OSImageName:     "ubuntu-noble-2025-04-03",
+		PublicIPEnabled: true,
+		Region:          shared.RegionNameUsWdc1,
+		SSHKey: compute.SSHKeyParam{
+			PublicKey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname",
+		},
+		SubnetID: "123e4567-e89b-12d3-a456-426614174000",
 	})
 	if err != nil {
 		t.Fatalf("err should be nil: %s", err.Error())
