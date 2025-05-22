@@ -56,8 +56,6 @@ Params Types:
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/compute">compute</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/compute#CPUConfigParam">CPUConfigParam</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/compute">compute</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/compute#MemoryConfigParam">MemoryConfigParam</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/compute">compute</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/compute#SSHKeyParam">SSHKeyParam</a>
-- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/compute">compute</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/compute#VMCreateRequestParam">VMCreateRequestParam</a>
-- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/compute">compute</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/compute#VMUpdateRequestParam">VMUpdateRequestParam</a>
 
 Response Types:
 
