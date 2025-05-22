@@ -25,7 +25,8 @@ import (
 // automatically. You should not instantiate this service directly, and instead use
 // the [NewVolumeService] method instead.
 type VolumeService struct {
-	Options []option.RequestOption
+	Options      []option.RequestOption
+	Availability VolumeAvailabilityService
 }
 
 // NewVolumeService generates a new service that applies the given options to each
@@ -34,6 +35,7 @@ type VolumeService struct {
 func NewVolumeService(opts ...option.RequestOption) (r VolumeService) {
 	r = VolumeService{}
 	r.Options = opts
+	r.Availability = NewVolumeAvailabilityService(opts...)
 	return
 }
 
