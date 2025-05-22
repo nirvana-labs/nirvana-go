@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.2.0 (2025-05-22)
+
+Full Changelog: [v1.1.2...v1.2.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.1.2...v1.2.0)
+
+### Features
+
+* **api:** add availability resources for VM and Volumes ([6382d35](https://github.com/nirvana-labs/nirvana-go/commit/6382d35dfaf77163bf791d556104445de8577987))
+* **api:** manual updates ([dffbf0b](https://github.com/nirvana-labs/nirvana-go/commit/dffbf0b5538b19f14ee07c49eeda01331ae54cd8))
+* **api:** update create/update vm/volume param names ([c8a0e30](https://github.com/nirvana-labs/nirvana-go/commit/c8a0e307e9dd8a5f7e82e8593cadd52982e8160a))
+
+
+### Chores
+
+* **docs:** grammar improvements ([454ab9b](https://github.com/nirvana-labs/nirvana-go/commit/454ab9b0454d65cf02d8d404c97d7508390df109))
+* improve devcontainer setup ([0aa38d2](https://github.com/nirvana-labs/nirvana-go/commit/0aa38d2ff5ea89f869805258566ec0a9f78a4e7d))
+
 ## 1.1.2 (2025-05-20)
 
 Full Changelog: [v1.1.1...v1.1.2](https://github.com/nirvana-labs/nirvana-go/compare/v1.1.1...v1.1.2)
