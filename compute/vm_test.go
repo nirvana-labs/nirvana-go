@@ -29,7 +29,7 @@ func TestVMNewWithOptionalParams(t *testing.T) {
 	)
 	_, err := client.Compute.VMs.New(context.TODO(), compute.VMNewParams{
 		VMCreateRequest: compute.VMCreateRequestParam{
-			BootVolume: compute.VMBootVolumeCreateRequestParam{
+			BootVolume: compute.VMCreateRequestBootVolumeParam{
 				Size: 100,
 			},
 			CPUConfig: compute.CPUConfigParam{
@@ -46,7 +46,7 @@ func TestVMNewWithOptionalParams(t *testing.T) {
 				PublicKey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname",
 			},
 			SubnetID: "123e4567-e89b-12d3-a456-426614174000",
-			DataVolumes: []compute.VMDataVolumeCreateRequestParam{{
+			DataVolumes: []compute.VMCreateRequestDataVolumeParam{{
 				Name: "my-data-volume",
 				Size: 100,
 			}},

@@ -28,7 +28,7 @@ func TestUsage(t *testing.T) {
 	)
 	operation, err := client.Compute.VMs.New(context.TODO(), compute.VMNewParams{
 		VMCreateRequest: compute.VMCreateRequestParam{
-			BootVolume: compute.VMBootVolumeCreateRequestParam{
+			BootVolume: compute.VMCreateRequestBootVolumeParam{
 				Size: 100,
 			},
 			CPUConfig: compute.CPUConfigParam{

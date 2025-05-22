@@ -42,7 +42,7 @@ func TestUserAgentHeader(t *testing.T) {
 	)
 	client.Compute.VMs.New(context.Background(), compute.VMNewParams{
 		VMCreateRequest: compute.VMCreateRequestParam{
-			BootVolume: compute.VMBootVolumeCreateRequestParam{
+			BootVolume: compute.VMCreateRequestBootVolumeParam{
 				Size: 100,
 			},
 			CPUConfig: compute.CPUConfigParam{
@@ -86,7 +86,7 @@ func TestRetryAfter(t *testing.T) {
 	)
 	_, err := client.Compute.VMs.New(context.Background(), compute.VMNewParams{
 		VMCreateRequest: compute.VMCreateRequestParam{
-			BootVolume: compute.VMBootVolumeCreateRequestParam{
+			BootVolume: compute.VMCreateRequestBootVolumeParam{
 				Size: 100,
 			},
 			CPUConfig: compute.CPUConfigParam{
@@ -141,7 +141,7 @@ func TestDeleteRetryCountHeader(t *testing.T) {
 	)
 	_, err := client.Compute.VMs.New(context.Background(), compute.VMNewParams{
 		VMCreateRequest: compute.VMCreateRequestParam{
-			BootVolume: compute.VMBootVolumeCreateRequestParam{
+			BootVolume: compute.VMCreateRequestBootVolumeParam{
 				Size: 100,
 			},
 			CPUConfig: compute.CPUConfigParam{
@@ -191,7 +191,7 @@ func TestOverwriteRetryCountHeader(t *testing.T) {
 	)
 	_, err := client.Compute.VMs.New(context.Background(), compute.VMNewParams{
 		VMCreateRequest: compute.VMCreateRequestParam{
-			BootVolume: compute.VMBootVolumeCreateRequestParam{
+			BootVolume: compute.VMCreateRequestBootVolumeParam{
 				Size: 100,
 			},
 			CPUConfig: compute.CPUConfigParam{
@@ -240,7 +240,7 @@ func TestRetryAfterMs(t *testing.T) {
 	)
 	_, err := client.Compute.VMs.New(context.Background(), compute.VMNewParams{
 		VMCreateRequest: compute.VMCreateRequestParam{
-			BootVolume: compute.VMBootVolumeCreateRequestParam{
+			BootVolume: compute.VMCreateRequestBootVolumeParam{
 				Size: 100,
 			},
 			CPUConfig: compute.CPUConfigParam{
@@ -283,7 +283,7 @@ func TestContextCancel(t *testing.T) {
 	cancel()
 	_, err := client.Compute.VMs.New(cancelCtx, compute.VMNewParams{
 		VMCreateRequest: compute.VMCreateRequestParam{
-			BootVolume: compute.VMBootVolumeCreateRequestParam{
+			BootVolume: compute.VMCreateRequestBootVolumeParam{
 				Size: 100,
 			},
 			CPUConfig: compute.CPUConfigParam{
@@ -323,7 +323,7 @@ func TestContextCancelDelay(t *testing.T) {
 	defer cancel()
 	_, err := client.Compute.VMs.New(cancelCtx, compute.VMNewParams{
 		VMCreateRequest: compute.VMCreateRequestParam{
-			BootVolume: compute.VMBootVolumeCreateRequestParam{
+			BootVolume: compute.VMCreateRequestBootVolumeParam{
 				Size: 100,
 			},
 			CPUConfig: compute.CPUConfigParam{
@@ -369,7 +369,7 @@ func TestContextDeadline(t *testing.T) {
 		)
 		_, err := client.Compute.VMs.New(deadlineCtx, compute.VMNewParams{
 			VMCreateRequest: compute.VMCreateRequestParam{
-				BootVolume: compute.VMBootVolumeCreateRequestParam{
+				BootVolume: compute.VMCreateRequestBootVolumeParam{
 					Size: 100,
 				},
 				CPUConfig: compute.CPUConfigParam{
