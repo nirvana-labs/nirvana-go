@@ -27,7 +27,7 @@ func TestVMAvailabilityNewWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	err := client.Compute.VMs.Availability.New(context.TODO(), compute.VMAvailabilityNewParams{
+	_, err := client.Compute.VMs.Availability.New(context.TODO(), compute.VMAvailabilityNewParams{
 		BootVolume: compute.VMAvailabilityNewParamsBootVolume{
 			Size: 100,
 		},
@@ -71,7 +71,7 @@ func TestVMAvailabilityUpdateWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	err := client.Compute.VMs.Availability.Update(
+	_, err := client.Compute.VMs.Availability.Update(
 		context.TODO(),
 		"vm_id",
 		compute.VMAvailabilityUpdateParams{

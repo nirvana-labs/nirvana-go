@@ -26,7 +26,7 @@ func TestVolumeAvailabilityNew(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	err := client.Compute.Volumes.Availability.New(context.TODO(), compute.VolumeAvailabilityNewParams{
+	_, err := client.Compute.Volumes.Availability.New(context.TODO(), compute.VolumeAvailabilityNewParams{
 		Name: "my-data-volume",
 		Size: 100,
 		VMID: "vm_id",
@@ -52,7 +52,7 @@ func TestVolumeAvailabilityUpdateWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	err := client.Compute.Volumes.Availability.Update(
+	_, err := client.Compute.Volumes.Availability.Update(
 		context.TODO(),
 		"volume_id",
 		compute.VolumeAvailabilityUpdateParams{

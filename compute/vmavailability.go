@@ -35,24 +35,24 @@ func NewVMAvailabilityService(opts ...option.RequestOption) (r VMAvailabilitySer
 }
 
 // Check VM Create Availability
-func (r *VMAvailabilityService) New(ctx context.Context, body VMAvailabilityNewParams, opts ...option.RequestOption) (err error) {
+func (r *VMAvailabilityService) New(ctx context.Context, body VMAvailabilityNewParams, opts ...option.RequestOption) (res *string, err error) {
 	opts = append(r.Options[:], opts...)
-	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
+	opts = append([]option.RequestOption{option.WithHeader("Accept", "text/plain")}, opts...)
 	path := "v1/compute/vms/availability"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, nil, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
 }
 
 // Check VM Update Availability
-func (r *VMAvailabilityService) Update(ctx context.Context, vmID string, body VMAvailabilityUpdateParams, opts ...option.RequestOption) (err error) {
+func (r *VMAvailabilityService) Update(ctx context.Context, vmID string, body VMAvailabilityUpdateParams, opts ...option.RequestOption) (res *string, err error) {
 	opts = append(r.Options[:], opts...)
-	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
+	opts = append([]option.RequestOption{option.WithHeader("Accept", "text/plain")}, opts...)
 	if vmID == "" {
 		err = errors.New("missing required vm_id parameter")
 		return
 	}
 	path := fmt.Sprintf("v1/compute/vms/%s/availability", vmID)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, nil, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
 	return
 }
 
