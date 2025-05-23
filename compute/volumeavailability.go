@@ -34,24 +34,24 @@ func NewVolumeAvailabilityService(opts ...option.RequestOption) (r VolumeAvailab
 }
 
 // Check Volume Create Availability
-func (r *VolumeAvailabilityService) New(ctx context.Context, body VolumeAvailabilityNewParams, opts ...option.RequestOption) (err error) {
+func (r *VolumeAvailabilityService) New(ctx context.Context, body VolumeAvailabilityNewParams, opts ...option.RequestOption) (res *string, err error) {
 	opts = append(r.Options[:], opts...)
-	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
+	opts = append([]option.RequestOption{option.WithHeader("Accept", "text/plain")}, opts...)
 	path := "v1/compute/volumes/availability"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, nil, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
 }
 
 // Check Volume Update Availability
-func (r *VolumeAvailabilityService) Update(ctx context.Context, volumeID string, body VolumeAvailabilityUpdateParams, opts ...option.RequestOption) (err error) {
+func (r *VolumeAvailabilityService) Update(ctx context.Context, volumeID string, body VolumeAvailabilityUpdateParams, opts ...option.RequestOption) (res *string, err error) {
 	opts = append(r.Options[:], opts...)
-	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
+	opts = append([]option.RequestOption{option.WithHeader("Accept", "text/plain")}, opts...)
 	if volumeID == "" {
 		err = errors.New("missing required volume_id parameter")
 		return
 	}
 	path := fmt.Sprintf("v1/compute/volumes/%s/availability", volumeID)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, nil, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
 	return
 }
 

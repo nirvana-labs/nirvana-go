@@ -27,7 +27,7 @@ func TestVMAvailabilityNewWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	err := client.Compute.VMs.Availability.New(context.TODO(), compute.VMAvailabilityNewParams{
+	_, err := client.Compute.VMs.Availability.New(context.TODO(), compute.VMAvailabilityNewParams{
 		BootVolume: compute.VMAvailabilityNewParamsBootVolume{
 			Size: 100,
 		},
@@ -42,7 +42,7 @@ func TestVMAvailabilityNewWithOptionalParams(t *testing.T) {
 		PublicIPEnabled: true,
 		Region:          shared.RegionNameUsWdc1,
 		SSHKey: compute.SSHKeyParam{
-			PublicKey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDJiJabIUkXw7VrQG+yBohvhEsyoKEYvejZc4RFzV5maybqQei1punVsoe4r6gJttMM1Gr3cNr3OfepikCQAhAchw5ww94ZWqDsDYIqMrlDFbqhGTXDNzFAjeVIKptCOlz9k+7aM69YtLXJ6gFUCq1fbK9PjY+AK28UpMfKYUcyHQ== noname",
+			PublicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDBIASkmwNiLcdlW6927Zjt1Hf7Kw/PpEZ4Zm+wU9wn2",
 		},
 		SubnetID: "123e4567-e89b-12d3-a456-426614174000",
 		DataVolumes: []compute.VMAvailabilityNewParamsDataVolume{{
@@ -71,7 +71,7 @@ func TestVMAvailabilityUpdateWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	err := client.Compute.VMs.Availability.Update(
+	_, err := client.Compute.VMs.Availability.Update(
 		context.TODO(),
 		"vm_id",
 		compute.VMAvailabilityUpdateParams{
