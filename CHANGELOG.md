@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.3.2 (2025-05-31)
+
+Full Changelog: [v1.3.1...v1.3.2](https://github.com/nirvana-labs/nirvana-go/compare/v1.3.1...v1.3.2)
+
+### Chores
+
+* make go mod tidy continue on error ([572fe69](https://github.com/nirvana-labs/nirvana-go/commit/572fe6932549a0c6aa065121ab9aaebcabc752e0))
+
 ## 1.3.1 (2025-05-30)
 
 Full Changelog: [v1.3.0...v1.3.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.3.0...v1.3.1)
