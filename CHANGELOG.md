@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.4.1 (2025-06-04)
+
+Full Changelog: [v1.4.0...v1.4.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.4.0...v1.4.1)
+
+### Features
+
+* **client:** allow overriding unions ([d62da69](https://github.com/nirvana-labs/nirvana-go/commit/d62da69c0b0a7a4da6bd8482f0ec74c67119f48a))
+
+
+### Bug Fixes
+
+* **client:** cast to raw message when converting to params ([fda2c9d](https://github.com/nirvana-labs/nirvana-go/commit/fda2c9d6d75304de8c24c499289e7d42b21d2c2a))
+
 ## 1.4.0 (2025-06-02)
 
 Full Changelog: [v1.3.2...v1.4.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.3.2...v1.4.0)
