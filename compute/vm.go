@@ -4,6 +4,7 @@ package compute
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"net/http"
@@ -119,7 +120,7 @@ func (r *CPUConfig) UnmarshalJSON(data []byte) error {
 // be used at the last possible moment before sending a request. Test for this with
 // CPUConfigParam.Overrides()
 func (r CPUConfig) ToParam() CPUConfigParam {
-	return param.Override[CPUConfigParam](r.RawJSON())
+	return param.Override[CPUConfigParam](json.RawMessage(r.RawJSON()))
 }
 
 // CPU configuration for the VM.
@@ -163,7 +164,7 @@ func (r *MemoryConfig) UnmarshalJSON(data []byte) error {
 // be used at the last possible moment before sending a request. Test for this with
 // MemoryConfigParam.Overrides()
 func (r MemoryConfig) ToParam() MemoryConfigParam {
-	return param.Override[MemoryConfigParam](r.RawJSON())
+	return param.Override[MemoryConfigParam](json.RawMessage(r.RawJSON()))
 }
 
 // Memory configuration for the VM.
