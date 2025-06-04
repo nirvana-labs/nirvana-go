@@ -245,6 +245,8 @@ type VM struct {
 	PrivateIP string `json:"private_ip,required"`
 	// Public IP of the VM.
 	PublicIP string `json:"public_ip,required"`
+	// Whether the public IP is enabled for the VM.
+	PublicIPEnabled bool `json:"public_ip_enabled,required"`
 	// Region the resource is in.
 	//
 	// Any of "us-sea-1", "us-sva-1", "us-chi-1", "us-wdc-1", "eu-lon-1", "eu-ams-1",
@@ -265,23 +267,24 @@ type VM struct {
 	VPCName string `json:"vpc_name,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
-		ID            respjson.Field
-		BootVolumeID  respjson.Field
-		CPUConfig     respjson.Field
-		CreatedAt     respjson.Field
-		DataVolumeIDs respjson.Field
-		MemoryConfig  respjson.Field
-		Name          respjson.Field
-		PrivateIP     respjson.Field
-		PublicIP      respjson.Field
-		Region        respjson.Field
-		Status        respjson.Field
-		SubnetID      respjson.Field
-		UpdatedAt     respjson.Field
-		VPCID         respjson.Field
-		VPCName       respjson.Field
-		ExtraFields   map[string]respjson.Field
-		raw           string
+		ID              respjson.Field
+		BootVolumeID    respjson.Field
+		CPUConfig       respjson.Field
+		CreatedAt       respjson.Field
+		DataVolumeIDs   respjson.Field
+		MemoryConfig    respjson.Field
+		Name            respjson.Field
+		PrivateIP       respjson.Field
+		PublicIP        respjson.Field
+		PublicIPEnabled respjson.Field
+		Region          respjson.Field
+		Status          respjson.Field
+		SubnetID        respjson.Field
+		UpdatedAt       respjson.Field
+		VPCID           respjson.Field
+		VPCName         respjson.Field
+		ExtraFields     map[string]respjson.Field
+		raw             string
 	} `json:"-"`
 }
 
