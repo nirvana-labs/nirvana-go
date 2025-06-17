@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.5.1 (2025-06-17)
+
+Full Changelog: [v1.5.0...v1.5.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.5.0...v1.5.1)
+
+### Features
+
+* **client:** add debug log helper ([0ae5669](https://github.com/nirvana-labs/nirvana-go/commit/0ae566946275d8419fefdf4d4ac4019eaa31327c))
+
+
+### Chores
+
+* **ci:** enable for pull requests ([d01a8da](https://github.com/nirvana-labs/nirvana-go/commit/d01a8daf03861d4e64b5ad88a8b71db341a0c898))
+
 ## 1.5.0 (2025-06-04)
 
 Full Changelog: [v1.4.1...v1.5.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.4.1...v1.5.0)
