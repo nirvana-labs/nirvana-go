@@ -155,3 +155,25 @@ Methods:
 - <code title="get /v1/networking/vpcs/{vpc_id}/firewall_rules">client.Networking.FirewallRules.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/networking#FirewallRuleService.List">List</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, vpcID <a href="https://pkg.go.dev/builtin#string">string</a>) (<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/networking">networking</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/networking#FirewallRuleList">FirewallRuleList</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
 - <code title="delete /v1/networking/vpcs/{vpc_id}/firewall_rules/{firewall_rule_id}">client.Networking.FirewallRules.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/networking#FirewallRuleService.Delete">Delete</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, vpcID <a href="https://pkg.go.dev/builtin#string">string</a>, firewallRuleID <a href="https://pkg.go.dev/builtin#string">string</a>) (<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/operations">operations</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/operations#Operation">Operation</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
 - <code title="get /v1/networking/vpcs/{vpc_id}/firewall_rules/{firewall_rule_id}">client.Networking.FirewallRules.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/networking#FirewallRuleService.Get">Get</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, vpcID <a href="https://pkg.go.dev/builtin#string">string</a>, firewallRuleID <a href="https://pkg.go.dev/builtin#string">string</a>) (<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/networking">networking</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/networking#FirewallRule">FirewallRule</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
+
+# RPCNodes
+
+## Flex
+
+Response Types:
+
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes">rpc_nodes</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes#RPCNodesFlex">RPCNodesFlex</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes">rpc_nodes</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes#RPCNodesFlexBlockchain">RPCNodesFlexBlockchain</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes">rpc_nodes</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes#RPCNodesFlexBlockchainList">RPCNodesFlexBlockchainList</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes">rpc_nodes</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes#RPCNodesFlexList">RPCNodesFlexList</a>
+
+Methods:
+
+- <code title="get /v1/rpc_nodes/flex">client.RPCNodes.Flex.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes#FlexService.List">List</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>) (<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes">rpc_nodes</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes#RPCNodesFlexList">RPCNodesFlexList</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
+- <code title="get /v1/rpc_nodes/flex/{node_id}">client.RPCNodes.Flex.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes#FlexService.Get">Get</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, nodeID <a href="https://pkg.go.dev/builtin#string">string</a>) (<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes">rpc_nodes</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes#RPCNodesFlex">RPCNodesFlex</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
+
+### Blockchains
+
+Methods:
+
+- <code title="get /v1/rpc_nodes/flex/blockchains">client.RPCNodes.Flex.Blockchains.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes#FlexBlockchainService.List">List</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>) (<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes">rpc_nodes</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes#RPCNodesFlexBlockchainList">RPCNodesFlexBlockchainList</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
