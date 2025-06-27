@@ -60,6 +60,7 @@ type RPCNodesFlex struct {
 	ID         string    `json:"id,required"`
 	Blockchain string    `json:"blockchain,required"`
 	CreatedAt  time.Time `json:"created_at,required" format:"date-time"`
+	Endpoint   string    `json:"endpoint,required"`
 	Name       string    `json:"name,required"`
 	Network    string    `json:"network,required"`
 	UpdatedAt  time.Time `json:"updated_at,required" format:"date-time"`
@@ -69,6 +70,7 @@ type RPCNodesFlex struct {
 		ID          respjson.Field
 		Blockchain  respjson.Field
 		CreatedAt   respjson.Field
+		Endpoint    respjson.Field
 		Name        respjson.Field
 		Network     respjson.Field
 		UpdatedAt   respjson.Field
