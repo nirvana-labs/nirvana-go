@@ -177,3 +177,23 @@ Methods:
 Methods:
 
 - <code title="get /v1/rpc_nodes/flex/blockchains">client.RPCNodes.Flex.Blockchains.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes#FlexBlockchainService.List">List</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>) (<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes">rpc_nodes</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes#RPCNodesFlexBlockchainList">RPCNodesFlexBlockchainList</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
+
+## Dedicated
+
+Response Types:
+
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes">rpc_nodes</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes#RPCNodesDedicated">RPCNodesDedicated</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes">rpc_nodes</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes#RPCNodesDedicatedBlockchain">RPCNodesDedicatedBlockchain</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes">rpc_nodes</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes#RPCNodesDedicatedBlockchainList">RPCNodesDedicatedBlockchainList</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes">rpc_nodes</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes#RPCNodesDedicatedList">RPCNodesDedicatedList</a>
+
+Methods:
+
+- <code title="get /v1/rpc_nodes/dedicated">client.RPCNodes.Dedicated.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes#DedicatedService.List">List</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>) (<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes">rpc_nodes</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes#RPCNodesDedicatedList">RPCNodesDedicatedList</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
+- <code title="get /v1/rpc_nodes/dedicated/{node_id}">client.RPCNodes.Dedicated.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes#DedicatedService.Get">Get</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, nodeID <a href="https://pkg.go.dev/builtin#string">string</a>) (<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes">rpc_nodes</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes#RPCNodesDedicated">RPCNodesDedicated</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
+
+### Blockchains
+
+Methods:
+
+- <code title="get /v1/rpc_nodes/dedicated/blockchains">client.RPCNodes.Dedicated.Blockchains.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes#DedicatedBlockchainService.List">List</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>) (<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes">rpc_nodes</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes#RPCNodesDedicatedBlockchainList">RPCNodesDedicatedBlockchainList</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>

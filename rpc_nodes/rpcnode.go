@@ -13,8 +13,9 @@ import (
 // automatically. You should not instantiate this service directly, and instead use
 // the [NewRPCNodeService] method instead.
 type RPCNodeService struct {
-	Options []option.RequestOption
-	Flex    FlexService
+	Options   []option.RequestOption
+	Flex      FlexService
+	Dedicated DedicatedService
 }
 
 // NewRPCNodeService generates a new service that applies the given options to each
@@ -24,5 +25,6 @@ func NewRPCNodeService(opts ...option.RequestOption) (r RPCNodeService) {
 	r = RPCNodeService{}
 	r.Options = opts
 	r.Flex = NewFlexService(opts...)
+	r.Dedicated = NewDedicatedService(opts...)
 	return
 }
