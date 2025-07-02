@@ -1,5 +1,28 @@
 # Changelog
 
+## 1.6.0 (2025-07-02)
+
+Full Changelog: [v1.5.1...v1.6.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.5.1...v1.6.0)
+
+### Features
+
+* **api:** api update ([8696274](https://github.com/nirvana-labs/nirvana-go/commit/8696274fa7e535084932bde838630bff139a2bfb))
+* **api:** api update ([09cb653](https://github.com/nirvana-labs/nirvana-go/commit/09cb653443c47c43f16f8f042874a6e731028ef6))
+* **api:** api update ([07cfaac](https://github.com/nirvana-labs/nirvana-go/commit/07cfaacf03f6154fb2b76a8cff4b2d51788d12e1))
+* **api:** api update ([d70ac5e](https://github.com/nirvana-labs/nirvana-go/commit/d70ac5e5403e382f155a92c69db8b9d710a9445c))
+* **client:** add escape hatch for null slice & maps ([9b956a3](https://github.com/nirvana-labs/nirvana-go/commit/9b956a3ddaebb50c27cfc879c0ef7cbe7b775c72))
+
+
+### Bug Fixes
+
+* don't try to deserialize as json when ResponseBodyInto is []byte ([e04e96a](https://github.com/nirvana-labs/nirvana-go/commit/e04e96ad48cfe180c3afcaf2c06dc4fc99e09c8a))
+
+
+### Chores
+
+* **ci:** only run for pushes and fork pull requests ([49d4bce](https://github.com/nirvana-labs/nirvana-go/commit/49d4bce93067fe398956f91ede0e806948dde4f0))
+* fix documentation of null map ([a3268a2](https://github.com/nirvana-labs/nirvana-go/commit/a3268a222d923ac3c7b3d964abf208c0c2d55712))
+
 ## 1.5.1 (2025-06-17)
 
 Full Changelog: [v1.5.0...v1.5.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.5.0...v1.5.1)
