@@ -3,6 +3,10 @@
 package rpc_nodes
 
 import (
+	"context"
+	"net/http"
+
+	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/option"
 )
 
@@ -22,5 +26,13 @@ type DedicatedBlockchainService struct {
 func NewDedicatedBlockchainService(opts ...option.RequestOption) (r DedicatedBlockchainService) {
 	r = DedicatedBlockchainService{}
 	r.Options = opts
+	return
+}
+
+// List all Dedicated Blockchains
+func (r *DedicatedBlockchainService) List(ctx context.Context, opts ...option.RequestOption) (res *RPCNodesDedicatedBlockchainList, err error) {
+	opts = append(r.Options[:], opts...)
+	path := "v1/rpc_nodes/dedicated/blockchains"
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }

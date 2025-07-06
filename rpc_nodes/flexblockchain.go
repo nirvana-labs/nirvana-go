@@ -3,6 +3,10 @@
 package rpc_nodes
 
 import (
+	"context"
+	"net/http"
+
+	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/option"
 )
 
@@ -22,5 +26,13 @@ type FlexBlockchainService struct {
 func NewFlexBlockchainService(opts ...option.RequestOption) (r FlexBlockchainService) {
 	r = FlexBlockchainService{}
 	r.Options = opts
+	return
+}
+
+// List all Flex Blockchains
+func (r *FlexBlockchainService) List(ctx context.Context, opts ...option.RequestOption) (res *RPCNodesFlexBlockchainList, err error) {
+	opts = append(r.Options[:], opts...)
+	path := "v1/rpc_nodes/flex/blockchains"
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
