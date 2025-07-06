@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.7.0 (2025-07-06)
+
+Full Changelog: [v1.6.1...v1.7.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.6.1...v1.7.0)
+
+### Features
+
+* **api:** api update ([d20f06e](https://github.com/nirvana-labs/nirvana-go/commit/d20f06ecae04aa8793c46bd22a9b2ab605589f49))
+* **api:** api update ([38bfac7](https://github.com/nirvana-labs/nirvana-go/commit/38bfac7b62d7e88c802303ddfd65364900225e5a))
+
 ## 1.6.1 (2025-07-03)
 
 Full Changelog: [v1.6.0...v1.6.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.6.0...v1.6.1)
