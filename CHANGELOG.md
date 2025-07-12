@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.6.2 (2025-07-12)
+
+Full Changelog: [v1.6.1...v1.6.2](https://github.com/nirvana-labs/nirvana-go/compare/v1.6.1...v1.6.2)
+
+### Chores
+
+* **internal:** fix lint script for tests ([c650ecb](https://github.com/nirvana-labs/nirvana-go/commit/c650ecbbae7ec4c349f896c275600f41808f0ec0))
+* lint tests ([22387c2](https://github.com/nirvana-labs/nirvana-go/commit/22387c2f887c7cedc22824f203b8988f487c4d15))
+* lint tests in subpackages ([7561078](https://github.com/nirvana-labs/nirvana-go/commit/7561078ca772e855bf9eb6095c4b5801c696908a))
+
 ## 1.6.1 (2025-07-03)
 
 Full Changelog: [v1.6.0...v1.6.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.6.0...v1.6.1)
