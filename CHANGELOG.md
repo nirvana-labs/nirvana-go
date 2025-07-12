@@ -4,12 +4,6 @@
 
 Full Changelog: [v1.6.1...v1.6.2](https://github.com/nirvana-labs/nirvana-go/compare/v1.6.1...v1.6.2)
 
-### Features
-
-* **api:** api update ([d20f06e](https://github.com/nirvana-labs/nirvana-go/commit/d20f06ecae04aa8793c46bd22a9b2ab605589f49))
-* **api:** api update ([38bfac7](https://github.com/nirvana-labs/nirvana-go/commit/38bfac7b62d7e88c802303ddfd65364900225e5a))
-
-
 ### Chores
 
 * **internal:** fix lint script for tests ([c650ecb](https://github.com/nirvana-labs/nirvana-go/commit/c650ecbbae7ec4c349f896c275600f41808f0ec0))
