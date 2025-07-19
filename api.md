@@ -197,3 +197,17 @@ Methods:
 Methods:
 
 - <code title="get /v1/rpc_nodes/dedicated/blockchains">client.RPCNodes.Dedicated.Blockchains.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes#DedicatedBlockchainService.List">List</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>) (<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes">rpc_nodes</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes#RPCNodesDedicatedBlockchainList">RPCNodesDedicatedBlockchainList</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
+
+# Connect
+
+## Flux
+
+Response Types:
+
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect">connect</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#ConnectFlux">ConnectFlux</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect">connect</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#ConnectFluxList">ConnectFluxList</a>
+
+Methods:
+
+- <code title="get /v1/connect/flux">client.Connect.Flux.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#FluxService.List">List</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>) (<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect">connect</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#ConnectFluxList">ConnectFluxList</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
+- <code title="get /v1/connect/flux/{flux_id}">client.Connect.Flux.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#FluxService.Get">Get</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, fluxID <a href="https://pkg.go.dev/builtin#string">string</a>) (<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect">connect</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#ConnectFlux">ConnectFlux</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
