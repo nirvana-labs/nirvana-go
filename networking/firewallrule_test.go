@@ -33,7 +33,7 @@ func TestFirewallRuleNew(t *testing.T) {
 			DestinationAddress: "0.0.0.0/0",
 			DestinationPorts:   []string{"22", "80", "443"},
 			Name:               "my-firewall-rule",
-			Protocol:           "tcp",
+			Protocol:           networking.FirewallRuleNewParamsProtocolTcp,
 			SourceAddress:      "0.0.0.0/0",
 		},
 	)
