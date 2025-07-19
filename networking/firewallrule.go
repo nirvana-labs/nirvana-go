@@ -191,7 +191,9 @@ type FirewallRuleNewParams struct {
 	// Name of the firewall rule.
 	Name string `json:"name,required"`
 	// Protocol of the firewall rule.
-	Protocol string `json:"protocol,required"`
+	//
+	// Any of "tcp", "udp".
+	Protocol FirewallRuleNewParamsProtocol `json:"protocol,omitzero,required"`
 	// Source address of the firewall rule.
 	SourceAddress string `json:"source_address,required"`
 	paramObj
@@ -204,6 +206,14 @@ func (r FirewallRuleNewParams) MarshalJSON() (data []byte, err error) {
 func (r *FirewallRuleNewParams) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
+
+// Protocol of the firewall rule.
+type FirewallRuleNewParamsProtocol string
+
+const (
+	FirewallRuleNewParamsProtocolTcp FirewallRuleNewParamsProtocol = "tcp"
+	FirewallRuleNewParamsProtocolUdp FirewallRuleNewParamsProtocol = "udp"
+)
 
 type FirewallRuleUpdateParams struct {
 	// Destination address of the firewall rule.
