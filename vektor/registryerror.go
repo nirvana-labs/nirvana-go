@@ -42,7 +42,7 @@ func (r *RegistryErrorService) List(ctx context.Context, body RegistryErrorListP
 
 type RegistryErrorListResponse struct {
 	// A list of errors
-	Items []Error `json:"items,required"`
+	Items []VektorError `json:"items,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field

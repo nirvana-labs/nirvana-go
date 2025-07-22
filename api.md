@@ -259,7 +259,6 @@ Response Types:
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor">vektor</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor#BuyQuote">BuyQuote</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor">vektor</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor#ChainType">ChainType</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor">vektor</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor#Decimal">Decimal</a>
-- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor">vektor</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor#Error">Error</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor">vektor</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor#EVMChainData">EVMChainData</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor">vektor</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor#Execution">Execution</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor">vektor</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor#ExecutionEVMTransactionEIP1559Payload">ExecutionEVMTransactionEIP1559Payload</a>
@@ -298,6 +297,7 @@ Response Types:
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor">vektor</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor#RegistryLPPool">RegistryLPPool</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor">vektor</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor#SellQuote">SellQuote</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor">vektor</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor#Timestamp">Timestamp</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor">vektor</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor#VektorError">VektorError</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor">vektor</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor#Venue">Venue</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor">vektor</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor#VenueID">VenueID</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor">vektor</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor#VenueSymbol">VenueSymbol</a>
