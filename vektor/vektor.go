@@ -530,30 +530,6 @@ const (
 
 type Decimal = string
 
-// An error
-type Error struct {
-	// Error message
-	Message string `json:"message,required"`
-	// Error parameters
-	Params map[string]any `json:"params,required"`
-	// Error type
-	Type string `json:"type,required"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		Message     respjson.Field
-		Params      respjson.Field
-		Type        respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
-	} `json:"-"`
-}
-
-// Returns the unmodified JSON received from the API
-func (r Error) RawJSON() string { return r.JSON.raw }
-func (r *Error) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
 // Data about an EVM blockchain
 type EVMChainData struct {
 	// Chain ID
@@ -3670,6 +3646,30 @@ func (u *TimestampOrBlockNumberUnionParam) asAny() any {
 		return &u.OfInt.Value
 	}
 	return nil
+}
+
+// An error
+type VektorError struct {
+	// Error message
+	Message string `json:"message,required"`
+	// Error parameters
+	Params map[string]any `json:"params,required"`
+	// Error type
+	Type string `json:"type,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Message     respjson.Field
+		Params      respjson.Field
+		Type        respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r VektorError) RawJSON() string { return r.JSON.raw }
+func (r *VektorError) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
 }
 
 // On-chain venue
