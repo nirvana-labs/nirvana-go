@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.8.0 (2025-07-22)
+
+Full Changelog: [v1.7.0...v1.8.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.7.0...v1.8.0)
+
+### Features
+
+* **feat:** add Vektor endpoints ([12441cd](https://github.com/nirvana-labs/nirvana-go/commit/12441cd80d91f81d795f845c15e39129c49c18a6))
+
+
+### Bug Fixes
+
+* **client:** process custom base url ahead of time ([5252094](https://github.com/nirvana-labs/nirvana-go/commit/525209427cddd5d17ccfb4975c6f696de409cf60))
+
 ## 1.7.0 (2025-07-19)
 
 Full Changelog: [v1.6.2...v1.7.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.6.2...v1.7.0)

@@ -1,0 +1,80 @@
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+package vektor_test
+
+import (
+	"context"
+	"errors"
+	"os"
+	"testing"
+
+	"github.com/nirvana-labs/nirvana-go"
+	"github.com/nirvana-labs/nirvana-go/internal/testutil"
+	"github.com/nirvana-labs/nirvana-go/option"
+	"github.com/nirvana-labs/nirvana-go/vektor"
+)
+
+func TestBalanceListWithOptionalParams(t *testing.T) {
+	t.Skip("skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url")
+	baseURL := "http://localhost:4010"
+	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
+		baseURL = envURL
+	}
+	if !testutil.CheckTestServer(t, baseURL) {
+		return
+	}
+	client := nirvana.NewClient(
+		option.WithBaseURL(baseURL),
+		option.WithAPIKey("My API Key"),
+	)
+	_, err := client.Vektor.Balances.List(context.TODO(), vektor.BalanceListParams{
+		Accounts:   []vektor.Account{"0x6b175474e89094c44da98b954eedeac495271d0f"},
+		Assets:     []vektor.AssetIDOrAddressEVMOrAssetSymbol{"asset_01jbz9qc00f8wr64hfe459gb7y"},
+		Blockchain: "blockchain_01jbz9nsy8egar70jg79dkwmaf",
+		At: vektor.BalanceListParamsAtUnion{
+			OfString: nirvana.String("2021-01-01T12:00:00Z"),
+		},
+		QuoteAssetSymbol: nirvana.String("eth"),
+	})
+	if err != nil {
+		var apierr *nirvana.Error
+		if errors.As(err, &apierr) {
+			t.Log(string(apierr.DumpRequest(true)))
+		}
+		t.Fatalf("err should be nil: %s", err.Error())
+	}
+}
+
+func TestBalanceListHistoricalWithOptionalParams(t *testing.T) {
+	t.Skip("skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url")
+	baseURL := "http://localhost:4010"
+	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
+		baseURL = envURL
+	}
+	if !testutil.CheckTestServer(t, baseURL) {
+		return
+	}
+	client := nirvana.NewClient(
+		option.WithBaseURL(baseURL),
+		option.WithAPIKey("My API Key"),
+	)
+	_, err := client.Vektor.Balances.ListHistorical(context.TODO(), vektor.BalanceListHistoricalParams{
+		Accounts:   []vektor.Account{"0x6b175474e89094c44da98b954eedeac495271d0f"},
+		Assets:     []vektor.AssetIDOrAddressEVMOrAssetSymbol{"asset_01jbz9qc00f8wr64hfe459gb7y"},
+		Blockchain: "blockchain_01jbz9nsy8egar70jg79dkwmaf",
+		From: vektor.TimestampOrBlockNumberUnionParam{
+			OfString: nirvana.String("2021-01-01T12:00:00Z"),
+		},
+		To: vektor.TimestampOrBlockNumberUnionParam{
+			OfString: nirvana.String("2021-01-01T12:00:00Z"),
+		},
+		QuoteAssetSymbol: nirvana.String("eth"),
+	})
+	if err != nil {
+		var apierr *nirvana.Error
+		if errors.As(err, &apierr) {
+			t.Log(string(apierr.DumpRequest(true)))
+		}
+		t.Fatalf("err should be nil: %s", err.Error())
+	}
+}
