@@ -6,8 +6,7 @@ Full Changelog: [v1.7.0...v1.8.0](https://github.com/nirvana-labs/nirvana-go/com
 
 ### Features
 
-* **api:** api update ([12441cd](https://github.com/nirvana-labs/nirvana-go/commit/12441cd80d91f81d795f845c15e39129c49c18a6))
-* **api:** manual updates ([8a5f852](https://github.com/nirvana-labs/nirvana-go/commit/8a5f852719eae739599ef4027d64b57b5b36b028))
+* **feat:** add Vektor endpoints ([12441cd](https://github.com/nirvana-labs/nirvana-go/commit/12441cd80d91f81d795f845c15e39129c49c18a6))
 
 
 ### Bug Fixes
