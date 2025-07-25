@@ -616,7 +616,7 @@ func (r *Execution) UnmarshalJSON(data []byte) error {
 
 // ExecutionRequestUnion contains all possible properties and values from
 // [ExecutionRequestBorrowRequestFull], [ExecutionRequestBuyRequestFull],
-// [ExecutionRequestLendRequestFull], [ExecutionRequestBuyRequestFull],
+// [ExecutionRequestLendRequestFull],
 // [ExecutionRequestLendSetCollateralRequestFull],
 // [ExecutionRequestLendWithdrawRequestFull], [ExecutionRequestMoveRequestFull],
 // [ExecutionRequestSellRequestFull], [ExecutionRequestWrapRequestFull],
@@ -677,11 +677,6 @@ func (u ExecutionRequestUnion) AsBuyRequestFull() (v ExecutionRequestBuyRequestF
 }
 
 func (u ExecutionRequestUnion) AsLendRequestFull() (v ExecutionRequestLendRequestFull) {
-	apijson.UnmarshalRoot(json.RawMessage(u.JSON.raw), &v)
-	return
-}
-
-func (u ExecutionRequestUnion) AsExecutionRequestBuyRequestFull() (v ExecutionRequestBuyRequestFull) {
 	apijson.UnmarshalRoot(json.RawMessage(u.JSON.raw), &v)
 	return
 }
