@@ -615,7 +615,8 @@ func (r *Execution) UnmarshalJSON(data []byte) error {
 }
 
 // ExecutionRequestUnion contains all possible properties and values from
-// [ExecutionRequestBuyRequestFull], [ExecutionRequestLendRequestFull],
+// [ExecutionRequestBorrowRequestFull], [ExecutionRequestBuyRequestFull],
+// [ExecutionRequestLendRequestFull], [ExecutionRequestBuyRequestFull],
 // [ExecutionRequestLendSetCollateralRequestFull],
 // [ExecutionRequestLendWithdrawRequestFull], [ExecutionRequestMoveRequestFull],
 // [ExecutionRequestSellRequestFull], [ExecutionRequestWrapRequestFull],
@@ -623,10 +624,14 @@ func (r *Execution) UnmarshalJSON(data []byte) error {
 //
 // Use the methods beginning with 'As' to cast the union to one of its variants.
 type ExecutionRequestUnion struct {
-	// This field is from variant [ExecutionRequestBuyRequestFull].
+	Amount string `json:"amount"`
+	// This field is a union of [Asset], [ExecutionRequestLendWithdrawRequestFullAsset]
+	Asset ExecutionRequestUnionAsset `json:"asset"`
+	// This field is from variant [ExecutionRequestBorrowRequestFull].
 	Blockchain Blockchain `json:"blockchain"`
-	// This field is from variant [ExecutionRequestBuyRequestFull].
-	From Account `json:"from"`
+	// This field is from variant [ExecutionRequestBorrowRequestFull].
+	From   Account `json:"from"`
+	Venues []Venue `json:"venues"`
 	// This field is from variant [ExecutionRequestBuyRequestFull].
 	ReceiveAmount Decimal `json:"receive_amount"`
 	// This field is from variant [ExecutionRequestBuyRequestFull].
@@ -634,11 +639,7 @@ type ExecutionRequestUnion struct {
 	// This field is from variant [ExecutionRequestBuyRequestFull].
 	Slippage Decimal `json:"slippage"`
 	// This field is from variant [ExecutionRequestBuyRequestFull].
-	SpendAsset Asset   `json:"spend_asset"`
-	Venues     []Venue `json:"venues"`
-	Amount     string  `json:"amount"`
-	// This field is a union of [Asset], [ExecutionRequestLendWithdrawRequestFullAsset]
-	Asset ExecutionRequestUnionAsset `json:"asset"`
+	SpendAsset Asset `json:"spend_asset"`
 	// This field is from variant [ExecutionRequestLendSetCollateralRequestFull].
 	MarketID LendBorrowMarketID `json:"market_id"`
 	// This field is from variant [ExecutionRequestLendSetCollateralRequestFull].
@@ -648,15 +649,15 @@ type ExecutionRequestUnion struct {
 	// This field is from variant [ExecutionRequestSellRequestFull].
 	SpendAmount Decimal `json:"spend_amount"`
 	JSON        struct {
+		Amount        respjson.Field
+		Asset         respjson.Field
 		Blockchain    respjson.Field
 		From          respjson.Field
+		Venues        respjson.Field
 		ReceiveAmount respjson.Field
 		ReceiveAsset  respjson.Field
 		Slippage      respjson.Field
 		SpendAsset    respjson.Field
-		Venues        respjson.Field
-		Amount        respjson.Field
-		Asset         respjson.Field
 		MarketID      respjson.Field
 		Status        respjson.Field
 		To            respjson.Field
@@ -665,12 +666,22 @@ type ExecutionRequestUnion struct {
 	} `json:"-"`
 }
 
+func (u ExecutionRequestUnion) AsBorrowRequestFull() (v ExecutionRequestBorrowRequestFull) {
+	apijson.UnmarshalRoot(json.RawMessage(u.JSON.raw), &v)
+	return
+}
+
 func (u ExecutionRequestUnion) AsBuyRequestFull() (v ExecutionRequestBuyRequestFull) {
 	apijson.UnmarshalRoot(json.RawMessage(u.JSON.raw), &v)
 	return
 }
 
 func (u ExecutionRequestUnion) AsLendRequestFull() (v ExecutionRequestLendRequestFull) {
+	apijson.UnmarshalRoot(json.RawMessage(u.JSON.raw), &v)
+	return
+}
+
+func (u ExecutionRequestUnion) AsExecutionRequestBuyRequestFull() (v ExecutionRequestBuyRequestFull) {
 	apijson.UnmarshalRoot(json.RawMessage(u.JSON.raw), &v)
 	return
 }
@@ -739,6 +750,36 @@ type ExecutionRequestUnionAsset struct {
 }
 
 func (r *ExecutionRequestUnionAsset) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// A request to borrow an asset
+type ExecutionRequestBorrowRequestFull struct {
+	// An arbitrary precision decimal represented as a string
+	Amount Decimal `json:"amount,required"`
+	// On-chain asset (aka token)
+	Asset Asset `json:"asset,required"`
+	// Data about a blockchain
+	Blockchain Blockchain `json:"blockchain,required"`
+	// An EVM address
+	From Account `json:"from,required"`
+	// A list of venues
+	Venues []Venue `json:"venues,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Amount      respjson.Field
+		Asset       respjson.Field
+		Blockchain  respjson.Field
+		From        respjson.Field
+		Venues      respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r ExecutionRequestBorrowRequestFull) RawJSON() string { return r.JSON.raw }
+func (r *ExecutionRequestBorrowRequestFull) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -1024,7 +1065,8 @@ type ExecutionStep struct {
 	Index      int64                        `json:"index,required"`
 	// The type of an execution step
 	//
-	// Any of "evm_transaction_approve", "evm_transaction_buy", "evm_transaction_lend",
+	// Any of "evm_transaction_approve", "evm_transaction_borrow",
+	// "evm_transaction_buy", "evm_transaction_lend",
 	// "evm_transaction_lend_set_collateral", "evm_transaction_lend_withdraw",
 	// "evm_transaction_move", "evm_transaction_permission", "evm_transaction_wrap",
 	// "evm_transaction_unwrap", "evm_transaction_sell".
@@ -1052,6 +1094,7 @@ func (r *ExecutionStep) UnmarshalJSON(data []byte) error {
 
 // ExecutionStepDefinitionUnion contains all possible properties and values from
 // [ExecutionStepDefinitionExecutionEVMTransactionApprove],
+// [ExecutionStepDefinitionExecutionEVMTransactionBorrow],
 // [ExecutionStepDefinitionExecutionEVMTransactionBuy],
 // [ExecutionStepDefinitionExecutionEVMTransactionLend],
 // [ExecutionStepDefinitionExecutionEVMTransactionLendSetCollateral],
@@ -1079,6 +1122,7 @@ type ExecutionStepDefinitionUnion struct {
 	EffectiveGasPrice string    `json:"effective_gas_price"`
 	// This field is a union of
 	// [ExecutionStepDefinitionExecutionEVMTransactionApproveError],
+	// [ExecutionStepDefinitionExecutionEVMTransactionBorrowError],
 	// [ExecutionStepDefinitionExecutionEVMTransactionBuyError],
 	// [ExecutionStepDefinitionExecutionEVMTransactionLendError],
 	// [ExecutionStepDefinitionExecutionEVMTransactionLendSetCollateralError],
@@ -1106,10 +1150,17 @@ type ExecutionStepDefinitionUnion struct {
 	// [ExecutionStepDefinitionExecutionEVMTransactionApprove].
 	TargetState ExecutionEVMTransactionState `json:"target_state"`
 	To          string                       `json:"to"`
+	Type        string                       `json:"type"`
 	// This field is from variant
 	// [ExecutionStepDefinitionExecutionEVMTransactionApprove].
 	UpdatedAt Timestamp `json:"updated_at"`
 	Value     string    `json:"value"`
+	// This field is from variant
+	// [ExecutionStepDefinitionExecutionEVMTransactionBorrow].
+	LendBorrowMarketID LendBorrowMarketID `json:"lend_borrow_market_id"`
+	// This field is from variant
+	// [ExecutionStepDefinitionExecutionEVMTransactionBorrow].
+	VenueSymbol VenueSymbol `json:"venue_symbol"`
 	// This field is from variant [ExecutionStepDefinitionExecutionEVMTransactionBuy].
 	ApprovalTarget Account `json:"approval_target"`
 	// This field is from variant [ExecutionStepDefinitionExecutionEVMTransactionBuy].
@@ -1118,10 +1169,6 @@ type ExecutionStepDefinitionUnion struct {
 	Quote ExecutionStepDefinitionUnionQuote `json:"quote"`
 	// This field is from variant [ExecutionStepDefinitionExecutionEVMTransactionBuy].
 	Slippage Decimal `json:"slippage"`
-	// This field is from variant [ExecutionStepDefinitionExecutionEVMTransactionLend].
-	LendBorrowMarketID LendBorrowMarketID `json:"lend_borrow_market_id"`
-	// This field is from variant [ExecutionStepDefinitionExecutionEVMTransactionLend].
-	VenueSymbol VenueSymbol `json:"venue_symbol"`
 	// This field is from variant
 	// [ExecutionStepDefinitionExecutionEVMTransactionLendSetCollateral].
 	Status bool `json:"status"`
@@ -1131,9 +1178,6 @@ type ExecutionStepDefinitionUnion struct {
 	// This field is from variant
 	// [ExecutionStepDefinitionExecutionEVMTransactionPermission].
 	Permission bool `json:"permission"`
-	// This field is from variant
-	// [ExecutionStepDefinitionExecutionEVMTransactionPermission].
-	Type string `json:"type"`
 	// This field is from variant [ExecutionStepDefinitionExecutionEVMTransactionSell].
 	MinReceiveAmount Decimal `json:"min_receive_amount"`
 	JSON             struct {
@@ -1156,24 +1200,29 @@ type ExecutionStepDefinitionUnion struct {
 		State              respjson.Field
 		TargetState        respjson.Field
 		To                 respjson.Field
+		Type               respjson.Field
 		UpdatedAt          respjson.Field
 		Value              respjson.Field
+		LendBorrowMarketID respjson.Field
+		VenueSymbol        respjson.Field
 		ApprovalTarget     respjson.Field
 		MaxSpendAmount     respjson.Field
 		Quote              respjson.Field
 		Slippage           respjson.Field
-		LendBorrowMarketID respjson.Field
-		VenueSymbol        respjson.Field
 		Status             respjson.Field
 		ContractAddress    respjson.Field
 		Permission         respjson.Field
-		Type               respjson.Field
 		MinReceiveAmount   respjson.Field
 		raw                string
 	} `json:"-"`
 }
 
 func (u ExecutionStepDefinitionUnion) AsExecutionEVMTransactionApprove() (v ExecutionStepDefinitionExecutionEVMTransactionApprove) {
+	apijson.UnmarshalRoot(json.RawMessage(u.JSON.raw), &v)
+	return
+}
+
+func (u ExecutionStepDefinitionUnion) AsExecutionEVMTransactionBorrow() (v ExecutionStepDefinitionExecutionEVMTransactionBorrow) {
 	apijson.UnmarshalRoot(json.RawMessage(u.JSON.raw), &v)
 	return
 }
@@ -1402,6 +1451,10 @@ type ExecutionStepDefinitionExecutionEVMTransactionApprove struct {
 	TargetState ExecutionEVMTransactionState `json:"target_state,required"`
 	// An EVM address
 	To string `json:"to,required"`
+	// The type of approval
+	//
+	// Any of "spend_erc20", "borrow_erc20", "spend_erc721", "spend_erc721_collection".
+	Type string `json:"type,required"`
 	// ISO8601 Timestamp
 	UpdatedAt Timestamp `json:"updated_at,required"`
 	// An arbitrary precision decimal represented as a string
@@ -1427,6 +1480,7 @@ type ExecutionStepDefinitionExecutionEVMTransactionApprove struct {
 		State              respjson.Field
 		TargetState        respjson.Field
 		To                 respjson.Field
+		Type               respjson.Field
 		UpdatedAt          respjson.Field
 		Value              respjson.Field
 		ExtraFields        map[string]respjson.Field
@@ -1463,6 +1517,118 @@ func (r ExecutionStepDefinitionExecutionEVMTransactionApproveError) RawJSON() st
 	return r.JSON.raw
 }
 func (r *ExecutionStepDefinitionExecutionEVMTransactionApproveError) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// Borrowing an asset
+type ExecutionStepDefinitionExecutionEVMTransactionBorrow struct {
+	// An arbitrary precision decimal represented as a string
+	Amount Decimal `json:"amount,required"`
+	// On-chain asset (aka token)
+	Asset       Asset `json:"asset,required"`
+	BlockNumber int64 `json:"block_number,required"`
+	// ISO8601 Timestamp
+	BroadcastedAt      string `json:"broadcasted_at,required"`
+	ConfirmationTarget int64  `json:"confirmation_target,required"`
+	// ISO8601 Timestamp
+	ConfirmedAt string `json:"confirmed_at,required"`
+	// ISO8601 Timestamp
+	CreatedAt Timestamp `json:"created_at,required"`
+	// A hex string starting with 0x
+	Data string `json:"data,required"`
+	// An arbitrary precision decimal represented as a string
+	EffectiveGasPrice string `json:"effective_gas_price,required"`
+	// An error
+	Error ExecutionStepDefinitionExecutionEVMTransactionBorrowError `json:"error,required"`
+	// ISO8601 Timestamp
+	ErroredAt string `json:"errored_at,required"`
+	// An arbitrary precision decimal represented as a string
+	GasUsed string `json:"gas_used,required"`
+	// A transaction hash
+	Hash string `json:"hash,required"`
+	// A lend/borrow market ID, represented as a TypeID with `lend_borrow_market`
+	// prefix
+	LendBorrowMarketID LendBorrowMarketID `json:"lend_borrow_market_id,required"`
+	// The payload of an EIP-1559 transaction
+	Payload ExecutionEVMTransactionEIP1559Payload `json:"payload,required"`
+	// ISO8601 Timestamp
+	SignedAt string `json:"signed_at,required"`
+	// The state of an EVM transaction
+	//
+	// Any of "not_started", "signature_required", "signed", "broadcasted",
+	// "confirmed", "error".
+	State ExecutionEVMTransactionState `json:"state,required"`
+	// The state of an EVM transaction
+	//
+	// Any of "not_started", "signature_required", "signed", "broadcasted",
+	// "confirmed", "error".
+	TargetState ExecutionEVMTransactionState `json:"target_state,required"`
+	// An EVM address
+	To string `json:"to,required"`
+	// ISO8601 Timestamp
+	UpdatedAt Timestamp `json:"updated_at,required"`
+	// An arbitrary precision decimal represented as a string
+	Value string `json:"value,required"`
+	// A venue symbol
+	VenueSymbol VenueSymbol `json:"venue_symbol,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Amount             respjson.Field
+		Asset              respjson.Field
+		BlockNumber        respjson.Field
+		BroadcastedAt      respjson.Field
+		ConfirmationTarget respjson.Field
+		ConfirmedAt        respjson.Field
+		CreatedAt          respjson.Field
+		Data               respjson.Field
+		EffectiveGasPrice  respjson.Field
+		Error              respjson.Field
+		ErroredAt          respjson.Field
+		GasUsed            respjson.Field
+		Hash               respjson.Field
+		LendBorrowMarketID respjson.Field
+		Payload            respjson.Field
+		SignedAt           respjson.Field
+		State              respjson.Field
+		TargetState        respjson.Field
+		To                 respjson.Field
+		UpdatedAt          respjson.Field
+		Value              respjson.Field
+		VenueSymbol        respjson.Field
+		ExtraFields        map[string]respjson.Field
+		raw                string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r ExecutionStepDefinitionExecutionEVMTransactionBorrow) RawJSON() string { return r.JSON.raw }
+func (r *ExecutionStepDefinitionExecutionEVMTransactionBorrow) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// An error
+type ExecutionStepDefinitionExecutionEVMTransactionBorrowError struct {
+	// Error message
+	Message string `json:"message,required"`
+	// Error parameters
+	Params map[string]any `json:"params,required"`
+	// Error type
+	Type string `json:"type,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Message     respjson.Field
+		Params      respjson.Field
+		Type        respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r ExecutionStepDefinitionExecutionEVMTransactionBorrowError) RawJSON() string {
+	return r.JSON.raw
+}
+func (r *ExecutionStepDefinitionExecutionEVMTransactionBorrowError) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
