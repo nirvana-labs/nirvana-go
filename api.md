@@ -488,6 +488,12 @@ Methods:
 
 - <code title="post /v1/vektor/borrow/borrow">client.Vektor.Borrow.Borrow.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor#BorrowBorrowService.New">New</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, body <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor">vektor</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor#BorrowBorrowNewParams">BorrowBorrowNewParams</a>) (<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor">vektor</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor#Execution">Execution</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
 
+### Repay
+
+Methods:
+
+- <code title="post /v1/vektor/borrow/repay">client.Vektor.Borrow.Repay.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor#BorrowRepayService.New">New</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, body <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor">vektor</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor#BorrowRepayNewParams">BorrowRepayNewParams</a>) (<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor">vektor</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor#Execution">Execution</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
+
 ## LP
 
 ### Pools
