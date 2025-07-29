@@ -18,6 +18,7 @@ type BorrowService struct {
 	Positions BorrowPositionService
 	Accounts  BorrowAccountService
 	Borrow    BorrowBorrowService
+	Repay     BorrowRepayService
 }
 
 // NewBorrowService generates a new service that applies the given options to each
@@ -30,5 +31,6 @@ func NewBorrowService(opts ...option.RequestOption) (r BorrowService) {
 	r.Positions = NewBorrowPositionService(opts...)
 	r.Accounts = NewBorrowAccountService(opts...)
 	r.Borrow = NewBorrowBorrowService(opts...)
+	r.Repay = NewBorrowRepayService(opts...)
 	return
 }

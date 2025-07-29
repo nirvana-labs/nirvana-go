@@ -80,7 +80,7 @@ type ExecutionStepGetResponse struct {
 	// The type of an execution step
 	//
 	// Any of "evm_transaction_approve", "evm_transaction_borrow",
-	// "evm_transaction_buy", "evm_transaction_lend",
+	// "evm_transaction_borrow_repay", "evm_transaction_buy", "evm_transaction_lend",
 	// "evm_transaction_lend_set_collateral", "evm_transaction_lend_withdraw",
 	// "evm_transaction_move", "evm_transaction_permission", "evm_transaction_wrap",
 	// "evm_transaction_unwrap", "evm_transaction_sell".
@@ -109,6 +109,7 @@ func (r *ExecutionStepGetResponse) UnmarshalJSON(data []byte) error {
 // ExecutionStepGetResponseDefinitionUnion contains all possible properties and
 // values from [ExecutionStepGetResponseDefinitionExecutionEVMTransactionApprove],
 // [ExecutionStepGetResponseDefinitionExecutionEVMTransactionBorrow],
+// [ExecutionStepGetResponseDefinitionExecutionEVMTransactionBorrowRepay],
 // [ExecutionStepGetResponseDefinitionExecutionEVMTransactionBuy],
 // [ExecutionStepGetResponseDefinitionExecutionEVMTransactionLend],
 // [ExecutionStepGetResponseDefinitionExecutionEVMTransactionLendSetCollateral],
@@ -137,6 +138,7 @@ type ExecutionStepGetResponseDefinitionUnion struct {
 	// This field is a union of
 	// [ExecutionStepGetResponseDefinitionExecutionEVMTransactionApproveError],
 	// [ExecutionStepGetResponseDefinitionExecutionEVMTransactionBorrowError],
+	// [ExecutionStepGetResponseDefinitionExecutionEVMTransactionBorrowRepayError],
 	// [ExecutionStepGetResponseDefinitionExecutionEVMTransactionBuyError],
 	// [ExecutionStepGetResponseDefinitionExecutionEVMTransactionLendError],
 	// [ExecutionStepGetResponseDefinitionExecutionEVMTransactionLendSetCollateralError],
@@ -241,6 +243,11 @@ func (u ExecutionStepGetResponseDefinitionUnion) AsExecutionEVMTransactionApprov
 }
 
 func (u ExecutionStepGetResponseDefinitionUnion) AsExecutionEVMTransactionBorrow() (v ExecutionStepGetResponseDefinitionExecutionEVMTransactionBorrow) {
+	apijson.UnmarshalRoot(json.RawMessage(u.JSON.raw), &v)
+	return
+}
+
+func (u ExecutionStepGetResponseDefinitionUnion) AsExecutionEVMTransactionBorrowRepay() (v ExecutionStepGetResponseDefinitionExecutionEVMTransactionBorrowRepay) {
 	apijson.UnmarshalRoot(json.RawMessage(u.JSON.raw), &v)
 	return
 }
@@ -655,6 +662,117 @@ func (r ExecutionStepGetResponseDefinitionExecutionEVMTransactionBorrowError) Ra
 	return r.JSON.raw
 }
 func (r *ExecutionStepGetResponseDefinitionExecutionEVMTransactionBorrowError) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// Repaying a borrowed asset
+type ExecutionStepGetResponseDefinitionExecutionEVMTransactionBorrowRepay struct {
+	// An arbitrary precision decimal represented as a string
+	Amount string `json:"amount,required"`
+	// On-chain asset (aka token)
+	Asset       Asset `json:"asset,required"`
+	BlockNumber int64 `json:"block_number,required"`
+	// ISO8601 Timestamp
+	BroadcastedAt      string `json:"broadcasted_at,required"`
+	ConfirmationTarget int64  `json:"confirmation_target,required"`
+	// ISO8601 Timestamp
+	ConfirmedAt string `json:"confirmed_at,required"`
+	// ISO8601 Timestamp
+	CreatedAt Timestamp `json:"created_at,required"`
+	// A hex string starting with 0x
+	Data string `json:"data,required"`
+	// An arbitrary precision decimal represented as a string
+	EffectiveGasPrice string `json:"effective_gas_price,required"`
+	// An error
+	Error ExecutionStepGetResponseDefinitionExecutionEVMTransactionBorrowRepayError `json:"error,required"`
+	// ISO8601 Timestamp
+	ErroredAt string `json:"errored_at,required"`
+	// An arbitrary precision decimal represented as a string
+	GasUsed string `json:"gas_used,required"`
+	// A transaction hash
+	Hash string `json:"hash,required"`
+	// A lend/borrow market ID, represented as a TypeID with `lend_borrow_market`
+	// prefix
+	LendBorrowMarketID LendBorrowMarketID `json:"lend_borrow_market_id,required"`
+	// The payload of an EIP-1559 transaction
+	Payload ExecutionEVMTransactionEIP1559Payload `json:"payload,required"`
+	// ISO8601 Timestamp
+	SignedAt string `json:"signed_at,required"`
+	// The state of an EVM transaction
+	//
+	// Any of "not_started", "signature_required", "signed", "broadcasted",
+	// "confirmed", "error".
+	State ExecutionEVMTransactionState `json:"state,required"`
+	// The state of an EVM transaction
+	//
+	// Any of "not_started", "signature_required", "signed", "broadcasted",
+	// "confirmed", "error".
+	TargetState ExecutionEVMTransactionState `json:"target_state,required"`
+	// An EVM address
+	To string `json:"to,required"`
+	// ISO8601 Timestamp
+	UpdatedAt Timestamp `json:"updated_at,required"`
+	// An arbitrary precision decimal represented as a string
+	Value string `json:"value,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Amount             respjson.Field
+		Asset              respjson.Field
+		BlockNumber        respjson.Field
+		BroadcastedAt      respjson.Field
+		ConfirmationTarget respjson.Field
+		ConfirmedAt        respjson.Field
+		CreatedAt          respjson.Field
+		Data               respjson.Field
+		EffectiveGasPrice  respjson.Field
+		Error              respjson.Field
+		ErroredAt          respjson.Field
+		GasUsed            respjson.Field
+		Hash               respjson.Field
+		LendBorrowMarketID respjson.Field
+		Payload            respjson.Field
+		SignedAt           respjson.Field
+		State              respjson.Field
+		TargetState        respjson.Field
+		To                 respjson.Field
+		UpdatedAt          respjson.Field
+		Value              respjson.Field
+		ExtraFields        map[string]respjson.Field
+		raw                string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r ExecutionStepGetResponseDefinitionExecutionEVMTransactionBorrowRepay) RawJSON() string {
+	return r.JSON.raw
+}
+func (r *ExecutionStepGetResponseDefinitionExecutionEVMTransactionBorrowRepay) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// An error
+type ExecutionStepGetResponseDefinitionExecutionEVMTransactionBorrowRepayError struct {
+	// Error message
+	Message string `json:"message,required"`
+	// Error parameters
+	Params map[string]any `json:"params,required"`
+	// Error type
+	Type string `json:"type,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Message     respjson.Field
+		Params      respjson.Field
+		Type        respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r ExecutionStepGetResponseDefinitionExecutionEVMTransactionBorrowRepayError) RawJSON() string {
+	return r.JSON.raw
+}
+func (r *ExecutionStepGetResponseDefinitionExecutionEVMTransactionBorrowRepayError) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -1655,6 +1773,7 @@ type ExecutionStepGetResponseType string
 const (
 	ExecutionStepGetResponseTypeEVMTransactionApprove           ExecutionStepGetResponseType = "evm_transaction_approve"
 	ExecutionStepGetResponseTypeEVMTransactionBorrow            ExecutionStepGetResponseType = "evm_transaction_borrow"
+	ExecutionStepGetResponseTypeEVMTransactionBorrowRepay       ExecutionStepGetResponseType = "evm_transaction_borrow_repay"
 	ExecutionStepGetResponseTypeEVMTransactionBuy               ExecutionStepGetResponseType = "evm_transaction_buy"
 	ExecutionStepGetResponseTypeEVMTransactionLend              ExecutionStepGetResponseType = "evm_transaction_lend"
 	ExecutionStepGetResponseTypeEVMTransactionLendSetCollateral ExecutionStepGetResponseType = "evm_transaction_lend_set_collateral"
