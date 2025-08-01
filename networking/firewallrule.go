@@ -115,7 +115,7 @@ type FirewallRule struct {
 	ID string `json:"id,required"`
 	// When the firewall rule was created.
 	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
-	// Destination address of the firewall rule.
+	// Destination address of the firewall rule. Either VPC CIDR or VM in VPC.
 	DestinationAddress string `json:"destination_address,required"`
 	// Destination ports of the firewall rule.
 	DestinationPorts []string `json:"destination_ports,required"`
@@ -125,7 +125,8 @@ type FirewallRule struct {
 	//
 	// Any of "tcp", "udp".
 	Protocol FirewallRuleProtocol `json:"protocol,required"`
-	// Source address of the firewall rule.
+	// Source address of the firewall rule. Address of 0.0.0.0 requires a CIDR mask
+	// of 0.
 	SourceAddress string `json:"source_address,required"`
 	// Status of the resource.
 	//
@@ -184,7 +185,7 @@ func (r *FirewallRuleList) UnmarshalJSON(data []byte) error {
 }
 
 type FirewallRuleNewParams struct {
-	// Destination address of the firewall rule.
+	// Destination address of the firewall rule. Either VPC CIDR or VM in VPC.
 	DestinationAddress string `json:"destination_address,required"`
 	// Destination ports of the firewall rule.
 	DestinationPorts []string `json:"destination_ports,omitzero,required"`
@@ -194,7 +195,8 @@ type FirewallRuleNewParams struct {
 	//
 	// Any of "tcp", "udp".
 	Protocol FirewallRuleNewParamsProtocol `json:"protocol,omitzero,required"`
-	// Source address of the firewall rule.
+	// Source address of the firewall rule. Address of 0.0.0.0 requires a CIDR mask
+	// of 0.
 	SourceAddress string `json:"source_address,required"`
 	paramObj
 }
@@ -216,11 +218,12 @@ const (
 )
 
 type FirewallRuleUpdateParams struct {
-	// Destination address of the firewall rule.
+	// Destination address of the firewall rule. Either VPC CIDR or VM in VPC.
 	DestinationAddress param.Opt[string] `json:"destination_address,omitzero"`
 	// Name of the firewall rule.
 	Name param.Opt[string] `json:"name,omitzero"`
-	// Source address of the firewall rule.
+	// Source address of the firewall rule. Address of 0.0.0.0 requires a CIDR mask
+	// of 0.
 	SourceAddress param.Opt[string] `json:"source_address,omitzero"`
 	// Destination ports of the firewall rule.
 	DestinationPorts []string `json:"destination_ports,omitzero"`
