@@ -56,15 +56,24 @@ func (r *DedicatedService) Get(ctx context.Context, nodeID string, opts ...optio
 	return
 }
 
+// RPC Node Dedicated details.
 type RPCNodesDedicated struct {
-	ID         string    `json:"id,required"`
-	Blockchain string    `json:"blockchain,required"`
-	CreatedAt  time.Time `json:"created_at,required" format:"date-time"`
-	Endpoint   string    `json:"endpoint,required"`
-	Name       string    `json:"name,required"`
-	Network    string    `json:"network,required"`
-	UpdatedAt  time.Time `json:"updated_at,required" format:"date-time"`
-	UserID     string    `json:"user_id,required"`
+	// Unique identifier for the RPC Node Dedicated.
+	ID string `json:"id,required"`
+	// Blockchain type.
+	Blockchain string `json:"blockchain,required"`
+	// When the RPC Node Dedicated was created.
+	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
+	// RPC endpoint URL.
+	Endpoint string `json:"endpoint,required"`
+	// Name of the RPC Node Dedicated.
+	Name string `json:"name,required"`
+	// Network type (e.g., mainnet, testnet).
+	Network string `json:"network,required"`
+	// When the RPC Node Dedicated was updated.
+	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
+	// User ID associated with the RPC Node Dedicated.
+	UserID string `json:"user_id,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field
@@ -86,10 +95,12 @@ func (r *RPCNodesDedicated) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// Blockchain supported by a dedicated node.
+// Blockchain supported by the Dedicated RPC Node.
 type RPCNodesDedicatedBlockchain struct {
+	// Blockchain type.
 	Blockchain string `json:"blockchain,required"`
-	Network    string `json:"network,required"`
+	// Network type (e.g., mainnet, testnet).
+	Network string `json:"network,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Blockchain  respjson.Field
