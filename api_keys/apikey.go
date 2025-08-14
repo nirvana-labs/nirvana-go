@@ -43,7 +43,7 @@ func (r *APIKeyService) New(ctx context.Context, body APIKeyNewParams, opts ...o
 	return
 }
 
-// Update an API key's name
+// Update an existing API key
 func (r *APIKeyService) Update(ctx context.Context, apiKeyID string, body APIKeyUpdateParams, opts ...option.RequestOption) (res *APIKey, err error) {
 	opts = append(r.Options[:], opts...)
 	if apiKeyID == "" {
@@ -55,7 +55,7 @@ func (r *APIKeyService) Update(ctx context.Context, apiKeyID string, body APIKey
 	return
 }
 
-// List all API keys you created
+// List all API keys for the authenticated user
 func (r *APIKeyService) List(ctx context.Context, opts ...option.RequestOption) (res *APIKeyList, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "v1/api_keys"
