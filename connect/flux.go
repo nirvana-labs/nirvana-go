@@ -43,7 +43,7 @@ func (r *FluxService) List(ctx context.Context, opts ...option.RequestOption) (r
 	return
 }
 
-// Get details about a Connect Flux
+// Get Connect Flux details
 func (r *FluxService) Get(ctx context.Context, fluxID string, opts ...option.RequestOption) (res *ConnectFlux, err error) {
 	opts = append(r.Options[:], opts...)
 	if fluxID == "" {

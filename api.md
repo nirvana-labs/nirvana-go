@@ -297,7 +297,6 @@ Response Types:
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor">vektor</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor#RegistryLPPool">RegistryLPPool</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor">vektor</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor#SellQuote">SellQuote</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor">vektor</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor#Timestamp">Timestamp</a>
-- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor">vektor</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor#VektorError">VektorError</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor">vektor</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor#Venue">Venue</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor">vektor</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor#VenueID">VenueID</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor">vektor</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor#VenueSymbol">VenueSymbol</a>

@@ -42,7 +42,7 @@ func (r *RegistryErrorService) List(ctx context.Context, body RegistryErrorListP
 
 type RegistryErrorListResponse struct {
 	// A list of errors
-	Items []VektorError `json:"items,required"`
+	Items []RegistryErrorListResponseItem `json:"items,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
@@ -54,6 +54,30 @@ type RegistryErrorListResponse struct {
 // Returns the unmodified JSON received from the API
 func (r RegistryErrorListResponse) RawJSON() string { return r.JSON.raw }
 func (r *RegistryErrorListResponse) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// An error
+type RegistryErrorListResponseItem struct {
+	// Error message
+	Message string `json:"message,required"`
+	// Error parameters
+	Params map[string]any `json:"params,required"`
+	// Error type
+	Type string `json:"type,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Message     respjson.Field
+		Params      respjson.Field
+		Type        respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r RegistryErrorListResponseItem) RawJSON() string { return r.JSON.raw }
+func (r *RegistryErrorListResponseItem) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
