@@ -72,8 +72,6 @@ type RPCNodesDedicated struct {
 	Network string `json:"network,required"`
 	// When the RPC Node Dedicated was updated.
 	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
-	// User ID associated with the RPC Node Dedicated.
-	UserID string `json:"user_id,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field
@@ -83,7 +81,6 @@ type RPCNodesDedicated struct {
 		Name        respjson.Field
 		Network     respjson.Field
 		UpdatedAt   respjson.Field
-		UserID      respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`
