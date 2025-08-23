@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.11.0 (2025-08-23)
+
+Full Changelog: [v1.10.1...v1.11.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.10.1...v1.11.0)
+
+### Features
+
+* **api:** api update ([ce38a2b](https://github.com/nirvana-labs/nirvana-go/commit/ce38a2b99f0513ca205f1ac9d6477addfbc697e2))
+* **api:** api update ([18e18b6](https://github.com/nirvana-labs/nirvana-go/commit/18e18b6fdc3ee02ae87c80c750cbbc04b83f44c2))
+* **api:** api update ([5f9150b](https://github.com/nirvana-labs/nirvana-go/commit/5f9150b081d74c8190bb0ee531019058aa0a80bd))
+* **api:** api update ([1aa5d1f](https://github.com/nirvana-labs/nirvana-go/commit/1aa5d1f3202fc0d04d2af2ed11d40abaf4c1c345))
+* **client:** support optional json html escaping ([8d495ae](https://github.com/nirvana-labs/nirvana-go/commit/8d495ae668afb78479518839bb3788cb3284be9f))
+
+
+### Chores
+
+* **internal:** codegen related update ([b2f80eb](https://github.com/nirvana-labs/nirvana-go/commit/b2f80ebf127e042fd37961b8169258bb46de617a))
+* **internal:** update comment in script ([8555918](https://github.com/nirvana-labs/nirvana-go/commit/85559188938d831db00e25f96a465b2059199c94))
+* update @stainless-api/prism-cli to v5.15.0 ([ffd16d4](https://github.com/nirvana-labs/nirvana-go/commit/ffd16d472f2d447b020b0c843c1c069fd6c21495))
+
 ## 1.10.1 (2025-08-01)
 
 Full Changelog: [v1.10.0...v1.10.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.10.0...v1.10.1)
