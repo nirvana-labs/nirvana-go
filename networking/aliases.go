@@ -33,12 +33,6 @@ const RegionNameUsChi1 = shared.RegionNameUsChi1
 // Equals "us-wdc-1"
 const RegionNameUsWdc1 = shared.RegionNameUsWdc1
 
-// Equals "eu-lon-1"
-const RegionNameEuLon1 = shared.RegionNameEuLon1
-
-// Equals "eu-ams-1"
-const RegionNameEuAms1 = shared.RegionNameEuAms1
-
 // Equals "eu-frk-1"
 const RegionNameEuFrk1 = shared.RegionNameEuFrk1
 

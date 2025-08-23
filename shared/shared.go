@@ -20,8 +20,6 @@ const (
 	RegionNameUsSva1 RegionName = "us-sva-1"
 	RegionNameUsChi1 RegionName = "us-chi-1"
 	RegionNameUsWdc1 RegionName = "us-wdc-1"
-	RegionNameEuLon1 RegionName = "eu-lon-1"
-	RegionNameEuAms1 RegionName = "eu-ams-1"
 	RegionNameEuFrk1 RegionName = "eu-frk-1"
 	RegionNameApSin1 RegionName = "ap-sin-1"
 	RegionNameApSeo1 RegionName = "ap-seo-1"

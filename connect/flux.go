@@ -43,7 +43,7 @@ func (r *FluxService) List(ctx context.Context, opts ...option.RequestOption) (r
 	return
 }
 
-// Get details about a Connect Flux
+// Get Connect Flux details
 func (r *FluxService) Get(ctx context.Context, fluxID string, opts ...option.RequestOption) (res *ConnectFlux, err error) {
 	opts = append(r.Options[:], opts...)
 	if fluxID == "" {
@@ -77,8 +77,8 @@ type ConnectFlux struct {
 	ProviderRegion string `json:"provider_region,required"`
 	// Region the resource is in.
 	//
-	// Any of "us-sea-1", "us-sva-1", "us-chi-1", "us-wdc-1", "eu-lon-1", "eu-ams-1",
-	// "eu-frk-1", "ap-sin-1", "ap-seo-1", "ap-tyo-1".
+	// Any of "us-sea-1", "us-sva-1", "us-chi-1", "us-wdc-1", "eu-frk-1", "ap-sin-1",
+	// "ap-seo-1", "ap-tyo-1".
 	Region shared.RegionName `json:"region,required"`
 	// Status of the resource.
 	//
