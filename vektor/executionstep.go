@@ -312,18 +312,58 @@ func (r *ExecutionStepGetResponseDefinitionUnion) UnmarshalJSON(data []byte) err
 // For type safety it is recommended to directly use a variant of the
 // [ExecutionStepGetResponseDefinitionUnion].
 type ExecutionStepGetResponseDefinitionUnionError struct {
-	Message string `json:"message"`
-	Params  any    `json:"params"`
-	Type    string `json:"type"`
-	JSON    struct {
-		Message respjson.Field
-		Params  respjson.Field
-		Type    respjson.Field
-		raw     string
+	// This field is a union of
+	// [ExecutionStepGetResponseDefinitionExecutionEVMTransactionApproveErrorContext],
+	// [ExecutionStepGetResponseDefinitionExecutionEVMTransactionBorrowErrorContext],
+	// [ExecutionStepGetResponseDefinitionExecutionEVMTransactionBorrowRepayErrorContext],
+	// [ExecutionStepGetResponseDefinitionExecutionEVMTransactionBuyErrorContext],
+	// [ExecutionStepGetResponseDefinitionExecutionEVMTransactionLendErrorContext],
+	// [ExecutionStepGetResponseDefinitionExecutionEVMTransactionLendSetCollateralErrorContext],
+	// [ExecutionStepGetResponseDefinitionExecutionEVMTransactionLendWithdrawErrorContext],
+	// [ExecutionStepGetResponseDefinitionExecutionEVMTransactionMoveErrorContext],
+	// [ExecutionStepGetResponseDefinitionExecutionEVMTransactionPermissionErrorContext],
+	// [ExecutionStepGetResponseDefinitionExecutionEVMTransactionUnwrapErrorContext],
+	// [ExecutionStepGetResponseDefinitionExecutionEVMTransactionWrapErrorContext],
+	// [ExecutionStepGetResponseDefinitionExecutionEVMTransactionSellErrorContext]
+	Context   ExecutionStepGetResponseDefinitionUnionErrorContext `json:"context"`
+	Message   string                                              `json:"message"`
+	RequestID string                                              `json:"request_id"`
+	Resource  string                                              `json:"resource"`
+	// This field is from variant
+	// [ExecutionStepGetResponseDefinitionExecutionEVMTransactionApproveError].
+	Timestamp Timestamp `json:"timestamp"`
+	Type      string    `json:"type"`
+	JSON      struct {
+		Context   respjson.Field
+		Message   respjson.Field
+		RequestID respjson.Field
+		Resource  respjson.Field
+		Timestamp respjson.Field
+		Type      respjson.Field
+		raw       string
 	} `json:"-"`
 }
 
 func (r *ExecutionStepGetResponseDefinitionUnionError) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// ExecutionStepGetResponseDefinitionUnionErrorContext is an implicit subunion of
+// [ExecutionStepGetResponseDefinitionUnion].
+// ExecutionStepGetResponseDefinitionUnionErrorContext provides convenient access
+// to the sub-properties of the union.
+//
+// For type safety it is recommended to directly use a variant of the
+// [ExecutionStepGetResponseDefinitionUnion].
+type ExecutionStepGetResponseDefinitionUnionErrorContext struct {
+	Parameters any `json:"parameters"`
+	JSON       struct {
+		Parameters respjson.Field
+		raw        string
+	} `json:"-"`
+}
+
+func (r *ExecutionStepGetResponseDefinitionUnionErrorContext) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -454,7 +494,7 @@ type ExecutionStepGetResponseDefinitionExecutionEVMTransactionApprove struct {
 	Data string `json:"data,required"`
 	// An arbitrary precision decimal represented as a string
 	EffectiveGasPrice string `json:"effective_gas_price,required"`
-	// An error
+	// Vektor error
 	Error ExecutionStepGetResponseDefinitionExecutionEVMTransactionApproveError `json:"error,required"`
 	// ISO8601 Timestamp
 	ErroredAt string `json:"errored_at,required"`
@@ -525,18 +565,27 @@ func (r *ExecutionStepGetResponseDefinitionExecutionEVMTransactionApprove) Unmar
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// An error
+// Vektor error
 type ExecutionStepGetResponseDefinitionExecutionEVMTransactionApproveError struct {
+	// Error context
+	Context ExecutionStepGetResponseDefinitionExecutionEVMTransactionApproveErrorContext `json:"context,required"`
 	// Error message
 	Message string `json:"message,required"`
-	// Error parameters
-	Params map[string]any `json:"params,required"`
+	// Request ID
+	RequestID string `json:"request_id,required"`
+	// Error resource
+	Resource string `json:"resource,required"`
+	// ISO8601 Timestamp
+	Timestamp Timestamp `json:"timestamp,required"`
 	// Error type
 	Type string `json:"type,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
+		Context     respjson.Field
 		Message     respjson.Field
-		Params      respjson.Field
+		RequestID   respjson.Field
+		Resource    respjson.Field
+		Timestamp   respjson.Field
 		Type        respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
@@ -548,6 +597,26 @@ func (r ExecutionStepGetResponseDefinitionExecutionEVMTransactionApproveError) R
 	return r.JSON.raw
 }
 func (r *ExecutionStepGetResponseDefinitionExecutionEVMTransactionApproveError) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// Error context
+type ExecutionStepGetResponseDefinitionExecutionEVMTransactionApproveErrorContext struct {
+	// Error parameters
+	Parameters map[string]any `json:"parameters,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Parameters  respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r ExecutionStepGetResponseDefinitionExecutionEVMTransactionApproveErrorContext) RawJSON() string {
+	return r.JSON.raw
+}
+func (r *ExecutionStepGetResponseDefinitionExecutionEVMTransactionApproveErrorContext) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -569,7 +638,7 @@ type ExecutionStepGetResponseDefinitionExecutionEVMTransactionBorrow struct {
 	Data string `json:"data,required"`
 	// An arbitrary precision decimal represented as a string
 	EffectiveGasPrice string `json:"effective_gas_price,required"`
-	// An error
+	// Vektor error
 	Error ExecutionStepGetResponseDefinitionExecutionEVMTransactionBorrowError `json:"error,required"`
 	// ISO8601 Timestamp
 	ErroredAt string `json:"errored_at,required"`
@@ -639,18 +708,27 @@ func (r *ExecutionStepGetResponseDefinitionExecutionEVMTransactionBorrow) Unmars
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// An error
+// Vektor error
 type ExecutionStepGetResponseDefinitionExecutionEVMTransactionBorrowError struct {
+	// Error context
+	Context ExecutionStepGetResponseDefinitionExecutionEVMTransactionBorrowErrorContext `json:"context,required"`
 	// Error message
 	Message string `json:"message,required"`
-	// Error parameters
-	Params map[string]any `json:"params,required"`
+	// Request ID
+	RequestID string `json:"request_id,required"`
+	// Error resource
+	Resource string `json:"resource,required"`
+	// ISO8601 Timestamp
+	Timestamp Timestamp `json:"timestamp,required"`
 	// Error type
 	Type string `json:"type,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
+		Context     respjson.Field
 		Message     respjson.Field
-		Params      respjson.Field
+		RequestID   respjson.Field
+		Resource    respjson.Field
+		Timestamp   respjson.Field
 		Type        respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
@@ -662,6 +740,26 @@ func (r ExecutionStepGetResponseDefinitionExecutionEVMTransactionBorrowError) Ra
 	return r.JSON.raw
 }
 func (r *ExecutionStepGetResponseDefinitionExecutionEVMTransactionBorrowError) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// Error context
+type ExecutionStepGetResponseDefinitionExecutionEVMTransactionBorrowErrorContext struct {
+	// Error parameters
+	Parameters map[string]any `json:"parameters,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Parameters  respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r ExecutionStepGetResponseDefinitionExecutionEVMTransactionBorrowErrorContext) RawJSON() string {
+	return r.JSON.raw
+}
+func (r *ExecutionStepGetResponseDefinitionExecutionEVMTransactionBorrowErrorContext) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -683,7 +781,7 @@ type ExecutionStepGetResponseDefinitionExecutionEVMTransactionBorrowRepay struct
 	Data string `json:"data,required"`
 	// An arbitrary precision decimal represented as a string
 	EffectiveGasPrice string `json:"effective_gas_price,required"`
-	// An error
+	// Vektor error
 	Error ExecutionStepGetResponseDefinitionExecutionEVMTransactionBorrowRepayError `json:"error,required"`
 	// ISO8601 Timestamp
 	ErroredAt string `json:"errored_at,required"`
@@ -750,18 +848,27 @@ func (r *ExecutionStepGetResponseDefinitionExecutionEVMTransactionBorrowRepay) U
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// An error
+// Vektor error
 type ExecutionStepGetResponseDefinitionExecutionEVMTransactionBorrowRepayError struct {
+	// Error context
+	Context ExecutionStepGetResponseDefinitionExecutionEVMTransactionBorrowRepayErrorContext `json:"context,required"`
 	// Error message
 	Message string `json:"message,required"`
-	// Error parameters
-	Params map[string]any `json:"params,required"`
+	// Request ID
+	RequestID string `json:"request_id,required"`
+	// Error resource
+	Resource string `json:"resource,required"`
+	// ISO8601 Timestamp
+	Timestamp Timestamp `json:"timestamp,required"`
 	// Error type
 	Type string `json:"type,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
+		Context     respjson.Field
 		Message     respjson.Field
-		Params      respjson.Field
+		RequestID   respjson.Field
+		Resource    respjson.Field
+		Timestamp   respjson.Field
 		Type        respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
@@ -773,6 +880,26 @@ func (r ExecutionStepGetResponseDefinitionExecutionEVMTransactionBorrowRepayErro
 	return r.JSON.raw
 }
 func (r *ExecutionStepGetResponseDefinitionExecutionEVMTransactionBorrowRepayError) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// Error context
+type ExecutionStepGetResponseDefinitionExecutionEVMTransactionBorrowRepayErrorContext struct {
+	// Error parameters
+	Parameters map[string]any `json:"parameters,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Parameters  respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r ExecutionStepGetResponseDefinitionExecutionEVMTransactionBorrowRepayErrorContext) RawJSON() string {
+	return r.JSON.raw
+}
+func (r *ExecutionStepGetResponseDefinitionExecutionEVMTransactionBorrowRepayErrorContext) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -792,7 +919,7 @@ type ExecutionStepGetResponseDefinitionExecutionEVMTransactionBuy struct {
 	Data string `json:"data,required"`
 	// An arbitrary precision decimal represented as a string
 	EffectiveGasPrice string `json:"effective_gas_price,required"`
-	// An error
+	// Vektor error
 	Error ExecutionStepGetResponseDefinitionExecutionEVMTransactionBuyError `json:"error,required"`
 	// ISO8601 Timestamp
 	ErroredAt string `json:"errored_at,required"`
@@ -863,18 +990,27 @@ func (r *ExecutionStepGetResponseDefinitionExecutionEVMTransactionBuy) Unmarshal
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// An error
+// Vektor error
 type ExecutionStepGetResponseDefinitionExecutionEVMTransactionBuyError struct {
+	// Error context
+	Context ExecutionStepGetResponseDefinitionExecutionEVMTransactionBuyErrorContext `json:"context,required"`
 	// Error message
 	Message string `json:"message,required"`
-	// Error parameters
-	Params map[string]any `json:"params,required"`
+	// Request ID
+	RequestID string `json:"request_id,required"`
+	// Error resource
+	Resource string `json:"resource,required"`
+	// ISO8601 Timestamp
+	Timestamp Timestamp `json:"timestamp,required"`
 	// Error type
 	Type string `json:"type,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
+		Context     respjson.Field
 		Message     respjson.Field
-		Params      respjson.Field
+		RequestID   respjson.Field
+		Resource    respjson.Field
+		Timestamp   respjson.Field
 		Type        respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
@@ -886,6 +1022,26 @@ func (r ExecutionStepGetResponseDefinitionExecutionEVMTransactionBuyError) RawJS
 	return r.JSON.raw
 }
 func (r *ExecutionStepGetResponseDefinitionExecutionEVMTransactionBuyError) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// Error context
+type ExecutionStepGetResponseDefinitionExecutionEVMTransactionBuyErrorContext struct {
+	// Error parameters
+	Parameters map[string]any `json:"parameters,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Parameters  respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r ExecutionStepGetResponseDefinitionExecutionEVMTransactionBuyErrorContext) RawJSON() string {
+	return r.JSON.raw
+}
+func (r *ExecutionStepGetResponseDefinitionExecutionEVMTransactionBuyErrorContext) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -907,7 +1063,7 @@ type ExecutionStepGetResponseDefinitionExecutionEVMTransactionLend struct {
 	Data string `json:"data,required"`
 	// An arbitrary precision decimal represented as a string
 	EffectiveGasPrice string `json:"effective_gas_price,required"`
-	// An error
+	// Vektor error
 	Error ExecutionStepGetResponseDefinitionExecutionEVMTransactionLendError `json:"error,required"`
 	// ISO8601 Timestamp
 	ErroredAt string `json:"errored_at,required"`
@@ -977,18 +1133,27 @@ func (r *ExecutionStepGetResponseDefinitionExecutionEVMTransactionLend) Unmarsha
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// An error
+// Vektor error
 type ExecutionStepGetResponseDefinitionExecutionEVMTransactionLendError struct {
+	// Error context
+	Context ExecutionStepGetResponseDefinitionExecutionEVMTransactionLendErrorContext `json:"context,required"`
 	// Error message
 	Message string `json:"message,required"`
-	// Error parameters
-	Params map[string]any `json:"params,required"`
+	// Request ID
+	RequestID string `json:"request_id,required"`
+	// Error resource
+	Resource string `json:"resource,required"`
+	// ISO8601 Timestamp
+	Timestamp Timestamp `json:"timestamp,required"`
 	// Error type
 	Type string `json:"type,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
+		Context     respjson.Field
 		Message     respjson.Field
-		Params      respjson.Field
+		RequestID   respjson.Field
+		Resource    respjson.Field
+		Timestamp   respjson.Field
 		Type        respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
@@ -1000,6 +1165,26 @@ func (r ExecutionStepGetResponseDefinitionExecutionEVMTransactionLendError) RawJ
 	return r.JSON.raw
 }
 func (r *ExecutionStepGetResponseDefinitionExecutionEVMTransactionLendError) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// Error context
+type ExecutionStepGetResponseDefinitionExecutionEVMTransactionLendErrorContext struct {
+	// Error parameters
+	Parameters map[string]any `json:"parameters,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Parameters  respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r ExecutionStepGetResponseDefinitionExecutionEVMTransactionLendErrorContext) RawJSON() string {
+	return r.JSON.raw
+}
+func (r *ExecutionStepGetResponseDefinitionExecutionEVMTransactionLendErrorContext) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -1017,7 +1202,7 @@ type ExecutionStepGetResponseDefinitionExecutionEVMTransactionLendSetCollateral 
 	Data string `json:"data,required"`
 	// An arbitrary precision decimal represented as a string
 	EffectiveGasPrice string `json:"effective_gas_price,required"`
-	// An error
+	// Vektor error
 	Error ExecutionStepGetResponseDefinitionExecutionEVMTransactionLendSetCollateralError `json:"error,required"`
 	// ISO8601 Timestamp
 	ErroredAt string `json:"errored_at,required"`
@@ -1084,18 +1269,27 @@ func (r *ExecutionStepGetResponseDefinitionExecutionEVMTransactionLendSetCollate
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// An error
+// Vektor error
 type ExecutionStepGetResponseDefinitionExecutionEVMTransactionLendSetCollateralError struct {
+	// Error context
+	Context ExecutionStepGetResponseDefinitionExecutionEVMTransactionLendSetCollateralErrorContext `json:"context,required"`
 	// Error message
 	Message string `json:"message,required"`
-	// Error parameters
-	Params map[string]any `json:"params,required"`
+	// Request ID
+	RequestID string `json:"request_id,required"`
+	// Error resource
+	Resource string `json:"resource,required"`
+	// ISO8601 Timestamp
+	Timestamp Timestamp `json:"timestamp,required"`
 	// Error type
 	Type string `json:"type,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
+		Context     respjson.Field
 		Message     respjson.Field
-		Params      respjson.Field
+		RequestID   respjson.Field
+		Resource    respjson.Field
+		Timestamp   respjson.Field
 		Type        respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
@@ -1107,6 +1301,26 @@ func (r ExecutionStepGetResponseDefinitionExecutionEVMTransactionLendSetCollater
 	return r.JSON.raw
 }
 func (r *ExecutionStepGetResponseDefinitionExecutionEVMTransactionLendSetCollateralError) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// Error context
+type ExecutionStepGetResponseDefinitionExecutionEVMTransactionLendSetCollateralErrorContext struct {
+	// Error parameters
+	Parameters map[string]any `json:"parameters,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Parameters  respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r ExecutionStepGetResponseDefinitionExecutionEVMTransactionLendSetCollateralErrorContext) RawJSON() string {
+	return r.JSON.raw
+}
+func (r *ExecutionStepGetResponseDefinitionExecutionEVMTransactionLendSetCollateralErrorContext) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -1128,7 +1342,7 @@ type ExecutionStepGetResponseDefinitionExecutionEVMTransactionLendWithdraw struc
 	Data string `json:"data,required"`
 	// An arbitrary precision decimal represented as a string
 	EffectiveGasPrice string `json:"effective_gas_price,required"`
-	// An error
+	// Vektor error
 	Error ExecutionStepGetResponseDefinitionExecutionEVMTransactionLendWithdrawError `json:"error,required"`
 	// ISO8601 Timestamp
 	ErroredAt string `json:"errored_at,required"`
@@ -1195,18 +1409,27 @@ func (r *ExecutionStepGetResponseDefinitionExecutionEVMTransactionLendWithdraw) 
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// An error
+// Vektor error
 type ExecutionStepGetResponseDefinitionExecutionEVMTransactionLendWithdrawError struct {
+	// Error context
+	Context ExecutionStepGetResponseDefinitionExecutionEVMTransactionLendWithdrawErrorContext `json:"context,required"`
 	// Error message
 	Message string `json:"message,required"`
-	// Error parameters
-	Params map[string]any `json:"params,required"`
+	// Request ID
+	RequestID string `json:"request_id,required"`
+	// Error resource
+	Resource string `json:"resource,required"`
+	// ISO8601 Timestamp
+	Timestamp Timestamp `json:"timestamp,required"`
 	// Error type
 	Type string `json:"type,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
+		Context     respjson.Field
 		Message     respjson.Field
-		Params      respjson.Field
+		RequestID   respjson.Field
+		Resource    respjson.Field
+		Timestamp   respjson.Field
 		Type        respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
@@ -1218,6 +1441,26 @@ func (r ExecutionStepGetResponseDefinitionExecutionEVMTransactionLendWithdrawErr
 	return r.JSON.raw
 }
 func (r *ExecutionStepGetResponseDefinitionExecutionEVMTransactionLendWithdrawError) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// Error context
+type ExecutionStepGetResponseDefinitionExecutionEVMTransactionLendWithdrawErrorContext struct {
+	// Error parameters
+	Parameters map[string]any `json:"parameters,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Parameters  respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r ExecutionStepGetResponseDefinitionExecutionEVMTransactionLendWithdrawErrorContext) RawJSON() string {
+	return r.JSON.raw
+}
+func (r *ExecutionStepGetResponseDefinitionExecutionEVMTransactionLendWithdrawErrorContext) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -1239,7 +1482,7 @@ type ExecutionStepGetResponseDefinitionExecutionEVMTransactionMove struct {
 	Data string `json:"data,required"`
 	// An arbitrary precision decimal represented as a string
 	EffectiveGasPrice string `json:"effective_gas_price,required"`
-	// An error
+	// Vektor error
 	Error ExecutionStepGetResponseDefinitionExecutionEVMTransactionMoveError `json:"error,required"`
 	// ISO8601 Timestamp
 	ErroredAt string `json:"errored_at,required"`
@@ -1302,18 +1545,27 @@ func (r *ExecutionStepGetResponseDefinitionExecutionEVMTransactionMove) Unmarsha
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// An error
+// Vektor error
 type ExecutionStepGetResponseDefinitionExecutionEVMTransactionMoveError struct {
+	// Error context
+	Context ExecutionStepGetResponseDefinitionExecutionEVMTransactionMoveErrorContext `json:"context,required"`
 	// Error message
 	Message string `json:"message,required"`
-	// Error parameters
-	Params map[string]any `json:"params,required"`
+	// Request ID
+	RequestID string `json:"request_id,required"`
+	// Error resource
+	Resource string `json:"resource,required"`
+	// ISO8601 Timestamp
+	Timestamp Timestamp `json:"timestamp,required"`
 	// Error type
 	Type string `json:"type,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
+		Context     respjson.Field
 		Message     respjson.Field
-		Params      respjson.Field
+		RequestID   respjson.Field
+		Resource    respjson.Field
+		Timestamp   respjson.Field
 		Type        respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
@@ -1325,6 +1577,26 @@ func (r ExecutionStepGetResponseDefinitionExecutionEVMTransactionMoveError) RawJ
 	return r.JSON.raw
 }
 func (r *ExecutionStepGetResponseDefinitionExecutionEVMTransactionMoveError) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// Error context
+type ExecutionStepGetResponseDefinitionExecutionEVMTransactionMoveErrorContext struct {
+	// Error parameters
+	Parameters map[string]any `json:"parameters,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Parameters  respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r ExecutionStepGetResponseDefinitionExecutionEVMTransactionMoveErrorContext) RawJSON() string {
+	return r.JSON.raw
+}
+func (r *ExecutionStepGetResponseDefinitionExecutionEVMTransactionMoveErrorContext) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -1344,7 +1616,7 @@ type ExecutionStepGetResponseDefinitionExecutionEVMTransactionPermission struct 
 	Data string `json:"data,required"`
 	// An arbitrary precision decimal represented as a string
 	EffectiveGasPrice string `json:"effective_gas_price,required"`
-	// An error
+	// Vektor error
 	Error ExecutionStepGetResponseDefinitionExecutionEVMTransactionPermissionError `json:"error,required"`
 	// ISO8601 Timestamp
 	ErroredAt string `json:"errored_at,required"`
@@ -1420,18 +1692,27 @@ func (r *ExecutionStepGetResponseDefinitionExecutionEVMTransactionPermission) Un
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// An error
+// Vektor error
 type ExecutionStepGetResponseDefinitionExecutionEVMTransactionPermissionError struct {
+	// Error context
+	Context ExecutionStepGetResponseDefinitionExecutionEVMTransactionPermissionErrorContext `json:"context,required"`
 	// Error message
 	Message string `json:"message,required"`
-	// Error parameters
-	Params map[string]any `json:"params,required"`
+	// Request ID
+	RequestID string `json:"request_id,required"`
+	// Error resource
+	Resource string `json:"resource,required"`
+	// ISO8601 Timestamp
+	Timestamp Timestamp `json:"timestamp,required"`
 	// Error type
 	Type string `json:"type,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
+		Context     respjson.Field
 		Message     respjson.Field
-		Params      respjson.Field
+		RequestID   respjson.Field
+		Resource    respjson.Field
+		Timestamp   respjson.Field
 		Type        respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
@@ -1443,6 +1724,26 @@ func (r ExecutionStepGetResponseDefinitionExecutionEVMTransactionPermissionError
 	return r.JSON.raw
 }
 func (r *ExecutionStepGetResponseDefinitionExecutionEVMTransactionPermissionError) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// Error context
+type ExecutionStepGetResponseDefinitionExecutionEVMTransactionPermissionErrorContext struct {
+	// Error parameters
+	Parameters map[string]any `json:"parameters,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Parameters  respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r ExecutionStepGetResponseDefinitionExecutionEVMTransactionPermissionErrorContext) RawJSON() string {
+	return r.JSON.raw
+}
+func (r *ExecutionStepGetResponseDefinitionExecutionEVMTransactionPermissionErrorContext) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -1462,7 +1763,7 @@ type ExecutionStepGetResponseDefinitionExecutionEVMTransactionUnwrap struct {
 	Data string `json:"data,required"`
 	// An arbitrary precision decimal represented as a string
 	EffectiveGasPrice string `json:"effective_gas_price,required"`
-	// An error
+	// Vektor error
 	Error ExecutionStepGetResponseDefinitionExecutionEVMTransactionUnwrapError `json:"error,required"`
 	// ISO8601 Timestamp
 	ErroredAt string `json:"errored_at,required"`
@@ -1524,18 +1825,27 @@ func (r *ExecutionStepGetResponseDefinitionExecutionEVMTransactionUnwrap) Unmars
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// An error
+// Vektor error
 type ExecutionStepGetResponseDefinitionExecutionEVMTransactionUnwrapError struct {
+	// Error context
+	Context ExecutionStepGetResponseDefinitionExecutionEVMTransactionUnwrapErrorContext `json:"context,required"`
 	// Error message
 	Message string `json:"message,required"`
-	// Error parameters
-	Params map[string]any `json:"params,required"`
+	// Request ID
+	RequestID string `json:"request_id,required"`
+	// Error resource
+	Resource string `json:"resource,required"`
+	// ISO8601 Timestamp
+	Timestamp Timestamp `json:"timestamp,required"`
 	// Error type
 	Type string `json:"type,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
+		Context     respjson.Field
 		Message     respjson.Field
-		Params      respjson.Field
+		RequestID   respjson.Field
+		Resource    respjson.Field
+		Timestamp   respjson.Field
 		Type        respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
@@ -1547,6 +1857,26 @@ func (r ExecutionStepGetResponseDefinitionExecutionEVMTransactionUnwrapError) Ra
 	return r.JSON.raw
 }
 func (r *ExecutionStepGetResponseDefinitionExecutionEVMTransactionUnwrapError) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// Error context
+type ExecutionStepGetResponseDefinitionExecutionEVMTransactionUnwrapErrorContext struct {
+	// Error parameters
+	Parameters map[string]any `json:"parameters,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Parameters  respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r ExecutionStepGetResponseDefinitionExecutionEVMTransactionUnwrapErrorContext) RawJSON() string {
+	return r.JSON.raw
+}
+func (r *ExecutionStepGetResponseDefinitionExecutionEVMTransactionUnwrapErrorContext) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -1566,7 +1896,7 @@ type ExecutionStepGetResponseDefinitionExecutionEVMTransactionWrap struct {
 	Data string `json:"data,required"`
 	// An arbitrary precision decimal represented as a string
 	EffectiveGasPrice string `json:"effective_gas_price,required"`
-	// An error
+	// Vektor error
 	Error ExecutionStepGetResponseDefinitionExecutionEVMTransactionWrapError `json:"error,required"`
 	// ISO8601 Timestamp
 	ErroredAt string `json:"errored_at,required"`
@@ -1628,18 +1958,27 @@ func (r *ExecutionStepGetResponseDefinitionExecutionEVMTransactionWrap) Unmarsha
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// An error
+// Vektor error
 type ExecutionStepGetResponseDefinitionExecutionEVMTransactionWrapError struct {
+	// Error context
+	Context ExecutionStepGetResponseDefinitionExecutionEVMTransactionWrapErrorContext `json:"context,required"`
 	// Error message
 	Message string `json:"message,required"`
-	// Error parameters
-	Params map[string]any `json:"params,required"`
+	// Request ID
+	RequestID string `json:"request_id,required"`
+	// Error resource
+	Resource string `json:"resource,required"`
+	// ISO8601 Timestamp
+	Timestamp Timestamp `json:"timestamp,required"`
 	// Error type
 	Type string `json:"type,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
+		Context     respjson.Field
 		Message     respjson.Field
-		Params      respjson.Field
+		RequestID   respjson.Field
+		Resource    respjson.Field
+		Timestamp   respjson.Field
 		Type        respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
@@ -1651,6 +1990,26 @@ func (r ExecutionStepGetResponseDefinitionExecutionEVMTransactionWrapError) RawJ
 	return r.JSON.raw
 }
 func (r *ExecutionStepGetResponseDefinitionExecutionEVMTransactionWrapError) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// Error context
+type ExecutionStepGetResponseDefinitionExecutionEVMTransactionWrapErrorContext struct {
+	// Error parameters
+	Parameters map[string]any `json:"parameters,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Parameters  respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r ExecutionStepGetResponseDefinitionExecutionEVMTransactionWrapErrorContext) RawJSON() string {
+	return r.JSON.raw
+}
+func (r *ExecutionStepGetResponseDefinitionExecutionEVMTransactionWrapErrorContext) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -1670,7 +2029,7 @@ type ExecutionStepGetResponseDefinitionExecutionEVMTransactionSell struct {
 	Data string `json:"data,required"`
 	// An arbitrary precision decimal represented as a string
 	EffectiveGasPrice string `json:"effective_gas_price,required"`
-	// An error
+	// Vektor error
 	Error ExecutionStepGetResponseDefinitionExecutionEVMTransactionSellError `json:"error,required"`
 	// ISO8601 Timestamp
 	ErroredAt string `json:"errored_at,required"`
@@ -1741,18 +2100,27 @@ func (r *ExecutionStepGetResponseDefinitionExecutionEVMTransactionSell) Unmarsha
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// An error
+// Vektor error
 type ExecutionStepGetResponseDefinitionExecutionEVMTransactionSellError struct {
+	// Error context
+	Context ExecutionStepGetResponseDefinitionExecutionEVMTransactionSellErrorContext `json:"context,required"`
 	// Error message
 	Message string `json:"message,required"`
-	// Error parameters
-	Params map[string]any `json:"params,required"`
+	// Request ID
+	RequestID string `json:"request_id,required"`
+	// Error resource
+	Resource string `json:"resource,required"`
+	// ISO8601 Timestamp
+	Timestamp Timestamp `json:"timestamp,required"`
 	// Error type
 	Type string `json:"type,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
+		Context     respjson.Field
 		Message     respjson.Field
-		Params      respjson.Field
+		RequestID   respjson.Field
+		Resource    respjson.Field
+		Timestamp   respjson.Field
 		Type        respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
@@ -1764,6 +2132,26 @@ func (r ExecutionStepGetResponseDefinitionExecutionEVMTransactionSellError) RawJ
 	return r.JSON.raw
 }
 func (r *ExecutionStepGetResponseDefinitionExecutionEVMTransactionSellError) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// Error context
+type ExecutionStepGetResponseDefinitionExecutionEVMTransactionSellErrorContext struct {
+	// Error parameters
+	Parameters map[string]any `json:"parameters,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Parameters  respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r ExecutionStepGetResponseDefinitionExecutionEVMTransactionSellErrorContext) RawJSON() string {
+	return r.JSON.raw
+}
+func (r *ExecutionStepGetResponseDefinitionExecutionEVMTransactionSellErrorContext) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
