@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.11.1 (2025-08-23)
+
+Full Changelog: [v1.11.0...v1.11.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.11.0...v1.11.1)
+
+### Features
+
+* **lib:** add OperationWaiter type and tests ([#281](https://github.com/nirvana-labs/nirvana-go/issues/281)) ([d226537](https://github.com/nirvana-labs/nirvana-go/commit/d2265374595fea7a80e76df26e98f474ab6c4eb0))
+
 ## 1.11.0 (2025-08-23)
 
 Full Changelog: [v1.10.1...v1.11.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.10.1...v1.11.0)
