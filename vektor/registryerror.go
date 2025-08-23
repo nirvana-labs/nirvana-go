@@ -32,7 +32,7 @@ func NewRegistryErrorService(opts ...option.RequestOption) (r RegistryErrorServi
 }
 
 // A list with one example of each error type
-func (r *RegistryErrorService) List(ctx context.Context, body RegistryErrorListParams, opts ...option.RequestOption) (res *VektorErrorListOutput, err error) {
+func (r *RegistryErrorService) List(ctx context.Context, body RegistryErrorListParams, opts ...option.RequestOption) (res *ErrorListOutput, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "v1/vektor/registry/errors"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
