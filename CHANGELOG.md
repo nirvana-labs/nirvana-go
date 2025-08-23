@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.11.2 (2025-08-23)
+
+Full Changelog: [v1.11.1...v1.11.2](https://github.com/nirvana-labs/nirvana-go/compare/v1.11.1...v1.11.2)
+
+### Chores
+
+* remove deprecated lib.Wait for operation ([#283](https://github.com/nirvana-labs/nirvana-go/issues/283)) ([1a0b5ee](https://github.com/nirvana-labs/nirvana-go/commit/1a0b5eead7f68f56ef96bd79d2a61f6b2f819aa1))
+
 ## 1.11.1 (2025-08-23)
 
 Full Changelog: [v1.11.0...v1.11.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.11.0...v1.11.1)
