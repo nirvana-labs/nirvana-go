@@ -140,7 +140,7 @@ func NewExponentialBackoffStrategy(baseInterval time.Duration, multiplier float6
 // Returns baseInterval * multiplier * attempt, capped at maxInterval.
 // This implements the WaitStrategy interface.
 func (s *ExponentialBackoffStrategy) NextInterval(attempt int) time.Duration {
-	interval := time.Duration(float64(s.baseInterval) * s.multiplier*float64(attempt))
+	interval := time.Duration(float64(s.baseInterval) * s.multiplier * float64(attempt))
 	if interval > s.maxInterval {
 		return s.maxInterval
 	}
@@ -280,7 +280,7 @@ func (w *OperationWaiter) WithExponentialBackoff(baseInterval time.Duration, mul
 func (w *OperationWaiter) Wait(ctx context.Context, client *nirvana.Client, operationID string) error {
 	w.strategy.Reset()
 	timeoutChan := time.After(w.timeout)
-	
+
 	attempt := 0
 	var timer *time.Timer
 
@@ -326,7 +326,7 @@ func (w *OperationWaiter) Wait(ctx context.Context, client *nirvana.Client, oper
 				timer.Stop()
 			}
 			timer = time.NewTimer(interval)
-			
+
 			select {
 			case <-timer.C:
 				attempt++
@@ -340,26 +340,4 @@ func (w *OperationWaiter) Wait(ctx context.Context, client *nirvana.Client, oper
 			}
 		}
 	}
-}
-
-// Wait polls the operation status until it's 'done' or times out.
-// This function uses default settings (10-minute timeout, 1-second fixed polling intervals).
-//
-// Deprecated: Use NewOperationWaiter().Wait() for default behavior, or
-// NewOperationWaiter().WithTimeout(timeout).Wait() for custom timeout, or
-// NewOperationWaiter().WithLinearBackoff(...).Wait() for advanced polling strategies.
-//
-// Example migration:
-//
-//	// Old:
-//	err := Wait(ctx, client, operationID)
-//
-//	// New:
-//	err := NewOperationWaiter().Wait(ctx, client, operationID)
-//
-//	// Or with custom timeout:
-//	err := NewOperationWaiter().WithTimeout(5*time.Minute).Wait(ctx, client, operationID)
-func Wait(ctx context.Context, client *nirvana.Client, operationID string) error {
-	waiter := NewOperationWaiter()
-	return waiter.Wait(ctx, client, operationID)
 }
