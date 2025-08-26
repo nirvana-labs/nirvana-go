@@ -262,6 +262,7 @@ Response Types:
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor">vektor</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor#ErrorListOutput">ErrorListOutput</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor">vektor</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor#EVMChainData">EVMChainData</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor">vektor</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor#Execution">Execution</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor">vektor</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor#ExecutionError">ExecutionError</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor">vektor</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor#ExecutionEVMTransactionEIP1559Payload">ExecutionEVMTransactionEIP1559Payload</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor">vektor</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor#ExecutionEVMTransactionState">ExecutionEVMTransactionState</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor">vektor</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/vektor#ExecutionID">ExecutionID</a>
