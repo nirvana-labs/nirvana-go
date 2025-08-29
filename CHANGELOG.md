@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.12.1 (2025-08-29)
+
+Full Changelog: [v1.12.0...v1.12.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.12.0...v1.12.1)
+
+### Bug Fixes
+
+* close body before retrying ([67b6965](https://github.com/nirvana-labs/nirvana-go/commit/67b6965a7e8b57a79b8cf3db6bdcd3e2d1bf5e03))
+
 ## 1.12.0 (2025-08-26)
 
 Full Changelog: [v1.11.2...v1.12.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.11.2...v1.12.0)
