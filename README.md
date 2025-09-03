@@ -1,6 +1,10 @@
 # Nirvana Labs Go API Library
 
+<!-- x-release-please-start-version -->
+
 <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go"><img src="https://pkg.go.dev/badge/github.com/nirvana-labs/nirvana-go.svg" alt="Go Reference"></a>
+
+<!-- x-release-please-end -->
 
 The Nirvana Labs Go library provides convenient access to the [Nirvana Labs REST API](https://docs.nirvanalabs.io)
 from applications written in Go.
