@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.12.2 (2025-09-03)
+
+Full Changelog: [v1.12.1...v1.12.2](https://github.com/nirvana-labs/nirvana-go/compare/v1.12.1...v1.12.2)
+
+### Chores
+
+* **internal:** codegen related update ([2b2fcfe](https://github.com/nirvana-labs/nirvana-go/commit/2b2fcfe254c4190805606651c49700ff68643812))
+
 ## 1.12.1 (2025-08-29)
 
 Full Changelog: [v1.12.0...v1.12.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.12.0...v1.12.1)
