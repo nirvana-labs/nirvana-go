@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.12.3 (2025-09-06)
+
+Full Changelog: [v1.12.2...v1.12.3](https://github.com/nirvana-labs/nirvana-go/compare/v1.12.2...v1.12.3)
+
+### Bug Fixes
+
+* **internal:** unmarshal correctly when there are multiple discriminators ([8432040](https://github.com/nirvana-labs/nirvana-go/commit/8432040a4c0eacccbfccea6031a65965b43beb26))
+
 ## 1.12.2 (2025-09-03)
 
 Full Changelog: [v1.12.1...v1.12.2](https://github.com/nirvana-labs/nirvana-go/compare/v1.12.1...v1.12.2)
