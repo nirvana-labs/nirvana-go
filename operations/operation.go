@@ -71,7 +71,7 @@ type Operation struct {
 	Status OperationStatus `json:"status,required"`
 	// Type of operation.
 	//
-	// Any of "create", "update", "delete".
+	// Any of "create", "update", "delete", "restart".
 	Type OperationType `json:"type,required"`
 	// When the operation was updated.
 	UpdatedAt string `json:"updated_at,required"`
@@ -136,7 +136,8 @@ const (
 type OperationType string
 
 const (
-	OperationTypeCreate OperationType = "create"
-	OperationTypeUpdate OperationType = "update"
-	OperationTypeDelete OperationType = "delete"
+	OperationTypeCreate  OperationType = "create"
+	OperationTypeUpdate  OperationType = "update"
+	OperationTypeDelete  OperationType = "delete"
+	OperationTypeRestart OperationType = "restart"
 )

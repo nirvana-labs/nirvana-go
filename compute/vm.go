@@ -96,6 +96,18 @@ func (r *VMService) Get(ctx context.Context, vmID string, opts ...option.Request
 	return
 }
 
+// Restart a VM
+func (r *VMService) Restart(ctx context.Context, vmID string, opts ...option.RequestOption) (res *operations.Operation, err error) {
+	opts = append(r.Options[:], opts...)
+	if vmID == "" {
+		err = errors.New("missing required vm_id parameter")
+		return
+	}
+	path := fmt.Sprintf("v1/compute/vms/%s/restart", vmID)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
+	return
+}
+
 // CPU configuration for the VM.
 type CPUConfig struct {
 	// Number of virtual CPUs.
