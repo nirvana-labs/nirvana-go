@@ -93,7 +93,7 @@ func (r *VPCService) Get(ctx context.Context, vpcID string, opts ...option.Reque
 
 // Subnet of the VPC.
 type Subnet struct {
-	// Unique identifier for the subnet.
+	// Unique identifier for the Subnet.
 	ID string `json:"id,required"`
 	// CIDR block for the subnet.
 	Cidr string `json:"cidr,required"`
