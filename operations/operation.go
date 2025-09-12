@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
@@ -58,7 +59,7 @@ type Operation struct {
 	// Unique identifier for the operation.
 	ID string `json:"id,required"`
 	// When the operation was created.
-	CreatedAt string `json:"created_at,required"`
+	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
 	// Kind of operation.
 	//
 	// Any of "vm", "volume", "vpc", "firewall_rule".
@@ -74,7 +75,7 @@ type Operation struct {
 	// Any of "create", "update", "delete", "restart".
 	Type OperationType `json:"type,required"`
 	// When the operation was updated.
-	UpdatedAt string `json:"updated_at,required"`
+	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field

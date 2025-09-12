@@ -104,8 +104,6 @@ type APIKey struct {
 	Status APIKeyStatus `json:"status,required"`
 	// When the API key was updated.
 	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
-	// User ID that owns the API key.
-	UserID string `json:"user_id,required"`
 	// API key. Only returned on creation.
 	Key string `json:"key"`
 	// When the API key starts to be valid.
@@ -118,7 +116,6 @@ type APIKey struct {
 		Name        respjson.Field
 		Status      respjson.Field
 		UpdatedAt   respjson.Field
-		UserID      respjson.Field
 		Key         respjson.Field
 		StartsAt    respjson.Field
 		ExtraFields map[string]respjson.Field
