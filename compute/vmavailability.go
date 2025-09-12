@@ -60,9 +60,9 @@ type VMAvailabilityNewParams struct {
 	// Boot volume for the VM.
 	BootVolume VMAvailabilityNewParamsBootVolume `json:"boot_volume,omitzero,required"`
 	// CPU configuration for the VM.
-	CPUConfig CPUConfigParam `json:"cpu_config,omitzero,required"`
+	CPUConfig CPUConfigRequestParam `json:"cpu_config,omitzero,required"`
 	// Memory configuration for the VM.
-	MemoryConfig MemoryConfigParam `json:"memory_config,omitzero,required"`
+	MemoryConfig MemoryConfigRequestParam `json:"memory_config,omitzero,required"`
 	// Name of the VM.
 	Name string `json:"name,required"`
 	// Name of the OS Image to use for the VM.
@@ -75,7 +75,7 @@ type VMAvailabilityNewParams struct {
 	// "ap-seo-1", "ap-tyo-1".
 	Region shared.RegionName `json:"region,omitzero,required"`
 	// Public SSH key configuration for the VM.
-	SSHKey SSHKeyParam `json:"ssh_key,omitzero,required"`
+	SSHKey SSHKeyRequestParam `json:"ssh_key,omitzero,required"`
 	// ID of the subnet to use for the VM.
 	SubnetID string `json:"subnet_id,required"`
 	// Data volumes for the VM.
@@ -133,9 +133,9 @@ type VMAvailabilityUpdateParams struct {
 	// Whether to enable public IP for the VM.
 	PublicIPEnabled param.Opt[bool] `json:"public_ip_enabled,omitzero"`
 	// CPU configuration for the VM.
-	CPUConfig CPUConfigParam `json:"cpu_config,omitzero"`
+	CPUConfig CPUConfigRequestParam `json:"cpu_config,omitzero"`
 	// Memory configuration for the VM.
-	MemoryConfig MemoryConfigParam `json:"memory_config,omitzero"`
+	MemoryConfig MemoryConfigRequestParam `json:"memory_config,omitzero"`
 	paramObj
 }
 

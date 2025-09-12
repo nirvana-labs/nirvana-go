@@ -4,7 +4,6 @@ package compute
 
 import (
 	"context"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"net/http"
@@ -126,29 +125,20 @@ func (r *CPUConfig) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// ToParam converts this CPUConfig to a CPUConfigParam.
-//
-// Warning: the fields of the param type will not be present. ToParam should only
-// be used at the last possible moment before sending a request. Test for this with
-// CPUConfigParam.Overrides()
-func (r CPUConfig) ToParam() CPUConfigParam {
-	return param.Override[CPUConfigParam](json.RawMessage(r.RawJSON()))
-}
-
 // CPU configuration for the VM.
 //
 // The property Vcpu is required.
-type CPUConfigParam struct {
+type CPUConfigRequestParam struct {
 	// Number of virtual CPUs.
 	Vcpu int64 `json:"vcpu,required"`
 	paramObj
 }
 
-func (r CPUConfigParam) MarshalJSON() (data []byte, err error) {
-	type shadow CPUConfigParam
+func (r CPUConfigRequestParam) MarshalJSON() (data []byte, err error) {
+	type shadow CPUConfigRequestParam
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *CPUConfigParam) UnmarshalJSON(data []byte) error {
+func (r *CPUConfigRequestParam) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -170,29 +160,20 @@ func (r *MemoryConfig) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// ToParam converts this MemoryConfig to a MemoryConfigParam.
-//
-// Warning: the fields of the param type will not be present. ToParam should only
-// be used at the last possible moment before sending a request. Test for this with
-// MemoryConfigParam.Overrides()
-func (r MemoryConfig) ToParam() MemoryConfigParam {
-	return param.Override[MemoryConfigParam](json.RawMessage(r.RawJSON()))
-}
-
 // Memory configuration for the VM.
 //
 // The property Size is required.
-type MemoryConfigParam struct {
+type MemoryConfigRequestParam struct {
 	// Size of the memory in GB.
 	Size int64 `json:"size,required"`
 	paramObj
 }
 
-func (r MemoryConfigParam) MarshalJSON() (data []byte, err error) {
-	type shadow MemoryConfigParam
+func (r MemoryConfigRequestParam) MarshalJSON() (data []byte, err error) {
+	type shadow MemoryConfigRequestParam
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *MemoryConfigParam) UnmarshalJSON(data []byte) error {
+func (r *MemoryConfigRequestParam) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -223,17 +204,17 @@ func (r *OSImage) UnmarshalJSON(data []byte) error {
 // Public SSH key configuration for the VM.
 //
 // The property PublicKey is required.
-type SSHKeyParam struct {
+type SSHKeyRequestParam struct {
 	// Public key to and and use to access the VM.
 	PublicKey string `json:"public_key,required"`
 	paramObj
 }
 
-func (r SSHKeyParam) MarshalJSON() (data []byte, err error) {
-	type shadow SSHKeyParam
+func (r SSHKeyRequestParam) MarshalJSON() (data []byte, err error) {
+	type shadow SSHKeyRequestParam
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *SSHKeyParam) UnmarshalJSON(data []byte) error {
+func (r *SSHKeyRequestParam) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -326,9 +307,9 @@ type VMNewParams struct {
 	// Boot volume for the VM.
 	BootVolume VMNewParamsBootVolume `json:"boot_volume,omitzero,required"`
 	// CPU configuration for the VM.
-	CPUConfig CPUConfigParam `json:"cpu_config,omitzero,required"`
+	CPUConfig CPUConfigRequestParam `json:"cpu_config,omitzero,required"`
 	// Memory configuration for the VM.
-	MemoryConfig MemoryConfigParam `json:"memory_config,omitzero,required"`
+	MemoryConfig MemoryConfigRequestParam `json:"memory_config,omitzero,required"`
 	// Name of the VM.
 	Name string `json:"name,required"`
 	// Name of the OS Image to use for the VM.
@@ -341,7 +322,7 @@ type VMNewParams struct {
 	// "ap-seo-1", "ap-tyo-1".
 	Region shared.RegionName `json:"region,omitzero,required"`
 	// Public SSH key configuration for the VM.
-	SSHKey SSHKeyParam `json:"ssh_key,omitzero,required"`
+	SSHKey SSHKeyRequestParam `json:"ssh_key,omitzero,required"`
 	// ID of the subnet to use for the VM.
 	SubnetID string `json:"subnet_id,required"`
 	// Data volumes for the VM.
@@ -399,9 +380,9 @@ type VMUpdateParams struct {
 	// Whether to enable public IP for the VM.
 	PublicIPEnabled param.Opt[bool] `json:"public_ip_enabled,omitzero"`
 	// CPU configuration for the VM.
-	CPUConfig CPUConfigParam `json:"cpu_config,omitzero"`
+	CPUConfig CPUConfigRequestParam `json:"cpu_config,omitzero"`
 	// Memory configuration for the VM.
-	MemoryConfig MemoryConfigParam `json:"memory_config,omitzero"`
+	MemoryConfig MemoryConfigRequestParam `json:"memory_config,omitzero"`
 	paramObj
 }
 
