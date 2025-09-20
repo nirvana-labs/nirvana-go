@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 	"time"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
@@ -38,7 +39,7 @@ func NewDedicatedService(opts ...option.RequestOption) (r DedicatedService) {
 
 // List all RPC Node Dedicated you created
 func (r *DedicatedService) List(ctx context.Context, opts ...option.RequestOption) (res *RPCNodesDedicatedList, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/rpc_nodes/dedicated"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
@@ -46,7 +47,7 @@ func (r *DedicatedService) List(ctx context.Context, opts ...option.RequestOptio
 
 // Get details about an RPC Node Dedicated
 func (r *DedicatedService) Get(ctx context.Context, nodeID string, opts ...option.RequestOption) (res *RPCNodesDedicated, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if nodeID == "" {
 		err = errors.New("missing required node_id parameter")
 		return

@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
@@ -36,7 +37,7 @@ func NewVPCAvailabilityService(opts ...option.RequestOption) (r VPCAvailabilityS
 
 // Check if a VPC can be created
 func (r *VPCAvailabilityService) New(ctx context.Context, body VPCAvailabilityNewParams, opts ...option.RequestOption) (res *string, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "text/plain")}, opts...)
 	path := "v1/networking/vpcs/availability"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
@@ -45,7 +46,7 @@ func (r *VPCAvailabilityService) New(ctx context.Context, body VPCAvailabilityNe
 
 // Check if a VPC can be updated
 func (r *VPCAvailabilityService) Update(ctx context.Context, vpcID string, body VPCAvailabilityUpdateParams, opts ...option.RequestOption) (res *string, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "text/plain")}, opts...)
 	if vpcID == "" {
 		err = errors.New("missing required vpc_id parameter")

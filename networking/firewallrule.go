@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 	"time"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
@@ -39,7 +40,7 @@ func NewFirewallRuleService(opts ...option.RequestOption) (r FirewallRuleService
 
 // Create a firewall rule
 func (r *FirewallRuleService) New(ctx context.Context, vpcID string, body FirewallRuleNewParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if vpcID == "" {
 		err = errors.New("missing required vpc_id parameter")
 		return
@@ -51,7 +52,7 @@ func (r *FirewallRuleService) New(ctx context.Context, vpcID string, body Firewa
 
 // Update a firewall rule
 func (r *FirewallRuleService) Update(ctx context.Context, vpcID string, firewallRuleID string, body FirewallRuleUpdateParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if vpcID == "" {
 		err = errors.New("missing required vpc_id parameter")
 		return
@@ -67,7 +68,7 @@ func (r *FirewallRuleService) Update(ctx context.Context, vpcID string, firewall
 
 // List all firewall rules
 func (r *FirewallRuleService) List(ctx context.Context, vpcID string, opts ...option.RequestOption) (res *FirewallRuleList, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if vpcID == "" {
 		err = errors.New("missing required vpc_id parameter")
 		return
@@ -79,7 +80,7 @@ func (r *FirewallRuleService) List(ctx context.Context, vpcID string, opts ...op
 
 // Delete a firewall rule
 func (r *FirewallRuleService) Delete(ctx context.Context, vpcID string, firewallRuleID string, opts ...option.RequestOption) (res *operations.Operation, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if vpcID == "" {
 		err = errors.New("missing required vpc_id parameter")
 		return
@@ -95,7 +96,7 @@ func (r *FirewallRuleService) Delete(ctx context.Context, vpcID string, firewall
 
 // Get details about a firewall rule
 func (r *FirewallRuleService) Get(ctx context.Context, vpcID string, firewallRuleID string, opts ...option.RequestOption) (res *FirewallRule, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if vpcID == "" {
 		err = errors.New("missing required vpc_id parameter")
 		return

@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.14.1 (2025-09-20)
+
+Full Changelog: [v1.14.0...v1.14.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.14.0...v1.14.1)
+
+### Bug Fixes
+
+* use slices.Concat instead of sometimes modifying r.Options ([0b35b66](https://github.com/nirvana-labs/nirvana-go/commit/0b35b66c22f7f173f5c80430e04d6090c08bf427))
+
+
+### Chores
+
+* bump minimum go version to 1.22 ([c457a8e](https://github.com/nirvana-labs/nirvana-go/commit/c457a8ec65cb7a65014226c91401f26e4a3fee2c))
+* do not install brew dependencies in ./scripts/bootstrap by default ([9ace240](https://github.com/nirvana-labs/nirvana-go/commit/9ace240d366a8183ff679f8997325998cbc7e915))
+* update more docs for 1.22 ([ef2f0c1](https://github.com/nirvana-labs/nirvana-go/commit/ef2f0c1a956081e7bafd891dcb9cf85508e6a042))
+
 ## 1.14.0 (2025-09-12)
 
 Full Changelog: [v1.13.0...v1.14.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.13.0...v1.14.0)

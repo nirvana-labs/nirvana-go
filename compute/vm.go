@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 	"time"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
@@ -45,7 +46,7 @@ func NewVMService(opts ...option.RequestOption) (r VMService) {
 
 // Create a VM
 func (r *VMService) New(ctx context.Context, body VMNewParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/compute/vms"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -53,7 +54,7 @@ func (r *VMService) New(ctx context.Context, body VMNewParams, opts ...option.Re
 
 // Update a VM
 func (r *VMService) Update(ctx context.Context, vmID string, body VMUpdateParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if vmID == "" {
 		err = errors.New("missing required vm_id parameter")
 		return
@@ -65,7 +66,7 @@ func (r *VMService) Update(ctx context.Context, vmID string, body VMUpdateParams
 
 // List all VMs
 func (r *VMService) List(ctx context.Context, opts ...option.RequestOption) (res *VMList, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/compute/vms"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
@@ -73,7 +74,7 @@ func (r *VMService) List(ctx context.Context, opts ...option.RequestOption) (res
 
 // Delete a VM
 func (r *VMService) Delete(ctx context.Context, vmID string, opts ...option.RequestOption) (res *operations.Operation, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if vmID == "" {
 		err = errors.New("missing required vm_id parameter")
 		return
@@ -85,7 +86,7 @@ func (r *VMService) Delete(ctx context.Context, vmID string, opts ...option.Requ
 
 // Get details about a VM
 func (r *VMService) Get(ctx context.Context, vmID string, opts ...option.RequestOption) (res *VM, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if vmID == "" {
 		err = errors.New("missing required vm_id parameter")
 		return
@@ -97,7 +98,7 @@ func (r *VMService) Get(ctx context.Context, vmID string, opts ...option.Request
 
 // Restart a VM
 func (r *VMService) Restart(ctx context.Context, vmID string, opts ...option.RequestOption) (res *operations.Operation, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if vmID == "" {
 		err = errors.New("missing required vm_id parameter")
 		return

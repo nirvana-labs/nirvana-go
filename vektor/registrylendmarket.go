@@ -5,6 +5,7 @@ package vektor
 import (
 	"context"
 	"net/http"
+	"slices"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
@@ -35,7 +36,7 @@ func NewRegistryLendMarketService(opts ...option.RequestOption) (r RegistryLendM
 // List lend markets in the registry, optionally filtered by blockchain, assets or
 // venues
 func (r *RegistryLendMarketService) List(ctx context.Context, body RegistryLendMarketListParams, opts ...option.RequestOption) (res *RegistryLendMarketListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/vektor/registry/lend/markets"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return

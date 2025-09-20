@@ -5,6 +5,7 @@ package vektor
 import (
 	"context"
 	"net/http"
+	"slices"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
@@ -34,7 +35,7 @@ func NewBridgeQuoteService(opts ...option.RequestOption) (r BridgeQuoteService) 
 
 // Get quotes for bridging an exact amount of an asset to another blockchain
 func (r *BridgeQuoteService) List(ctx context.Context, body BridgeQuoteListParams, opts ...option.RequestOption) (res *BridgeQuoteListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/vektor/bridge/quotes"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return

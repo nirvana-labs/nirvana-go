@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 	"time"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
@@ -38,7 +39,7 @@ func NewFlexService(opts ...option.RequestOption) (r FlexService) {
 
 // List all RPC Node Flex you created
 func (r *FlexService) List(ctx context.Context, opts ...option.RequestOption) (res *RPCNodesFlexList, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/rpc_nodes/flex"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
@@ -46,7 +47,7 @@ func (r *FlexService) List(ctx context.Context, opts ...option.RequestOption) (r
 
 // Get details about an RPC Node Flex
 func (r *FlexService) Get(ctx context.Context, nodeID string, opts ...option.RequestOption) (res *RPCNodesFlex, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if nodeID == "" {
 		err = errors.New("missing required node_id parameter")
 		return

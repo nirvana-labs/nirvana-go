@@ -8,6 +8,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
@@ -37,7 +38,7 @@ func NewExecutionStepService(opts ...option.RequestOption) (r ExecutionStepServi
 
 // Get a step of an execution
 func (r *ExecutionStepService) Get(ctx context.Context, executionID string, stepID string, opts ...option.RequestOption) (res *ExecutionStepGetResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if executionID == "" {
 		err = errors.New("missing required execution_id parameter")
 		return
@@ -53,7 +54,7 @@ func (r *ExecutionStepService) Get(ctx context.Context, executionID string, step
 
 // Sign an EVM transaction step
 func (r *ExecutionStepService) Sign(ctx context.Context, executionID string, stepID string, body ExecutionStepSignParams, opts ...option.RequestOption) (err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
 	if executionID == "" {
 		err = errors.New("missing required execution_id parameter")

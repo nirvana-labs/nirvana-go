@@ -5,6 +5,7 @@ package vektor
 import (
 	"context"
 	"net/http"
+	"slices"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
@@ -34,7 +35,7 @@ func NewLPPoolService(opts ...option.RequestOption) (r LPPoolService) {
 
 // Get a list of LP pools
 func (r *LPPoolService) List(ctx context.Context, body LPPoolListParams, opts ...option.RequestOption) (res *LPPoolListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/vektor/lp/pools"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -42,7 +43,7 @@ func (r *LPPoolService) List(ctx context.Context, body LPPoolListParams, opts ..
 
 // Get a list of LP pools
 func (r *LPPoolService) ListHistorical(ctx context.Context, body LPPoolListHistoricalParams, opts ...option.RequestOption) (res *LPPoolListHistoricalResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/vektor/lp/pools/historical"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return

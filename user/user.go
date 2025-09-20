@@ -5,6 +5,7 @@ package user
 import (
 	"context"
 	"net/http"
+	"slices"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
@@ -33,7 +34,7 @@ func NewUserService(opts ...option.RequestOption) (r UserService) {
 
 // Get details about an authenticated user
 func (r *UserService) Get(ctx context.Context, opts ...option.RequestOption) (res *User, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/user"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return

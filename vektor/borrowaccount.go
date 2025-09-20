@@ -5,6 +5,7 @@ package vektor
 import (
 	"context"
 	"net/http"
+	"slices"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
@@ -34,7 +35,7 @@ func NewBorrowAccountService(opts ...option.RequestOption) (r BorrowAccountServi
 
 // Get account-level borrow info on specified accounts
 func (r *BorrowAccountService) List(ctx context.Context, body BorrowAccountListParams, opts ...option.RequestOption) (res *BorrowAccountListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/vektor/borrow/accounts"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -42,7 +43,7 @@ func (r *BorrowAccountService) List(ctx context.Context, body BorrowAccountListP
 
 // Get account-level borrow info on specified accounts
 func (r *BorrowAccountService) ListHistorical(ctx context.Context, body BorrowAccountListHistoricalParams, opts ...option.RequestOption) (res *BorrowAccountListHistoricalResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/vektor/borrow/accounts/historical"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return

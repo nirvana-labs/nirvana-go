@@ -5,6 +5,7 @@ package vektor
 import (
 	"context"
 	"net/http"
+	"slices"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
@@ -33,7 +34,7 @@ func NewWrapWrapService(opts ...option.RequestOption) (r WrapWrapService) {
 
 // Wrap the native asset
 func (r *WrapWrapService) New(ctx context.Context, body WrapWrapNewParams, opts ...option.RequestOption) (res *Execution, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/vektor/wrap/wrap"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
