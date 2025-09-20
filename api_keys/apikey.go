@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 	"time"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
@@ -37,7 +38,7 @@ func NewAPIKeyService(opts ...option.RequestOption) (r APIKeyService) {
 
 // Create a new API key
 func (r *APIKeyService) New(ctx context.Context, body APIKeyNewParams, opts ...option.RequestOption) (res *APIKey, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/api_keys"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -45,7 +46,7 @@ func (r *APIKeyService) New(ctx context.Context, body APIKeyNewParams, opts ...o
 
 // Update an existing API key
 func (r *APIKeyService) Update(ctx context.Context, apiKeyID string, body APIKeyUpdateParams, opts ...option.RequestOption) (res *APIKey, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if apiKeyID == "" {
 		err = errors.New("missing required api_key_id parameter")
 		return
@@ -57,7 +58,7 @@ func (r *APIKeyService) Update(ctx context.Context, apiKeyID string, body APIKey
 
 // List all API keys for the authenticated user
 func (r *APIKeyService) List(ctx context.Context, opts ...option.RequestOption) (res *APIKeyList, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/api_keys"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
@@ -65,7 +66,7 @@ func (r *APIKeyService) List(ctx context.Context, opts ...option.RequestOption) 
 
 // Delete an API key
 func (r *APIKeyService) Delete(ctx context.Context, apiKeyID string, opts ...option.RequestOption) (err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
 	if apiKeyID == "" {
 		err = errors.New("missing required api_key_id parameter")
@@ -78,7 +79,7 @@ func (r *APIKeyService) Delete(ctx context.Context, apiKeyID string, opts ...opt
 
 // Get details about an API key
 func (r *APIKeyService) Get(ctx context.Context, apiKeyID string, opts ...option.RequestOption) (res *APIKey, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if apiKeyID == "" {
 		err = errors.New("missing required api_key_id parameter")
 		return

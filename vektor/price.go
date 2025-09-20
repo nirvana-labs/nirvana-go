@@ -5,6 +5,7 @@ package vektor
 import (
 	"context"
 	"net/http"
+	"slices"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
@@ -34,7 +35,7 @@ func NewPriceService(opts ...option.RequestOption) (r PriceService) {
 
 // Get a list of asset prices
 func (r *PriceService) List(ctx context.Context, body PriceListParams, opts ...option.RequestOption) (res *PriceListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/vektor/prices"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -42,7 +43,7 @@ func (r *PriceService) List(ctx context.Context, body PriceListParams, opts ...o
 
 // Get a list of asset prices
 func (r *PriceService) ListHistorical(ctx context.Context, body PriceListHistoricalParams, opts ...option.RequestOption) (res *PriceListHistoricalResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/vektor/prices/historical"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return

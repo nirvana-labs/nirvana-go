@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 	"time"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
@@ -37,7 +38,7 @@ func NewFluxService(opts ...option.RequestOption) (r FluxService) {
 
 // List all Connect Flux
 func (r *FluxService) List(ctx context.Context, opts ...option.RequestOption) (res *ConnectFluxList, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/connect/flux"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
@@ -45,7 +46,7 @@ func (r *FluxService) List(ctx context.Context, opts ...option.RequestOption) (r
 
 // Get Connect Flux details
 func (r *FluxService) Get(ctx context.Context, fluxID string, opts ...option.RequestOption) (res *ConnectFlux, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if fluxID == "" {
 		err = errors.New("missing required flux_id parameter")
 		return

@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
@@ -35,7 +36,7 @@ func NewVolumeAvailabilityService(opts ...option.RequestOption) (r VolumeAvailab
 
 // Check Volume Create Availability
 func (r *VolumeAvailabilityService) New(ctx context.Context, body VolumeAvailabilityNewParams, opts ...option.RequestOption) (res *string, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "text/plain")}, opts...)
 	path := "v1/compute/volumes/availability"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
@@ -44,7 +45,7 @@ func (r *VolumeAvailabilityService) New(ctx context.Context, body VolumeAvailabi
 
 // Check Volume Update Availability
 func (r *VolumeAvailabilityService) Update(ctx context.Context, volumeID string, body VolumeAvailabilityUpdateParams, opts ...option.RequestOption) (res *string, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "text/plain")}, opts...)
 	if volumeID == "" {
 		err = errors.New("missing required volume_id parameter")

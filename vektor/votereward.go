@@ -5,6 +5,7 @@ package vektor
 import (
 	"context"
 	"net/http"
+	"slices"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
@@ -34,7 +35,7 @@ func NewVoteRewardService(opts ...option.RequestOption) (r VoteRewardService) {
 
 // Get the unclaimed rewards from LP voting markets
 func (r *VoteRewardService) List(ctx context.Context, body VoteRewardListParams, opts ...option.RequestOption) (res *VoteRewardListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/vektor/vote/rewards"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return

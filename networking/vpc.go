@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 	"time"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
@@ -41,7 +42,7 @@ func NewVPCService(opts ...option.RequestOption) (r VPCService) {
 
 // Create a VPC
 func (r *VPCService) New(ctx context.Context, body VPCNewParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/networking/vpcs"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -49,7 +50,7 @@ func (r *VPCService) New(ctx context.Context, body VPCNewParams, opts ...option.
 
 // Update a VPC
 func (r *VPCService) Update(ctx context.Context, vpcID string, body VPCUpdateParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if vpcID == "" {
 		err = errors.New("missing required vpc_id parameter")
 		return
@@ -61,7 +62,7 @@ func (r *VPCService) Update(ctx context.Context, vpcID string, body VPCUpdatePar
 
 // List all VPCs
 func (r *VPCService) List(ctx context.Context, opts ...option.RequestOption) (res *VPCList, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/networking/vpcs"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
@@ -69,7 +70,7 @@ func (r *VPCService) List(ctx context.Context, opts ...option.RequestOption) (re
 
 // Delete a VPC
 func (r *VPCService) Delete(ctx context.Context, vpcID string, opts ...option.RequestOption) (res *operations.Operation, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if vpcID == "" {
 		err = errors.New("missing required vpc_id parameter")
 		return
@@ -81,7 +82,7 @@ func (r *VPCService) Delete(ctx context.Context, vpcID string, opts ...option.Re
 
 // Get details about a VPC
 func (r *VPCService) Get(ctx context.Context, vpcID string, opts ...option.RequestOption) (res *VPC, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if vpcID == "" {
 		err = errors.New("missing required vpc_id parameter")
 		return

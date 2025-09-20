@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/option"
@@ -33,7 +34,7 @@ func NewVMVolumeService(opts ...option.RequestOption) (r VMVolumeService) {
 
 // List VM's Volumes
 func (r *VMVolumeService) List(ctx context.Context, vmID string, opts ...option.RequestOption) (res *VolumeList, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if vmID == "" {
 		err = errors.New("missing required vm_id parameter")
 		return

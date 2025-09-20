@@ -5,6 +5,7 @@ package vektor
 import (
 	"context"
 	"net/http"
+	"slices"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
@@ -34,7 +35,7 @@ func NewBorrowPositionService(opts ...option.RequestOption) (r BorrowPositionSer
 
 // Get info on borrowed positions
 func (r *BorrowPositionService) List(ctx context.Context, body BorrowPositionListParams, opts ...option.RequestOption) (res *BorrowPositionListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/vektor/borrow/positions"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -42,7 +43,7 @@ func (r *BorrowPositionService) List(ctx context.Context, body BorrowPositionLis
 
 // Get info on borrowed positions
 func (r *BorrowPositionService) ListHistorical(ctx context.Context, body BorrowPositionListHistoricalParams, opts ...option.RequestOption) (res *BorrowPositionListHistoricalResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/vektor/borrow/positions/historical"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
