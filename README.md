@@ -37,7 +37,7 @@ go get -u 'github.com/nirvana-labs/nirvana-go@v1.14.0'
 
 ## Requirements
 
-This library requires Go 1.18+.
+This library requires Go 1.22+.
 
 ## Usage
 
