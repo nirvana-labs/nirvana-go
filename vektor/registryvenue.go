@@ -5,6 +5,7 @@ package vektor
 import (
 	"context"
 	"net/http"
+	"slices"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
@@ -34,7 +35,7 @@ func NewRegistryVenueService(opts ...option.RequestOption) (r RegistryVenueServi
 
 // List supported venues
 func (r *RegistryVenueService) List(ctx context.Context, body RegistryVenueListParams, opts ...option.RequestOption) (res *RegistryVenueListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/vektor/registry/venues"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return

@@ -5,6 +5,7 @@ package vektor
 import (
 	"context"
 	"net/http"
+	"slices"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
@@ -34,7 +35,7 @@ func NewBorrowMarketService(opts ...option.RequestOption) (r BorrowMarketService
 
 // Get the current market rates for borrowing an asset
 func (r *BorrowMarketService) List(ctx context.Context, body BorrowMarketListParams, opts ...option.RequestOption) (res *BorrowMarketListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/vektor/borrow/markets"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -42,7 +43,7 @@ func (r *BorrowMarketService) List(ctx context.Context, body BorrowMarketListPar
 
 // Get the current market rates for borrowing an asset
 func (r *BorrowMarketService) ListHistorical(ctx context.Context, body BorrowMarketListHistoricalParams, opts ...option.RequestOption) (res *BorrowMarketListHistoricalResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/vektor/borrow/markets/historical"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return

@@ -5,6 +5,7 @@ package vektor
 import (
 	"context"
 	"net/http"
+	"slices"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
@@ -34,7 +35,7 @@ func NewLPWithdrawQuoteService(opts ...option.RequestOption) (r LPWithdrawQuoteS
 
 // Simulate withdrawing liquidity from a specific existing LP position
 func (r *LPWithdrawQuoteService) New(ctx context.Context, body LPWithdrawQuoteNewParams, opts ...option.RequestOption) (res *LPWithdrawQuoteNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/vektor/lp/withdraw_quote"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return

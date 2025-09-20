@@ -5,6 +5,7 @@ package vektor
 import (
 	"context"
 	"net/http"
+	"slices"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
@@ -35,7 +36,7 @@ func NewLPDepositQuoteService(opts ...option.RequestOption) (r LPDepositQuoteSer
 // Simulate depositing liquidity to a specific LP pool, creating a position or
 // adding to an existing one.
 func (r *LPDepositQuoteService) New(ctx context.Context, body LPDepositQuoteNewParams, opts ...option.RequestOption) (res *LPDepositQuoteNewResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/vektor/lp/deposit_quote"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return

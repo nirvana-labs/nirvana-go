@@ -5,6 +5,7 @@ package vektor
 import (
 	"context"
 	"net/http"
+	"slices"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
@@ -33,7 +34,7 @@ func NewMoveService(opts ...option.RequestOption) (r MoveService) {
 
 // Move balance from one address to another
 func (r *MoveService) New(ctx context.Context, body MoveNewParams, opts ...option.RequestOption) (res *Execution, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/vektor/move/move"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return

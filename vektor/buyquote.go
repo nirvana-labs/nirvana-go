@@ -5,6 +5,7 @@ package vektor
 import (
 	"context"
 	"net/http"
+	"slices"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
@@ -34,7 +35,7 @@ func NewBuyQuoteService(opts ...option.RequestOption) (r BuyQuoteService) {
 
 // Get quotes for buying an exact amount of an asset at current market rate
 func (r *BuyQuoteService) List(ctx context.Context, body BuyQuoteListParams, opts ...option.RequestOption) (res *BuyQuoteListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/vektor/buy/quotes"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return

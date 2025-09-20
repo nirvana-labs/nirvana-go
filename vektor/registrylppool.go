@@ -5,6 +5,7 @@ package vektor
 import (
 	"context"
 	"net/http"
+	"slices"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
@@ -35,7 +36,7 @@ func NewRegistryLPPoolService(opts ...option.RequestOption) (r RegistryLPPoolSer
 // List LP pools in the registry, optionally filtered by blockchain, assets or
 // venues
 func (r *RegistryLPPoolService) List(ctx context.Context, body RegistryLPPoolListParams, opts ...option.RequestOption) (res *RegistryLPPoolListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/vektor/registry/lp/pools"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return

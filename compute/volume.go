@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 	"time"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
@@ -41,7 +42,7 @@ func NewVolumeService(opts ...option.RequestOption) (r VolumeService) {
 
 // Create a Volume. Only data volumes can be created.
 func (r *VolumeService) New(ctx context.Context, body VolumeNewParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/compute/volumes"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
@@ -49,7 +50,7 @@ func (r *VolumeService) New(ctx context.Context, body VolumeNewParams, opts ...o
 
 // Update a Volume. Boot or data volumes can be updated.
 func (r *VolumeService) Update(ctx context.Context, volumeID string, body VolumeUpdateParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if volumeID == "" {
 		err = errors.New("missing required volume_id parameter")
 		return
@@ -61,7 +62,7 @@ func (r *VolumeService) Update(ctx context.Context, volumeID string, body Volume
 
 // List all volumes
 func (r *VolumeService) List(ctx context.Context, opts ...option.RequestOption) (res *VolumeList, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/compute/volumes"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
@@ -69,7 +70,7 @@ func (r *VolumeService) List(ctx context.Context, opts ...option.RequestOption) 
 
 // Delete a Volume. Boot or data volumes can be deleted.
 func (r *VolumeService) Delete(ctx context.Context, volumeID string, opts ...option.RequestOption) (res *operations.Operation, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if volumeID == "" {
 		err = errors.New("missing required volume_id parameter")
 		return
@@ -81,7 +82,7 @@ func (r *VolumeService) Delete(ctx context.Context, volumeID string, opts ...opt
 
 // Get a Volume.
 func (r *VolumeService) Get(ctx context.Context, volumeID string, opts ...option.RequestOption) (res *Volume, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if volumeID == "" {
 		err = errors.New("missing required volume_id parameter")
 		return

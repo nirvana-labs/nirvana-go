@@ -5,6 +5,7 @@ package vektor
 import (
 	"context"
 	"net/http"
+	"slices"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
@@ -33,7 +34,7 @@ func NewLendLendService(opts ...option.RequestOption) (r LendLendService) {
 
 // Lend an asset
 func (r *LendLendService) New(ctx context.Context, body LendLendNewParams, opts ...option.RequestOption) (res *Execution, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/vektor/lend/lend"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return

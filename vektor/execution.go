@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/option"
@@ -35,7 +36,7 @@ func NewExecutionService(opts ...option.RequestOption) (r ExecutionService) {
 
 // Get a list of executions
 func (r *ExecutionService) List(ctx context.Context, opts ...option.RequestOption) (res *[]Execution, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/vektor/executions"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
@@ -43,7 +44,7 @@ func (r *ExecutionService) List(ctx context.Context, opts ...option.RequestOptio
 
 // Get an execution
 func (r *ExecutionService) Get(ctx context.Context, executionID string, opts ...option.RequestOption) (res *Execution, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if executionID == "" {
 		err = errors.New("missing required execution_id parameter")
 		return
