@@ -94,28 +94,26 @@ func (r *FluxService) Get(ctx context.Context, fluxID string, opts ...option.Req
 
 // Connect flux details.
 type ConnectFlux struct {
-	// Unique identifier for the connect flux
+	// Unique identifier for the Connect Flux
 	ID string `json:"id,required"`
 	// ASN
 	ASN int64 `json:"asn,required"`
-	// Connect flux speed in Mbps
+	// AWS provider configuration
+	Aws ConnectFluxAws `json:"aws,required"`
+	// Connect Flux speed in Mbps
 	//
 	// Any of 50, 200, 500.
 	BandwidthMbps int64 `json:"bandwidth_mbps,required"`
-	// CIDRs
+	// CIDRs for the Connect Flux
 	CIDRs []string `json:"cidrs,required"`
-	// When the connect flux was created
+	// When the Connect Flux was created
 	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
-	// Name of the connect flux
+	// Name of the Connect Flux
 	Name string `json:"name,required"`
 	// Provider ASN
 	ProviderASN int64 `json:"provider_asn,required"`
-	// Provider CIDRs
+	// Provider CIDRs for the Connect Flux
 	ProviderCIDRs []string `json:"provider_cidrs,required"`
-	// Provider name
-	ProviderName string `json:"provider_name,required"`
-	// Provider region
-	ProviderRegion string `json:"provider_region,required"`
 	// Provider Router IP
 	ProviderRouterIP string `json:"provider_router_ip,required"`
 	// Region the resource is in.
@@ -130,20 +128,19 @@ type ConnectFlux struct {
 	// Any of "pending", "creating", "updating", "ready", "deleting", "deleted",
 	// "error".
 	Status shared.ResourceStatus `json:"status,required"`
-	// When the connect flux was updated
+	// When the Connect Flux was updated
 	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID               respjson.Field
 		ASN              respjson.Field
+		Aws              respjson.Field
 		BandwidthMbps    respjson.Field
 		CIDRs            respjson.Field
 		CreatedAt        respjson.Field
 		Name             respjson.Field
 		ProviderASN      respjson.Field
 		ProviderCIDRs    respjson.Field
-		ProviderName     respjson.Field
-		ProviderRegion   respjson.Field
 		ProviderRouterIP respjson.Field
 		Region           respjson.Field
 		RouterIP         respjson.Field
@@ -157,6 +154,24 @@ type ConnectFlux struct {
 // Returns the unmodified JSON received from the API
 func (r ConnectFlux) RawJSON() string { return r.JSON.raw }
 func (r *ConnectFlux) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// AWS provider configuration
+type ConnectFluxAws struct {
+	// AWS region where the connection is established
+	Region string `json:"region,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Region      respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r ConnectFluxAws) RawJSON() string { return r.JSON.raw }
+func (r *ConnectFluxAws) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -214,7 +229,7 @@ func (r *ConnectFluxProviderList) UnmarshalJSON(data []byte) error {
 }
 
 type FluxNewParams struct {
-	// Connect flux speed in Mbps
+	// Connect Flux speed in Mbps
 	//
 	// Any of 50, 200, 500.
 	BandwidthMbps int64 `json:"bandwidth_mbps,omitzero,required"`
