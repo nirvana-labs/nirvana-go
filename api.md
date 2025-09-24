@@ -210,8 +210,21 @@ Response Types:
 
 Methods:
 
+- <code title="post /v1/connect/flux">client.Connect.Flux.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#FluxService.New">New</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, body <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect">connect</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#FluxNewParams">FluxNewParams</a>) (<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/operations">operations</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/operations#Operation">Operation</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
+- <code title="patch /v1/connect/flux/{flux_id}">client.Connect.Flux.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#FluxService.Update">Update</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, fluxID <a href="https://pkg.go.dev/builtin#string">string</a>, body <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect">connect</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#FluxUpdateParams">FluxUpdateParams</a>) (<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/operations">operations</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/operations#Operation">Operation</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
 - <code title="get /v1/connect/flux">client.Connect.Flux.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#FluxService.List">List</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>) (<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect">connect</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#ConnectFluxList">ConnectFluxList</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
+- <code title="delete /v1/connect/flux/{flux_id}">client.Connect.Flux.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#FluxService.Delete">Delete</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, fluxID <a href="https://pkg.go.dev/builtin#string">string</a>) (<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/operations">operations</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/operations#Operation">Operation</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
 - <code title="get /v1/connect/flux/{flux_id}">client.Connect.Flux.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#FluxService.Get">Get</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, fluxID <a href="https://pkg.go.dev/builtin#string">string</a>) (<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect">connect</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#ConnectFlux">ConnectFlux</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
+
+### Providers
+
+Response Types:
+
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect">connect</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#FluxProviderListResponse">FluxProviderListResponse</a>
+
+Methods:
+
+- <code title="get /v1/connect/flux/providers">client.Connect.Flux.Providers.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#FluxProviderService.List">List</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>) (<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect">connect</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#FluxProviderListResponse">FluxProviderListResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
 
 # Vektor
 
