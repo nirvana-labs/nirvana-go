@@ -97,21 +97,21 @@ type ConnectFlux struct {
 	// Unique identifier for the connect flux
 	ID string `json:"id,required"`
 	// ASN
-	Asn int64 `json:"asn,required"`
+	ASN int64 `json:"asn,required"`
 	// Connect flux speed in Mbps
 	//
 	// Any of 50, 200, 500.
 	BandwidthMbps int64 `json:"bandwidth_mbps,required"`
 	// CIDRs
-	Cidrs []string `json:"cidrs,required"`
+	CIDRs []string `json:"cidrs,required"`
 	// When the connect flux was created
 	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
 	// Name of the connect flux
 	Name string `json:"name,required"`
 	// Provider ASN
-	ProviderAsn int64 `json:"provider_asn,required"`
+	ProviderASN int64 `json:"provider_asn,required"`
 	// Provider CIDRs
-	ProviderCidrs []string `json:"provider_cidrs,required"`
+	ProviderCIDRs []string `json:"provider_cidrs,required"`
 	// Provider name
 	ProviderName string `json:"provider_name,required"`
 	// Provider region
@@ -135,13 +135,13 @@ type ConnectFlux struct {
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID               respjson.Field
-		Asn              respjson.Field
+		ASN              respjson.Field
 		BandwidthMbps    respjson.Field
-		Cidrs            respjson.Field
+		CIDRs            respjson.Field
 		CreatedAt        respjson.Field
 		Name             respjson.Field
-		ProviderAsn      respjson.Field
-		ProviderCidrs    respjson.Field
+		ProviderASN      respjson.Field
+		ProviderCIDRs    respjson.Field
 		ProviderName     respjson.Field
 		ProviderRegion   respjson.Field
 		ProviderRouterIP respjson.Field
@@ -182,11 +182,11 @@ type FluxNewParams struct {
 	// Any of 50, 200, 500.
 	BandwidthMbps int64 `json:"bandwidth_mbps,omitzero,required"`
 	// CIDRs for the Connect Flux
-	Cidrs []string `json:"cidrs,omitzero,required"`
+	CIDRs []string `json:"cidrs,omitzero,required"`
 	// Name of the Connect Flux
 	Name string `json:"name,required"`
 	// Provider CIDRs
-	ProviderCidrs []string `json:"provider_cidrs,omitzero,required"`
+	ProviderCIDRs []string `json:"provider_cidrs,omitzero,required"`
 	// Region the resource is in.
 	//
 	// Any of "us-sea-1", "us-sva-1", "us-chi-1", "us-wdc-1", "eu-frk-1", "ap-sin-1",

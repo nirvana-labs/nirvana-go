@@ -29,9 +29,9 @@ func TestFluxNewWithOptionalParams(t *testing.T) {
 	)
 	_, err := client.Connect.Flux.New(context.TODO(), connect.FluxNewParams{
 		BandwidthMbps: 50,
-		Cidrs:         []string{"10.0.0.0/16"},
+		CIDRs:         []string{"10.0.0.0/16"},
 		Name:          "my_aws_direct_connect",
-		ProviderCidrs: []string{"172.16.0.0/16"},
+		ProviderCIDRs: []string{"172.16.0.0/16"},
 		Region:        shared.RegionNameUsWdc1,
 		Aws: connect.FluxNewParamsAws{
 			AccountNumber: "522814707115",

@@ -97,7 +97,7 @@ type Subnet struct {
 	// Unique identifier for the Subnet.
 	ID string `json:"id,required"`
 	// CIDR block for the subnet.
-	Cidr string `json:"cidr,required"`
+	CIDR string `json:"cidr,required"`
 	// When the subnet was created.
 	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
 	// Name of the subnet.
@@ -107,7 +107,7 @@ type Subnet struct {
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field
-		Cidr        respjson.Field
+		CIDR        respjson.Field
 		CreatedAt   respjson.Field
 		Name        respjson.Field
 		UpdatedAt   respjson.Field
