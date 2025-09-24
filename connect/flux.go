@@ -12,7 +12,9 @@ import (
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
+	"github.com/nirvana-labs/nirvana-go/operations"
 	"github.com/nirvana-labs/nirvana-go/option"
+	"github.com/nirvana-labs/nirvana-go/packages/param"
 	"github.com/nirvana-labs/nirvana-go/packages/respjson"
 	"github.com/nirvana-labs/nirvana-go/shared"
 )
@@ -24,7 +26,8 @@ import (
 // automatically. You should not instantiate this service directly, and instead use
 // the [NewFluxService] method instead.
 type FluxService struct {
-	Options []option.RequestOption
+	Options   []option.RequestOption
+	Providers FluxProviderService
 }
 
 // NewFluxService generates a new service that applies the given options to each
@@ -33,6 +36,27 @@ type FluxService struct {
 func NewFluxService(opts ...option.RequestOption) (r FluxService) {
 	r = FluxService{}
 	r.Options = opts
+	r.Providers = NewFluxProviderService(opts...)
+	return
+}
+
+// Create a Connect Flux
+func (r *FluxService) New(ctx context.Context, body FluxNewParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
+	opts = slices.Concat(r.Options, opts)
+	path := "v1/connect/flux"
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
+	return
+}
+
+// Update Connect Flux details
+func (r *FluxService) Update(ctx context.Context, fluxID string, body FluxUpdateParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
+	opts = slices.Concat(r.Options, opts)
+	if fluxID == "" {
+		err = errors.New("missing required flux_id parameter")
+		return
+	}
+	path := fmt.Sprintf("v1/connect/flux/%s", fluxID)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
 	return
 }
 
@@ -41,6 +65,18 @@ func (r *FluxService) List(ctx context.Context, opts ...option.RequestOption) (r
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/connect/flux"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
+	return
+}
+
+// Delete Connect Flux
+func (r *FluxService) Delete(ctx context.Context, fluxID string, opts ...option.RequestOption) (res *operations.Operation, err error) {
+	opts = slices.Concat(r.Options, opts)
+	if fluxID == "" {
+		err = errors.New("missing required flux_id parameter")
+		return
+	}
+	path := fmt.Sprintf("v1/connect/flux/%s", fluxID)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
 	return
 }
 
@@ -60,9 +96,11 @@ func (r *FluxService) Get(ctx context.Context, fluxID string, opts ...option.Req
 type ConnectFlux struct {
 	// Unique identifier for the connect flux
 	ID string `json:"id,required"`
+	// ASN
+	Asn int64 `json:"asn,required"`
 	// Connect flux speed in Mbps
 	//
-	// Any of 50, 100, 200, 500, 1000, 2000, 5000.
+	// Any of 50, 200, 500.
 	BandwidthMbps int64 `json:"bandwidth_mbps,required"`
 	// CIDRs
 	Cidrs []string `json:"cidrs,required"`
@@ -70,17 +108,23 @@ type ConnectFlux struct {
 	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
 	// Name of the connect flux
 	Name string `json:"name,required"`
+	// Provider ASN
+	ProviderAsn int64 `json:"provider_asn,required"`
 	// Provider CIDRs
 	ProviderCidrs []string `json:"provider_cidrs,required"`
 	// Provider name
 	ProviderName string `json:"provider_name,required"`
 	// Provider region
 	ProviderRegion string `json:"provider_region,required"`
+	// Provider Router IP
+	ProviderRouterIP string `json:"provider_router_ip,required"`
 	// Region the resource is in.
 	//
 	// Any of "us-sea-1", "us-sva-1", "us-chi-1", "us-wdc-1", "eu-frk-1", "ap-sin-1",
 	// "ap-seo-1", "ap-tyo-1".
 	Region shared.RegionName `json:"region,required"`
+	// Router IP
+	RouterIP string `json:"router_ip,required"`
 	// Status of the resource.
 	//
 	// Any of "pending", "creating", "updating", "ready", "deleting", "deleted",
@@ -90,19 +134,23 @@ type ConnectFlux struct {
 	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
-		ID             respjson.Field
-		BandwidthMbps  respjson.Field
-		Cidrs          respjson.Field
-		CreatedAt      respjson.Field
-		Name           respjson.Field
-		ProviderCidrs  respjson.Field
-		ProviderName   respjson.Field
-		ProviderRegion respjson.Field
-		Region         respjson.Field
-		Status         respjson.Field
-		UpdatedAt      respjson.Field
-		ExtraFields    map[string]respjson.Field
-		raw            string
+		ID               respjson.Field
+		Asn              respjson.Field
+		BandwidthMbps    respjson.Field
+		Cidrs            respjson.Field
+		CreatedAt        respjson.Field
+		Name             respjson.Field
+		ProviderAsn      respjson.Field
+		ProviderCidrs    respjson.Field
+		ProviderName     respjson.Field
+		ProviderRegion   respjson.Field
+		ProviderRouterIP respjson.Field
+		Region           respjson.Field
+		RouterIP         respjson.Field
+		Status           respjson.Field
+		UpdatedAt        respjson.Field
+		ExtraFields      map[string]respjson.Field
+		raw              string
 	} `json:"-"`
 }
 
@@ -125,5 +173,67 @@ type ConnectFluxList struct {
 // Returns the unmodified JSON received from the API
 func (r ConnectFluxList) RawJSON() string { return r.JSON.raw }
 func (r *ConnectFluxList) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+type FluxNewParams struct {
+	// Connect flux speed in Mbps
+	//
+	// Any of 50, 200, 500.
+	BandwidthMbps int64 `json:"bandwidth_mbps,omitzero,required"`
+	// CIDRs for the Connect Flux
+	Cidrs []string `json:"cidrs,omitzero,required"`
+	// Name of the Connect Flux
+	Name string `json:"name,required"`
+	// Provider CIDRs
+	ProviderCidrs []string `json:"provider_cidrs,omitzero,required"`
+	// Region the resource is in.
+	//
+	// Any of "us-sea-1", "us-sva-1", "us-chi-1", "us-wdc-1", "eu-frk-1", "ap-sin-1",
+	// "ap-seo-1", "ap-tyo-1".
+	Region shared.RegionName `json:"region,omitzero,required"`
+	// AWS provider configuration
+	Aws FluxNewParamsAws `json:"aws,omitzero"`
+	paramObj
+}
+
+func (r FluxNewParams) MarshalJSON() (data []byte, err error) {
+	type shadow FluxNewParams
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *FluxNewParams) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// AWS provider configuration
+//
+// The properties AccountNumber, Region are required.
+type FluxNewParamsAws struct {
+	// AWS account number
+	AccountNumber string `json:"account_number,required"`
+	// AWS region where the connection will be established
+	Region string `json:"region,required"`
+	paramObj
+}
+
+func (r FluxNewParamsAws) MarshalJSON() (data []byte, err error) {
+	type shadow FluxNewParamsAws
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *FluxNewParamsAws) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+type FluxUpdateParams struct {
+	// Name of the Connect Flux.
+	Name param.Opt[string] `json:"name,omitzero"`
+	paramObj
+}
+
+func (r FluxUpdateParams) MarshalJSON() (data []byte, err error) {
+	type shadow FluxUpdateParams
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *FluxUpdateParams) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
