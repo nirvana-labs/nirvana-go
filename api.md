@@ -207,6 +207,8 @@ Response Types:
 
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect">connect</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#ConnectFlux">ConnectFlux</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect">connect</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#ConnectFluxList">ConnectFluxList</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect">connect</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#ConnectFluxProvider">ConnectFluxProvider</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect">connect</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#ConnectFluxProviderList">ConnectFluxProviderList</a>
 
 Methods:
 
@@ -218,13 +220,9 @@ Methods:
 
 ### Providers
 
-Response Types:
-
-- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect">connect</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#FluxProviderListResponse">FluxProviderListResponse</a>
-
 Methods:
 
-- <code title="get /v1/connect/flux/providers">client.Connect.Flux.Providers.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#FluxProviderService.List">List</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>) (<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect">connect</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#FluxProviderListResponse">FluxProviderListResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
+- <code title="get /v1/connect/flux/providers">client.Connect.Flux.Providers.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#FluxProviderService.List">List</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>) (<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect">connect</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#ConnectFluxProviderList">ConnectFluxProviderList</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
 
 # Vektor
 
