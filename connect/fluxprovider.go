@@ -7,10 +7,8 @@ import (
 	"net/http"
 	"slices"
 
-	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/option"
-	"github.com/nirvana-labs/nirvana-go/packages/respjson"
 )
 
 // FluxProviderService contains methods and other services that help with
@@ -33,46 +31,9 @@ func NewFluxProviderService(opts ...option.RequestOption) (r FluxProviderService
 }
 
 // List all supported providers with regions for Connect Flux.
-func (r *FluxProviderService) List(ctx context.Context, opts ...option.RequestOption) (res *FluxProviderListResponse, err error) {
+func (r *FluxProviderService) List(ctx context.Context, opts ...option.RequestOption) (res *ConnectFluxProviderList, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/connect/flux/providers"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
-}
-
-type FluxProviderListResponse struct {
-	Items []FluxProviderListResponseItem `json:"items,required"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		Items       respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
-	} `json:"-"`
-}
-
-// Returns the unmodified JSON received from the API
-func (r FluxProviderListResponse) RawJSON() string { return r.JSON.raw }
-func (r *FluxProviderListResponse) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// Provider supported for Connect Flux.
-type FluxProviderListResponseItem struct {
-	// Provider name.
-	Name string `json:"name,required"`
-	// Provider region name.
-	Region string `json:"region,required"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		Name        respjson.Field
-		Region      respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
-	} `json:"-"`
-}
-
-// Returns the unmodified JSON received from the API
-func (r FluxProviderListResponseItem) RawJSON() string { return r.JSON.raw }
-func (r *FluxProviderListResponseItem) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
 }

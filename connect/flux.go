@@ -176,6 +176,43 @@ func (r *ConnectFluxList) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
+// Provider supported for Connect Flux.
+type ConnectFluxProvider struct {
+	// Provider name.
+	Name string `json:"name,required"`
+	// Provider region name.
+	Region string `json:"region,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Name        respjson.Field
+		Region      respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r ConnectFluxProvider) RawJSON() string { return r.JSON.raw }
+func (r *ConnectFluxProvider) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+type ConnectFluxProviderList struct {
+	Items []ConnectFluxProvider `json:"items,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Items       respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r ConnectFluxProviderList) RawJSON() string { return r.JSON.raw }
+func (r *ConnectFluxProviderList) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
 type FluxNewParams struct {
 	// Connect flux speed in Mbps
 	//
