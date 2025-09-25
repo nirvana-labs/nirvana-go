@@ -212,6 +212,25 @@ func (r *FluxProvider) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
+// AWS provider configuration
+//
+// The properties AccountNumber, Region are required.
+type FluxProviderAWSConfigParam struct {
+	// AWS account number
+	AccountNumber string `json:"account_number,required"`
+	// AWS region where the connection will be established
+	Region string `json:"region,required"`
+	paramObj
+}
+
+func (r FluxProviderAWSConfigParam) MarshalJSON() (data []byte, err error) {
+	type shadow FluxProviderAWSConfigParam
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *FluxProviderAWSConfigParam) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
 type FluxProviderList struct {
 	Items []FluxProvider `json:"items,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -245,7 +264,7 @@ type FluxNewParams struct {
 	// "ap-seo-1", "ap-tyo-1".
 	Region shared.RegionName `json:"region,omitzero,required"`
 	// AWS provider configuration
-	AWS FluxNewParamsAWS `json:"aws,omitzero"`
+	AWS FluxProviderAWSConfigParam `json:"aws,omitzero"`
 	paramObj
 }
 
@@ -254,25 +273,6 @@ func (r FluxNewParams) MarshalJSON() (data []byte, err error) {
 	return param.MarshalObject(r, (*shadow)(&r))
 }
 func (r *FluxNewParams) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// AWS provider configuration
-//
-// The properties AccountNumber, Region are required.
-type FluxNewParamsAWS struct {
-	// AWS account number
-	AccountNumber string `json:"account_number,required"`
-	// AWS region where the connection will be established
-	Region string `json:"region,required"`
-	paramObj
-}
-
-func (r FluxNewParamsAWS) MarshalJSON() (data []byte, err error) {
-	type shadow FluxNewParamsAWS
-	return param.MarshalObject(r, (*shadow)(&r))
-}
-func (r *FluxNewParamsAWS) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
