@@ -203,15 +203,12 @@ Methods:
 
 ## Flux
 
-Params Types:
-
-- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect">connect</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#FluxProviderAWSConfigParam">FluxProviderAWSConfigParam</a>
-
 Response Types:
 
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect">connect</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#Flux">Flux</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect">connect</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#FluxList">FluxList</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect">connect</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#FluxProvider">FluxProvider</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect">connect</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#FluxProviderAWSConfig">FluxProviderAWSConfig</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect">connect</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#FluxProviderList">FluxProviderList</a>
 
 Methods:
