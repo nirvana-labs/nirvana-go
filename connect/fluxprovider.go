@@ -31,7 +31,7 @@ func NewFluxProviderService(opts ...option.RequestOption) (r FluxProviderService
 }
 
 // List all supported providers with regions for Connect Flux.
-func (r *FluxProviderService) List(ctx context.Context, opts ...option.RequestOption) (res *ConnectFluxProviderList, err error) {
+func (r *FluxProviderService) List(ctx context.Context, opts ...option.RequestOption) (res *FluxProviderList, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/connect/flux/providers"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
