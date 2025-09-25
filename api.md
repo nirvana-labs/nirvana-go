@@ -203,6 +203,10 @@ Methods:
 
 ## Flux
 
+Params Types:
+
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect">connect</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#FluxProviderAWSConfigRequestParam">FluxProviderAWSConfigRequestParam</a>
+
 Response Types:
 
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect">connect</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#Flux">Flux</a>
