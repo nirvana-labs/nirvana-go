@@ -61,7 +61,7 @@ func (r *FluxService) Update(ctx context.Context, fluxID string, body FluxUpdate
 }
 
 // List all Connect Flux
-func (r *FluxService) List(ctx context.Context, opts ...option.RequestOption) (res *ConnectFluxList, err error) {
+func (r *FluxService) List(ctx context.Context, opts ...option.RequestOption) (res *FluxList, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/connect/flux"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
@@ -81,7 +81,7 @@ func (r *FluxService) Delete(ctx context.Context, fluxID string, opts ...option.
 }
 
 // Get Connect Flux details
-func (r *FluxService) Get(ctx context.Context, fluxID string, opts ...option.RequestOption) (res *ConnectFlux, err error) {
+func (r *FluxService) Get(ctx context.Context, fluxID string, opts ...option.RequestOption) (res *Flux, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if fluxID == "" {
 		err = errors.New("missing required flux_id parameter")
@@ -93,13 +93,13 @@ func (r *FluxService) Get(ctx context.Context, fluxID string, opts ...option.Req
 }
 
 // Connect flux details.
-type ConnectFlux struct {
+type Flux struct {
 	// Unique identifier for the Connect Flux
 	ID string `json:"id,required"`
 	// ASN
 	ASN int64 `json:"asn,required"`
 	// AWS provider configuration
-	Aws ConnectFluxAws `json:"aws,required"`
+	Aws FluxAws `json:"aws,required"`
 	// Connect Flux speed in Mbps
 	//
 	// Any of 50, 200, 500.
@@ -152,13 +152,13 @@ type ConnectFlux struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r ConnectFlux) RawJSON() string { return r.JSON.raw }
-func (r *ConnectFlux) UnmarshalJSON(data []byte) error {
+func (r Flux) RawJSON() string { return r.JSON.raw }
+func (r *Flux) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // AWS provider configuration
-type ConnectFluxAws struct {
+type FluxAws struct {
 	// AWS region where the connection is established
 	Region string `json:"region,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -170,13 +170,13 @@ type ConnectFluxAws struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r ConnectFluxAws) RawJSON() string { return r.JSON.raw }
-func (r *ConnectFluxAws) UnmarshalJSON(data []byte) error {
+func (r FluxAws) RawJSON() string { return r.JSON.raw }
+func (r *FluxAws) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type ConnectFluxList struct {
-	Items []ConnectFlux `json:"items,required"`
+type FluxList struct {
+	Items []Flux `json:"items,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
@@ -186,13 +186,13 @@ type ConnectFluxList struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r ConnectFluxList) RawJSON() string { return r.JSON.raw }
-func (r *ConnectFluxList) UnmarshalJSON(data []byte) error {
+func (r FluxList) RawJSON() string { return r.JSON.raw }
+func (r *FluxList) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // Provider supported for Connect Flux.
-type ConnectFluxProvider struct {
+type FluxProvider struct {
 	// Provider name.
 	Name string `json:"name,required"`
 	// Provider region name.
@@ -207,13 +207,13 @@ type ConnectFluxProvider struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r ConnectFluxProvider) RawJSON() string { return r.JSON.raw }
-func (r *ConnectFluxProvider) UnmarshalJSON(data []byte) error {
+func (r FluxProvider) RawJSON() string { return r.JSON.raw }
+func (r *FluxProvider) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type ConnectFluxProviderList struct {
-	Items []ConnectFluxProvider `json:"items,required"`
+type FluxProviderList struct {
+	Items []FluxProvider `json:"items,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
@@ -223,8 +223,8 @@ type ConnectFluxProviderList struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r ConnectFluxProviderList) RawJSON() string { return r.JSON.raw }
-func (r *ConnectFluxProviderList) UnmarshalJSON(data []byte) error {
+func (r FluxProviderList) RawJSON() string { return r.JSON.raw }
+func (r *FluxProviderList) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
