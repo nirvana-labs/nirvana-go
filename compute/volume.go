@@ -92,7 +92,7 @@ func (r *VolumeService) Get(ctx context.Context, volumeID string, opts ...option
 	return
 }
 
-// Storage type the volume is using.
+// Storage type the Volume is using.
 type StorageType string
 
 const (
@@ -101,32 +101,34 @@ const (
 
 // Volume details.
 type Volume struct {
-	// Unique identifier for the volume.
+	// Unique identifier for the Volume.
 	ID string `json:"id,required"`
-	// When the volume was created.
+	// When the Volume was created.
 	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
 	// Volume kind.
 	//
 	// Any of "boot", "data".
 	Kind VolumeKind `json:"kind,required"`
-	// Name of the volume.
+	// Name of the Volume.
 	Name string `json:"name,required"`
-	// Size of the volume in GB.
+	// Size of the Volume in GB.
 	Size int64 `json:"size,required"`
 	// Status of the resource.
 	//
 	// Any of "pending", "creating", "updating", "ready", "deleting", "deleted",
 	// "error".
 	Status shared.ResourceStatus `json:"status,required"`
-	// Storage type the volume is using.
+	// Tags to attach to the Volume.
+	Tags []string `json:"tags,required"`
+	// Storage type the Volume is using.
 	//
 	// Any of "nvme".
 	Type StorageType `json:"type,required"`
-	// When the volume was updated.
+	// When the Volume was updated.
 	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
-	// ID of the VM the volume is attached to.
+	// ID of the VM the Volume is attached to.
 	VMID string `json:"vm_id,required"`
-	// Name of the VM the volume is attached to.
+	// Name of the VM the Volume is attached to.
 	VMName string `json:"vm_name,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -136,6 +138,7 @@ type Volume struct {
 		Name        respjson.Field
 		Size        respjson.Field
 		Status      respjson.Field
+		Tags        respjson.Field
 		Type        respjson.Field
 		UpdatedAt   respjson.Field
 		VMID        respjson.Field
@@ -176,12 +179,14 @@ func (r *VolumeList) UnmarshalJSON(data []byte) error {
 }
 
 type VolumeNewParams struct {
-	// Name of the volume.
+	// Name of the Volume.
 	Name string `json:"name,required"`
-	// Size of the volume in GB.
+	// Size of the Volume in GB.
 	Size int64 `json:"size,required"`
-	// ID of the VM the volume is attached to.
+	// ID of the VM the Volume is attached to.
 	VMID string `json:"vm_id,required"`
+	// Tags to attach to the Volume.
+	Tags []string `json:"tags,omitzero"`
 	paramObj
 }
 
@@ -194,10 +199,12 @@ func (r *VolumeNewParams) UnmarshalJSON(data []byte) error {
 }
 
 type VolumeUpdateParams struct {
-	// Name of the volume.
+	// Name of the Volume.
 	Name param.Opt[string] `json:"name,omitzero"`
-	// Size of the volume in GB.
+	// Size of the Volume in GB.
 	Size param.Opt[int64] `json:"size,omitzero"`
+	// Tags to attach to the Volume.
+	Tags []string `json:"tags,omitzero"`
 	paramObj
 }
 

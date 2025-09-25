@@ -81,6 +81,8 @@ type VMAvailabilityNewParams struct {
 	SubnetID string `json:"subnet_id,required"`
 	// Data volumes for the VM.
 	DataVolumes []VMAvailabilityNewParamsDataVolume `json:"data_volumes,omitzero"`
+	// Tags to attach to the VM.
+	Tags []string `json:"tags,omitzero"`
 	paramObj
 }
 
@@ -96,7 +98,7 @@ func (r *VMAvailabilityNewParams) UnmarshalJSON(data []byte) error {
 //
 // The property Size is required.
 type VMAvailabilityNewParamsBootVolume struct {
-	// Size of the volume in GB.
+	// Size of the Volume in GB.
 	Size int64 `json:"size,required"`
 	paramObj
 }
@@ -113,9 +115,9 @@ func (r *VMAvailabilityNewParamsBootVolume) UnmarshalJSON(data []byte) error {
 //
 // The properties Name, Size are required.
 type VMAvailabilityNewParamsDataVolume struct {
-	// Name of the volume.
+	// Name of the Volume.
 	Name string `json:"name,required"`
-	// Size of the volume in GB.
+	// Size of the Volume in GB.
 	Size int64 `json:"size,required"`
 	paramObj
 }
@@ -137,6 +139,8 @@ type VMAvailabilityUpdateParams struct {
 	CPUConfig CPUConfigRequestParam `json:"cpu_config,omitzero"`
 	// Memory configuration for the VM.
 	MemoryConfig MemoryConfigRequestParam `json:"memory_config,omitzero"`
+	// Tags to attach to the VM.
+	Tags []string `json:"tags,omitzero"`
 	paramObj
 }
 
