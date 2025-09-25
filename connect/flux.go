@@ -99,7 +99,7 @@ type Flux struct {
 	// ASN
 	ASN int64 `json:"asn,required"`
 	// AWS provider configuration
-	Aws FluxAws `json:"aws,required"`
+	AWS FluxAWS `json:"aws,required"`
 	// Connect Flux speed in Mbps
 	//
 	// Any of 50, 200, 500.
@@ -134,7 +134,7 @@ type Flux struct {
 	JSON struct {
 		ID               respjson.Field
 		ASN              respjson.Field
-		Aws              respjson.Field
+		AWS              respjson.Field
 		BandwidthMbps    respjson.Field
 		CIDRs            respjson.Field
 		CreatedAt        respjson.Field
@@ -158,7 +158,7 @@ func (r *Flux) UnmarshalJSON(data []byte) error {
 }
 
 // AWS provider configuration
-type FluxAws struct {
+type FluxAWS struct {
 	// AWS region where the connection is established
 	Region string `json:"region,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -170,8 +170,8 @@ type FluxAws struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r FluxAws) RawJSON() string { return r.JSON.raw }
-func (r *FluxAws) UnmarshalJSON(data []byte) error {
+func (r FluxAWS) RawJSON() string { return r.JSON.raw }
+func (r *FluxAWS) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -245,7 +245,7 @@ type FluxNewParams struct {
 	// "ap-seo-1", "ap-tyo-1".
 	Region shared.RegionName `json:"region,omitzero,required"`
 	// AWS provider configuration
-	Aws FluxNewParamsAws `json:"aws,omitzero"`
+	AWS FluxNewParamsAWS `json:"aws,omitzero"`
 	paramObj
 }
 
@@ -260,7 +260,7 @@ func (r *FluxNewParams) UnmarshalJSON(data []byte) error {
 // AWS provider configuration
 //
 // The properties AccountNumber, Region are required.
-type FluxNewParamsAws struct {
+type FluxNewParamsAWS struct {
 	// AWS account number
 	AccountNumber string `json:"account_number,required"`
 	// AWS region where the connection will be established
@@ -268,11 +268,11 @@ type FluxNewParamsAws struct {
 	paramObj
 }
 
-func (r FluxNewParamsAws) MarshalJSON() (data []byte, err error) {
-	type shadow FluxNewParamsAws
+func (r FluxNewParamsAWS) MarshalJSON() (data []byte, err error) {
+	type shadow FluxNewParamsAWS
 	return param.MarshalObject(r, (*shadow)(&r))
 }
-func (r *FluxNewParamsAws) UnmarshalJSON(data []byte) error {
+func (r *FluxNewParamsAWS) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
