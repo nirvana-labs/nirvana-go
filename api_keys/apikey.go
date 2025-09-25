@@ -89,25 +89,27 @@ func (r *APIKeyService) Get(ctx context.Context, apiKeyID string, opts ...option
 	return
 }
 
-// API key response.
+// API Key response.
 type APIKey struct {
-	// API key ID.
+	// API Key ID.
 	ID string `json:"id,required"`
-	// When the API key was created.
+	// When the API Key was created.
 	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
-	// When the API key expires and is no longer valid.
+	// When the API Key expires and is no longer valid.
 	ExpiresAt time.Time `json:"expires_at,required" format:"date-time"`
-	// API key name.
+	// API Key name.
 	Name string `json:"name,required"`
-	// Status of the API key.
+	// Status of the API Key.
 	//
 	// Any of "active", "inactive", "expired".
 	Status APIKeyStatus `json:"status,required"`
-	// When the API key was updated.
+	// Tags to attach to the API Key.
+	Tags []string `json:"tags,required"`
+	// When the API Key was updated.
 	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
-	// API key. Only returned on creation.
+	// API Key. Only returned on creation.
 	Key string `json:"key"`
-	// When the API key starts to be valid.
+	// When the API Key starts to be valid.
 	StartsAt time.Time `json:"starts_at" format:"date-time"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -116,6 +118,7 @@ type APIKey struct {
 		ExpiresAt   respjson.Field
 		Name        respjson.Field
 		Status      respjson.Field
+		Tags        respjson.Field
 		UpdatedAt   respjson.Field
 		Key         respjson.Field
 		StartsAt    respjson.Field
@@ -130,7 +133,7 @@ func (r *APIKey) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// Status of the API key.
+// Status of the API Key.
 type APIKeyStatus string
 
 const (
@@ -156,12 +159,14 @@ func (r *APIKeyList) UnmarshalJSON(data []byte) error {
 }
 
 type APIKeyNewParams struct {
-	// When the API key expires and is no longer valid.
+	// When the API Key expires and is no longer valid.
 	ExpiresAt time.Time `json:"expires_at,required" format:"date-time"`
-	// API key name.
+	// API Key name.
 	Name string `json:"name,required"`
-	// When the API key starts to be valid.
+	// When the API Key starts to be valid.
 	StartsAt param.Opt[time.Time] `json:"starts_at,omitzero" format:"date-time"`
+	// Tags to attach to the API Key.
+	Tags []string `json:"tags,omitzero"`
 	paramObj
 }
 
@@ -174,8 +179,10 @@ func (r *APIKeyNewParams) UnmarshalJSON(data []byte) error {
 }
 
 type APIKeyUpdateParams struct {
-	// API key name.
+	// API Key name.
 	Name param.Opt[string] `json:"name,omitzero"`
+	// Tags to attach to the API Key.
+	Tags []string `json:"tags,omitzero"`
 	paramObj
 }
 

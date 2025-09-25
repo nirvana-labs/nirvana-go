@@ -49,6 +49,7 @@ func TestVMAvailabilityNewWithOptionalParams(t *testing.T) {
 			Name: "my-data-volume",
 			Size: 100,
 		}},
+		Tags: []string{"production", "api", "access"},
 	})
 	if err != nil {
 		var apierr *nirvana.Error
@@ -83,6 +84,7 @@ func TestVMAvailabilityUpdateWithOptionalParams(t *testing.T) {
 			},
 			Name:            nirvana.String("my-vm"),
 			PublicIPEnabled: nirvana.Bool(true),
+			Tags:            []string{"production", "api", "access"},
 		},
 	)
 	if err != nil {

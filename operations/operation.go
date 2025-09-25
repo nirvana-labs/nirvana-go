@@ -57,25 +57,25 @@ func (r *OperationService) Get(ctx context.Context, operationID string, opts ...
 
 // Operation details.
 type Operation struct {
-	// Unique identifier for the operation.
+	// Unique identifier for the Operation.
 	ID string `json:"id,required"`
-	// When the operation was created.
+	// When the Operation was created.
 	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
-	// Kind of operation.
+	// Kind of Operation.
 	//
 	// Any of "vm", "volume", "vpc", "firewall_rule".
 	Kind OperationKind `json:"kind,required"`
-	// ID of the resource that the operation is acting on.
+	// ID of the resource that the Operation is acting on.
 	ResourceID string `json:"resource_id,required"`
-	// Status of the operation.
+	// Status of the Operation.
 	//
 	// Any of "pending", "running", "done", "failed", "unknown".
 	Status OperationStatus `json:"status,required"`
-	// Type of operation.
+	// Type of Operation.
 	//
 	// Any of "create", "update", "delete", "restart".
 	Type OperationType `json:"type,required"`
-	// When the operation was updated.
+	// When the Operation was updated.
 	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -97,7 +97,7 @@ func (r *Operation) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// Kind of operation.
+// Kind of Operation.
 type OperationKind string
 
 const (
@@ -123,7 +123,7 @@ func (r *OperationList) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// Status of the operation.
+// Status of the Operation.
 type OperationStatus string
 
 const (
@@ -134,7 +134,7 @@ const (
 	OperationStatusUnknown OperationStatus = "unknown"
 )
 
-// Type of operation.
+// Type of Operation.
 type OperationType string
 
 const (

@@ -112,21 +112,21 @@ func (r *FirewallRuleService) Get(ctx context.Context, vpcID string, firewallRul
 
 // Firewall rule details.
 type FirewallRule struct {
-	// Unique identifier for the firewall rule.
+	// Unique identifier for the Firewall Rule.
 	ID string `json:"id,required"`
-	// When the firewall rule was created.
+	// When the Firewall Rule was created.
 	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
-	// Destination address of the firewall rule. Either VPC CIDR or VM in VPC.
+	// Destination address of the Firewall Rule. Either VPC CIDR or VM in VPC.
 	DestinationAddress string `json:"destination_address,required"`
-	// Destination ports of the firewall rule.
+	// Destination ports of the Firewall Rule.
 	DestinationPorts []string `json:"destination_ports,required"`
-	// Name of the firewall rule.
+	// Name of the Firewall Rule.
 	Name string `json:"name,required"`
-	// Protocol of the firewall rule.
+	// Protocol of the Firewall Rule.
 	//
 	// Any of "tcp", "udp".
 	Protocol FirewallRuleProtocol `json:"protocol,required"`
-	// Source address of the firewall rule. Address of 0.0.0.0 requires a CIDR mask
+	// Source address of the Firewall Rule. Address of 0.0.0.0 requires a CIDR mask
 	// of 0.
 	SourceAddress string `json:"source_address,required"`
 	// Status of the resource.
@@ -134,9 +134,11 @@ type FirewallRule struct {
 	// Any of "pending", "creating", "updating", "ready", "deleting", "deleted",
 	// "error".
 	Status shared.ResourceStatus `json:"status,required"`
-	// When the firewall rule was updated.
+	// Tags to attach to the Firewall Rule.
+	Tags []string `json:"tags,required"`
+	// When the Firewall Rule was updated.
 	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
-	// ID of the VPC the firewall rule belongs to.
+	// ID of the VPC the Firewall Rule belongs to.
 	VPCID string `json:"vpc_id,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -148,6 +150,7 @@ type FirewallRule struct {
 		Protocol           respjson.Field
 		SourceAddress      respjson.Field
 		Status             respjson.Field
+		Tags               respjson.Field
 		UpdatedAt          respjson.Field
 		VPCID              respjson.Field
 		ExtraFields        map[string]respjson.Field
@@ -161,7 +164,7 @@ func (r *FirewallRule) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// Protocol of the firewall rule.
+// Protocol of the Firewall Rule.
 type FirewallRuleProtocol string
 
 const (
@@ -186,19 +189,21 @@ func (r *FirewallRuleList) UnmarshalJSON(data []byte) error {
 }
 
 type FirewallRuleNewParams struct {
-	// Destination address of the firewall rule. Either VPC CIDR or VM in VPC.
+	// Destination address of the Firewall Rule. Either VPC CIDR or VM in VPC.
 	DestinationAddress string `json:"destination_address,required"`
-	// Destination ports of the firewall rule.
+	// Destination ports of the Firewall Rule.
 	DestinationPorts []string `json:"destination_ports,omitzero,required"`
-	// Name of the firewall rule.
+	// Name of the Firewall Rule.
 	Name string `json:"name,required"`
-	// Protocol of the firewall rule.
+	// Protocol of the Firewall Rule.
 	//
 	// Any of "tcp", "udp".
 	Protocol FirewallRuleNewParamsProtocol `json:"protocol,omitzero,required"`
-	// Source address of the firewall rule. Address of 0.0.0.0 requires a CIDR mask
+	// Source address of the Firewall Rule. Address of 0.0.0.0 requires a CIDR mask
 	// of 0.
 	SourceAddress string `json:"source_address,required"`
+	// Tags to attach to the Firewall Rule.
+	Tags []string `json:"tags,omitzero"`
 	paramObj
 }
 
@@ -210,7 +215,7 @@ func (r *FirewallRuleNewParams) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// Protocol of the firewall rule.
+// Protocol of the Firewall Rule.
 type FirewallRuleNewParamsProtocol string
 
 const (
@@ -219,19 +224,21 @@ const (
 )
 
 type FirewallRuleUpdateParams struct {
-	// Destination address of the firewall rule. Either VPC CIDR or VM in VPC.
+	// Destination address of the Firewall Rule. Either VPC CIDR or VM in VPC.
 	DestinationAddress param.Opt[string] `json:"destination_address,omitzero"`
-	// Name of the firewall rule.
+	// Name of the Firewall Rule.
 	Name param.Opt[string] `json:"name,omitzero"`
-	// Source address of the firewall rule. Address of 0.0.0.0 requires a CIDR mask
+	// Source address of the Firewall Rule. Address of 0.0.0.0 requires a CIDR mask
 	// of 0.
 	SourceAddress param.Opt[string] `json:"source_address,omitzero"`
-	// Destination ports of the firewall rule.
+	// Destination ports of the Firewall Rule.
 	DestinationPorts []string `json:"destination_ports,omitzero"`
-	// Protocol of the firewall rule.
+	// Protocol of the Firewall Rule.
 	//
 	// Any of "tcp", "udp".
 	Protocol FirewallRuleUpdateParamsProtocol `json:"protocol,omitzero"`
+	// Tags to attach to the Firewall Rule.
+	Tags []string `json:"tags,omitzero"`
 	paramObj
 }
 
@@ -243,7 +250,7 @@ func (r *FirewallRuleUpdateParams) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// Protocol of the firewall rule.
+// Protocol of the Firewall Rule.
 type FirewallRuleUpdateParamsProtocol string
 
 const (

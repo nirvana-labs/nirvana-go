@@ -71,6 +71,8 @@ type Flex struct {
 	Name string `json:"name,required"`
 	// Network type (e.g., mainnet, testnet).
 	Network string `json:"network,required"`
+	// Tags to attach to the RPC Node Flex.
+	Tags []string `json:"tags,required"`
 	// When the RPC Node Flex was updated.
 	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -81,6 +83,7 @@ type Flex struct {
 		Endpoint    respjson.Field
 		Name        respjson.Field
 		Network     respjson.Field
+		Tags        respjson.Field
 		UpdatedAt   respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
@@ -93,7 +96,7 @@ func (r *Flex) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// Blockchain supported by the Flex RPC Node.
+// Blockchain supported by the RPC Node Flex.
 type FlexBlockchain struct {
 	// Blockchain type.
 	Blockchain string `json:"blockchain,required"`
