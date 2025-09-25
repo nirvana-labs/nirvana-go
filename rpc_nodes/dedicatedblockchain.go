@@ -31,7 +31,7 @@ func NewDedicatedBlockchainService(opts ...option.RequestOption) (r DedicatedBlo
 }
 
 // List all Dedicated Blockchains
-func (r *DedicatedBlockchainService) List(ctx context.Context, opts ...option.RequestOption) (res *RPCNodesDedicatedBlockchainList, err error) {
+func (r *DedicatedBlockchainService) List(ctx context.Context, opts ...option.RequestOption) (res *DedicatedBlockchainList, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/rpc_nodes/dedicated/blockchains"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)

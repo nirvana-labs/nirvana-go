@@ -31,7 +31,7 @@ func NewFlexBlockchainService(opts ...option.RequestOption) (r FlexBlockchainSer
 }
 
 // List all Flex Blockchains
-func (r *FlexBlockchainService) List(ctx context.Context, opts ...option.RequestOption) (res *RPCNodesFlexBlockchainList, err error) {
+func (r *FlexBlockchainService) List(ctx context.Context, opts ...option.RequestOption) (res *FlexBlockchainList, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/rpc_nodes/flex/blockchains"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
