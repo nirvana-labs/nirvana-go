@@ -38,7 +38,7 @@ func NewFlexService(opts ...option.RequestOption) (r FlexService) {
 }
 
 // List all RPC Node Flex you created
-func (r *FlexService) List(ctx context.Context, opts ...option.RequestOption) (res *RPCNodesFlexList, err error) {
+func (r *FlexService) List(ctx context.Context, opts ...option.RequestOption) (res *FlexList, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/rpc_nodes/flex"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
@@ -46,7 +46,7 @@ func (r *FlexService) List(ctx context.Context, opts ...option.RequestOption) (r
 }
 
 // Get details about an RPC Node Flex
-func (r *FlexService) Get(ctx context.Context, nodeID string, opts ...option.RequestOption) (res *RPCNodesFlex, err error) {
+func (r *FlexService) Get(ctx context.Context, nodeID string, opts ...option.RequestOption) (res *Flex, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if nodeID == "" {
 		err = errors.New("missing required node_id parameter")
@@ -58,7 +58,7 @@ func (r *FlexService) Get(ctx context.Context, nodeID string, opts ...option.Req
 }
 
 // RPC Node Flex details.
-type RPCNodesFlex struct {
+type Flex struct {
 	// Unique identifier for the RPC Node Flex.
 	ID string `json:"id,required"`
 	// Blockchain type.
@@ -88,13 +88,13 @@ type RPCNodesFlex struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r RPCNodesFlex) RawJSON() string { return r.JSON.raw }
-func (r *RPCNodesFlex) UnmarshalJSON(data []byte) error {
+func (r Flex) RawJSON() string { return r.JSON.raw }
+func (r *Flex) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // Blockchain supported by the Flex RPC Node.
-type RPCNodesFlexBlockchain struct {
+type FlexBlockchain struct {
 	// Blockchain type.
 	Blockchain string `json:"blockchain,required"`
 	// Network type (e.g., mainnet, testnet).
@@ -109,13 +109,13 @@ type RPCNodesFlexBlockchain struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r RPCNodesFlexBlockchain) RawJSON() string { return r.JSON.raw }
-func (r *RPCNodesFlexBlockchain) UnmarshalJSON(data []byte) error {
+func (r FlexBlockchain) RawJSON() string { return r.JSON.raw }
+func (r *FlexBlockchain) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type RPCNodesFlexBlockchainList struct {
-	Items []RPCNodesFlexBlockchain `json:"items,required"`
+type FlexBlockchainList struct {
+	Items []FlexBlockchain `json:"items,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
@@ -125,13 +125,13 @@ type RPCNodesFlexBlockchainList struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r RPCNodesFlexBlockchainList) RawJSON() string { return r.JSON.raw }
-func (r *RPCNodesFlexBlockchainList) UnmarshalJSON(data []byte) error {
+func (r FlexBlockchainList) RawJSON() string { return r.JSON.raw }
+func (r *FlexBlockchainList) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type RPCNodesFlexList struct {
-	Items []RPCNodesFlex `json:"items,required"`
+type FlexList struct {
+	Items []Flex `json:"items,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
@@ -141,7 +141,7 @@ type RPCNodesFlexList struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r RPCNodesFlexList) RawJSON() string { return r.JSON.raw }
-func (r *RPCNodesFlexList) UnmarshalJSON(data []byte) error {
+func (r FlexList) RawJSON() string { return r.JSON.raw }
+func (r *FlexList) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }

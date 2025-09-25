@@ -38,7 +38,7 @@ func NewDedicatedService(opts ...option.RequestOption) (r DedicatedService) {
 }
 
 // List all RPC Node Dedicated you created
-func (r *DedicatedService) List(ctx context.Context, opts ...option.RequestOption) (res *RPCNodesDedicatedList, err error) {
+func (r *DedicatedService) List(ctx context.Context, opts ...option.RequestOption) (res *DedicatedList, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/rpc_nodes/dedicated"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
@@ -46,7 +46,7 @@ func (r *DedicatedService) List(ctx context.Context, opts ...option.RequestOptio
 }
 
 // Get details about an RPC Node Dedicated
-func (r *DedicatedService) Get(ctx context.Context, nodeID string, opts ...option.RequestOption) (res *RPCNodesDedicated, err error) {
+func (r *DedicatedService) Get(ctx context.Context, nodeID string, opts ...option.RequestOption) (res *Dedicated, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if nodeID == "" {
 		err = errors.New("missing required node_id parameter")
@@ -58,7 +58,7 @@ func (r *DedicatedService) Get(ctx context.Context, nodeID string, opts ...optio
 }
 
 // RPC Node Dedicated details.
-type RPCNodesDedicated struct {
+type Dedicated struct {
 	// Unique identifier for the RPC Node Dedicated.
 	ID string `json:"id,required"`
 	// Blockchain type.
@@ -88,13 +88,13 @@ type RPCNodesDedicated struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r RPCNodesDedicated) RawJSON() string { return r.JSON.raw }
-func (r *RPCNodesDedicated) UnmarshalJSON(data []byte) error {
+func (r Dedicated) RawJSON() string { return r.JSON.raw }
+func (r *Dedicated) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // Blockchain supported by the Dedicated RPC Node.
-type RPCNodesDedicatedBlockchain struct {
+type DedicatedBlockchain struct {
 	// Blockchain type.
 	Blockchain string `json:"blockchain,required"`
 	// Network type (e.g., mainnet, testnet).
@@ -109,13 +109,13 @@ type RPCNodesDedicatedBlockchain struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r RPCNodesDedicatedBlockchain) RawJSON() string { return r.JSON.raw }
-func (r *RPCNodesDedicatedBlockchain) UnmarshalJSON(data []byte) error {
+func (r DedicatedBlockchain) RawJSON() string { return r.JSON.raw }
+func (r *DedicatedBlockchain) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type RPCNodesDedicatedBlockchainList struct {
-	Items []RPCNodesDedicatedBlockchain `json:"items,required"`
+type DedicatedBlockchainList struct {
+	Items []DedicatedBlockchain `json:"items,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
@@ -125,13 +125,13 @@ type RPCNodesDedicatedBlockchainList struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r RPCNodesDedicatedBlockchainList) RawJSON() string { return r.JSON.raw }
-func (r *RPCNodesDedicatedBlockchainList) UnmarshalJSON(data []byte) error {
+func (r DedicatedBlockchainList) RawJSON() string { return r.JSON.raw }
+func (r *DedicatedBlockchainList) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type RPCNodesDedicatedList struct {
-	Items []RPCNodesDedicated `json:"items,required"`
+type DedicatedList struct {
+	Items []Dedicated `json:"items,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
@@ -141,7 +141,7 @@ type RPCNodesDedicatedList struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r RPCNodesDedicatedList) RawJSON() string { return r.JSON.raw }
-func (r *RPCNodesDedicatedList) UnmarshalJSON(data []byte) error {
+func (r DedicatedList) RawJSON() string { return r.JSON.raw }
+func (r *DedicatedList) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
