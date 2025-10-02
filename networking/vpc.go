@@ -144,8 +144,6 @@ type VPC struct {
 	Status shared.ResourceStatus `json:"status,required"`
 	// Subnet of the VPC.
 	Subnet Subnet `json:"subnet,required"`
-	// Tags to attach to the VPC.
-	Tags []string `json:"tags,required"`
 	// When the VPC was updated.
 	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -157,7 +155,6 @@ type VPC struct {
 		Region          respjson.Field
 		Status          respjson.Field
 		Subnet          respjson.Field
-		Tags            respjson.Field
 		UpdatedAt       respjson.Field
 		ExtraFields     map[string]respjson.Field
 		raw             string
@@ -196,8 +193,6 @@ type VPCNewParams struct {
 	Region shared.RegionName `json:"region,omitzero,required"`
 	// Name of the subnet to create.
 	SubnetName string `json:"subnet_name,required"`
-	// Tags to attach to the VPC.
-	Tags []string `json:"tags,omitzero"`
 	paramObj
 }
 
@@ -214,8 +209,6 @@ type VPCUpdateParams struct {
 	Name param.Opt[string] `json:"name,omitzero"`
 	// Name of the subnet to create.
 	SubnetName param.Opt[string] `json:"subnet_name,omitzero"`
-	// Tags to attach to the VPC.
-	Tags []string `json:"tags,omitzero"`
 	paramObj
 }
 
