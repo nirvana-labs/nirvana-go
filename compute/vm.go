@@ -253,8 +253,6 @@ type VM struct {
 	Status shared.ResourceStatus `json:"status,required"`
 	// ID of the subnet the VM is in.
 	SubnetID string `json:"subnet_id,required"`
-	// Tags to attach to the VM.
-	Tags []string `json:"tags,required"`
 	// When the VM was updated.
 	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
 	// ID of the VPC the VM is in.
@@ -276,7 +274,6 @@ type VM struct {
 		Region          respjson.Field
 		Status          respjson.Field
 		SubnetID        respjson.Field
-		Tags            respjson.Field
 		UpdatedAt       respjson.Field
 		VPCID           respjson.Field
 		VPCName         respjson.Field
@@ -331,8 +328,6 @@ type VMNewParams struct {
 	SubnetID string `json:"subnet_id,required"`
 	// Data volumes for the VM.
 	DataVolumes []VMNewParamsDataVolume `json:"data_volumes,omitzero"`
-	// Tags to attach to the VM.
-	Tags []string `json:"tags,omitzero"`
 	paramObj
 }
 
@@ -389,8 +384,6 @@ type VMUpdateParams struct {
 	CPUConfig CPUConfigRequestParam `json:"cpu_config,omitzero"`
 	// Memory configuration for the VM.
 	MemoryConfig MemoryConfigRequestParam `json:"memory_config,omitzero"`
-	// Tags to attach to the VM.
-	Tags []string `json:"tags,omitzero"`
 	paramObj
 }
 

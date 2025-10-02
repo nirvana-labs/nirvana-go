@@ -15,7 +15,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/shared"
 )
 
-func TestVPCAvailabilityNewWithOptionalParams(t *testing.T) {
+func TestVPCAvailabilityNew(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -31,7 +31,6 @@ func TestVPCAvailabilityNewWithOptionalParams(t *testing.T) {
 		Name:       "my-vpc",
 		Region:     shared.RegionNameUsWdc1,
 		SubnetName: "my-subnet",
-		Tags:       []string{"production", "ethereum"},
 	})
 	if err != nil {
 		var apierr *nirvana.Error
@@ -60,7 +59,6 @@ func TestVPCAvailabilityUpdateWithOptionalParams(t *testing.T) {
 		networking.VPCAvailabilityUpdateParams{
 			Name:       nirvana.String("my-vpc"),
 			SubnetName: nirvana.String("my-subnet"),
-			Tags:       []string{"production", "ethereum"},
 		},
 	)
 	if err != nil {

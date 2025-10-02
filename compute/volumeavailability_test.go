@@ -14,7 +14,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/option"
 )
 
-func TestVolumeAvailabilityNewWithOptionalParams(t *testing.T) {
+func TestVolumeAvailabilityNew(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -30,7 +30,6 @@ func TestVolumeAvailabilityNewWithOptionalParams(t *testing.T) {
 		Name: "my-data-volume",
 		Size: 100,
 		VMID: "vm_id",
-		Tags: []string{"production", "ethereum"},
 	})
 	if err != nil {
 		var apierr *nirvana.Error
@@ -59,7 +58,6 @@ func TestVolumeAvailabilityUpdateWithOptionalParams(t *testing.T) {
 		compute.VolumeAvailabilityUpdateParams{
 			Name: nirvana.String("my-data-volume"),
 			Size: nirvana.Int(100),
-			Tags: []string{"production", "ethereum"},
 		},
 	)
 	if err != nil {

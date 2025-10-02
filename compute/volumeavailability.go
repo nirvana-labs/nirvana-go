@@ -63,8 +63,6 @@ type VolumeAvailabilityNewParams struct {
 	Size int64 `json:"size,required"`
 	// ID of the VM the Volume is attached to.
 	VMID string `json:"vm_id,required"`
-	// Tags to attach to the Volume.
-	Tags []string `json:"tags,omitzero"`
 	paramObj
 }
 
@@ -81,8 +79,6 @@ type VolumeAvailabilityUpdateParams struct {
 	Name param.Opt[string] `json:"name,omitzero"`
 	// Size of the Volume in GB.
 	Size param.Opt[int64] `json:"size,omitzero"`
-	// Tags to attach to the Volume.
-	Tags []string `json:"tags,omitzero"`
 	paramObj
 }
 
