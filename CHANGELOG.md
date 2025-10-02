@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.18.0 (2025-10-02)
+
+Full Changelog: [v1.17.0...v1.18.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.17.0...v1.18.0)
+
+### Features
+
+* **api:** api update ([50d06a4](https://github.com/nirvana-labs/nirvana-go/commit/50d06a4fb521b4b55f28384ddfe3cde5f1bd9b3d))
+* **api:** api update ([0a5e546](https://github.com/nirvana-labs/nirvana-go/commit/0a5e5465b209d8c31249557785b15c8b8e81dce7))
+* **api:** api update ([7a28ceb](https://github.com/nirvana-labs/nirvana-go/commit/7a28ceb9631f97550efa02b8cfee2b6f0e352d5c))
+* **api:** api update ([643aae7](https://github.com/nirvana-labs/nirvana-go/commit/643aae7f2eb4d716847c9dcdbcd8e71b7c6844ad))
+
+
+### Bug Fixes
+
+* bugfix for setting JSON keys with special characters ([5ab6d4f](https://github.com/nirvana-labs/nirvana-go/commit/5ab6d4fa6ab470d69a03db94e397d21843521dd1))
+
 ## 1.17.0 (2025-09-25)
 
 Full Changelog: [v1.16.0...v1.17.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.16.0...v1.17.0)

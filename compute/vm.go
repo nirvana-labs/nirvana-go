@@ -343,7 +343,7 @@ func (r *VMNewParams) UnmarshalJSON(data []byte) error {
 //
 // The property Size is required.
 type VMNewParamsBootVolume struct {
-	// Size of the volume in GB.
+	// Size of the Volume in GB.
 	Size int64 `json:"size,required"`
 	paramObj
 }
@@ -360,9 +360,9 @@ func (r *VMNewParamsBootVolume) UnmarshalJSON(data []byte) error {
 //
 // The properties Name, Size are required.
 type VMNewParamsDataVolume struct {
-	// Name of the volume.
+	// Name of the Volume.
 	Name string `json:"name,required"`
-	// Size of the volume in GB.
+	// Size of the Volume in GB.
 	Size int64 `json:"size,required"`
 	paramObj
 }

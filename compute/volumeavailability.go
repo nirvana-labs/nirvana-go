@@ -57,11 +57,11 @@ func (r *VolumeAvailabilityService) Update(ctx context.Context, volumeID string,
 }
 
 type VolumeAvailabilityNewParams struct {
-	// Name of the volume.
+	// Name of the Volume.
 	Name string `json:"name,required"`
-	// Size of the volume in GB.
+	// Size of the Volume in GB.
 	Size int64 `json:"size,required"`
-	// ID of the VM the volume is attached to.
+	// ID of the VM the Volume is attached to.
 	VMID string `json:"vm_id,required"`
 	paramObj
 }
@@ -75,9 +75,9 @@ func (r *VolumeAvailabilityNewParams) UnmarshalJSON(data []byte) error {
 }
 
 type VolumeAvailabilityUpdateParams struct {
-	// Name of the volume.
+	// Name of the Volume.
 	Name param.Opt[string] `json:"name,omitzero"`
-	// Size of the volume in GB.
+	// Size of the Volume in GB.
 	Size param.Opt[int64] `json:"size,omitzero"`
 	paramObj
 }

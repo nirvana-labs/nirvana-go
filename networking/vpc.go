@@ -96,13 +96,13 @@ func (r *VPCService) Get(ctx context.Context, vpcID string, opts ...option.Reque
 type Subnet struct {
 	// Unique identifier for the Subnet.
 	ID string `json:"id,required"`
-	// CIDR block for the subnet.
+	// CIDR block for the Subnet.
 	CIDR string `json:"cidr,required"`
-	// When the subnet was created.
+	// When the Subnet was created.
 	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
-	// Name of the subnet.
+	// Name of the Subnet.
 	Name string `json:"name,required"`
-	// When the subnet was updated.
+	// When the Subnet was updated.
 	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -128,7 +128,7 @@ type VPC struct {
 	ID string `json:"id,required"`
 	// When the VPC was created.
 	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
-	// IDs of the firewall rules associated with the VPC.
+	// IDs of the Firewall Rules associated with the VPC.
 	FirewallRuleIDs []string `json:"firewall_rule_ids,required"`
 	// Name of the VPC.
 	Name string `json:"name,required"`

@@ -40,12 +40,13 @@ func (r *UserService) Get(ctx context.Context, opts ...option.RequestOption) (re
 	return
 }
 
+// User details.
 type User struct {
-	// Unique identifier for the user.
+	// Unique identifier for the User.
 	ID string `json:"id,required"`
 	// Email address of the user.
 	Email string `json:"email,required"`
-	// Services that the user has access to.
+	// Services that the User has access to.
 	Services UserServices `json:"services,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -63,7 +64,7 @@ func (r *User) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// Services that the user has access to.
+// Services that the User has access to.
 type UserServices struct {
 	Cloud bool `json:"cloud"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].

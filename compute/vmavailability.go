@@ -96,7 +96,7 @@ func (r *VMAvailabilityNewParams) UnmarshalJSON(data []byte) error {
 //
 // The property Size is required.
 type VMAvailabilityNewParamsBootVolume struct {
-	// Size of the volume in GB.
+	// Size of the Volume in GB.
 	Size int64 `json:"size,required"`
 	paramObj
 }
@@ -113,9 +113,9 @@ func (r *VMAvailabilityNewParamsBootVolume) UnmarshalJSON(data []byte) error {
 //
 // The properties Name, Size are required.
 type VMAvailabilityNewParamsDataVolume struct {
-	// Name of the volume.
+	// Name of the Volume.
 	Name string `json:"name,required"`
-	// Size of the volume in GB.
+	// Size of the Volume in GB.
 	Size int64 `json:"size,required"`
 	paramObj
 }

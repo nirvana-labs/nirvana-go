@@ -93,7 +93,7 @@ func (r *Flex) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// Blockchain supported by the Flex RPC Node.
+// Blockchain supported by the RPC Node Flex.
 type FlexBlockchain struct {
 	// Blockchain type.
 	Blockchain string `json:"blockchain,required"`

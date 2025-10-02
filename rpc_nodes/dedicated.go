@@ -93,7 +93,7 @@ func (r *Dedicated) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// Blockchain supported by the Dedicated RPC Node.
+// Blockchain supported by the RPC Node Dedicated.
 type DedicatedBlockchain struct {
 	// Blockchain type.
 	Blockchain string `json:"blockchain,required"`
