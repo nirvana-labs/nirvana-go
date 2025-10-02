@@ -35,7 +35,7 @@ func TestFirewallRuleNewWithOptionalParams(t *testing.T) {
 			Name:               "my-firewall-rule",
 			Protocol:           networking.FirewallRuleNewParamsProtocolTcp,
 			SourceAddress:      "0.0.0.0/0",
-			Tags:               []string{"production", "api", "access"},
+			Tags:               []string{"production", "ethereum"},
 		},
 	)
 	if err != nil {
@@ -69,7 +69,7 @@ func TestFirewallRuleUpdateWithOptionalParams(t *testing.T) {
 			Name:               nirvana.String("my-firewall-rule"),
 			Protocol:           networking.FirewallRuleUpdateParamsProtocolTcp,
 			SourceAddress:      nirvana.String("0.0.0.0/0"),
-			Tags:               []string{"production", "api", "access"},
+			Tags:               []string{"production", "ethereum"},
 		},
 	)
 	if err != nil {
