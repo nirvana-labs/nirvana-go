@@ -102,7 +102,7 @@ type Flux struct {
 	AWS FluxProviderAWSConfig `json:"aws,required"`
 	// Connect Flux speed in Mbps
 	//
-	// Any of 50, 200, 500.
+	// Any of 50, 200, 500, 1000, 2000.
 	BandwidthMbps int64 `json:"bandwidth_mbps,required"`
 	// CIDRs for the Connect Flux
 	CIDRs []string `json:"cidrs,required"`
@@ -250,7 +250,7 @@ func (r *FluxProviderList) UnmarshalJSON(data []byte) error {
 type FluxNewParams struct {
 	// Connect Flux speed in Mbps
 	//
-	// Any of 50, 200, 500.
+	// Any of 50, 200, 500, 1000, 2000.
 	BandwidthMbps int64 `json:"bandwidth_mbps,omitzero,required"`
 	// CIDRs for the Connect Flux
 	CIDRs []string `json:"cidrs,omitzero,required"`
