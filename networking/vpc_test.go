@@ -31,7 +31,7 @@ func TestVPCNewWithOptionalParams(t *testing.T) {
 		Name:       "my-vpc",
 		Region:     shared.RegionNameUsWdc1,
 		SubnetName: "my-subnet",
-		Tags:       []string{"production", "api", "access"},
+		Tags:       []string{"production", "ethereum"},
 	})
 	if err != nil {
 		var apierr *nirvana.Error
@@ -60,7 +60,7 @@ func TestVPCUpdateWithOptionalParams(t *testing.T) {
 		networking.VPCUpdateParams{
 			Name:       nirvana.String("my-vpc"),
 			SubnetName: nirvana.String("my-subnet"),
-			Tags:       []string{"production", "api", "access"},
+			Tags:       []string{"production", "ethereum"},
 		},
 	)
 	if err != nil {

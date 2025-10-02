@@ -30,7 +30,7 @@ func TestVolumeAvailabilityNewWithOptionalParams(t *testing.T) {
 		Name: "my-data-volume",
 		Size: 100,
 		VMID: "vm_id",
-		Tags: []string{"production", "api", "access"},
+		Tags: []string{"production", "ethereum"},
 	})
 	if err != nil {
 		var apierr *nirvana.Error
@@ -59,7 +59,7 @@ func TestVolumeAvailabilityUpdateWithOptionalParams(t *testing.T) {
 		compute.VolumeAvailabilityUpdateParams{
 			Name: nirvana.String("my-data-volume"),
 			Size: nirvana.Int(100),
-			Tags: []string{"production", "api", "access"},
+			Tags: []string{"production", "ethereum"},
 		},
 	)
 	if err != nil {
