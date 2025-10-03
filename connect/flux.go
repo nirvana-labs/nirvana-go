@@ -157,6 +157,17 @@ func (r *Flux) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
+// Connect Flux speed in Mbps
+type FluxBandwidthMbps int64
+
+const (
+	FluxBandwidthMbps50   FluxBandwidthMbps = 50
+	FluxBandwidthMbps200  FluxBandwidthMbps = 200
+	FluxBandwidthMbps500  FluxBandwidthMbps = 500
+	FluxBandwidthMbps1000 FluxBandwidthMbps = 1000
+	FluxBandwidthMbps2000 FluxBandwidthMbps = 2000
+)
+
 type FluxList struct {
 	Items []Flux `json:"items,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
