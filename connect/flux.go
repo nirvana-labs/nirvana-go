@@ -225,10 +225,10 @@ func (r *FluxProviderAWSConfig) UnmarshalJSON(data []byte) error {
 
 // AWS provider configuration
 //
-// The properties AccountNumber, Region are required.
+// The properties AccountID, Region are required.
 type FluxProviderAWSConfigRequestParam struct {
-	// AWS account number
-	AccountNumber string `json:"account_number,required"`
+	// AWS account id
+	AccountID string `json:"account_id,required"`
 	// AWS region where the connection will be established
 	Region string `json:"region,required"`
 	paramObj
