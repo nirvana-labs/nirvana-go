@@ -34,8 +34,8 @@ func TestFluxNewWithOptionalParams(t *testing.T) {
 		ProviderCIDRs: []string{"172.16.0.0/16"},
 		Region:        shared.RegionNameUsWdc1,
 		AWS: connect.FluxProviderAWSConfigRequestParam{
-			AccountNumber: "523816707215",
-			Region:        "us-east-1",
+			AccountID: "523816707215",
+			Region:    "us-east-1",
 		},
 	})
 	if err != nil {
