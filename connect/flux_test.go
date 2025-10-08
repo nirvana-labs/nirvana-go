@@ -37,6 +37,7 @@ func TestFluxNewWithOptionalParams(t *testing.T) {
 			AccountID: "523816707215",
 			Region:    "us-east-1",
 		},
+		Tags: []string{"production", "ethereum"},
 	})
 	if err != nil {
 		var apierr *nirvana.Error
@@ -64,6 +65,7 @@ func TestFluxUpdateWithOptionalParams(t *testing.T) {
 		"flux_id",
 		connect.FluxUpdateParams{
 			Name: nirvana.String("my-connect-flux"),
+			Tags: []string{"production", "ethereum"},
 		},
 	)
 	if err != nil {
