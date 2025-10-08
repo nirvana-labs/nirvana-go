@@ -128,6 +128,8 @@ type Flux struct {
 	// Any of "pending", "creating", "updating", "ready", "deleting", "deleted",
 	// "error".
 	Status shared.ResourceStatus `json:"status,required"`
+	// Tags to attach to the Connect Flux
+	Tags []string `json:"tags,required"`
 	// When the Connect Flux was updated
 	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -145,6 +147,7 @@ type Flux struct {
 		Region           respjson.Field
 		RouterIP         respjson.Field
 		Status           respjson.Field
+		Tags             respjson.Field
 		UpdatedAt        respjson.Field
 		ExtraFields      map[string]respjson.Field
 		raw              string
@@ -282,6 +285,8 @@ type FluxNewParams struct {
 	Region shared.RegionName `json:"region,omitzero,required"`
 	// AWS provider configuration
 	AWS FluxProviderAWSConfigRequestParam `json:"aws,omitzero"`
+	// Tags to attach to the Connect Flux
+	Tags []string `json:"tags,omitzero"`
 	paramObj
 }
 
@@ -296,6 +301,8 @@ func (r *FluxNewParams) UnmarshalJSON(data []byte) error {
 type FluxUpdateParams struct {
 	// Name of the Connect Flux.
 	Name param.Opt[string] `json:"name,omitzero"`
+	// Tags to attach to the Connect Flux
+	Tags []string `json:"tags,omitzero"`
 	paramObj
 }
 

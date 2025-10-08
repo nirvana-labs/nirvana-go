@@ -118,6 +118,8 @@ type Volume struct {
 	// Any of "pending", "creating", "updating", "ready", "deleting", "deleted",
 	// "error".
 	Status shared.ResourceStatus `json:"status,required"`
+	// Tags to attach to the Volume.
+	Tags []string `json:"tags,required"`
 	// Storage type the Volume is using.
 	//
 	// Any of "nvme".
@@ -136,6 +138,7 @@ type Volume struct {
 		Name        respjson.Field
 		Size        respjson.Field
 		Status      respjson.Field
+		Tags        respjson.Field
 		Type        respjson.Field
 		UpdatedAt   respjson.Field
 		VMID        respjson.Field
@@ -182,6 +185,8 @@ type VolumeNewParams struct {
 	Size int64 `json:"size,required"`
 	// ID of the VM the Volume is attached to.
 	VMID string `json:"vm_id,required"`
+	// Tags to attach to the Volume.
+	Tags []string `json:"tags,omitzero"`
 	paramObj
 }
 
@@ -198,6 +203,8 @@ type VolumeUpdateParams struct {
 	Name param.Opt[string] `json:"name,omitzero"`
 	// Size of the Volume in GB.
 	Size param.Opt[int64] `json:"size,omitzero"`
+	// Tags to attach to the Volume.
+	Tags []string `json:"tags,omitzero"`
 	paramObj
 }
 
