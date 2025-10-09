@@ -26,8 +26,8 @@ import (
 // automatically. You should not instantiate this service directly, and instead use
 // the [NewFluxService] method instead.
 type FluxService struct {
-	Options   []option.RequestOption
-	Providers FluxProviderService
+	Options []option.RequestOption
+	Routes  FluxRouteService
 }
 
 // NewFluxService generates a new service that applies the given options to each
@@ -36,7 +36,7 @@ type FluxService struct {
 func NewFluxService(opts ...option.RequestOption) (r FluxService) {
 	r = FluxService{}
 	r.Options = opts
-	r.Providers = NewFluxProviderService(opts...)
+	r.Routes = NewFluxRouteService(opts...)
 	return
 }
 
@@ -128,6 +128,8 @@ type Flux struct {
 	// Any of "pending", "creating", "updating", "ready", "deleting", "deleted",
 	// "error".
 	Status shared.ResourceStatus `json:"status,required"`
+	// Tags to attach to the Connect Flux
+	Tags []string `json:"tags,required"`
 	// When the Connect Flux was updated
 	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -145,6 +147,7 @@ type Flux struct {
 		Region           respjson.Field
 		RouterIP         respjson.Field
 		Status           respjson.Field
+		Tags             respjson.Field
 		UpdatedAt        respjson.Field
 		ExtraFields      map[string]respjson.Field
 		raw              string
@@ -181,27 +184,6 @@ type FluxList struct {
 // Returns the unmodified JSON received from the API
 func (r FluxList) RawJSON() string { return r.JSON.raw }
 func (r *FluxList) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// Provider supported for Connect Flux.
-type FluxProvider struct {
-	// Provider name.
-	Name string `json:"name,required"`
-	// Provider region name.
-	Region string `json:"region,required"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		Name        respjson.Field
-		Region      respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
-	} `json:"-"`
-}
-
-// Returns the unmodified JSON received from the API
-func (r FluxProvider) RawJSON() string { return r.JSON.raw }
-func (r *FluxProvider) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -242,8 +224,35 @@ func (r *FluxProviderAWSConfigRequestParam) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type FluxProviderList struct {
-	Items []FluxProvider `json:"items,required"`
+// Routes supported for Connect Flux.
+type FluxRoute struct {
+	// Region the resource is in.
+	//
+	// Any of "us-sea-1", "us-sva-1", "us-chi-1", "us-wdc-1", "eu-frk-1", "ap-sin-1",
+	// "ap-seo-1", "ap-tyo-1".
+	NirvanaRegion shared.RegionName `json:"nirvana_region,required"`
+	// Provider name.
+	Provider string `json:"provider,required"`
+	// Provider region name.
+	ProviderRegion string `json:"provider_region,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		NirvanaRegion  respjson.Field
+		Provider       respjson.Field
+		ProviderRegion respjson.Field
+		ExtraFields    map[string]respjson.Field
+		raw            string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r FluxRoute) RawJSON() string { return r.JSON.raw }
+func (r *FluxRoute) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+type FluxRouteList struct {
+	Items []FluxRoute `json:"items,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
@@ -253,8 +262,8 @@ type FluxProviderList struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r FluxProviderList) RawJSON() string { return r.JSON.raw }
-func (r *FluxProviderList) UnmarshalJSON(data []byte) error {
+func (r FluxRouteList) RawJSON() string { return r.JSON.raw }
+func (r *FluxRouteList) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -276,6 +285,8 @@ type FluxNewParams struct {
 	Region shared.RegionName `json:"region,omitzero,required"`
 	// AWS provider configuration
 	AWS FluxProviderAWSConfigRequestParam `json:"aws,omitzero"`
+	// Tags to attach to the Connect Flux
+	Tags []string `json:"tags,omitzero"`
 	paramObj
 }
 
@@ -290,6 +301,8 @@ func (r *FluxNewParams) UnmarshalJSON(data []byte) error {
 type FluxUpdateParams struct {
 	// Name of the Connect Flux.
 	Name param.Opt[string] `json:"name,omitzero"`
+	// Tags to attach to the Connect Flux
+	Tags []string `json:"tags,omitzero"`
 	paramObj
 }
 

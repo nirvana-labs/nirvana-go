@@ -213,9 +213,9 @@ Response Types:
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect">connect</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#Flux">Flux</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect">connect</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#int64">int64</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect">connect</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#FluxList">FluxList</a>
-- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect">connect</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#FluxProvider">FluxProvider</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect">connect</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#FluxProviderAWSConfig">FluxProviderAWSConfig</a>
-- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect">connect</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#FluxProviderList">FluxProviderList</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect">connect</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#FluxRoute">FluxRoute</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect">connect</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#FluxRouteList">FluxRouteList</a>
 
 Methods:
 
@@ -225,11 +225,11 @@ Methods:
 - <code title="delete /v1/connect/flux/{flux_id}">client.Connect.Flux.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#FluxService.Delete">Delete</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, fluxID <a href="https://pkg.go.dev/builtin#string">string</a>) (<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/operations">operations</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/operations#Operation">Operation</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
 - <code title="get /v1/connect/flux/{flux_id}">client.Connect.Flux.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#FluxService.Get">Get</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, fluxID <a href="https://pkg.go.dev/builtin#string">string</a>) (<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect">connect</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#Flux">Flux</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
 
-### Providers
+### Routes
 
 Methods:
 
-- <code title="get /v1/connect/flux/providers">client.Connect.Flux.Providers.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#FluxProviderService.List">List</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>) (<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect">connect</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#FluxProviderList">FluxProviderList</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
+- <code title="get /v1/connect/flux/routes">client.Connect.Flux.Routes.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#FluxRouteService.List">List</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>) (<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect">connect</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/connect#FluxRouteList">FluxRouteList</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
 
 # Vektor
 

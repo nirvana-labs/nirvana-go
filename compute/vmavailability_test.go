@@ -30,6 +30,7 @@ func TestVMAvailabilityNewWithOptionalParams(t *testing.T) {
 	_, err := client.Compute.VMs.Availability.New(context.TODO(), compute.VMAvailabilityNewParams{
 		BootVolume: compute.VMAvailabilityNewParamsBootVolume{
 			Size: 100,
+			Tags: []string{"production", "ethereum"},
 		},
 		CPUConfig: compute.CPUConfigRequestParam{
 			Vcpu: 2,
@@ -38,7 +39,7 @@ func TestVMAvailabilityNewWithOptionalParams(t *testing.T) {
 			Size: 2,
 		},
 		Name:            "my-vm",
-		OSImageName:     "ubuntu-noble-2025-04-03",
+		OSImageName:     "ubuntu-noble-2025-10-01",
 		PublicIPEnabled: true,
 		Region:          shared.RegionNameUsWdc1,
 		SSHKey: compute.SSHKeyRequestParam{
@@ -48,7 +49,9 @@ func TestVMAvailabilityNewWithOptionalParams(t *testing.T) {
 		DataVolumes: []compute.VMAvailabilityNewParamsDataVolume{{
 			Name: "my-data-volume",
 			Size: 100,
+			Tags: []string{"production", "ethereum"},
 		}},
+		Tags: []string{"production", "ethereum"},
 	})
 	if err != nil {
 		var apierr *nirvana.Error
@@ -83,6 +86,7 @@ func TestVMAvailabilityUpdateWithOptionalParams(t *testing.T) {
 			},
 			Name:            nirvana.String("my-vm"),
 			PublicIPEnabled: nirvana.Bool(true),
+			Tags:            []string{"production", "ethereum"},
 		},
 	)
 	if err != nil {

@@ -30,6 +30,7 @@ func TestVMNewWithOptionalParams(t *testing.T) {
 	_, err := client.Compute.VMs.New(context.TODO(), compute.VMNewParams{
 		BootVolume: compute.VMNewParamsBootVolume{
 			Size: 100,
+			Tags: []string{"production", "ethereum"},
 		},
 		CPUConfig: compute.CPUConfigRequestParam{
 			Vcpu: 2,
@@ -38,7 +39,7 @@ func TestVMNewWithOptionalParams(t *testing.T) {
 			Size: 2,
 		},
 		Name:            "my-vm",
-		OSImageName:     "ubuntu-noble-2025-04-03",
+		OSImageName:     "ubuntu-noble-2025-10-01",
 		PublicIPEnabled: true,
 		Region:          shared.RegionNameUsWdc1,
 		SSHKey: compute.SSHKeyRequestParam{
@@ -48,7 +49,9 @@ func TestVMNewWithOptionalParams(t *testing.T) {
 		DataVolumes: []compute.VMNewParamsDataVolume{{
 			Name: "my-data-volume",
 			Size: 100,
+			Tags: []string{"production", "ethereum"},
 		}},
+		Tags: []string{"production", "ethereum"},
 	})
 	if err != nil {
 		var apierr *nirvana.Error
@@ -83,6 +86,7 @@ func TestVMUpdateWithOptionalParams(t *testing.T) {
 			},
 			Name:            nirvana.String("my-vm"),
 			PublicIPEnabled: nirvana.Bool(true),
+			Tags:            []string{"production", "ethereum"},
 		},
 	)
 	if err != nil {

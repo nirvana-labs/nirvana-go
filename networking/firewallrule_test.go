@@ -14,7 +14,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/option"
 )
 
-func TestFirewallRuleNew(t *testing.T) {
+func TestFirewallRuleNewWithOptionalParams(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -35,6 +35,7 @@ func TestFirewallRuleNew(t *testing.T) {
 			Name:               "my-firewall-rule",
 			Protocol:           networking.FirewallRuleNewParamsProtocolTcp,
 			SourceAddress:      "0.0.0.0/0",
+			Tags:               []string{"production", "ethereum"},
 		},
 	)
 	if err != nil {
@@ -68,6 +69,7 @@ func TestFirewallRuleUpdateWithOptionalParams(t *testing.T) {
 			Name:               nirvana.String("my-firewall-rule"),
 			Protocol:           networking.FirewallRuleUpdateParamsProtocolTcp,
 			SourceAddress:      nirvana.String("0.0.0.0/0"),
+			Tags:               []string{"production", "ethereum"},
 		},
 	)
 	if err != nil {

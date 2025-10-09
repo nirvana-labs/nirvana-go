@@ -134,6 +134,8 @@ type FirewallRule struct {
 	// Any of "pending", "creating", "updating", "ready", "deleting", "deleted",
 	// "error".
 	Status shared.ResourceStatus `json:"status,required"`
+	// Tags to attach to the Firewall Rule.
+	Tags []string `json:"tags,required"`
 	// When the Firewall Rule was updated.
 	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
 	// ID of the VPC the Firewall Rule belongs to.
@@ -148,6 +150,7 @@ type FirewallRule struct {
 		Protocol           respjson.Field
 		SourceAddress      respjson.Field
 		Status             respjson.Field
+		Tags               respjson.Field
 		UpdatedAt          respjson.Field
 		VPCID              respjson.Field
 		ExtraFields        map[string]respjson.Field
@@ -199,6 +202,8 @@ type FirewallRuleNewParams struct {
 	// Source address of the Firewall Rule. Address of 0.0.0.0 requires a CIDR mask
 	// of 0.
 	SourceAddress string `json:"source_address,required"`
+	// Tags to attach to the Firewall Rule.
+	Tags []string `json:"tags,omitzero"`
 	paramObj
 }
 
@@ -232,6 +237,8 @@ type FirewallRuleUpdateParams struct {
 	//
 	// Any of "tcp", "udp".
 	Protocol FirewallRuleUpdateParamsProtocol `json:"protocol,omitzero"`
+	// Tags to attach to the Firewall Rule.
+	Tags []string `json:"tags,omitzero"`
 	paramObj
 }
 
