@@ -13,6 +13,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/option"
+	"github.com/nirvana-labs/nirvana-go/packages/param"
 	"github.com/nirvana-labs/nirvana-go/packages/respjson"
 )
 
@@ -34,6 +35,14 @@ func NewFlexService(opts ...option.RequestOption) (r FlexService) {
 	r = FlexService{}
 	r.Options = opts
 	r.Blockchains = NewFlexBlockchainService(opts...)
+	return
+}
+
+// Create a new RPC Node Flex
+func (r *FlexService) New(ctx context.Context, body FlexNewParams, opts ...option.RequestOption) (res *Flex, err error) {
+	opts = slices.Concat(r.Options, opts)
+	path := "v1/rpc_nodes/flex"
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
 }
 
@@ -146,5 +155,25 @@ type FlexList struct {
 // Returns the unmodified JSON received from the API
 func (r FlexList) RawJSON() string { return r.JSON.raw }
 func (r *FlexList) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+type FlexNewParams struct {
+	// Blockchain.
+	Blockchain string `json:"blockchain,required"`
+	// Name of the RPC Node Flex.
+	Name string `json:"name,required"`
+	// Network type (e.g., mainnet, testnet).
+	Network string `json:"network,required"`
+	// Tags to attach to the RPC Node Flex (optional, max 50).
+	Tags []string `json:"tags,omitzero"`
+	paramObj
+}
+
+func (r FlexNewParams) MarshalJSON() (data []byte, err error) {
+	type shadow FlexNewParams
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *FlexNewParams) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
