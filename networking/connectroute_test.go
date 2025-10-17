@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package connect_test
+package networking_test
 
 import (
 	"context"
@@ -13,7 +13,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/option"
 )
 
-func TestFluxRouteList(t *testing.T) {
+func TestConnectRouteList(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -25,7 +25,7 @@ func TestFluxRouteList(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Connect.Flux.Routes.List(context.TODO())
+	_, err := client.Networking.Connect.Routes.List(context.TODO())
 	if err != nil {
 		var apierr *nirvana.Error
 		if errors.As(err, &apierr) {

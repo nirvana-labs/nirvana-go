@@ -16,6 +16,7 @@ type NetworkingService struct {
 	Options       []option.RequestOption
 	VPCs          VPCService
 	FirewallRules FirewallRuleService
+	Connect       ConnectService
 }
 
 // NewNetworkingService generates a new service that applies the given options to
@@ -26,5 +27,6 @@ func NewNetworkingService(opts ...option.RequestOption) (r NetworkingService) {
 	r.Options = opts
 	r.VPCs = NewVPCService(opts...)
 	r.FirewallRules = NewFirewallRuleService(opts...)
+	r.Connect = NewConnectService(opts...)
 	return
 }

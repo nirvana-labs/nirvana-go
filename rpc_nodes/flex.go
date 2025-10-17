@@ -46,6 +46,18 @@ func (r *FlexService) New(ctx context.Context, body FlexNewParams, opts ...optio
 	return
 }
 
+// Update an existing RPC Node Flex
+func (r *FlexService) Update(ctx context.Context, nodeID string, body FlexUpdateParams, opts ...option.RequestOption) (res *Flex, err error) {
+	opts = slices.Concat(r.Options, opts)
+	if nodeID == "" {
+		err = errors.New("missing required node_id parameter")
+		return
+	}
+	path := fmt.Sprintf("v1/rpc_nodes/flex/%s", nodeID)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
+	return
+}
+
 // List all RPC Node Flex you created
 func (r *FlexService) List(ctx context.Context, opts ...option.RequestOption) (res *FlexList, err error) {
 	opts = slices.Concat(r.Options, opts)
@@ -175,5 +187,21 @@ func (r FlexNewParams) MarshalJSON() (data []byte, err error) {
 	return param.MarshalObject(r, (*shadow)(&r))
 }
 func (r *FlexNewParams) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+type FlexUpdateParams struct {
+	// Name of the RPC Node Flex.
+	Name param.Opt[string] `json:"name,omitzero"`
+	// Tags to attach to the RPC Node Flex (optional, max 50).
+	Tags []string `json:"tags,omitzero"`
+	paramObj
+}
+
+func (r FlexUpdateParams) MarshalJSON() (data []byte, err error) {
+	type shadow FlexUpdateParams
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *FlexUpdateParams) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
