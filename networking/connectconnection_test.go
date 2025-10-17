@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package connect_test
+package networking_test
 
 import (
 	"context"
@@ -9,13 +9,13 @@ import (
 	"testing"
 
 	"github.com/nirvana-labs/nirvana-go"
-	"github.com/nirvana-labs/nirvana-go/connect"
 	"github.com/nirvana-labs/nirvana-go/internal/testutil"
+	"github.com/nirvana-labs/nirvana-go/networking"
 	"github.com/nirvana-labs/nirvana-go/option"
 	"github.com/nirvana-labs/nirvana-go/shared"
 )
 
-func TestFluxNewWithOptionalParams(t *testing.T) {
+func TestConnectConnectionNewWithOptionalParams(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -27,13 +27,13 @@ func TestFluxNewWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Connect.Flux.New(context.TODO(), connect.FluxNewParams{
+	_, err := client.Networking.Connect.Connections.New(context.TODO(), networking.ConnectConnectionNewParams{
 		BandwidthMbps: 50,
 		CIDRs:         []string{"10.0.0.0/16"},
-		Name:          "my-connect-flux",
+		Name:          "my-connect-connection",
 		ProviderCIDRs: []string{"172.16.0.0/16"},
 		Region:        shared.RegionNameUsWdc1,
-		AWS: connect.FluxProviderAWSConfigRequestParam{
+		AWS: networking.ConnectConnectionAWSConfigRequestParam{
 			AccountID: "523816707215",
 			Region:    "us-east-1",
 		},
@@ -48,7 +48,7 @@ func TestFluxNewWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestFluxUpdateWithOptionalParams(t *testing.T) {
+func TestConnectConnectionUpdateWithOptionalParams(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -60,11 +60,11 @@ func TestFluxUpdateWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Connect.Flux.Update(
+	_, err := client.Networking.Connect.Connections.Update(
 		context.TODO(),
-		"flux_id",
-		connect.FluxUpdateParams{
-			Name: nirvana.String("my-connect-flux"),
+		"connection_id",
+		networking.ConnectConnectionUpdateParams{
+			Name: nirvana.String("my-connect-connection"),
 			Tags: []string{"production", "ethereum"},
 		},
 	)
@@ -77,7 +77,7 @@ func TestFluxUpdateWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestFluxList(t *testing.T) {
+func TestConnectConnectionList(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -89,7 +89,7 @@ func TestFluxList(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Connect.Flux.List(context.TODO())
+	_, err := client.Networking.Connect.Connections.List(context.TODO())
 	if err != nil {
 		var apierr *nirvana.Error
 		if errors.As(err, &apierr) {
@@ -99,7 +99,7 @@ func TestFluxList(t *testing.T) {
 	}
 }
 
-func TestFluxDelete(t *testing.T) {
+func TestConnectConnectionDelete(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -111,7 +111,7 @@ func TestFluxDelete(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Connect.Flux.Delete(context.TODO(), "flux_id")
+	_, err := client.Networking.Connect.Connections.Delete(context.TODO(), "connection_id")
 	if err != nil {
 		var apierr *nirvana.Error
 		if errors.As(err, &apierr) {
@@ -121,7 +121,7 @@ func TestFluxDelete(t *testing.T) {
 	}
 }
 
-func TestFluxGet(t *testing.T) {
+func TestConnectConnectionGet(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -133,7 +133,7 @@ func TestFluxGet(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Connect.Flux.Get(context.TODO(), "flux_id")
+	_, err := client.Networking.Connect.Connections.Get(context.TODO(), "connection_id")
 	if err != nil {
 		var apierr *nirvana.Error
 		if errors.As(err, &apierr) {
