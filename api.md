@@ -234,12 +234,6 @@ Methods:
 
 - <code title="get /v1/rpc_nodes/dedicated/blockchains">client.RPCNodes.Dedicated.Blockchains.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes#DedicatedBlockchainService.List">List</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>) (<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes">rpc_nodes</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/rpc_nodes#DedicatedBlockchainList">DedicatedBlockchainList</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
 
-# Connect
-
-## Flux
-
-### Routes
-
 # Vektor
 
 Params Types:
