@@ -66,6 +66,19 @@ func (r *FlexService) List(ctx context.Context, opts ...option.RequestOption) (r
 	return
 }
 
+// Delete an RPC Node Flex
+func (r *FlexService) Delete(ctx context.Context, nodeID string, opts ...option.RequestOption) (err error) {
+	opts = slices.Concat(r.Options, opts)
+	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
+	if nodeID == "" {
+		err = errors.New("missing required node_id parameter")
+		return
+	}
+	path := fmt.Sprintf("v1/rpc_nodes/flex/%s", nodeID)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, nil, opts...)
+	return
+}
+
 // Get details about an RPC Node Flex
 func (r *FlexService) Get(ctx context.Context, nodeID string, opts ...option.RequestOption) (res *Flex, err error) {
 	opts = slices.Concat(r.Options, opts)
