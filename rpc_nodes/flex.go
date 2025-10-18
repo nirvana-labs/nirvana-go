@@ -13,6 +13,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/option"
+	"github.com/nirvana-labs/nirvana-go/packages/param"
 	"github.com/nirvana-labs/nirvana-go/packages/respjson"
 )
 
@@ -37,11 +38,44 @@ func NewFlexService(opts ...option.RequestOption) (r FlexService) {
 	return
 }
 
+// Create a new RPC Node Flex
+func (r *FlexService) New(ctx context.Context, body FlexNewParams, opts ...option.RequestOption) (res *Flex, err error) {
+	opts = slices.Concat(r.Options, opts)
+	path := "v1/rpc_nodes/flex"
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
+	return
+}
+
+// Update an existing RPC Node Flex
+func (r *FlexService) Update(ctx context.Context, nodeID string, body FlexUpdateParams, opts ...option.RequestOption) (res *Flex, err error) {
+	opts = slices.Concat(r.Options, opts)
+	if nodeID == "" {
+		err = errors.New("missing required node_id parameter")
+		return
+	}
+	path := fmt.Sprintf("v1/rpc_nodes/flex/%s", nodeID)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
+	return
+}
+
 // List all RPC Node Flex you created
 func (r *FlexService) List(ctx context.Context, opts ...option.RequestOption) (res *FlexList, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/rpc_nodes/flex"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
+	return
+}
+
+// Delete an RPC Node Flex
+func (r *FlexService) Delete(ctx context.Context, nodeID string, opts ...option.RequestOption) (err error) {
+	opts = slices.Concat(r.Options, opts)
+	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
+	if nodeID == "" {
+		err = errors.New("missing required node_id parameter")
+		return
+	}
+	path := fmt.Sprintf("v1/rpc_nodes/flex/%s", nodeID)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, nil, opts...)
 	return
 }
 
@@ -146,5 +180,41 @@ type FlexList struct {
 // Returns the unmodified JSON received from the API
 func (r FlexList) RawJSON() string { return r.JSON.raw }
 func (r *FlexList) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+type FlexNewParams struct {
+	// Blockchain.
+	Blockchain string `json:"blockchain,required"`
+	// Name of the RPC Node Flex.
+	Name string `json:"name,required"`
+	// Network type (e.g., mainnet, testnet).
+	Network string `json:"network,required"`
+	// Tags to attach to the RPC Node Flex (optional, max 50).
+	Tags []string `json:"tags,omitzero"`
+	paramObj
+}
+
+func (r FlexNewParams) MarshalJSON() (data []byte, err error) {
+	type shadow FlexNewParams
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *FlexNewParams) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+type FlexUpdateParams struct {
+	// Name of the RPC Node Flex.
+	Name param.Opt[string] `json:"name,omitzero"`
+	// Tags to attach to the RPC Node Flex (optional, max 50).
+	Tags []string `json:"tags,omitzero"`
+	paramObj
+}
+
+func (r FlexUpdateParams) MarshalJSON() (data []byte, err error) {
+	type shadow FlexUpdateParams
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *FlexUpdateParams) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }

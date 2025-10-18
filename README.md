@@ -30,7 +30,7 @@ Or to pin the version:
 <!-- x-release-please-start-version -->
 
 ```sh
-go get -u 'github.com/nirvana-labs/nirvana-go@v1.19.0'
+go get -u 'github.com/nirvana-labs/nirvana-go@v1.20.0'
 ```
 
 <!-- x-release-please-end -->
@@ -71,7 +71,7 @@ func main() {
 			Size: 2,
 		},
 		Name:            "my-vm",
-		OSImageName:     "ubuntu-noble-2025-04-03",
+		OSImageName:     "ubuntu-noble-2025-10-01",
 		PublicIPEnabled: true,
 		Region:          shared.RegionNameUsWdc1,
 		SSHKey: compute.SSHKeyRequestParam{
@@ -330,7 +330,7 @@ _, err := client.Compute.VMs.New(context.TODO(), compute.VMNewParams{
 		Size: 2,
 	},
 	Name:            "my-vm",
-	OSImageName:     "ubuntu-noble-2025-04-03",
+	OSImageName:     "ubuntu-noble-2025-10-01",
 	PublicIPEnabled: true,
 	Region:          shared.RegionNameUsWdc1,
 	SSHKey: compute.SSHKeyRequestParam{
@@ -375,7 +375,7 @@ client.Compute.VMs.New(
 			Size: 2,
 		},
 		Name:            "my-vm",
-		OSImageName:     "ubuntu-noble-2025-04-03",
+		OSImageName:     "ubuntu-noble-2025-10-01",
 		PublicIPEnabled: true,
 		Region:          shared.RegionNameUsWdc1,
 		SSHKey: compute.SSHKeyRequestParam{
@@ -429,7 +429,7 @@ client.Compute.VMs.New(
 			Size: 2,
 		},
 		Name:            "my-vm",
-		OSImageName:     "ubuntu-noble-2025-04-03",
+		OSImageName:     "ubuntu-noble-2025-10-01",
 		PublicIPEnabled: true,
 		Region:          shared.RegionNameUsWdc1,
 		SSHKey: compute.SSHKeyRequestParam{
@@ -462,7 +462,7 @@ operation, err := client.Compute.VMs.New(
 			Size: 2,
 		},
 		Name:            "my-vm",
-		OSImageName:     "ubuntu-noble-2025-04-03",
+		OSImageName:     "ubuntu-noble-2025-10-01",
 		PublicIPEnabled: true,
 		Region:          shared.RegionNameUsWdc1,
 		SSHKey: compute.SSHKeyRequestParam{

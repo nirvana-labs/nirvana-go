@@ -51,7 +51,7 @@ func TestUserAgentHeader(t *testing.T) {
 			Size: 2,
 		},
 		Name:            "my-vm",
-		OSImageName:     "ubuntu-noble-2025-04-03",
+		OSImageName:     "ubuntu-noble-2025-10-01",
 		PublicIPEnabled: true,
 		Region:          shared.RegionNameUsWdc1,
 		SSHKey: compute.SSHKeyRequestParam{
@@ -93,7 +93,7 @@ func TestRetryAfter(t *testing.T) {
 			Size: 2,
 		},
 		Name:            "my-vm",
-		OSImageName:     "ubuntu-noble-2025-04-03",
+		OSImageName:     "ubuntu-noble-2025-10-01",
 		PublicIPEnabled: true,
 		Region:          shared.RegionNameUsWdc1,
 		SSHKey: compute.SSHKeyRequestParam{
@@ -146,7 +146,7 @@ func TestDeleteRetryCountHeader(t *testing.T) {
 			Size: 2,
 		},
 		Name:            "my-vm",
-		OSImageName:     "ubuntu-noble-2025-04-03",
+		OSImageName:     "ubuntu-noble-2025-10-01",
 		PublicIPEnabled: true,
 		Region:          shared.RegionNameUsWdc1,
 		SSHKey: compute.SSHKeyRequestParam{
@@ -194,7 +194,7 @@ func TestOverwriteRetryCountHeader(t *testing.T) {
 			Size: 2,
 		},
 		Name:            "my-vm",
-		OSImageName:     "ubuntu-noble-2025-04-03",
+		OSImageName:     "ubuntu-noble-2025-10-01",
 		PublicIPEnabled: true,
 		Region:          shared.RegionNameUsWdc1,
 		SSHKey: compute.SSHKeyRequestParam{
@@ -241,7 +241,7 @@ func TestRetryAfterMs(t *testing.T) {
 			Size: 2,
 		},
 		Name:            "my-vm",
-		OSImageName:     "ubuntu-noble-2025-04-03",
+		OSImageName:     "ubuntu-noble-2025-10-01",
 		PublicIPEnabled: true,
 		Region:          shared.RegionNameUsWdc1,
 		SSHKey: compute.SSHKeyRequestParam{
@@ -282,7 +282,7 @@ func TestContextCancel(t *testing.T) {
 			Size: 2,
 		},
 		Name:            "my-vm",
-		OSImageName:     "ubuntu-noble-2025-04-03",
+		OSImageName:     "ubuntu-noble-2025-10-01",
 		PublicIPEnabled: true,
 		Region:          shared.RegionNameUsWdc1,
 		SSHKey: compute.SSHKeyRequestParam{
@@ -320,7 +320,7 @@ func TestContextCancelDelay(t *testing.T) {
 			Size: 2,
 		},
 		Name:            "my-vm",
-		OSImageName:     "ubuntu-noble-2025-04-03",
+		OSImageName:     "ubuntu-noble-2025-10-01",
 		PublicIPEnabled: true,
 		Region:          shared.RegionNameUsWdc1,
 		SSHKey: compute.SSHKeyRequestParam{
@@ -364,7 +364,7 @@ func TestContextDeadline(t *testing.T) {
 				Size: 2,
 			},
 			Name:            "my-vm",
-			OSImageName:     "ubuntu-noble-2025-04-03",
+			OSImageName:     "ubuntu-noble-2025-10-01",
 			PublicIPEnabled: true,
 			Region:          shared.RegionNameUsWdc1,
 			SSHKey: compute.SSHKeyRequestParam{
