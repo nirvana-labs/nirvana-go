@@ -71,7 +71,7 @@ func TestAPIKeyUpdateWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestAPIKeyList(t *testing.T) {
+func TestAPIKeyListWithOptionalParams(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -83,7 +83,10 @@ func TestAPIKeyList(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.APIKeys.List(context.TODO())
+	_, err := client.APIKeys.List(context.TODO(), api_keys.APIKeyListParams{
+		Cursor: nirvana.String("RhwniMT4B74siYZcPF8TnCdGI1l9rpPvg"),
+		Limit:  nirvana.Int(25),
+	})
 	if err != nil {
 		var apierr *nirvana.Error
 		if errors.As(err, &apierr) {

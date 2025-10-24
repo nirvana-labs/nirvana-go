@@ -14,6 +14,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/option"
 	"github.com/nirvana-labs/nirvana-go/packages/respjson"
+	"github.com/nirvana-labs/nirvana-go/shared"
 )
 
 // DedicatedService contains methods and other services that help with interacting
@@ -119,9 +120,12 @@ func (r *DedicatedBlockchain) UnmarshalJSON(data []byte) error {
 
 type DedicatedBlockchainList struct {
 	Items []DedicatedBlockchain `json:"items,required"`
+	// Pagination response details.
+	Pagination shared.Pagination `json:"pagination"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
+		Pagination  respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`
@@ -135,9 +139,12 @@ func (r *DedicatedBlockchainList) UnmarshalJSON(data []byte) error {
 
 type DedicatedList struct {
 	Items []Dedicated `json:"items,required"`
+	// Pagination response details.
+	Pagination shared.Pagination `json:"pagination"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
+		Pagination  respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`

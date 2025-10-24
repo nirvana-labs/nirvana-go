@@ -16,6 +16,11 @@ type paramObj = param.APIObject
 
 type Error = apierror.Error
 
+// Pagination response details.
+//
+// This is an alias to an internal type.
+type Pagination = shared.Pagination
+
 // Region the resource is in.
 //
 // This is an alias to an internal type.

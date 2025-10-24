@@ -172,9 +172,12 @@ func (r *VPC) UnmarshalJSON(data []byte) error {
 
 type VPCList struct {
 	Items []VPC `json:"items,required"`
+	// Pagination response details.
+	Pagination shared.Pagination `json:"pagination"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
+		Pagination  respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`
