@@ -15,6 +15,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/option"
 	"github.com/nirvana-labs/nirvana-go/packages/param"
 	"github.com/nirvana-labs/nirvana-go/packages/respjson"
+	"github.com/nirvana-labs/nirvana-go/shared"
 )
 
 // FlexService contains methods and other services that help with interacting with
@@ -153,9 +154,12 @@ func (r *FlexBlockchain) UnmarshalJSON(data []byte) error {
 
 type FlexBlockchainList struct {
 	Items []FlexBlockchain `json:"items,required"`
+	// Pagination response details.
+	Pagination shared.Pagination `json:"pagination"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
+		Pagination  respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`
@@ -169,9 +173,12 @@ func (r *FlexBlockchainList) UnmarshalJSON(data []byte) error {
 
 type FlexList struct {
 	Items []Flex `json:"items,required"`
+	// Pagination response details.
+	Pagination shared.Pagination `json:"pagination"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
+		Pagination  respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`

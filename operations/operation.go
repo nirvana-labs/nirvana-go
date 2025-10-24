@@ -14,6 +14,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/option"
 	"github.com/nirvana-labs/nirvana-go/packages/respjson"
+	"github.com/nirvana-labs/nirvana-go/shared"
 )
 
 // OperationService contains methods and other services that help with interacting
@@ -109,9 +110,12 @@ const (
 
 type OperationList struct {
 	Items []Operation `json:"items,required"`
+	// Pagination response details.
+	Pagination shared.Pagination `json:"pagination"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
+		Pagination  respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`
