@@ -217,8 +217,10 @@ func (r *APIKeyUpdateParams) UnmarshalJSON(data []byte) error {
 }
 
 type APIKeyListParams struct {
+	// Pagination cursor returned by a previous request
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
-	Limit  param.Opt[int64]  `query:"limit,omitzero" json:"-"`
+	// Maximum number of items to return
+	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
 	paramObj
 }
 
