@@ -7,12 +7,15 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"net/url"
 	"slices"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
+	"github.com/nirvana-labs/nirvana-go/internal/apiquery"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/operations"
 	"github.com/nirvana-labs/nirvana-go/option"
+	"github.com/nirvana-labs/nirvana-go/packages/pagination"
 	"github.com/nirvana-labs/nirvana-go/packages/param"
 	"github.com/nirvana-labs/nirvana-go/shared"
 )
@@ -57,11 +60,26 @@ func (r *ConnectConnectionService) Update(ctx context.Context, connectionID stri
 }
 
 // List all Connect Connections
-func (r *ConnectConnectionService) List(ctx context.Context, opts ...option.RequestOption) (res *ConnectConnectionList, err error) {
+func (r *ConnectConnectionService) List(ctx context.Context, query ConnectConnectionListParams, opts ...option.RequestOption) (res *pagination.Cursor[ConnectConnection], err error) {
+	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
+	opts = append([]option.RequestOption{option.WithResponseInto(&raw)}, opts...)
 	path := "v1/networking/connect/connections"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	cfg, err := requestconfig.NewRequestConfig(ctx, http.MethodGet, path, query, &res, opts...)
+	if err != nil {
+		return nil, err
+	}
+	err = cfg.Execute()
+	if err != nil {
+		return nil, err
+	}
+	res.SetPageConfig(cfg, raw)
+	return res, nil
+}
+
+// List all Connect Connections
+func (r *ConnectConnectionService) ListAutoPaging(ctx context.Context, query ConnectConnectionListParams, opts ...option.RequestOption) *pagination.CursorAutoPager[ConnectConnection] {
+	return pagination.NewCursorAutoPager(r.List(ctx, query, opts...))
 }
 
 // Delete Connect Connection
@@ -133,4 +151,21 @@ func (r ConnectConnectionUpdateParams) MarshalJSON() (data []byte, err error) {
 }
 func (r *ConnectConnectionUpdateParams) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
+}
+
+type ConnectConnectionListParams struct {
+	// Pagination cursor returned by a previous request
+	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
+	// Maximum number of items to return
+	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	paramObj
+}
+
+// URLQuery serializes [ConnectConnectionListParams]'s query parameters as
+// `url.Values`.
+func (r ConnectConnectionListParams) URLQuery() (v url.Values, err error) {
+	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
+		ArrayFormat:  apiquery.ArrayQueryFormatComma,
+		NestedFormat: apiquery.NestedQueryFormatBrackets,
+	})
 }
