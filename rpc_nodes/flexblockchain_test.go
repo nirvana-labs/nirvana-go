@@ -11,9 +11,10 @@ import (
 	"github.com/nirvana-labs/nirvana-go"
 	"github.com/nirvana-labs/nirvana-go/internal/testutil"
 	"github.com/nirvana-labs/nirvana-go/option"
+	"github.com/nirvana-labs/nirvana-go/rpc_nodes"
 )
 
-func TestFlexBlockchainList(t *testing.T) {
+func TestFlexBlockchainListWithOptionalParams(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -25,7 +26,10 @@ func TestFlexBlockchainList(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.RPCNodes.Flex.Blockchains.List(context.TODO())
+	_, err := client.RPCNodes.Flex.Blockchains.List(context.TODO(), rpc_nodes.FlexBlockchainListParams{
+		Cursor: nirvana.String("cursor"),
+		Limit:  nirvana.Int(10),
+	})
 	if err != nil {
 		var apierr *nirvana.Error
 		if errors.As(err, &apierr) {

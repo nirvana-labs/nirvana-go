@@ -10,10 +10,11 @@ import (
 
 	"github.com/nirvana-labs/nirvana-go"
 	"github.com/nirvana-labs/nirvana-go/internal/testutil"
+	"github.com/nirvana-labs/nirvana-go/networking"
 	"github.com/nirvana-labs/nirvana-go/option"
 )
 
-func TestConnectRouteList(t *testing.T) {
+func TestConnectRouteListWithOptionalParams(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -25,7 +26,10 @@ func TestConnectRouteList(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Networking.Connect.Routes.List(context.TODO())
+	_, err := client.Networking.Connect.Routes.List(context.TODO(), networking.ConnectRouteListParams{
+		Cursor: nirvana.String("cursor"),
+		Limit:  nirvana.Int(10),
+	})
 	if err != nil {
 		var apierr *nirvana.Error
 		if errors.As(err, &apierr) {

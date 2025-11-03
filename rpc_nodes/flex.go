@@ -7,10 +7,12 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"net/url"
 	"slices"
 	"time"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
+	"github.com/nirvana-labs/nirvana-go/internal/apiquery"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/option"
 	"github.com/nirvana-labs/nirvana-go/packages/param"
@@ -60,10 +62,10 @@ func (r *FlexService) Update(ctx context.Context, nodeID string, body FlexUpdate
 }
 
 // List all RPC Node Flex you created
-func (r *FlexService) List(ctx context.Context, opts ...option.RequestOption) (res *FlexList, err error) {
+func (r *FlexService) List(ctx context.Context, query FlexListParams, opts ...option.RequestOption) (res *FlexList, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/rpc_nodes/flex"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
 }
 
@@ -224,4 +226,20 @@ func (r FlexUpdateParams) MarshalJSON() (data []byte, err error) {
 }
 func (r *FlexUpdateParams) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
+}
+
+type FlexListParams struct {
+	// Pagination cursor returned by a previous request
+	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
+	// Maximum number of items to return
+	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	paramObj
+}
+
+// URLQuery serializes [FlexListParams]'s query parameters as `url.Values`.
+func (r FlexListParams) URLQuery() (v url.Values, err error) {
+	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
+		ArrayFormat:  apiquery.ArrayQueryFormatComma,
+		NestedFormat: apiquery.NestedQueryFormatBrackets,
+	})
 }
