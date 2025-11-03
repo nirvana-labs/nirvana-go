@@ -7,12 +7,15 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"net/url"
 	"slices"
 	"time"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
+	"github.com/nirvana-labs/nirvana-go/internal/apiquery"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/option"
+	"github.com/nirvana-labs/nirvana-go/packages/param"
 	"github.com/nirvana-labs/nirvana-go/packages/respjson"
 	"github.com/nirvana-labs/nirvana-go/shared"
 )
@@ -39,10 +42,10 @@ func NewDedicatedService(opts ...option.RequestOption) (r DedicatedService) {
 }
 
 // List all RPC Node Dedicated you created
-func (r *DedicatedService) List(ctx context.Context, opts ...option.RequestOption) (res *DedicatedList, err error) {
+func (r *DedicatedService) List(ctx context.Context, query DedicatedListParams, opts ...option.RequestOption) (res *DedicatedList, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/rpc_nodes/dedicated"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
 }
 
@@ -154,4 +157,20 @@ type DedicatedList struct {
 func (r DedicatedList) RawJSON() string { return r.JSON.raw }
 func (r *DedicatedList) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
+}
+
+type DedicatedListParams struct {
+	// Pagination cursor returned by a previous request
+	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
+	// Maximum number of items to return
+	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	paramObj
+}
+
+// URLQuery serializes [DedicatedListParams]'s query parameters as `url.Values`.
+func (r DedicatedListParams) URLQuery() (v url.Values, err error) {
+	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
+		ArrayFormat:  apiquery.ArrayQueryFormatComma,
+		NestedFormat: apiquery.NestedQueryFormatBrackets,
+	})
 }
