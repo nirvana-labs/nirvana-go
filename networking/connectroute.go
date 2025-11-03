@@ -11,6 +11,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/internal/apiquery"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/option"
+	"github.com/nirvana-labs/nirvana-go/packages/pagination"
 	"github.com/nirvana-labs/nirvana-go/packages/param"
 )
 
@@ -34,11 +35,26 @@ func NewConnectRouteService(opts ...option.RequestOption) (r ConnectRouteService
 }
 
 // List all supported routes with regions for Connect.
-func (r *ConnectRouteService) List(ctx context.Context, query ConnectRouteListParams, opts ...option.RequestOption) (res *ConnectRouteList, err error) {
+func (r *ConnectRouteService) List(ctx context.Context, query ConnectRouteListParams, opts ...option.RequestOption) (res *pagination.Cursor[ConnectRoute], err error) {
+	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
+	opts = append([]option.RequestOption{option.WithResponseInto(&raw)}, opts...)
 	path := "v1/networking/connect/routes"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	cfg, err := requestconfig.NewRequestConfig(ctx, http.MethodGet, path, query, &res, opts...)
+	if err != nil {
+		return nil, err
+	}
+	err = cfg.Execute()
+	if err != nil {
+		return nil, err
+	}
+	res.SetPageConfig(cfg, raw)
+	return res, nil
+}
+
+// List all supported routes with regions for Connect.
+func (r *ConnectRouteService) ListAutoPaging(ctx context.Context, query ConnectRouteListParams, opts ...option.RequestOption) *pagination.CursorAutoPager[ConnectRoute] {
+	return pagination.NewCursorAutoPager(r.List(ctx, query, opts...))
 }
 
 type ConnectRouteListParams struct {

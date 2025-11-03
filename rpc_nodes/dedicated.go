@@ -15,6 +15,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/internal/apiquery"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/option"
+	"github.com/nirvana-labs/nirvana-go/packages/pagination"
 	"github.com/nirvana-labs/nirvana-go/packages/param"
 	"github.com/nirvana-labs/nirvana-go/packages/respjson"
 	"github.com/nirvana-labs/nirvana-go/shared"
@@ -42,11 +43,26 @@ func NewDedicatedService(opts ...option.RequestOption) (r DedicatedService) {
 }
 
 // List all RPC Node Dedicated you created
-func (r *DedicatedService) List(ctx context.Context, query DedicatedListParams, opts ...option.RequestOption) (res *DedicatedList, err error) {
+func (r *DedicatedService) List(ctx context.Context, query DedicatedListParams, opts ...option.RequestOption) (res *pagination.Cursor[Dedicated], err error) {
+	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
+	opts = append([]option.RequestOption{option.WithResponseInto(&raw)}, opts...)
 	path := "v1/rpc_nodes/dedicated"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	cfg, err := requestconfig.NewRequestConfig(ctx, http.MethodGet, path, query, &res, opts...)
+	if err != nil {
+		return nil, err
+	}
+	err = cfg.Execute()
+	if err != nil {
+		return nil, err
+	}
+	res.SetPageConfig(cfg, raw)
+	return res, nil
+}
+
+// List all RPC Node Dedicated you created
+func (r *DedicatedService) ListAutoPaging(ctx context.Context, query DedicatedListParams, opts ...option.RequestOption) *pagination.CursorAutoPager[Dedicated] {
+	return pagination.NewCursorAutoPager(r.List(ctx, query, opts...))
 }
 
 // Get details about an RPC Node Dedicated

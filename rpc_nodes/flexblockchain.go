@@ -11,6 +11,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/internal/apiquery"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/option"
+	"github.com/nirvana-labs/nirvana-go/packages/pagination"
 	"github.com/nirvana-labs/nirvana-go/packages/param"
 )
 
@@ -34,11 +35,26 @@ func NewFlexBlockchainService(opts ...option.RequestOption) (r FlexBlockchainSer
 }
 
 // List all Flex Blockchains
-func (r *FlexBlockchainService) List(ctx context.Context, query FlexBlockchainListParams, opts ...option.RequestOption) (res *FlexBlockchainList, err error) {
+func (r *FlexBlockchainService) List(ctx context.Context, query FlexBlockchainListParams, opts ...option.RequestOption) (res *pagination.Cursor[FlexBlockchain], err error) {
+	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
+	opts = append([]option.RequestOption{option.WithResponseInto(&raw)}, opts...)
 	path := "v1/rpc_nodes/flex/blockchains"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	cfg, err := requestconfig.NewRequestConfig(ctx, http.MethodGet, path, query, &res, opts...)
+	if err != nil {
+		return nil, err
+	}
+	err = cfg.Execute()
+	if err != nil {
+		return nil, err
+	}
+	res.SetPageConfig(cfg, raw)
+	return res, nil
+}
+
+// List all Flex Blockchains
+func (r *FlexBlockchainService) ListAutoPaging(ctx context.Context, query FlexBlockchainListParams, opts ...option.RequestOption) *pagination.CursorAutoPager[FlexBlockchain] {
+	return pagination.NewCursorAutoPager(r.List(ctx, query, opts...))
 }
 
 type FlexBlockchainListParams struct {
