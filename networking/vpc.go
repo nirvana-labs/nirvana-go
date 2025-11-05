@@ -16,6 +16,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/operations"
 	"github.com/nirvana-labs/nirvana-go/option"
+	"github.com/nirvana-labs/nirvana-go/packages/pagination"
 	"github.com/nirvana-labs/nirvana-go/packages/param"
 	"github.com/nirvana-labs/nirvana-go/packages/respjson"
 	"github.com/nirvana-labs/nirvana-go/shared"
@@ -63,11 +64,26 @@ func (r *VPCService) Update(ctx context.Context, vpcID string, body VPCUpdatePar
 }
 
 // List all VPCs
-func (r *VPCService) List(ctx context.Context, query VPCListParams, opts ...option.RequestOption) (res *VPCList, err error) {
+func (r *VPCService) List(ctx context.Context, query VPCListParams, opts ...option.RequestOption) (res *pagination.Cursor[VPC], err error) {
+	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
+	opts = append([]option.RequestOption{option.WithResponseInto(&raw)}, opts...)
 	path := "v1/networking/vpcs"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	cfg, err := requestconfig.NewRequestConfig(ctx, http.MethodGet, path, query, &res, opts...)
+	if err != nil {
+		return nil, err
+	}
+	err = cfg.Execute()
+	if err != nil {
+		return nil, err
+	}
+	res.SetPageConfig(cfg, raw)
+	return res, nil
+}
+
+// List all VPCs
+func (r *VPCService) ListAutoPaging(ctx context.Context, query VPCListParams, opts ...option.RequestOption) *pagination.CursorAutoPager[VPC] {
+	return pagination.NewCursorAutoPager(r.List(ctx, query, opts...))
 }
 
 // Delete a VPC
