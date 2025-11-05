@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.21.0 (2025-11-05)
+
+Full Changelog: [v1.20.0...v1.21.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.20.0...v1.21.0)
+
+### Features
+
+* **api:** api update ([c52c1ee](https://github.com/nirvana-labs/nirvana-go/commit/c52c1ee63cdee73cdf2393449dd6b14d34fce68f))
+* **api:** api update ([073bed2](https://github.com/nirvana-labs/nirvana-go/commit/073bed2c4fd6dca6d82ad88a3f1b954f4fac41ed))
+* **api:** api update ([bbdc2c9](https://github.com/nirvana-labs/nirvana-go/commit/bbdc2c9dcf288c1dd3c01153ac349fb29587cb23))
+* **api:** api update ([23a2fa3](https://github.com/nirvana-labs/nirvana-go/commit/23a2fa324ea6bda3dd4dfe941c9fac0f45ae1a3b))
+* **api:** api update ([849c0f0](https://github.com/nirvana-labs/nirvana-go/commit/849c0f0e69d9e937082c88d3bd0ca7b707bf8ef2))
+* **api:** api update ([9fb0d5c](https://github.com/nirvana-labs/nirvana-go/commit/9fb0d5caa10e036bcacc1969aa6c8c3c673158e0))
+* **api:** api update ([14e4223](https://github.com/nirvana-labs/nirvana-go/commit/14e42235a1f45a968e0e3b490d1a3db9721cbd6d))
+
+
+### Chores
+
+* **internal:** grammar fix (it's -&gt; its) ([89a073b](https://github.com/nirvana-labs/nirvana-go/commit/89a073b6f87a3bd82c3032297e25f576d0ca7e24))
+
 ## 1.20.0 (2025-10-18)
 
 Full Changelog: [v1.19.0...v1.20.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.19.0...v1.20.0)
