@@ -3,7 +3,9 @@
 package shared
 
 import (
+	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/packages/param"
+	"github.com/nirvana-labs/nirvana-go/packages/respjson"
 )
 
 // aliased to make [param.APIUnion] private when embedding
@@ -11,6 +13,27 @@ type paramUnion = param.APIUnion
 
 // aliased to make [param.APIObject] private when embedding
 type paramObj = param.APIObject
+
+// Pagination response details.
+type Pagination struct {
+	NextCursor     string `json:"next_cursor,required"`
+	PreviousCursor string `json:"previous_cursor,required"`
+	TotalCount     int64  `json:"total_count,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		NextCursor     respjson.Field
+		PreviousCursor respjson.Field
+		TotalCount     respjson.Field
+		ExtraFields    map[string]respjson.Field
+		raw            string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r Pagination) RawJSON() string { return r.JSON.raw }
+func (r *Pagination) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
 
 // Region the resource is in.
 type RegionName string

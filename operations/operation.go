@@ -7,13 +7,18 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"net/url"
 	"slices"
 	"time"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
+	"github.com/nirvana-labs/nirvana-go/internal/apiquery"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/option"
+	"github.com/nirvana-labs/nirvana-go/packages/pagination"
+	"github.com/nirvana-labs/nirvana-go/packages/param"
 	"github.com/nirvana-labs/nirvana-go/packages/respjson"
+	"github.com/nirvana-labs/nirvana-go/shared"
 )
 
 // OperationService contains methods and other services that help with interacting
@@ -36,11 +41,26 @@ func NewOperationService(opts ...option.RequestOption) (r OperationService) {
 }
 
 // List all operations
-func (r *OperationService) List(ctx context.Context, opts ...option.RequestOption) (res *OperationList, err error) {
+func (r *OperationService) List(ctx context.Context, query OperationListParams, opts ...option.RequestOption) (res *pagination.Cursor[Operation], err error) {
+	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
+	opts = append([]option.RequestOption{option.WithResponseInto(&raw)}, opts...)
 	path := "v1/operations"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	cfg, err := requestconfig.NewRequestConfig(ctx, http.MethodGet, path, query, &res, opts...)
+	if err != nil {
+		return nil, err
+	}
+	err = cfg.Execute()
+	if err != nil {
+		return nil, err
+	}
+	res.SetPageConfig(cfg, raw)
+	return res, nil
+}
+
+// List all operations
+func (r *OperationService) ListAutoPaging(ctx context.Context, query OperationListParams, opts ...option.RequestOption) *pagination.CursorAutoPager[Operation] {
+	return pagination.NewCursorAutoPager(r.List(ctx, query, opts...))
 }
 
 // Get details about a specific operation
@@ -109,9 +129,12 @@ const (
 
 type OperationList struct {
 	Items []Operation `json:"items,required"`
+	// Pagination response details.
+	Pagination shared.Pagination `json:"pagination,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
+		Pagination  respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`
@@ -143,3 +166,19 @@ const (
 	OperationTypeDelete  OperationType = "delete"
 	OperationTypeRestart OperationType = "restart"
 )
+
+type OperationListParams struct {
+	// Pagination cursor returned by a previous request
+	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
+	// Maximum number of items to return
+	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	paramObj
+}
+
+// URLQuery serializes [OperationListParams]'s query parameters as `url.Values`.
+func (r OperationListParams) URLQuery() (v url.Values, err error) {
+	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
+		ArrayFormat:  apiquery.ArrayQueryFormatComma,
+		NestedFormat: apiquery.NestedQueryFormatBrackets,
+	})
+}

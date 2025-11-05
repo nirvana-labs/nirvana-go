@@ -7,13 +7,16 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"net/url"
 	"slices"
 	"time"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
+	"github.com/nirvana-labs/nirvana-go/internal/apiquery"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/operations"
 	"github.com/nirvana-labs/nirvana-go/option"
+	"github.com/nirvana-labs/nirvana-go/packages/pagination"
 	"github.com/nirvana-labs/nirvana-go/packages/param"
 	"github.com/nirvana-labs/nirvana-go/packages/respjson"
 	"github.com/nirvana-labs/nirvana-go/shared"
@@ -65,11 +68,26 @@ func (r *VMService) Update(ctx context.Context, vmID string, body VMUpdateParams
 }
 
 // List all VMs
-func (r *VMService) List(ctx context.Context, opts ...option.RequestOption) (res *VMList, err error) {
+func (r *VMService) List(ctx context.Context, query VMListParams, opts ...option.RequestOption) (res *pagination.Cursor[VM], err error) {
+	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
+	opts = append([]option.RequestOption{option.WithResponseInto(&raw)}, opts...)
 	path := "v1/compute/vms"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	cfg, err := requestconfig.NewRequestConfig(ctx, http.MethodGet, path, query, &res, opts...)
+	if err != nil {
+		return nil, err
+	}
+	err = cfg.Execute()
+	if err != nil {
+		return nil, err
+	}
+	res.SetPageConfig(cfg, raw)
+	return res, nil
+}
+
+// List all VMs
+func (r *VMService) ListAutoPaging(ctx context.Context, query VMListParams, opts ...option.RequestOption) *pagination.CursorAutoPager[VM] {
+	return pagination.NewCursorAutoPager(r.List(ctx, query, opts...))
 }
 
 // Delete a VM
@@ -293,9 +311,12 @@ func (r *VM) UnmarshalJSON(data []byte) error {
 
 type VMList struct {
 	Items []VM `json:"items,required"`
+	// Pagination response details.
+	Pagination shared.Pagination `json:"pagination,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
+		Pagination  respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`
@@ -404,4 +425,20 @@ func (r VMUpdateParams) MarshalJSON() (data []byte, err error) {
 }
 func (r *VMUpdateParams) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
+}
+
+type VMListParams struct {
+	// Pagination cursor returned by a previous request
+	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
+	// Maximum number of items to return
+	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	paramObj
+}
+
+// URLQuery serializes [VMListParams]'s query parameters as `url.Values`.
+func (r VMListParams) URLQuery() (v url.Values, err error) {
+	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
+		ArrayFormat:  apiquery.ArrayQueryFormatComma,
+		NestedFormat: apiquery.NestedQueryFormatBrackets,
+	})
 }

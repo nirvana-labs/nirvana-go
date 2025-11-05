@@ -29,7 +29,7 @@ func TestAPIKeyNewWithOptionalParams(t *testing.T) {
 	)
 	_, err := client.APIKeys.New(context.TODO(), api_keys.APIKeyNewParams{
 		ExpiresAt: time.Now(),
-		Name:      "my-api-key",
+		Name:      "My API Key",
 		StartsAt:  nirvana.Time(time.Now()),
 		Tags:      []string{"production", "ethereum"},
 	})
@@ -58,7 +58,7 @@ func TestAPIKeyUpdateWithOptionalParams(t *testing.T) {
 		context.TODO(),
 		"api_key_id",
 		api_keys.APIKeyUpdateParams{
-			Name: nirvana.String("my-api-key"),
+			Name: nirvana.String("My Updated API Key"),
 			Tags: []string{"production", "ethereum"},
 		},
 	)
@@ -71,7 +71,7 @@ func TestAPIKeyUpdateWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestAPIKeyList(t *testing.T) {
+func TestAPIKeyListWithOptionalParams(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -83,7 +83,10 @@ func TestAPIKeyList(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.APIKeys.List(context.TODO())
+	_, err := client.APIKeys.List(context.TODO(), api_keys.APIKeyListParams{
+		Cursor: nirvana.String("cursor"),
+		Limit:  nirvana.Int(10),
+	})
 	if err != nil {
 		var apierr *nirvana.Error
 		if errors.As(err, &apierr) {

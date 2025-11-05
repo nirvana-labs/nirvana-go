@@ -5,10 +5,14 @@ package rpc_nodes
 import (
 	"context"
 	"net/http"
+	"net/url"
 	"slices"
 
+	"github.com/nirvana-labs/nirvana-go/internal/apiquery"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/option"
+	"github.com/nirvana-labs/nirvana-go/packages/pagination"
+	"github.com/nirvana-labs/nirvana-go/packages/param"
 )
 
 // DedicatedBlockchainService contains methods and other services that help with
@@ -31,9 +35,41 @@ func NewDedicatedBlockchainService(opts ...option.RequestOption) (r DedicatedBlo
 }
 
 // List all Dedicated Blockchains
-func (r *DedicatedBlockchainService) List(ctx context.Context, opts ...option.RequestOption) (res *DedicatedBlockchainList, err error) {
+func (r *DedicatedBlockchainService) List(ctx context.Context, query DedicatedBlockchainListParams, opts ...option.RequestOption) (res *pagination.Cursor[DedicatedBlockchain], err error) {
+	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
+	opts = append([]option.RequestOption{option.WithResponseInto(&raw)}, opts...)
 	path := "v1/rpc_nodes/dedicated/blockchains"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	cfg, err := requestconfig.NewRequestConfig(ctx, http.MethodGet, path, query, &res, opts...)
+	if err != nil {
+		return nil, err
+	}
+	err = cfg.Execute()
+	if err != nil {
+		return nil, err
+	}
+	res.SetPageConfig(cfg, raw)
+	return res, nil
+}
+
+// List all Dedicated Blockchains
+func (r *DedicatedBlockchainService) ListAutoPaging(ctx context.Context, query DedicatedBlockchainListParams, opts ...option.RequestOption) *pagination.CursorAutoPager[DedicatedBlockchain] {
+	return pagination.NewCursorAutoPager(r.List(ctx, query, opts...))
+}
+
+type DedicatedBlockchainListParams struct {
+	// Pagination cursor returned by a previous request
+	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
+	// Maximum number of items to return
+	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	paramObj
+}
+
+// URLQuery serializes [DedicatedBlockchainListParams]'s query parameters as
+// `url.Values`.
+func (r DedicatedBlockchainListParams) URLQuery() (v url.Values, err error) {
+	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
+		ArrayFormat:  apiquery.ArrayQueryFormatComma,
+		NestedFormat: apiquery.NestedQueryFormatBrackets,
+	})
 }

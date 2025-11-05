@@ -7,10 +7,14 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"net/url"
 	"slices"
 
+	"github.com/nirvana-labs/nirvana-go/internal/apiquery"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/option"
+	"github.com/nirvana-labs/nirvana-go/packages/pagination"
+	"github.com/nirvana-labs/nirvana-go/packages/param"
 )
 
 // VMVolumeService contains methods and other services that help with interacting
@@ -33,13 +37,44 @@ func NewVMVolumeService(opts ...option.RequestOption) (r VMVolumeService) {
 }
 
 // List VM's Volumes
-func (r *VMVolumeService) List(ctx context.Context, vmID string, opts ...option.RequestOption) (res *VolumeList, err error) {
+func (r *VMVolumeService) List(ctx context.Context, vmID string, query VMVolumeListParams, opts ...option.RequestOption) (res *pagination.Cursor[Volume], err error) {
+	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
+	opts = append([]option.RequestOption{option.WithResponseInto(&raw)}, opts...)
 	if vmID == "" {
 		err = errors.New("missing required vm_id parameter")
 		return
 	}
 	path := fmt.Sprintf("v1/compute/vms/%s/volumes", vmID)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	cfg, err := requestconfig.NewRequestConfig(ctx, http.MethodGet, path, query, &res, opts...)
+	if err != nil {
+		return nil, err
+	}
+	err = cfg.Execute()
+	if err != nil {
+		return nil, err
+	}
+	res.SetPageConfig(cfg, raw)
+	return res, nil
+}
+
+// List VM's Volumes
+func (r *VMVolumeService) ListAutoPaging(ctx context.Context, vmID string, query VMVolumeListParams, opts ...option.RequestOption) *pagination.CursorAutoPager[Volume] {
+	return pagination.NewCursorAutoPager(r.List(ctx, vmID, query, opts...))
+}
+
+type VMVolumeListParams struct {
+	// Pagination cursor returned by a previous request
+	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
+	// Maximum number of items to return
+	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	paramObj
+}
+
+// URLQuery serializes [VMVolumeListParams]'s query parameters as `url.Values`.
+func (r VMVolumeListParams) URLQuery() (v url.Values, err error) {
+	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
+		ArrayFormat:  apiquery.ArrayQueryFormatComma,
+		NestedFormat: apiquery.NestedQueryFormatBrackets,
+	})
 }

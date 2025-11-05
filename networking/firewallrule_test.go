@@ -81,7 +81,7 @@ func TestFirewallRuleUpdateWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestFirewallRuleList(t *testing.T) {
+func TestFirewallRuleListWithOptionalParams(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -93,7 +93,14 @@ func TestFirewallRuleList(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Networking.FirewallRules.List(context.TODO(), "vpc_id")
+	_, err := client.Networking.FirewallRules.List(
+		context.TODO(),
+		"vpc_id",
+		networking.FirewallRuleListParams{
+			Cursor: nirvana.String("cursor"),
+			Limit:  nirvana.Int(10),
+		},
+	)
 	if err != nil {
 		var apierr *nirvana.Error
 		if errors.As(err, &apierr) {

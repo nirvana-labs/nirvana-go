@@ -7,14 +7,18 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"net/url"
 	"slices"
 	"time"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
+	"github.com/nirvana-labs/nirvana-go/internal/apiquery"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/option"
+	"github.com/nirvana-labs/nirvana-go/packages/pagination"
 	"github.com/nirvana-labs/nirvana-go/packages/param"
 	"github.com/nirvana-labs/nirvana-go/packages/respjson"
+	"github.com/nirvana-labs/nirvana-go/shared"
 )
 
 // FlexService contains methods and other services that help with interacting with
@@ -59,11 +63,26 @@ func (r *FlexService) Update(ctx context.Context, nodeID string, body FlexUpdate
 }
 
 // List all RPC Node Flex you created
-func (r *FlexService) List(ctx context.Context, opts ...option.RequestOption) (res *FlexList, err error) {
+func (r *FlexService) List(ctx context.Context, query FlexListParams, opts ...option.RequestOption) (res *pagination.Cursor[Flex], err error) {
+	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
+	opts = append([]option.RequestOption{option.WithResponseInto(&raw)}, opts...)
 	path := "v1/rpc_nodes/flex"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	cfg, err := requestconfig.NewRequestConfig(ctx, http.MethodGet, path, query, &res, opts...)
+	if err != nil {
+		return nil, err
+	}
+	err = cfg.Execute()
+	if err != nil {
+		return nil, err
+	}
+	res.SetPageConfig(cfg, raw)
+	return res, nil
+}
+
+// List all RPC Node Flex you created
+func (r *FlexService) ListAutoPaging(ctx context.Context, query FlexListParams, opts ...option.RequestOption) *pagination.CursorAutoPager[Flex] {
+	return pagination.NewCursorAutoPager(r.List(ctx, query, opts...))
 }
 
 // Delete an RPC Node Flex
@@ -153,9 +172,12 @@ func (r *FlexBlockchain) UnmarshalJSON(data []byte) error {
 
 type FlexBlockchainList struct {
 	Items []FlexBlockchain `json:"items,required"`
+	// Pagination response details.
+	Pagination shared.Pagination `json:"pagination,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
+		Pagination  respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`
@@ -169,9 +191,12 @@ func (r *FlexBlockchainList) UnmarshalJSON(data []byte) error {
 
 type FlexList struct {
 	Items []Flex `json:"items,required"`
+	// Pagination response details.
+	Pagination shared.Pagination `json:"pagination,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
+		Pagination  respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`
@@ -217,4 +242,20 @@ func (r FlexUpdateParams) MarshalJSON() (data []byte, err error) {
 }
 func (r *FlexUpdateParams) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
+}
+
+type FlexListParams struct {
+	// Pagination cursor returned by a previous request
+	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
+	// Maximum number of items to return
+	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	paramObj
+}
+
+// URLQuery serializes [FlexListParams]'s query parameters as `url.Values`.
+func (r FlexListParams) URLQuery() (v url.Values, err error) {
+	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
+		ArrayFormat:  apiquery.ArrayQueryFormatComma,
+		NestedFormat: apiquery.NestedQueryFormatBrackets,
+	})
 }

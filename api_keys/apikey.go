@@ -7,14 +7,18 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"net/url"
 	"slices"
 	"time"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
+	"github.com/nirvana-labs/nirvana-go/internal/apiquery"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/option"
+	"github.com/nirvana-labs/nirvana-go/packages/pagination"
 	"github.com/nirvana-labs/nirvana-go/packages/param"
 	"github.com/nirvana-labs/nirvana-go/packages/respjson"
+	"github.com/nirvana-labs/nirvana-go/shared"
 )
 
 // APIKeyService contains methods and other services that help with interacting
@@ -57,11 +61,26 @@ func (r *APIKeyService) Update(ctx context.Context, apiKeyID string, body APIKey
 }
 
 // List all API keys for the authenticated user
-func (r *APIKeyService) List(ctx context.Context, opts ...option.RequestOption) (res *APIKeyList, err error) {
+func (r *APIKeyService) List(ctx context.Context, query APIKeyListParams, opts ...option.RequestOption) (res *pagination.Cursor[APIKey], err error) {
+	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
+	opts = append([]option.RequestOption{option.WithResponseInto(&raw)}, opts...)
 	path := "v1/api_keys"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	cfg, err := requestconfig.NewRequestConfig(ctx, http.MethodGet, path, query, &res, opts...)
+	if err != nil {
+		return nil, err
+	}
+	err = cfg.Execute()
+	if err != nil {
+		return nil, err
+	}
+	res.SetPageConfig(cfg, raw)
+	return res, nil
+}
+
+// List all API keys for the authenticated user
+func (r *APIKeyService) ListAutoPaging(ctx context.Context, query APIKeyListParams, opts ...option.RequestOption) *pagination.CursorAutoPager[APIKey] {
+	return pagination.NewCursorAutoPager(r.List(ctx, query, opts...))
 }
 
 // Delete an API key
@@ -144,9 +163,12 @@ const (
 
 type APIKeyList struct {
 	Items []APIKey `json:"items,required"`
+	// Pagination response details.
+	Pagination shared.Pagination `json:"pagination,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
+		Pagination  respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`
@@ -192,4 +214,20 @@ func (r APIKeyUpdateParams) MarshalJSON() (data []byte, err error) {
 }
 func (r *APIKeyUpdateParams) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
+}
+
+type APIKeyListParams struct {
+	// Pagination cursor returned by a previous request
+	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
+	// Maximum number of items to return
+	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	paramObj
+}
+
+// URLQuery serializes [APIKeyListParams]'s query parameters as `url.Values`.
+func (r APIKeyListParams) URLQuery() (v url.Values, err error) {
+	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
+		ArrayFormat:  apiquery.ArrayQueryFormatComma,
+		NestedFormat: apiquery.NestedQueryFormatBrackets,
+	})
 }

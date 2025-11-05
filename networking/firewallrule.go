@@ -7,13 +7,16 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"net/url"
 	"slices"
 	"time"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
+	"github.com/nirvana-labs/nirvana-go/internal/apiquery"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/operations"
 	"github.com/nirvana-labs/nirvana-go/option"
+	"github.com/nirvana-labs/nirvana-go/packages/pagination"
 	"github.com/nirvana-labs/nirvana-go/packages/param"
 	"github.com/nirvana-labs/nirvana-go/packages/respjson"
 	"github.com/nirvana-labs/nirvana-go/shared"
@@ -67,15 +70,30 @@ func (r *FirewallRuleService) Update(ctx context.Context, vpcID string, firewall
 }
 
 // List all firewall rules
-func (r *FirewallRuleService) List(ctx context.Context, vpcID string, opts ...option.RequestOption) (res *FirewallRuleList, err error) {
+func (r *FirewallRuleService) List(ctx context.Context, vpcID string, query FirewallRuleListParams, opts ...option.RequestOption) (res *pagination.Cursor[FirewallRule], err error) {
+	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
+	opts = append([]option.RequestOption{option.WithResponseInto(&raw)}, opts...)
 	if vpcID == "" {
 		err = errors.New("missing required vpc_id parameter")
 		return
 	}
 	path := fmt.Sprintf("v1/networking/vpcs/%s/firewall_rules", vpcID)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	cfg, err := requestconfig.NewRequestConfig(ctx, http.MethodGet, path, query, &res, opts...)
+	if err != nil {
+		return nil, err
+	}
+	err = cfg.Execute()
+	if err != nil {
+		return nil, err
+	}
+	res.SetPageConfig(cfg, raw)
+	return res, nil
+}
+
+// List all firewall rules
+func (r *FirewallRuleService) ListAutoPaging(ctx context.Context, vpcID string, query FirewallRuleListParams, opts ...option.RequestOption) *pagination.CursorAutoPager[FirewallRule] {
+	return pagination.NewCursorAutoPager(r.List(ctx, vpcID, query, opts...))
 }
 
 // Delete a firewall rule
@@ -174,9 +192,12 @@ const (
 
 type FirewallRuleList struct {
 	Items []FirewallRule `json:"items,required"`
+	// Pagination response details.
+	Pagination shared.Pagination `json:"pagination,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
+		Pagination  respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`
@@ -257,3 +278,19 @@ const (
 	FirewallRuleUpdateParamsProtocolTcp FirewallRuleUpdateParamsProtocol = "tcp"
 	FirewallRuleUpdateParamsProtocolUdp FirewallRuleUpdateParamsProtocol = "udp"
 )
+
+type FirewallRuleListParams struct {
+	// Pagination cursor returned by a previous request
+	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
+	// Maximum number of items to return
+	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	paramObj
+}
+
+// URLQuery serializes [FirewallRuleListParams]'s query parameters as `url.Values`.
+func (r FirewallRuleListParams) URLQuery() (v url.Values, err error) {
+	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
+		ArrayFormat:  apiquery.ArrayQueryFormatComma,
+		NestedFormat: apiquery.NestedQueryFormatBrackets,
+	})
+}

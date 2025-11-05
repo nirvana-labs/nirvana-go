@@ -7,13 +7,18 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"net/url"
 	"slices"
 	"time"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
+	"github.com/nirvana-labs/nirvana-go/internal/apiquery"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/option"
+	"github.com/nirvana-labs/nirvana-go/packages/pagination"
+	"github.com/nirvana-labs/nirvana-go/packages/param"
 	"github.com/nirvana-labs/nirvana-go/packages/respjson"
+	"github.com/nirvana-labs/nirvana-go/shared"
 )
 
 // DedicatedService contains methods and other services that help with interacting
@@ -38,11 +43,26 @@ func NewDedicatedService(opts ...option.RequestOption) (r DedicatedService) {
 }
 
 // List all RPC Node Dedicated you created
-func (r *DedicatedService) List(ctx context.Context, opts ...option.RequestOption) (res *DedicatedList, err error) {
+func (r *DedicatedService) List(ctx context.Context, query DedicatedListParams, opts ...option.RequestOption) (res *pagination.Cursor[Dedicated], err error) {
+	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
+	opts = append([]option.RequestOption{option.WithResponseInto(&raw)}, opts...)
 	path := "v1/rpc_nodes/dedicated"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	cfg, err := requestconfig.NewRequestConfig(ctx, http.MethodGet, path, query, &res, opts...)
+	if err != nil {
+		return nil, err
+	}
+	err = cfg.Execute()
+	if err != nil {
+		return nil, err
+	}
+	res.SetPageConfig(cfg, raw)
+	return res, nil
+}
+
+// List all RPC Node Dedicated you created
+func (r *DedicatedService) ListAutoPaging(ctx context.Context, query DedicatedListParams, opts ...option.RequestOption) *pagination.CursorAutoPager[Dedicated] {
+	return pagination.NewCursorAutoPager(r.List(ctx, query, opts...))
 }
 
 // Get details about an RPC Node Dedicated
@@ -119,9 +139,12 @@ func (r *DedicatedBlockchain) UnmarshalJSON(data []byte) error {
 
 type DedicatedBlockchainList struct {
 	Items []DedicatedBlockchain `json:"items,required"`
+	// Pagination response details.
+	Pagination shared.Pagination `json:"pagination,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
+		Pagination  respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`
@@ -135,9 +158,12 @@ func (r *DedicatedBlockchainList) UnmarshalJSON(data []byte) error {
 
 type DedicatedList struct {
 	Items []Dedicated `json:"items,required"`
+	// Pagination response details.
+	Pagination shared.Pagination `json:"pagination,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
+		Pagination  respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`
@@ -147,4 +173,20 @@ type DedicatedList struct {
 func (r DedicatedList) RawJSON() string { return r.JSON.raw }
 func (r *DedicatedList) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
+}
+
+type DedicatedListParams struct {
+	// Pagination cursor returned by a previous request
+	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
+	// Maximum number of items to return
+	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	paramObj
+}
+
+// URLQuery serializes [DedicatedListParams]'s query parameters as `url.Values`.
+func (r DedicatedListParams) URLQuery() (v url.Values, err error) {
+	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
+		ArrayFormat:  apiquery.ArrayQueryFormatComma,
+		NestedFormat: apiquery.NestedQueryFormatBrackets,
+	})
 }
