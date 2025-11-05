@@ -193,7 +193,7 @@ const (
 type FirewallRuleList struct {
 	Items []FirewallRule `json:"items,required"`
 	// Pagination response details.
-	Pagination shared.Pagination `json:"pagination"`
+	Pagination shared.Pagination `json:"pagination,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field

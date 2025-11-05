@@ -173,7 +173,7 @@ func (r *FlexBlockchain) UnmarshalJSON(data []byte) error {
 type FlexBlockchainList struct {
 	Items []FlexBlockchain `json:"items,required"`
 	// Pagination response details.
-	Pagination shared.Pagination `json:"pagination"`
+	Pagination shared.Pagination `json:"pagination,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
@@ -192,7 +192,7 @@ func (r *FlexBlockchainList) UnmarshalJSON(data []byte) error {
 type FlexList struct {
 	Items []Flex `json:"items,required"`
 	// Pagination response details.
-	Pagination shared.Pagination `json:"pagination"`
+	Pagination shared.Pagination `json:"pagination,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field

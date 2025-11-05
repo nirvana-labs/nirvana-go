@@ -72,7 +72,7 @@ func TestVPCUpdateWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestVPCList(t *testing.T) {
+func TestVPCListWithOptionalParams(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -84,7 +84,10 @@ func TestVPCList(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Networking.VPCs.List(context.TODO())
+	_, err := client.Networking.VPCs.List(context.TODO(), networking.VPCListParams{
+		Cursor: nirvana.String("cursor"),
+		Limit:  nirvana.Int(10),
+	})
 	if err != nil {
 		var apierr *nirvana.Error
 		if errors.As(err, &apierr) {
