@@ -306,8 +306,37 @@ This library provides some conveniences for working with paginated list endpoint
 
 You can use `.ListAutoPaging()` methods to iterate through items across all pages:
 
+```go
+iter := client.Compute.VMs.ListAutoPaging(context.TODO(), compute.VMListParams{
+	Limit: nirvana.Int(10),
+})
+// Automatically fetches more pages as needed.
+for iter.Next() {
+	vm := iter.Current()
+	fmt.Printf("%+v\n", vm)
+}
+if err := iter.Err(); err != nil {
+	panic(err.Error())
+}
+```
+
 Or you can use simple `.List()` methods to fetch a single page and receive a standard response object
 with additional helper methods like `.GetNextPage()`, e.g.:
+
+```go
+page, err := client.Compute.VMs.List(context.TODO(), compute.VMListParams{
+	Limit: nirvana.Int(10),
+})
+for page != nil {
+	for _, vm := range page.Items {
+		fmt.Printf("%+v\n", vm)
+	}
+	page, err = page.GetNextPage()
+}
+if err != nil {
+	panic(err.Error())
+}
+```
 
 ### Errors
 
