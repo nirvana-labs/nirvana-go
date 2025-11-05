@@ -29,7 +29,7 @@ func TestAPIKeyNewWithOptionalParams(t *testing.T) {
 	)
 	_, err := client.APIKeys.New(context.TODO(), api_keys.APIKeyNewParams{
 		ExpiresAt: time.Now(),
-		Name:      "my-api-key",
+		Name:      "My API Key",
 		StartsAt:  nirvana.Time(time.Now()),
 		Tags:      []string{"production", "ethereum"},
 	})
@@ -58,7 +58,7 @@ func TestAPIKeyUpdateWithOptionalParams(t *testing.T) {
 		context.TODO(),
 		"api_key_id",
 		api_keys.APIKeyUpdateParams{
-			Name: nirvana.String("my-api-key"),
+			Name: nirvana.String("My Updated API Key"),
 			Tags: []string{"production", "ethereum"},
 		},
 	)

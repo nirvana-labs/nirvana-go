@@ -140,7 +140,7 @@ func (r *DedicatedBlockchain) UnmarshalJSON(data []byte) error {
 type DedicatedBlockchainList struct {
 	Items []DedicatedBlockchain `json:"items,required"`
 	// Pagination response details.
-	Pagination shared.Pagination `json:"pagination"`
+	Pagination shared.Pagination `json:"pagination,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
@@ -159,7 +159,7 @@ func (r *DedicatedBlockchainList) UnmarshalJSON(data []byte) error {
 type DedicatedList struct {
 	Items []Dedicated `json:"items,required"`
 	// Pagination response details.
-	Pagination shared.Pagination `json:"pagination"`
+	Pagination shared.Pagination `json:"pagination,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field

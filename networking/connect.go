@@ -154,7 +154,7 @@ func (r *ConnectConnectionAWSConfigRequestParam) UnmarshalJSON(data []byte) erro
 type ConnectConnectionList struct {
 	Items []ConnectConnection `json:"items,required"`
 	// Pagination response details.
-	Pagination shared.Pagination `json:"pagination"`
+	Pagination shared.Pagination `json:"pagination,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
@@ -200,7 +200,7 @@ func (r *ConnectRoute) UnmarshalJSON(data []byte) error {
 type ConnectRouteList struct {
 	Items []ConnectRoute `json:"items,required"`
 	// Pagination response details.
-	Pagination shared.Pagination `json:"pagination"`
+	Pagination shared.Pagination `json:"pagination,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field

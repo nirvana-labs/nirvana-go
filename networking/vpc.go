@@ -7,10 +7,12 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"net/url"
 	"slices"
 	"time"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
+	"github.com/nirvana-labs/nirvana-go/internal/apiquery"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/operations"
 	"github.com/nirvana-labs/nirvana-go/option"
@@ -61,10 +63,10 @@ func (r *VPCService) Update(ctx context.Context, vpcID string, body VPCUpdatePar
 }
 
 // List all VPCs
-func (r *VPCService) List(ctx context.Context, opts ...option.RequestOption) (res *VPCList, err error) {
+func (r *VPCService) List(ctx context.Context, query VPCListParams, opts ...option.RequestOption) (res *VPCList, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/networking/vpcs"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
 }
 
@@ -173,7 +175,7 @@ func (r *VPC) UnmarshalJSON(data []byte) error {
 type VPCList struct {
 	Items []VPC `json:"items,required"`
 	// Pagination response details.
-	Pagination shared.Pagination `json:"pagination"`
+	Pagination shared.Pagination `json:"pagination,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
@@ -228,4 +230,20 @@ func (r VPCUpdateParams) MarshalJSON() (data []byte, err error) {
 }
 func (r *VPCUpdateParams) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
+}
+
+type VPCListParams struct {
+	// Pagination cursor returned by a previous request
+	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
+	// Maximum number of items to return
+	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	paramObj
+}
+
+// URLQuery serializes [VPCListParams]'s query parameters as `url.Values`.
+func (r VPCListParams) URLQuery() (v url.Values, err error) {
+	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
+		ArrayFormat:  apiquery.ArrayQueryFormatComma,
+		NestedFormat: apiquery.NestedQueryFormatBrackets,
+	})
 }
