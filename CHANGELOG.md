@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.22.0 (2025-11-07)
+
+Full Changelog: [v1.21.1...v1.22.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.21.1...v1.22.0)
+
+### Features
+
+* **api:** api update ([494de32](https://github.com/nirvana-labs/nirvana-go/commit/494de328f8ffe90e3f1d5212245d7c3b38eaf574))
+
 ## 1.21.1 (2025-11-05)
 
 Full Changelog: [v1.21.0...v1.21.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.21.0...v1.21.1)

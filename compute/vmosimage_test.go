@@ -9,11 +9,12 @@ import (
 	"testing"
 
 	"github.com/nirvana-labs/nirvana-go"
+	"github.com/nirvana-labs/nirvana-go/compute"
 	"github.com/nirvana-labs/nirvana-go/internal/testutil"
 	"github.com/nirvana-labs/nirvana-go/option"
 )
 
-func TestVMOSImageList(t *testing.T) {
+func TestVMOSImageListWithOptionalParams(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -25,7 +26,10 @@ func TestVMOSImageList(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Compute.VMs.OSImages.List(context.TODO())
+	_, err := client.Compute.VMs.OSImages.List(context.TODO(), compute.VMOSImageListParams{
+		Cursor: nirvana.String("cursor"),
+		Limit:  nirvana.Int(10),
+	})
 	if err != nil {
 		var apierr *nirvana.Error
 		if errors.As(err, &apierr) {
