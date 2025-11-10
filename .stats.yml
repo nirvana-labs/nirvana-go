@@ -1,4 +1,4 @@
 configured_endpoints: 106
-openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/nirvana-labs%2Fnirvana-76ede0950a1e883afd0299575387f271085ca17fa40d36a998d31b22ea688711.yml
-openapi_spec_hash: 810ff767e733be0dc29da9b3a5c328f0
-config_hash: 5fcdfaf52d9cb1b09d72616e9685c673
+openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/nirvana-labs%2Fnirvana-2d3cf9dde922f2a83fedca14ab951bd18c97f1c46f262ece91809c4282997103.yml
+openapi_spec_hash: e47af60bd9d2abe7300fdfd95b0b53a5
+config_hash: bb22b905ebcbbfc07f50e83327de150a
