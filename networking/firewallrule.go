@@ -210,7 +210,8 @@ func (r *FirewallRuleList) UnmarshalJSON(data []byte) error {
 }
 
 type FirewallRuleNewParams struct {
-	// Destination address of the Firewall Rule. Either VPC CIDR or VM in VPC.
+	// Destination address of the Firewall Rule. Either VPC CIDR or VM in VPC. Must be
+	// in network-aligned/canonical form.
 	DestinationAddress string `json:"destination_address,required"`
 	// Destination ports of the Firewall Rule.
 	DestinationPorts []string `json:"destination_ports,omitzero,required"`
@@ -221,7 +222,7 @@ type FirewallRuleNewParams struct {
 	// Any of "tcp", "udp".
 	Protocol FirewallRuleNewParamsProtocol `json:"protocol,omitzero,required"`
 	// Source address of the Firewall Rule. Address of 0.0.0.0 requires a CIDR mask
-	// of 0.
+	// of 0. Must be in network-aligned/canonical form.
 	SourceAddress string `json:"source_address,required"`
 	// Tags to attach to the Firewall Rule.
 	Tags []string `json:"tags,omitzero"`
@@ -245,12 +246,13 @@ const (
 )
 
 type FirewallRuleUpdateParams struct {
-	// Destination address of the Firewall Rule. Either VPC CIDR or VM in VPC.
+	// Destination address of the Firewall Rule. Either VPC CIDR or VM in VPC. Must be
+	// in network-aligned/canonical form.
 	DestinationAddress param.Opt[string] `json:"destination_address,omitzero"`
 	// Name of the Firewall Rule.
 	Name param.Opt[string] `json:"name,omitzero"`
 	// Source address of the Firewall Rule. Address of 0.0.0.0 requires a CIDR mask
-	// of 0.
+	// of 0. Must be in network-aligned/canonical form.
 	SourceAddress param.Opt[string] `json:"source_address,omitzero"`
 	// Destination ports of the Firewall Rule.
 	DestinationPorts []string `json:"destination_ports,omitzero"`
