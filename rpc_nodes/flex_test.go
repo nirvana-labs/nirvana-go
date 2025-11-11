@@ -83,8 +83,9 @@ func TestFlexListWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.RPCNodes.Flex.List(context.TODO(), rpc_nodes.FlexListParams{
-		Cursor: nirvana.String("cursor"),
-		Limit:  nirvana.Int(10),
+		Cursor:    nirvana.String("cursor"),
+		Limit:     nirvana.Int(10),
+		ProjectID: nirvana.String("project_id"),
 	})
 	if err != nil {
 		var apierr *nirvana.Error
