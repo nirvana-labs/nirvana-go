@@ -3241,10 +3241,6 @@ func (r *NFTCollectionBlockchain) UnmarshalJSON(data []byte) error {
 type NFTCollectionParam struct {
 	// The NFT Collection's address
 	Address string `json:"address,required"`
-	// The NFT Collection's name
-	Name param.Opt[string] `json:"name,omitzero"`
-	// Data about a blockchain
-	Blockchain NFTCollectionBlockchainParam `json:"blockchain,omitzero"`
 	paramObj
 }
 

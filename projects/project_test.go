@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package rpc_nodes_test
+package projects_test
 
 import (
 	"context"
@@ -11,10 +11,10 @@ import (
 	"github.com/nirvana-labs/nirvana-go"
 	"github.com/nirvana-labs/nirvana-go/internal/testutil"
 	"github.com/nirvana-labs/nirvana-go/option"
-	"github.com/nirvana-labs/nirvana-go/rpc_nodes"
+	"github.com/nirvana-labs/nirvana-go/projects"
 )
 
-func TestFlexNewWithOptionalParams(t *testing.T) {
+func TestProjectNewWithOptionalParams(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -26,11 +26,9 @@ func TestFlexNewWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.RPCNodes.Flex.New(context.TODO(), rpc_nodes.FlexNewParams{
-		Blockchain: "ethereum",
-		Name:       "my-ethereum-node",
-		Network:    "mainnet",
-		Tags:       []string{"production", "ethereum"},
+	_, err := client.Projects.New(context.TODO(), projects.ProjectNewParams{
+		Name: "My Project",
+		Tags: []string{"production", "ethereum"},
 	})
 	if err != nil {
 		var apierr *nirvana.Error
@@ -41,7 +39,7 @@ func TestFlexNewWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestFlexUpdateWithOptionalParams(t *testing.T) {
+func TestProjectUpdateWithOptionalParams(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -53,11 +51,11 @@ func TestFlexUpdateWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.RPCNodes.Flex.Update(
+	_, err := client.Projects.Update(
 		context.TODO(),
-		"node_id",
-		rpc_nodes.FlexUpdateParams{
-			Name: nirvana.String("my-ethereum-node"),
+		"project_id",
+		projects.ProjectUpdateParams{
+			Name: nirvana.String("My Updated Project"),
 			Tags: []string{"production", "ethereum"},
 		},
 	)
@@ -70,7 +68,7 @@ func TestFlexUpdateWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestFlexListWithOptionalParams(t *testing.T) {
+func TestProjectListWithOptionalParams(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -82,10 +80,9 @@ func TestFlexListWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.RPCNodes.Flex.List(context.TODO(), rpc_nodes.FlexListParams{
-		Cursor:    nirvana.String("cursor"),
-		Limit:     nirvana.Int(10),
-		ProjectID: nirvana.String("project_id"),
+	_, err := client.Projects.List(context.TODO(), projects.ProjectListParams{
+		Cursor: nirvana.String("cursor"),
+		Limit:  nirvana.Int(10),
 	})
 	if err != nil {
 		var apierr *nirvana.Error
@@ -96,7 +93,7 @@ func TestFlexListWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestFlexDelete(t *testing.T) {
+func TestProjectDelete(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -108,7 +105,7 @@ func TestFlexDelete(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	err := client.RPCNodes.Flex.Delete(context.TODO(), "node_id")
+	err := client.Projects.Delete(context.TODO(), "project_id")
 	if err != nil {
 		var apierr *nirvana.Error
 		if errors.As(err, &apierr) {
@@ -118,7 +115,7 @@ func TestFlexDelete(t *testing.T) {
 	}
 }
 
-func TestFlexGet(t *testing.T) {
+func TestProjectGet(t *testing.T) {
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -130,7 +127,7 @@ func TestFlexGet(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.RPCNodes.Flex.Get(context.TODO(), "node_id")
+	_, err := client.Projects.Get(context.TODO(), "project_id")
 	if err != nil {
 		var apierr *nirvana.Error
 		if errors.As(err, &apierr) {

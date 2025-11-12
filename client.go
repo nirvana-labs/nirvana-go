@@ -14,6 +14,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/networking"
 	"github.com/nirvana-labs/nirvana-go/operations"
 	"github.com/nirvana-labs/nirvana-go/option"
+	"github.com/nirvana-labs/nirvana-go/projects"
 	"github.com/nirvana-labs/nirvana-go/rpc_nodes"
 	"github.com/nirvana-labs/nirvana-go/user"
 	"github.com/nirvana-labs/nirvana-go/vektor"
@@ -27,6 +28,7 @@ type Client struct {
 	User       user.UserService
 	APIKeys    api_keys.APIKeyService
 	Operations operations.OperationService
+	Projects   projects.ProjectService
 	Compute    compute.ComputeService
 	Networking networking.NetworkingService
 	RPCNodes   rpc_nodes.RPCNodeService
@@ -58,6 +60,7 @@ func NewClient(opts ...option.RequestOption) (r Client) {
 	r.User = user.NewUserService(opts...)
 	r.APIKeys = api_keys.NewAPIKeyService(opts...)
 	r.Operations = operations.NewOperationService(opts...)
+	r.Projects = projects.NewProjectService(opts...)
 	r.Compute = compute.NewComputeService(opts...)
 	r.Networking = networking.NewNetworkingService(opts...)
 	r.RPCNodes = rpc_nodes.NewRPCNodeService(opts...)
