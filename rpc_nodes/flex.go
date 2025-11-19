@@ -88,7 +88,7 @@ func (r *FlexService) ListAutoPaging(ctx context.Context, query FlexListParams, 
 // Delete an RPC Node Flex
 func (r *FlexService) Delete(ctx context.Context, nodeID string, opts ...option.RequestOption) (err error) {
 	opts = slices.Concat(r.Options, opts)
-	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
+	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	if nodeID == "" {
 		err = errors.New("missing required node_id parameter")
 		return
