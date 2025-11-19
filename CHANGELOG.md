@@ -1,5 +1,26 @@
 # Changelog
 
+## 1.23.0 (2025-11-19)
+
+Full Changelog: [v1.22.0...v1.23.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.22.0...v1.23.0)
+
+### Features
+
+* **api:** api update ([d6a7942](https://github.com/nirvana-labs/nirvana-go/commit/d6a794285f575b97f24bf3938b4f58a143836835))
+* **api:** api update ([267bff1](https://github.com/nirvana-labs/nirvana-go/commit/267bff18ee62c2d8bbb1334d76a909267b4f8d94))
+* **api:** api update ([b3ad3db](https://github.com/nirvana-labs/nirvana-go/commit/b3ad3dbf4d9604556815ad4699180b4148e4e6cf))
+
+
+### Bug Fixes
+
+* **client:** correctly specify Accept header with */* instead of empty ([0efb059](https://github.com/nirvana-labs/nirvana-go/commit/0efb05986bf63cd7e247ff9f379e4f9027ad1e6e))
+* remove readonly parameters from request params ([87bd1ac](https://github.com/nirvana-labs/nirvana-go/commit/87bd1ac84cfa4c3a27fb65ba443d7c539341c1c3))
+
+
+### Chores
+
+* bump gjson version ([70eeeec](https://github.com/nirvana-labs/nirvana-go/commit/70eeeecc3813a23964bef1ef95d6443cf19560db))
+
 ## 1.22.0 (2025-11-07)
 
 Full Changelog: [v1.21.1...v1.22.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.21.1...v1.22.0)
