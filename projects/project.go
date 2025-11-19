@@ -86,7 +86,7 @@ func (r *ProjectService) ListAutoPaging(ctx context.Context, query ProjectListPa
 // Delete a project
 func (r *ProjectService) Delete(ctx context.Context, projectID string, opts ...option.RequestOption) (err error) {
 	opts = slices.Concat(r.Options, opts)
-	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
+	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	if projectID == "" {
 		err = errors.New("missing required project_id parameter")
 		return

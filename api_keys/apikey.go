@@ -86,7 +86,7 @@ func (r *APIKeyService) ListAutoPaging(ctx context.Context, query APIKeyListPara
 // Delete an API key
 func (r *APIKeyService) Delete(ctx context.Context, apiKeyID string, opts ...option.RequestOption) (err error) {
 	opts = slices.Concat(r.Options, opts)
-	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
+	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	if apiKeyID == "" {
 		err = errors.New("missing required api_key_id parameter")
 		return
