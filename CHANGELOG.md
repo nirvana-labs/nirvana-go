@@ -7,8 +7,6 @@ Full Changelog: [v1.23.0...v1.24.0](https://github.com/nirvana-labs/nirvana-go/c
 ### Features
 
 * **api:** manual updates ([baa1c33](https://github.com/nirvana-labs/nirvana-go/commit/baa1c3333e1bc9307cf0d29e8759f58ae1b2c62b))
-* **api:** manual updates ([bcb28d0](https://github.com/nirvana-labs/nirvana-go/commit/bcb28d0f5374f3dfe1e596e56a453efe9262c2d4))
-* **api:** remove migration for typescript ([7c47618](https://github.com/nirvana-labs/nirvana-go/commit/7c47618bb8c7e3e32841f61acfae528cf6263130))
 
 ## 1.23.0 (2025-11-19)
 
