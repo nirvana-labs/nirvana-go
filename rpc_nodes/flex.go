@@ -218,6 +218,8 @@ type FlexNewParams struct {
 	Name string `json:"name,required"`
 	// Network type (e.g., mainnet, testnet).
 	Network string `json:"network,required"`
+	// Project ID to associate with the RPC Node Flex.
+	ProjectID string `json:"project_id,required"`
 	// Tags to attach to the RPC Node Flex (optional, max 50).
 	Tags []string `json:"tags,omitzero"`
 	paramObj
