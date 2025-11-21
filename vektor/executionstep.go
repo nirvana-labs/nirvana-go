@@ -37,9 +37,9 @@ func NewExecutionStepService(opts ...option.RequestOption) (r ExecutionStepServi
 }
 
 // Get a step of an execution
-func (r *ExecutionStepService) Get(ctx context.Context, executionID string, stepID string, opts ...option.RequestOption) (res *ExecutionStepGetResponse, err error) {
+func (r *ExecutionStepService) Get(ctx context.Context, stepID string, query ExecutionStepGetParams, opts ...option.RequestOption) (res *ExecutionStepGetResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
-	if executionID == "" {
+	if query.ExecutionID == "" {
 		err = errors.New("missing required execution_id parameter")
 		return
 	}
@@ -47,16 +47,16 @@ func (r *ExecutionStepService) Get(ctx context.Context, executionID string, step
 		err = errors.New("missing required step_id parameter")
 		return
 	}
-	path := fmt.Sprintf("v1/vektor/executions/%s/steps/%s", executionID, stepID)
+	path := fmt.Sprintf("v1/vektor/executions/%s/steps/%s", query.ExecutionID, stepID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
 
 // Sign an EVM transaction step
-func (r *ExecutionStepService) Sign(ctx context.Context, executionID string, stepID string, body ExecutionStepSignParams, opts ...option.RequestOption) (err error) {
+func (r *ExecutionStepService) Sign(ctx context.Context, stepID string, params ExecutionStepSignParams, opts ...option.RequestOption) (err error) {
 	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
-	if executionID == "" {
+	if params.ExecutionID == "" {
 		err = errors.New("missing required execution_id parameter")
 		return
 	}
@@ -64,8 +64,8 @@ func (r *ExecutionStepService) Sign(ctx context.Context, executionID string, ste
 		err = errors.New("missing required step_id parameter")
 		return
 	}
-	path := fmt.Sprintf("v1/vektor/executions/%s/steps/%s/sign", executionID, stepID)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, nil, opts...)
+	path := fmt.Sprintf("v1/vektor/executions/%s/steps/%s/sign", params.ExecutionID, stepID)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, nil, opts...)
 	return
 }
 
@@ -1440,7 +1440,13 @@ const (
 	ExecutionStepGetResponseTypeEVMTransactionSell              ExecutionStepGetResponseType = "evm_transaction_sell"
 )
 
+type ExecutionStepGetParams struct {
+	ExecutionID string `path:"execution_id,required" json:"-"`
+	paramObj
+}
+
 type ExecutionStepSignParams struct {
+	ExecutionID string `path:"execution_id,required" json:"-"`
 	// A hex string starting with 0x
 	SignedPayload HexString `json:"signed_payload,required"`
 	paramObj

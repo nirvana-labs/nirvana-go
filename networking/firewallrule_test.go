@@ -61,9 +61,9 @@ func TestFirewallRuleUpdateWithOptionalParams(t *testing.T) {
 	)
 	_, err := client.Networking.FirewallRules.Update(
 		context.TODO(),
-		"vpc_id",
 		"firewall_rule_id",
 		networking.FirewallRuleUpdateParams{
+			VPCID:              "vpc_id",
 			DestinationAddress: nirvana.String("10.0.0.0/25"),
 			DestinationPorts:   []string{"22", "80", "443"},
 			Name:               nirvana.String("my-firewall-rule"),
@@ -124,8 +124,10 @@ func TestFirewallRuleDelete(t *testing.T) {
 	)
 	_, err := client.Networking.FirewallRules.Delete(
 		context.TODO(),
-		"vpc_id",
 		"firewall_rule_id",
+		networking.FirewallRuleDeleteParams{
+			VPCID: "vpc_id",
+		},
 	)
 	if err != nil {
 		var apierr *nirvana.Error
@@ -150,8 +152,10 @@ func TestFirewallRuleGet(t *testing.T) {
 	)
 	_, err := client.Networking.FirewallRules.Get(
 		context.TODO(),
-		"vpc_id",
 		"firewall_rule_id",
+		networking.FirewallRuleGetParams{
+			VPCID: "vpc_id",
+		},
 	)
 	if err != nil {
 		var apierr *nirvana.Error
