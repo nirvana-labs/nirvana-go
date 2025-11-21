@@ -29,8 +29,10 @@ func TestExecutionStepGet(t *testing.T) {
 	)
 	_, err := client.Vektor.Executions.Steps.Get(
 		context.TODO(),
-		"execution_id",
 		"step_id",
+		vektor.ExecutionStepGetParams{
+			ExecutionID: "execution_id",
+		},
 	)
 	if err != nil {
 		var apierr *nirvana.Error
@@ -56,9 +58,9 @@ func TestExecutionStepSign(t *testing.T) {
 	)
 	err := client.Vektor.Executions.Steps.Sign(
 		context.TODO(),
-		"execution_id",
 		"step_id",
 		vektor.ExecutionStepSignParams{
+			ExecutionID:   "execution_id",
 			SignedPayload: "0x123456789abcdef",
 		},
 	)

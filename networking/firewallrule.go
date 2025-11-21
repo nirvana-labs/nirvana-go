@@ -54,9 +54,9 @@ func (r *FirewallRuleService) New(ctx context.Context, vpcID string, body Firewa
 }
 
 // Update a firewall rule
-func (r *FirewallRuleService) Update(ctx context.Context, vpcID string, firewallRuleID string, body FirewallRuleUpdateParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
+func (r *FirewallRuleService) Update(ctx context.Context, firewallRuleID string, params FirewallRuleUpdateParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
 	opts = slices.Concat(r.Options, opts)
-	if vpcID == "" {
+	if params.VPCID == "" {
 		err = errors.New("missing required vpc_id parameter")
 		return
 	}
@@ -64,8 +64,8 @@ func (r *FirewallRuleService) Update(ctx context.Context, vpcID string, firewall
 		err = errors.New("missing required firewall_rule_id parameter")
 		return
 	}
-	path := fmt.Sprintf("v1/networking/vpcs/%s/firewall_rules/%s", vpcID, firewallRuleID)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
+	path := fmt.Sprintf("v1/networking/vpcs/%s/firewall_rules/%s", params.VPCID, firewallRuleID)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, params, &res, opts...)
 	return
 }
 
@@ -97,9 +97,9 @@ func (r *FirewallRuleService) ListAutoPaging(ctx context.Context, vpcID string, 
 }
 
 // Delete a firewall rule
-func (r *FirewallRuleService) Delete(ctx context.Context, vpcID string, firewallRuleID string, opts ...option.RequestOption) (res *operations.Operation, err error) {
+func (r *FirewallRuleService) Delete(ctx context.Context, firewallRuleID string, body FirewallRuleDeleteParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
 	opts = slices.Concat(r.Options, opts)
-	if vpcID == "" {
+	if body.VPCID == "" {
 		err = errors.New("missing required vpc_id parameter")
 		return
 	}
@@ -107,15 +107,15 @@ func (r *FirewallRuleService) Delete(ctx context.Context, vpcID string, firewall
 		err = errors.New("missing required firewall_rule_id parameter")
 		return
 	}
-	path := fmt.Sprintf("v1/networking/vpcs/%s/firewall_rules/%s", vpcID, firewallRuleID)
+	path := fmt.Sprintf("v1/networking/vpcs/%s/firewall_rules/%s", body.VPCID, firewallRuleID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
 	return
 }
 
 // Get details about a firewall rule
-func (r *FirewallRuleService) Get(ctx context.Context, vpcID string, firewallRuleID string, opts ...option.RequestOption) (res *FirewallRule, err error) {
+func (r *FirewallRuleService) Get(ctx context.Context, firewallRuleID string, query FirewallRuleGetParams, opts ...option.RequestOption) (res *FirewallRule, err error) {
 	opts = slices.Concat(r.Options, opts)
-	if vpcID == "" {
+	if query.VPCID == "" {
 		err = errors.New("missing required vpc_id parameter")
 		return
 	}
@@ -123,7 +123,7 @@ func (r *FirewallRuleService) Get(ctx context.Context, vpcID string, firewallRul
 		err = errors.New("missing required firewall_rule_id parameter")
 		return
 	}
-	path := fmt.Sprintf("v1/networking/vpcs/%s/firewall_rules/%s", vpcID, firewallRuleID)
+	path := fmt.Sprintf("v1/networking/vpcs/%s/firewall_rules/%s", query.VPCID, firewallRuleID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
@@ -246,6 +246,7 @@ const (
 )
 
 type FirewallRuleUpdateParams struct {
+	VPCID string `path:"vpc_id,required" json:"-"`
 	// Destination address of the Firewall Rule. Either VPC CIDR or VM in VPC. Must be
 	// in network-aligned/canonical form.
 	DestinationAddress param.Opt[string] `json:"destination_address,omitzero"`
@@ -295,4 +296,14 @@ func (r FirewallRuleListParams) URLQuery() (v url.Values, err error) {
 		ArrayFormat:  apiquery.ArrayQueryFormatComma,
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
 	})
+}
+
+type FirewallRuleDeleteParams struct {
+	VPCID string `path:"vpc_id,required" json:"-"`
+	paramObj
+}
+
+type FirewallRuleGetParams struct {
+	VPCID string `path:"vpc_id,required" json:"-"`
+	paramObj
 }
