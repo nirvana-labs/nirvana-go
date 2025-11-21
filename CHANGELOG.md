@@ -23,7 +23,6 @@ Full Changelog: [v1.22.0...v1.23.0](https://github.com/nirvana-labs/nirvana-go/c
 * **client:** correctly specify Accept header with */* instead of empty ([0efb059](https://github.com/nirvana-labs/nirvana-go/commit/0efb05986bf63cd7e247ff9f379e4f9027ad1e6e))
 * remove readonly parameters from request params ([87bd1ac](https://github.com/nirvana-labs/nirvana-go/commit/87bd1ac84cfa4c3a27fb65ba443d7c539341c1c3))
 
-
 ### Chores
 
 * bump gjson version ([70eeeec](https://github.com/nirvana-labs/nirvana-go/commit/70eeeecc3813a23964bef1ef95d6443cf19560db))
