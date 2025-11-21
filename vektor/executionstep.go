@@ -55,7 +55,7 @@ func (r *ExecutionStepService) Get(ctx context.Context, executionID string, step
 // Sign an EVM transaction step
 func (r *ExecutionStepService) Sign(ctx context.Context, executionID string, stepID string, body ExecutionStepSignParams, opts ...option.RequestOption) (err error) {
 	opts = slices.Concat(r.Options, opts)
-	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
+	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	if executionID == "" {
 		err = errors.New("missing required execution_id parameter")
 		return

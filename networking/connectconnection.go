@@ -111,11 +111,11 @@ type ConnectConnectionNewParams struct {
 	//
 	// Any of 50, 200, 500, 1000, 2000.
 	BandwidthMbps int64 `json:"bandwidth_mbps,omitzero,required"`
-	// CIDRs for the Connect Connection
+	// CIDRs for the Connect Connection. Must be in network-aligned/canonical form.
 	CIDRs []string `json:"cidrs,omitzero,required"`
 	// Name of the Connect Connection
 	Name string `json:"name,required"`
-	// Provider CIDRs
+	// Provider CIDRs. Must be in network-aligned/canonical form.
 	ProviderCIDRs []string `json:"provider_cidrs,omitzero,required"`
 	// Region the resource is in.
 	//

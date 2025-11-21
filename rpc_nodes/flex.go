@@ -88,7 +88,7 @@ func (r *FlexService) ListAutoPaging(ctx context.Context, query FlexListParams, 
 // Delete an RPC Node Flex
 func (r *FlexService) Delete(ctx context.Context, nodeID string, opts ...option.RequestOption) (err error) {
 	opts = slices.Concat(r.Options, opts)
-	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
+	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	if nodeID == "" {
 		err = errors.New("missing required node_id parameter")
 		return
@@ -124,6 +124,8 @@ type Flex struct {
 	Name string `json:"name,required"`
 	// Network type (e.g., mainnet, testnet).
 	Network string `json:"network,required"`
+	// Project identifier associated with the RPC Node Flex.
+	ProjectID string `json:"project_id,required"`
 	// Tags to attach to the RPC Node Flex.
 	Tags []string `json:"tags,required"`
 	// When the RPC Node Flex was updated.
@@ -136,6 +138,7 @@ type Flex struct {
 		Endpoint    respjson.Field
 		Name        respjson.Field
 		Network     respjson.Field
+		ProjectID   respjson.Field
 		Tags        respjson.Field
 		UpdatedAt   respjson.Field
 		ExtraFields map[string]respjson.Field
@@ -249,6 +252,8 @@ type FlexListParams struct {
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
 	// Maximum number of items to return
 	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	// Project ID of resources to request
+	ProjectID param.Opt[string] `query:"project_id,omitzero" json:"-"`
 	paramObj
 }
 
