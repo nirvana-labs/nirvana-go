@@ -17,9 +17,6 @@ Full Changelog: [v1.22.0...v1.23.0](https://github.com/nirvana-labs/nirvana-go/c
 ### Features
 
 * **api:** api update ([d6a7942](https://github.com/nirvana-labs/nirvana-go/commit/d6a794285f575b97f24bf3938b4f58a143836835))
-* **api:** api update ([267bff1](https://github.com/nirvana-labs/nirvana-go/commit/267bff18ee62c2d8bbb1334d76a909267b4f8d94))
-* **api:** api update ([b3ad3db](https://github.com/nirvana-labs/nirvana-go/commit/b3ad3dbf4d9604556815ad4699180b4148e4e6cf))
-
 
 ### Bug Fixes
 
