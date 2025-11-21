@@ -30,6 +30,7 @@ func TestFlexNewWithOptionalParams(t *testing.T) {
 		Blockchain: "ethereum",
 		Name:       "my-ethereum-node",
 		Network:    "mainnet",
+		ProjectID:  "123e4567-e89b-12d3-a456-426614174000",
 		Tags:       []string{"production", "ethereum"},
 	})
 	if err != nil {
