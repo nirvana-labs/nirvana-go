@@ -72,8 +72,8 @@ type ConnectConnection struct {
 	ProviderRouterIP string `json:"provider_router_ip,required"`
 	// Region the resource is in.
 	//
-	// Any of "us-sea-1", "us-sva-1", "us-chi-1", "us-wdc-1", "eu-frk-1", "ap-sin-1",
-	// "ap-seo-1", "ap-tyo-1".
+	// Any of "us-sea-1", "us-sva-1", "us-sva-2", "us-chi-1", "us-wdc-1", "eu-frk-1",
+	// "ap-sin-1", "ap-seo-1", "ap-tyo-1".
 	Region shared.RegionName `json:"region,required"`
 	// Router IP
 	RouterIP string `json:"router_ip,required"`
@@ -174,8 +174,8 @@ func (r *ConnectConnectionList) UnmarshalJSON(data []byte) error {
 type ConnectRoute struct {
 	// Region the resource is in.
 	//
-	// Any of "us-sea-1", "us-sva-1", "us-chi-1", "us-wdc-1", "eu-frk-1", "ap-sin-1",
-	// "ap-seo-1", "ap-tyo-1".
+	// Any of "us-sea-1", "us-sva-1", "us-sva-2", "us-chi-1", "us-wdc-1", "eu-frk-1",
+	// "ap-sin-1", "ap-seo-1", "ap-tyo-1".
 	NirvanaRegion shared.RegionName `json:"nirvana_region,required"`
 	// Provider name.
 	Provider string `json:"provider,required"`

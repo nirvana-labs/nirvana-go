@@ -32,6 +32,9 @@ const RegionNameUsSea1 = shared.RegionNameUsSea1
 // Equals "us-sva-1"
 const RegionNameUsSva1 = shared.RegionNameUsSva1
 
+// Equals "us-sva-2"
+const RegionNameUsSva2 = shared.RegionNameUsSva2
+
 // Equals "us-chi-1"
 const RegionNameUsChi1 = shared.RegionNameUsChi1
 

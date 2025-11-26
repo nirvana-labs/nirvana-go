@@ -41,6 +41,7 @@ type RegionName string
 const (
 	RegionNameUsSea1 RegionName = "us-sea-1"
 	RegionNameUsSva1 RegionName = "us-sva-1"
+	RegionNameUsSva2 RegionName = "us-sva-2"
 	RegionNameUsChi1 RegionName = "us-chi-1"
 	RegionNameUsWdc1 RegionName = "us-wdc-1"
 	RegionNameEuFrk1 RegionName = "eu-frk-1"
