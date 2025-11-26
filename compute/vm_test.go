@@ -31,6 +31,7 @@ func TestVMNewWithOptionalParams(t *testing.T) {
 		BootVolume: compute.VMNewParamsBootVolume{
 			Size: 100,
 			Tags: []string{"production", "ethereum"},
+			Type: "nvme",
 		},
 		CPUConfig: compute.CPUConfigRequestParam{
 			Vcpu: 2,
@@ -50,6 +51,7 @@ func TestVMNewWithOptionalParams(t *testing.T) {
 			Name: "my-data-volume",
 			Size: 100,
 			Tags: []string{"production", "ethereum"},
+			Type: "nvme",
 		}},
 		Tags: []string{"production", "ethereum"},
 	})

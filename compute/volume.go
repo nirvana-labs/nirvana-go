@@ -208,6 +208,10 @@ type VolumeNewParams struct {
 	VMID string `json:"vm_id,required"`
 	// Tags to attach to the Volume.
 	Tags []string `json:"tags,omitzero"`
+	// Type of the Volume. Defaults to nvme if not provided.
+	//
+	// Any of "nvme", "abs".
+	Type VolumeNewParamsType `json:"type,omitzero"`
 	paramObj
 }
 
@@ -218,6 +222,14 @@ func (r VolumeNewParams) MarshalJSON() (data []byte, err error) {
 func (r *VolumeNewParams) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
+
+// Type of the Volume. Defaults to nvme if not provided.
+type VolumeNewParamsType string
+
+const (
+	VolumeNewParamsTypeNvme VolumeNewParamsType = "nvme"
+	VolumeNewParamsTypeAbs  VolumeNewParamsType = "abs"
+)
 
 type VolumeUpdateParams struct {
 	// Name of the Volume.
