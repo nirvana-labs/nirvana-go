@@ -72,8 +72,8 @@ type VMAvailabilityNewParams struct {
 	PublicIPEnabled bool `json:"public_ip_enabled,required"`
 	// Region the resource is in.
 	//
-	// Any of "us-sea-1", "us-sva-1", "us-chi-1", "us-wdc-1", "eu-frk-1", "ap-sin-1",
-	// "ap-seo-1", "ap-tyo-1".
+	// Any of "us-sea-1", "us-sva-1", "us-sva-2", "us-chi-1", "us-wdc-1", "eu-frk-1",
+	// "ap-sin-1", "ap-seo-1", "ap-tyo-1".
 	Region shared.RegionName `json:"region,omitzero,required"`
 	// Public SSH key configuration for the VM.
 	SSHKey SSHKeyRequestParam `json:"ssh_key,omitzero,required"`
@@ -102,6 +102,10 @@ type VMAvailabilityNewParamsBootVolume struct {
 	Size int64 `json:"size,required"`
 	// Tags to attach to the Volume.
 	Tags []string `json:"tags,omitzero"`
+	// Type of the Volume. Defaults to nvme if not provided.
+	//
+	// Any of "nvme", "abs".
+	Type string `json:"type,omitzero"`
 	paramObj
 }
 
@@ -111,6 +115,12 @@ func (r VMAvailabilityNewParamsBootVolume) MarshalJSON() (data []byte, err error
 }
 func (r *VMAvailabilityNewParamsBootVolume) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
+}
+
+func init() {
+	apijson.RegisterFieldValidator[VMAvailabilityNewParamsBootVolume](
+		"type", "nvme", "abs",
+	)
 }
 
 // VM data volume create request.
@@ -123,6 +133,10 @@ type VMAvailabilityNewParamsDataVolume struct {
 	Size int64 `json:"size,required"`
 	// Tags to attach to the Volume.
 	Tags []string `json:"tags,omitzero"`
+	// Type of the Volume. Defaults to nvme if not provided.
+	//
+	// Any of "nvme", "abs".
+	Type string `json:"type,omitzero"`
 	paramObj
 }
 
@@ -132,6 +146,12 @@ func (r VMAvailabilityNewParamsDataVolume) MarshalJSON() (data []byte, err error
 }
 func (r *VMAvailabilityNewParamsDataVolume) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
+}
+
+func init() {
+	apijson.RegisterFieldValidator[VMAvailabilityNewParamsDataVolume](
+		"type", "nvme", "abs",
+	)
 }
 
 type VMAvailabilityUpdateParams struct {
