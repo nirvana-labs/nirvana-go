@@ -228,7 +228,7 @@ type VolumeNewParamsType string
 
 const (
 	VolumeNewParamsTypeNvme VolumeNewParamsType = "nvme"
-	VolumeNewParamsTypeAbs  VolumeNewParamsType = "abs"
+	VolumeNewParamsTypeABS  VolumeNewParamsType = "abs"
 )
 
 type VolumeUpdateParams struct {
