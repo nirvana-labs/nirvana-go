@@ -85,7 +85,7 @@ type VolumeAvailabilityNewParamsType string
 
 const (
 	VolumeAvailabilityNewParamsTypeNvme VolumeAvailabilityNewParamsType = "nvme"
-	VolumeAvailabilityNewParamsTypeAbs  VolumeAvailabilityNewParamsType = "abs"
+	VolumeAvailabilityNewParamsTypeABS  VolumeAvailabilityNewParamsType = "abs"
 )
 
 type VolumeAvailabilityUpdateParams struct {
