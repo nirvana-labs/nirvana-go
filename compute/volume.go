@@ -165,14 +165,6 @@ func (r *Volume) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// Type of the Volume.
-type VolumeType string
-
-const (
-	VolumeTypeNvme VolumeType = "nvme"
-	VolumeTypeABS  VolumeType = "abs"
-)
-
 // Volume kind.
 type VolumeKind string
 
@@ -200,6 +192,14 @@ func (r *VolumeList) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
+// Type of the Volume.
+type VolumeType string
+
+const (
+	VolumeTypeNvme VolumeType = "nvme"
+	VolumeTypeABS  VolumeType = "abs"
+)
+
 type VolumeNewParams struct {
 	// Name of the Volume.
 	Name string `json:"name,required"`
@@ -212,7 +212,7 @@ type VolumeNewParams struct {
 	// Type of the Volume.
 	//
 	// Any of "nvme", "abs".
-	Type VolumeNewParamsType `json:"type,omitzero"`
+	Type VolumeType `json:"type,omitzero"`
 	paramObj
 }
 
@@ -223,14 +223,6 @@ func (r VolumeNewParams) MarshalJSON() (data []byte, err error) {
 func (r *VolumeNewParams) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
-
-// Type of the Volume.
-type VolumeNewParamsType string
-
-const (
-	VolumeNewParamsTypeNvme VolumeNewParamsType = "nvme"
-	VolumeNewParamsTypeABS  VolumeNewParamsType = "abs"
-)
 
 type VolumeUpdateParams struct {
 	// Name of the Volume.
