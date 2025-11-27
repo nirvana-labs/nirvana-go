@@ -29,9 +29,9 @@ func TestVolumeAvailabilityNewWithOptionalParams(t *testing.T) {
 	_, err := client.Compute.Volumes.Availability.New(context.TODO(), compute.VolumeAvailabilityNewParams{
 		Name: "my-data-volume",
 		Size: 100,
+		Type: compute.VolumeTypeNvme,
 		VMID: "vm_id",
 		Tags: []string{"production", "ethereum"},
-		Type: compute.VolumeTypeNvme,
 	})
 	if err != nil {
 		var apierr *nirvana.Error
