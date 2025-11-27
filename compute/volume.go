@@ -110,13 +110,6 @@ func (r *VolumeService) Get(ctx context.Context, volumeID string, opts ...option
 	return
 }
 
-// Storage type the Volume is using.
-type StorageType string
-
-const (
-	StorageTypeNvme StorageType = "nvme"
-)
-
 // Volume details.
 type Volume struct {
 	// Unique identifier for the Volume.
@@ -138,10 +131,10 @@ type Volume struct {
 	Status shared.ResourceStatus `json:"status,required"`
 	// Tags to attach to the Volume.
 	Tags []string `json:"tags,required"`
-	// Storage type the Volume is using.
+	// Type of the Volume. Defaults to nvme if not provided.
 	//
-	// Any of "nvme".
-	Type StorageType `json:"type,required"`
+	// Any of "nvme", "abs".
+	Type VolumeType `json:"type,required"`
 	// When the Volume was updated.
 	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
 	// ID of the VM the Volume is attached to.
@@ -171,6 +164,14 @@ func (r Volume) RawJSON() string { return r.JSON.raw }
 func (r *Volume) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
+
+// Type of the Volume. Defaults to nvme if not provided.
+type VolumeType string
+
+const (
+	VolumeTypeNvme VolumeType = "nvme"
+	VolumeTypeABS  VolumeType = "abs"
+)
 
 // Volume kind.
 type VolumeKind string
