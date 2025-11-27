@@ -68,7 +68,7 @@ type VolumeAvailabilityNewParams struct {
 	// Type of the Volume.
 	//
 	// Any of "nvme", "abs".
-	Type VolumeAvailabilityNewParamsType `json:"type,omitzero"`
+	Type VolumeType `json:"type,omitzero"`
 	paramObj
 }
 
@@ -79,14 +79,6 @@ func (r VolumeAvailabilityNewParams) MarshalJSON() (data []byte, err error) {
 func (r *VolumeAvailabilityNewParams) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
-
-// Type of the Volume.
-type VolumeAvailabilityNewParamsType string
-
-const (
-	VolumeAvailabilityNewParamsTypeNvme VolumeAvailabilityNewParamsType = "nvme"
-	VolumeAvailabilityNewParamsTypeABS  VolumeAvailabilityNewParamsType = "abs"
-)
 
 type VolumeAvailabilityUpdateParams struct {
 	// Name of the Volume.

@@ -376,7 +376,7 @@ type VMNewParamsBootVolume struct {
 	// Type of the Volume.
 	//
 	// Any of "nvme", "abs".
-	Type string `json:"type,omitzero"`
+	Type VolumeType `json:"type,omitzero"`
 	paramObj
 }
 
@@ -386,12 +386,6 @@ func (r VMNewParamsBootVolume) MarshalJSON() (data []byte, err error) {
 }
 func (r *VMNewParamsBootVolume) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
-}
-
-func init() {
-	apijson.RegisterFieldValidator[VMNewParamsBootVolume](
-		"type", "nvme", "abs",
-	)
 }
 
 // VM data volume create request.
@@ -407,7 +401,7 @@ type VMNewParamsDataVolume struct {
 	// Type of the Volume.
 	//
 	// Any of "nvme", "abs".
-	Type string `json:"type,omitzero"`
+	Type VolumeType `json:"type,omitzero"`
 	paramObj
 }
 
@@ -417,12 +411,6 @@ func (r VMNewParamsDataVolume) MarshalJSON() (data []byte, err error) {
 }
 func (r *VMNewParamsDataVolume) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
-}
-
-func init() {
-	apijson.RegisterFieldValidator[VMNewParamsDataVolume](
-		"type", "nvme", "abs",
-	)
 }
 
 type VMUpdateParams struct {

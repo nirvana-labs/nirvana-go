@@ -31,7 +31,7 @@ func TestVolumeNewWithOptionalParams(t *testing.T) {
 		Size: 100,
 		VMID: "vm_id",
 		Tags: []string{"production", "ethereum"},
-		Type: compute.VolumeNewParamsTypeNvme,
+		Type: compute.VolumeTypeNvme,
 	})
 	if err != nil {
 		var apierr *nirvana.Error
