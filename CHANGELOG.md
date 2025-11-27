@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.25.1 (2025-11-27)
+
+Full Changelog: [v1.25.0...v1.25.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.25.0...v1.25.1)
+
+### Features
+
+* **api:** api update ([ccd743b](https://github.com/nirvana-labs/nirvana-go/commit/ccd743b3443f08b06fd1c07c5d19e8652d711b93))
+* **api:** update ([57c5ebb](https://github.com/nirvana-labs/nirvana-go/commit/57c5ebbaf26a82468b35cbcf3c486845bd2238ea))
+
+
+### Chores
+
+* add abs to list of custom_casings ([02a6350](https://github.com/nirvana-labs/nirvana-go/commit/02a635067f370d21c432eb205afd4f5d356de734))
+* update VolumeType ([cc78f66](https://github.com/nirvana-labs/nirvana-go/commit/cc78f666a27f0441e43e033ca06c95e82ddf4088))
+
 ## 1.25.0 (2025-11-26)
 
 Full Changelog: [v1.24.0...v1.25.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.24.0...v1.25.0)
