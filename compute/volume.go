@@ -131,7 +131,7 @@ type Volume struct {
 	Status shared.ResourceStatus `json:"status,required"`
 	// Tags to attach to the Volume.
 	Tags []string `json:"tags,required"`
-	// Type of the Volume. Defaults to nvme if not provided.
+	// Type of the Volume.
 	//
 	// Any of "nvme", "abs".
 	Type VolumeType `json:"type,required"`
@@ -165,7 +165,7 @@ func (r *Volume) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// Type of the Volume. Defaults to nvme if not provided.
+// Type of the Volume.
 type VolumeType string
 
 const (
@@ -209,7 +209,7 @@ type VolumeNewParams struct {
 	VMID string `json:"vm_id,required"`
 	// Tags to attach to the Volume.
 	Tags []string `json:"tags,omitzero"`
-	// Type of the Volume. Defaults to nvme if not provided.
+	// Type of the Volume.
 	//
 	// Any of "nvme", "abs".
 	Type VolumeNewParamsType `json:"type,omitzero"`
@@ -224,7 +224,7 @@ func (r *VolumeNewParams) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// Type of the Volume. Defaults to nvme if not provided.
+// Type of the Volume.
 type VolumeNewParamsType string
 
 const (
