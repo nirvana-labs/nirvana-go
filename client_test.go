@@ -43,6 +43,7 @@ func TestUserAgentHeader(t *testing.T) {
 	client.Compute.VMs.New(context.Background(), compute.VMNewParams{
 		BootVolume: compute.VMNewParamsBootVolume{
 			Size: 100,
+			Type: compute.VolumeTypeNvme,
 		},
 		CPUConfig: compute.CPUConfigRequestParam{
 			Vcpu: 2,
@@ -85,6 +86,7 @@ func TestRetryAfter(t *testing.T) {
 	_, err := client.Compute.VMs.New(context.Background(), compute.VMNewParams{
 		BootVolume: compute.VMNewParamsBootVolume{
 			Size: 100,
+			Type: compute.VolumeTypeNvme,
 		},
 		CPUConfig: compute.CPUConfigRequestParam{
 			Vcpu: 2,
@@ -138,6 +140,7 @@ func TestDeleteRetryCountHeader(t *testing.T) {
 	_, err := client.Compute.VMs.New(context.Background(), compute.VMNewParams{
 		BootVolume: compute.VMNewParamsBootVolume{
 			Size: 100,
+			Type: compute.VolumeTypeNvme,
 		},
 		CPUConfig: compute.CPUConfigRequestParam{
 			Vcpu: 2,
@@ -186,6 +189,7 @@ func TestOverwriteRetryCountHeader(t *testing.T) {
 	_, err := client.Compute.VMs.New(context.Background(), compute.VMNewParams{
 		BootVolume: compute.VMNewParamsBootVolume{
 			Size: 100,
+			Type: compute.VolumeTypeNvme,
 		},
 		CPUConfig: compute.CPUConfigRequestParam{
 			Vcpu: 2,
@@ -233,6 +237,7 @@ func TestRetryAfterMs(t *testing.T) {
 	_, err := client.Compute.VMs.New(context.Background(), compute.VMNewParams{
 		BootVolume: compute.VMNewParamsBootVolume{
 			Size: 100,
+			Type: compute.VolumeTypeNvme,
 		},
 		CPUConfig: compute.CPUConfigRequestParam{
 			Vcpu: 2,
@@ -274,6 +279,7 @@ func TestContextCancel(t *testing.T) {
 	_, err := client.Compute.VMs.New(cancelCtx, compute.VMNewParams{
 		BootVolume: compute.VMNewParamsBootVolume{
 			Size: 100,
+			Type: compute.VolumeTypeNvme,
 		},
 		CPUConfig: compute.CPUConfigRequestParam{
 			Vcpu: 2,
@@ -312,6 +318,7 @@ func TestContextCancelDelay(t *testing.T) {
 	_, err := client.Compute.VMs.New(cancelCtx, compute.VMNewParams{
 		BootVolume: compute.VMNewParamsBootVolume{
 			Size: 100,
+			Type: compute.VolumeTypeNvme,
 		},
 		CPUConfig: compute.CPUConfigRequestParam{
 			Vcpu: 2,
@@ -356,6 +363,7 @@ func TestContextDeadline(t *testing.T) {
 		_, err := client.Compute.VMs.New(deadlineCtx, compute.VMNewParams{
 			BootVolume: compute.VMNewParamsBootVolume{
 				Size: 100,
+				Type: compute.VolumeTypeNvme,
 			},
 			CPUConfig: compute.CPUConfigRequestParam{
 				Vcpu: 2,

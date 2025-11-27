@@ -30,7 +30,7 @@ Or to pin the version:
 <!-- x-release-please-start-version -->
 
 ```sh
-go get -u 'github.com/nirvana-labs/nirvana-go@v1.25.1'
+go get -u 'github.com/nirvana-labs/nirvana-go@v1.26.0'
 ```
 
 <!-- x-release-please-end -->
@@ -63,6 +63,7 @@ func main() {
 	operation, err := client.Compute.VMs.New(context.TODO(), compute.VMNewParams{
 		BootVolume: compute.VMNewParamsBootVolume{
 			Size: 100,
+			Type: compute.VolumeTypeNvme,
 		},
 		CPUConfig: compute.CPUConfigRequestParam{
 			Vcpu: 2,
@@ -351,6 +352,7 @@ To handle errors, we recommend that you use the `errors.As` pattern:
 _, err := client.Compute.VMs.New(context.TODO(), compute.VMNewParams{
 	BootVolume: compute.VMNewParamsBootVolume{
 		Size: 100,
+		Type: compute.VolumeTypeNvme,
 	},
 	CPUConfig: compute.CPUConfigRequestParam{
 		Vcpu: 2,
@@ -396,6 +398,7 @@ client.Compute.VMs.New(
 	compute.VMNewParams{
 		BootVolume: compute.VMNewParamsBootVolume{
 			Size: 100,
+			Type: compute.VolumeTypeNvme,
 		},
 		CPUConfig: compute.CPUConfigRequestParam{
 			Vcpu: 2,
@@ -450,6 +453,7 @@ client.Compute.VMs.New(
 	compute.VMNewParams{
 		BootVolume: compute.VMNewParamsBootVolume{
 			Size: 100,
+			Type: compute.VolumeTypeNvme,
 		},
 		CPUConfig: compute.CPUConfigRequestParam{
 			Vcpu: 2,
@@ -483,6 +487,7 @@ operation, err := client.Compute.VMs.New(
 	compute.VMNewParams{
 		BootVolume: compute.VMNewParamsBootVolume{
 			Size: 100,
+			Type: compute.VolumeTypeNvme,
 		},
 		CPUConfig: compute.CPUConfigRequestParam{
 			Vcpu: 2,

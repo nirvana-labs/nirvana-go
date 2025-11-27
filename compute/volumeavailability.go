@@ -61,14 +61,14 @@ type VolumeAvailabilityNewParams struct {
 	Name string `json:"name,required"`
 	// Size of the Volume in GB.
 	Size int64 `json:"size,required"`
+	// Type of the Volume.
+	//
+	// Any of "nvme", "abs".
+	Type VolumeType `json:"type,omitzero,required"`
 	// ID of the VM the Volume is attached to.
 	VMID string `json:"vm_id,required"`
 	// Tags to attach to the Volume.
 	Tags []string `json:"tags,omitzero"`
-	// Type of the Volume.
-	//
-	// Any of "nvme", "abs".
-	Type VolumeType `json:"type,omitzero"`
 	paramObj
 }
 

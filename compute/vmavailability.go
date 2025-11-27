@@ -96,16 +96,16 @@ func (r *VMAvailabilityNewParams) UnmarshalJSON(data []byte) error {
 
 // Boot volume for the VM.
 //
-// The property Size is required.
+// The properties Size, Type are required.
 type VMAvailabilityNewParamsBootVolume struct {
 	// Size of the Volume in GB.
 	Size int64 `json:"size,required"`
-	// Tags to attach to the Volume.
-	Tags []string `json:"tags,omitzero"`
 	// Type of the Volume.
 	//
 	// Any of "nvme", "abs".
-	Type VolumeType `json:"type,omitzero"`
+	Type VolumeType `json:"type,omitzero,required"`
+	// Tags to attach to the Volume.
+	Tags []string `json:"tags,omitzero"`
 	paramObj
 }
 
@@ -119,18 +119,18 @@ func (r *VMAvailabilityNewParamsBootVolume) UnmarshalJSON(data []byte) error {
 
 // VM data volume create request.
 //
-// The properties Name, Size are required.
+// The properties Name, Size, Type are required.
 type VMAvailabilityNewParamsDataVolume struct {
 	// Name of the Volume.
 	Name string `json:"name,required"`
 	// Size of the Volume in GB.
 	Size int64 `json:"size,required"`
-	// Tags to attach to the Volume.
-	Tags []string `json:"tags,omitzero"`
 	// Type of the Volume.
 	//
 	// Any of "nvme", "abs".
-	Type VolumeType `json:"type,omitzero"`
+	Type VolumeType `json:"type,omitzero,required"`
+	// Tags to attach to the Volume.
+	Tags []string `json:"tags,omitzero"`
 	paramObj
 }
 
