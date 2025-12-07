@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.26.1 (2025-12-06)
+
+Full Changelog: [v1.26.0...v1.26.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.26.0...v1.26.1)
+
+### Bug Fixes
+
+* **mcp:** correct code tool API endpoint ([b879097](https://github.com/nirvana-labs/nirvana-go/commit/b879097107e945de8b9a26b588aca871832ecc3b))
+* rename param to avoid collision ([85d79be](https://github.com/nirvana-labs/nirvana-go/commit/85d79beb089d414c315adf632c02dfd6cbb205c1))
+
+
+### Chores
+
+* elide duplicate aliases ([c4e1d51](https://github.com/nirvana-labs/nirvana-go/commit/c4e1d51b1dee7879f5aebbf1b0cb048a5f7b9ddf))
+* **internal:** codegen related update ([48f4e3b](https://github.com/nirvana-labs/nirvana-go/commit/48f4e3be91d86dd6e6952e74696ad01ddba40bb0))
+
 ## 1.26.0 (2025-11-27)
 
 Full Changelog: [v1.25.1...v1.26.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.25.1...v1.26.0)
