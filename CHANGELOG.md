@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.27.0 (2025-12-12)
+
+Full Changelog: [v1.26.1...v1.27.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.26.1...v1.27.0)
+
+### Features
+
+* **encoder:** support bracket encoding form-data object members ([02388db](https://github.com/nirvana-labs/nirvana-go/commit/02388db6c7052f0bd07f099bfa4e4e71c7c5efe0))
+
 ## 1.26.1 (2025-12-06)
 
 Full Changelog: [v1.26.0...v1.26.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.26.0...v1.26.1)
