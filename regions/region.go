@@ -63,13 +63,13 @@ func (r *RegionService) ListAutoPaging(ctx context.Context, query RegionListPara
 }
 
 // Get a region by name
-func (r *RegionService) Get(ctx context.Context, regionName string, opts ...option.RequestOption) (res *Region, err error) {
+func (r *RegionService) Get(ctx context.Context, name string, opts ...option.RequestOption) (res *Region, err error) {
 	opts = slices.Concat(r.Options, opts)
-	if regionName == "" {
-		err = errors.New("missing required region_name parameter")
+	if name == "" {
+		err = errors.New("missing required name parameter")
 		return
 	}
-	path := fmt.Sprintf("v1/regions/%s", regionName)
+	path := fmt.Sprintf("v1/regions/%s", name)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
