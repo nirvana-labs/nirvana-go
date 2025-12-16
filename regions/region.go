@@ -4,6 +4,8 @@ package regions
 
 import (
 	"context"
+	"errors"
+	"fmt"
 	"net/http"
 	"net/url"
 	"slices"
@@ -58,6 +60,18 @@ func (r *RegionService) List(ctx context.Context, query RegionListParams, opts .
 // List all regions
 func (r *RegionService) ListAutoPaging(ctx context.Context, query RegionListParams, opts ...option.RequestOption) *pagination.CursorAutoPager[Region] {
 	return pagination.NewCursorAutoPager(r.List(ctx, query, opts...))
+}
+
+// Get a region by name
+func (r *RegionService) Get(ctx context.Context, name string, opts ...option.RequestOption) (res *Region, err error) {
+	opts = slices.Concat(r.Options, opts)
+	if name == "" {
+		err = errors.New("missing required name parameter")
+		return
+	}
+	path := fmt.Sprintf("v1/regions/%s", name)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
+	return
 }
 
 // Region response with product availability.
