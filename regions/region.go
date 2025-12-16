@@ -106,16 +106,6 @@ func (r *Region) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// Availability status of the region.
-type RegionAvailability string
-
-const (
-	RegionAvailabilityLive        RegionAvailability = "live"
-	RegionAvailabilityPreview     RegionAvailability = "preview"
-	RegionAvailabilityMaintenance RegionAvailability = "maintenance"
-	RegionAvailabilitySunset      RegionAvailability = "sunset"
-)
-
 // Compute products available in this region.
 type RegionCompute struct {
 	// VMs indicates if Virtual Machines are available.
@@ -175,6 +165,16 @@ func (r RegionStorage) RawJSON() string { return r.JSON.raw }
 func (r *RegionStorage) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
+
+// Availability status of the region.
+type RegionAvailability string
+
+const (
+	RegionAvailabilityLive        RegionAvailability = "live"
+	RegionAvailabilityPreview     RegionAvailability = "preview"
+	RegionAvailabilityMaintenance RegionAvailability = "maintenance"
+	RegionAvailabilitySunset      RegionAvailability = "sunset"
+)
 
 type RegionList struct {
 	Items []Region `json:"items,required"`

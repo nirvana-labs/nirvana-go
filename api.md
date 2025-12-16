@@ -68,6 +68,7 @@ Methods:
 Response Types:
 
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/regions">regions</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/regions#Region">Region</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/regions">regions</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/regions#RegionAvailability">RegionAvailability</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/regions">regions</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/regions#RegionList">RegionList</a>
 
 Methods:
