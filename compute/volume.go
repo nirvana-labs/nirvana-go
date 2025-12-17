@@ -98,6 +98,30 @@ func (r *VolumeService) Delete(ctx context.Context, volumeID string, opts ...opt
 	return
 }
 
+// Attach a volume to a VM
+func (r *VolumeService) Attach(ctx context.Context, volumeID string, body VolumeAttachParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
+	opts = slices.Concat(r.Options, opts)
+	if volumeID == "" {
+		err = errors.New("missing required volume_id parameter")
+		return
+	}
+	path := fmt.Sprintf("v1/compute/volumes/%s/attach", volumeID)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
+	return
+}
+
+// Detach a volume from a VM
+func (r *VolumeService) Detach(ctx context.Context, volumeID string, opts ...option.RequestOption) (res *operations.Operation, err error) {
+	opts = slices.Concat(r.Options, opts)
+	if volumeID == "" {
+		err = errors.New("missing required volume_id parameter")
+		return
+	}
+	path := fmt.Sprintf("v1/compute/volumes/%s/detach", volumeID)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
+	return
+}
+
 // Get a Volume.
 func (r *VolumeService) Get(ctx context.Context, volumeID string, opts ...option.RequestOption) (res *Volume, err error) {
 	opts = slices.Concat(r.Options, opts)
@@ -122,6 +146,8 @@ type Volume struct {
 	Kind VolumeKind `json:"kind,required"`
 	// Name of the Volume.
 	Name string `json:"name,required"`
+	// Region where the Volume is located.
+	Region string `json:"region,required"`
 	// Size of the Volume in GB.
 	Size int64 `json:"size,required"`
 	// Status of the resource.
@@ -147,6 +173,7 @@ type Volume struct {
 		CreatedAt   respjson.Field
 		Kind        respjson.Field
 		Name        respjson.Field
+		Region      respjson.Field
 		Size        respjson.Field
 		Status      respjson.Field
 		Tags        respjson.Field
@@ -256,4 +283,18 @@ func (r VolumeListParams) URLQuery() (v url.Values, err error) {
 		ArrayFormat:  apiquery.ArrayQueryFormatComma,
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
 	})
+}
+
+type VolumeAttachParams struct {
+	// ID of the VM to attach the Volume to.
+	VMID string `json:"vm_id,required"`
+	paramObj
+}
+
+func (r VolumeAttachParams) MarshalJSON() (data []byte, err error) {
+	type shadow VolumeAttachParams
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *VolumeAttachParams) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
 }
