@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.29.1 (2025-12-19)
+
+Full Changelog: [v1.29.0...v1.29.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.29.0...v1.29.1)
+
+### Chores
+
+* add float64 to valid types for RegisterFieldValidator ([69d0a80](https://github.com/nirvana-labs/nirvana-go/commit/69d0a8076773296f6d5ef561e499a843ae137c1d))
+
 ## 1.29.0 (2025-12-17)
 
 Full Changelog: [v1.28.2...v1.29.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.28.2...v1.29.0)
