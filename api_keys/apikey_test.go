@@ -31,8 +31,8 @@ func TestAPIKeyNewWithOptionalParams(t *testing.T) {
 		ExpiresAt: time.Now(),
 		Name:      "My API Key",
 		SourceIPRule: api_keys.APIKeyNewParamsSourceIPRule{
-			In:    []string{"192.168.1.0/24", "10.0.0.0/8"},
-			NotIn: []string{"192.168.1.100/32"},
+			Allowed: []string{"192.168.1.0/24", "10.0.0.0/8"},
+			Blocked: []string{"192.168.1.100/32"},
 		},
 		StartsAt: nirvana.Time(time.Now()),
 		Tags:     []string{"production", "ethereum"},
@@ -64,8 +64,8 @@ func TestAPIKeyUpdateWithOptionalParams(t *testing.T) {
 		api_keys.APIKeyUpdateParams{
 			Name: nirvana.String("My Updated API Key"),
 			SourceIPRule: api_keys.APIKeyUpdateParamsSourceIPRule{
-				In:    []string{"192.168.1.0/24", "10.0.0.0/8"},
-				NotIn: []string{"192.168.1.100/32"},
+				Allowed: []string{"192.168.1.0/24", "10.0.0.0/8"},
+				Blocked: []string{"192.168.1.100/32"},
 			},
 			Tags: []string{"production", "ethereum"},
 		},

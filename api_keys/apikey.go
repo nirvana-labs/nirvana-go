@@ -158,13 +158,13 @@ func (r *APIKey) UnmarshalJSON(data []byte) error {
 // IP filter configuration for the API Key.
 type APIKeySourceIPRule struct {
 	// List of IPv4/IPv6 CIDR addresses to allow.
-	In []string `json:"in,required"`
+	Allowed []string `json:"allowed,required"`
 	// List of IPv4/IPv6 CIDR addresses to deny.
-	NotIn []string `json:"not_in,required"`
+	Blocked []string `json:"blocked,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
-		In          respjson.Field
-		NotIn       respjson.Field
+		Allowed     respjson.Field
+		Blocked     respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`
@@ -229,9 +229,9 @@ func (r *APIKeyNewParams) UnmarshalJSON(data []byte) error {
 // IP filter configuration for the API Key.
 type APIKeyNewParamsSourceIPRule struct {
 	// List of IPv4/IPv6 CIDR addresses to allow.
-	In []string `json:"in,omitzero"`
+	Allowed []string `json:"allowed,omitzero"`
 	// List of IPv4/IPv6 CIDR addresses to deny.
-	NotIn []string `json:"not_in,omitzero"`
+	Blocked []string `json:"blocked,omitzero"`
 	paramObj
 }
 
@@ -264,9 +264,9 @@ func (r *APIKeyUpdateParams) UnmarshalJSON(data []byte) error {
 // IP filter configuration for the API Key.
 type APIKeyUpdateParamsSourceIPRule struct {
 	// List of IPv4/IPv6 CIDR addresses to allow.
-	In []string `json:"in,omitzero"`
+	Allowed []string `json:"allowed,omitzero"`
 	// List of IPv4/IPv6 CIDR addresses to deny.
-	NotIn []string `json:"not_in,omitzero"`
+	Blocked []string `json:"blocked,omitzero"`
 	paramObj
 }
 
