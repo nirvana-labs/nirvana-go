@@ -118,6 +118,8 @@ type APIKey struct {
 	ExpiresAt time.Time `json:"expires_at,required" format:"date-time"`
 	// API Key name.
 	Name string `json:"name,required"`
+	// IP filter configuration for the API Key.
+	SourceIPRule APIKeySourceIPRule `json:"source_ip_rule,required"`
 	// Status of the API Key.
 	//
 	// Any of "active", "inactive", "expired".
@@ -132,23 +134,45 @@ type APIKey struct {
 	StartsAt time.Time `json:"starts_at" format:"date-time"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
-		ID          respjson.Field
-		CreatedAt   respjson.Field
-		ExpiresAt   respjson.Field
-		Name        respjson.Field
-		Status      respjson.Field
-		Tags        respjson.Field
-		UpdatedAt   respjson.Field
-		Key         respjson.Field
-		StartsAt    respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
+		ID           respjson.Field
+		CreatedAt    respjson.Field
+		ExpiresAt    respjson.Field
+		Name         respjson.Field
+		SourceIPRule respjson.Field
+		Status       respjson.Field
+		Tags         respjson.Field
+		UpdatedAt    respjson.Field
+		Key          respjson.Field
+		StartsAt     respjson.Field
+		ExtraFields  map[string]respjson.Field
+		raw          string
 	} `json:"-"`
 }
 
 // Returns the unmodified JSON received from the API
 func (r APIKey) RawJSON() string { return r.JSON.raw }
 func (r *APIKey) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// IP filter configuration for the API Key.
+type APIKeySourceIPRule struct {
+	// List of IPv4/IPv6 CIDR addresses to allow.
+	In []string `json:"in,required"`
+	// List of IPv4/IPv6 CIDR addresses to deny.
+	NotIn []string `json:"not_in,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		In          respjson.Field
+		NotIn       respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r APIKeySourceIPRule) RawJSON() string { return r.JSON.raw }
+func (r *APIKeySourceIPRule) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -187,6 +211,8 @@ type APIKeyNewParams struct {
 	Name string `json:"name,required"`
 	// When the API Key starts to be valid.
 	StartsAt param.Opt[time.Time] `json:"starts_at,omitzero" format:"date-time"`
+	// IP filter configuration for the API Key.
+	SourceIPRule APIKeyNewParamsSourceIPRule `json:"source_ip_rule,omitzero"`
 	// Tags to attach to the API Key.
 	Tags []string `json:"tags,omitzero"`
 	paramObj
@@ -200,9 +226,28 @@ func (r *APIKeyNewParams) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
+// IP filter configuration for the API Key.
+type APIKeyNewParamsSourceIPRule struct {
+	// List of IPv4/IPv6 CIDR addresses to allow.
+	In []string `json:"in,omitzero"`
+	// List of IPv4/IPv6 CIDR addresses to deny.
+	NotIn []string `json:"not_in,omitzero"`
+	paramObj
+}
+
+func (r APIKeyNewParamsSourceIPRule) MarshalJSON() (data []byte, err error) {
+	type shadow APIKeyNewParamsSourceIPRule
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *APIKeyNewParamsSourceIPRule) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
 type APIKeyUpdateParams struct {
 	// API Key name.
 	Name param.Opt[string] `json:"name,omitzero"`
+	// IP filter configuration for the API Key.
+	SourceIPRule APIKeyUpdateParamsSourceIPRule `json:"source_ip_rule,omitzero"`
 	// Tags to attach to the API Key.
 	Tags []string `json:"tags,omitzero"`
 	paramObj
@@ -213,6 +258,23 @@ func (r APIKeyUpdateParams) MarshalJSON() (data []byte, err error) {
 	return param.MarshalObject(r, (*shadow)(&r))
 }
 func (r *APIKeyUpdateParams) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// IP filter configuration for the API Key.
+type APIKeyUpdateParamsSourceIPRule struct {
+	// List of IPv4/IPv6 CIDR addresses to allow.
+	In []string `json:"in,omitzero"`
+	// List of IPv4/IPv6 CIDR addresses to deny.
+	NotIn []string `json:"not_in,omitzero"`
+	paramObj
+}
+
+func (r APIKeyUpdateParamsSourceIPRule) MarshalJSON() (data []byte, err error) {
+	type shadow APIKeyUpdateParamsSourceIPRule
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *APIKeyUpdateParamsSourceIPRule) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
