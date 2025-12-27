@@ -118,7 +118,7 @@ type APIKey struct {
 	ExpiresAt time.Time `json:"expires_at,required" format:"date-time"`
 	// API Key name.
 	Name string `json:"name,required"`
-	// IP filter configuration for the API Key.
+	// IP filter rules.
 	SourceIPRule APIKeySourceIPRule `json:"source_ip_rule,required"`
 	// Status of the API Key.
 	//
@@ -155,11 +155,11 @@ func (r *APIKey) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// IP filter configuration for the API Key.
+// IP filter rules.
 type APIKeySourceIPRule struct {
-	// List of IPv4/IPv6 CIDR addresses to allow.
+	// List of IPv4 CIDR addresses to allow.
 	Allowed []string `json:"allowed,required"`
-	// List of IPv4/IPv6 CIDR addresses to deny.
+	// List of IPv4 CIDR addresses to deny.
 	Blocked []string `json:"blocked,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -211,7 +211,7 @@ type APIKeyNewParams struct {
 	Name string `json:"name,required"`
 	// When the API Key starts to be valid.
 	StartsAt param.Opt[time.Time] `json:"starts_at,omitzero" format:"date-time"`
-	// IP filter configuration for the API Key.
+	// IP filter rules.
 	SourceIPRule APIKeyNewParamsSourceIPRule `json:"source_ip_rule,omitzero"`
 	// Tags to attach to the API Key.
 	Tags []string `json:"tags,omitzero"`
@@ -226,11 +226,11 @@ func (r *APIKeyNewParams) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// IP filter configuration for the API Key.
+// IP filter rules.
 type APIKeyNewParamsSourceIPRule struct {
-	// List of IPv4/IPv6 CIDR addresses to allow.
+	// List of IPv4 CIDR addresses to allow.
 	Allowed []string `json:"allowed,omitzero"`
-	// List of IPv4/IPv6 CIDR addresses to deny.
+	// List of IPv4 CIDR addresses to deny.
 	Blocked []string `json:"blocked,omitzero"`
 	paramObj
 }
@@ -246,7 +246,7 @@ func (r *APIKeyNewParamsSourceIPRule) UnmarshalJSON(data []byte) error {
 type APIKeyUpdateParams struct {
 	// API Key name.
 	Name param.Opt[string] `json:"name,omitzero"`
-	// IP filter configuration for the API Key.
+	// IP filter rules.
 	SourceIPRule APIKeyUpdateParamsSourceIPRule `json:"source_ip_rule,omitzero"`
 	// Tags to attach to the API Key.
 	Tags []string `json:"tags,omitzero"`
@@ -261,11 +261,11 @@ func (r *APIKeyUpdateParams) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// IP filter configuration for the API Key.
+// IP filter rules.
 type APIKeyUpdateParamsSourceIPRule struct {
-	// List of IPv4/IPv6 CIDR addresses to allow.
+	// List of IPv4 CIDR addresses to allow.
 	Allowed []string `json:"allowed,omitzero"`
-	// List of IPv4/IPv6 CIDR addresses to deny.
+	// List of IPv4 CIDR addresses to deny.
 	Blocked []string `json:"blocked,omitzero"`
 	paramObj
 }
