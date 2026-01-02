@@ -12,6 +12,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/compute"
 	"github.com/nirvana-labs/nirvana-go/internal/testutil"
 	"github.com/nirvana-labs/nirvana-go/option"
+	"github.com/nirvana-labs/nirvana-go/shared"
 )
 
 func TestVolumeAvailabilityNewWithOptionalParams(t *testing.T) {
@@ -27,11 +28,12 @@ func TestVolumeAvailabilityNewWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Compute.Volumes.Availability.New(context.TODO(), compute.VolumeAvailabilityNewParams{
-		Name: "my-data-volume",
-		Size: 100,
-		Type: compute.VolumeTypeNvme,
-		VMID: "vm_id",
-		Tags: []string{"production", "ethereum"},
+		Name:   "my-data-volume",
+		Region: shared.RegionNameUsWdc1,
+		Size:   100,
+		Type:   compute.VolumeTypeNvme,
+		Tags:   []string{"production", "ethereum"},
+		VMID:   nirvana.String("123e4567-e89b-12d3-a456-426614174000"),
 	})
 	if err != nil {
 		var apierr *nirvana.Error
