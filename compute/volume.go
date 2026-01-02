@@ -230,6 +230,11 @@ const (
 type VolumeNewParams struct {
 	// Name of the Volume.
 	Name string `json:"name,required"`
+	// Region the resource is in.
+	//
+	// Any of "us-sea-1", "us-sva-1", "us-sva-2", "us-chi-1", "us-wdc-1", "eu-frk-1",
+	// "ap-sin-1", "ap-seo-1", "ap-tyo-1".
+	Region shared.RegionName `json:"region,omitzero,required"`
 	// Size of the Volume in GB.
 	Size int64 `json:"size,required"`
 	// Type of the Volume.
@@ -237,7 +242,7 @@ type VolumeNewParams struct {
 	// Any of "nvme", "abs".
 	Type VolumeType `json:"type,omitzero,required"`
 	// ID of the VM the Volume is attached to.
-	VMID string `json:"vm_id,required"`
+	VMID param.Opt[string] `json:"vm_id,omitzero"`
 	// Tags to attach to the Volume.
 	Tags []string `json:"tags,omitzero"`
 	paramObj
