@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.33.2 (2026-01-06)
+
+Full Changelog: [v1.33.1...v1.33.2](https://github.com/nirvana-labs/nirvana-go/compare/v1.33.1...v1.33.2)
+
+### Documentation
+
+* prominently feature MCP server setup in root SDK readmes ([84466ab](https://github.com/nirvana-labs/nirvana-go/commit/84466ab2041850af383e9bea8d904be84c838d97))
+
 ## 1.33.1 (2026-01-03)
 
 Full Changelog: [v1.32.0...v1.33.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.32.0...v1.33.1)
