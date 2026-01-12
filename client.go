@@ -18,7 +18,6 @@ import (
 	"github.com/nirvana-labs/nirvana-go/regions"
 	"github.com/nirvana-labs/nirvana-go/rpc_nodes"
 	"github.com/nirvana-labs/nirvana-go/user"
-	"github.com/nirvana-labs/nirvana-go/vektor"
 )
 
 // Client creates a struct with services and top level methods that help with
@@ -34,7 +33,6 @@ type Client struct {
 	Compute    compute.ComputeService
 	Networking networking.NetworkingService
 	RPCNodes   rpc_nodes.RPCNodeService
-	Vektor     vektor.VektorService
 }
 
 // DefaultClientOptions read from the environment (NIRVANA_LABS_API_KEY,
@@ -67,7 +65,6 @@ func NewClient(opts ...option.RequestOption) (r Client) {
 	r.Compute = compute.NewComputeService(opts...)
 	r.Networking = networking.NewNetworkingService(opts...)
 	r.RPCNodes = rpc_nodes.NewRPCNodeService(opts...)
-	r.Vektor = vektor.NewVektorService(opts...)
 
 	return
 }
