@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.34.1 (2026-01-17)
+
+Full Changelog: [v1.34.0...v1.34.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.34.0...v1.34.1)
+
+### Bug Fixes
+
+* **docs:** add missing pointer prefix to api.md return types ([b38e1d1](https://github.com/nirvana-labs/nirvana-go/commit/b38e1d1f471321f09c6191673defa784a71d9250))
+
+
+### Chores
+
+* **internal:** update `actions/checkout` version ([df852ae](https://github.com/nirvana-labs/nirvana-go/commit/df852aee855bc9150a12753d4c3d93e6a465c4d0))
+
 ## 1.34.0 (2026-01-12)
 
 Full Changelog: [v1.33.2...v1.34.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.33.2...v1.34.0)
