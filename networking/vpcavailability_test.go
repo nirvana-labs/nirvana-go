@@ -16,6 +16,7 @@ import (
 )
 
 func TestVPCAvailabilityNewWithOptionalParams(t *testing.T) {
+	t.Skip("Prism tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
@@ -43,6 +44,7 @@ func TestVPCAvailabilityNewWithOptionalParams(t *testing.T) {
 }
 
 func TestVPCAvailabilityUpdateWithOptionalParams(t *testing.T) {
+	t.Skip("Prism tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
 		baseURL = envURL
