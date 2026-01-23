@@ -13,6 +13,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/api_keys"
 	"github.com/nirvana-labs/nirvana-go/internal/testutil"
 	"github.com/nirvana-labs/nirvana-go/option"
+	"github.com/nirvana-labs/nirvana-go/shared"
 )
 
 func TestAPIKeyNewWithOptionalParams(t *testing.T) {
@@ -31,7 +32,7 @@ func TestAPIKeyNewWithOptionalParams(t *testing.T) {
 	_, err := client.APIKeys.New(context.TODO(), api_keys.APIKeyNewParams{
 		ExpiresAt: time.Now(),
 		Name:      "My API Key",
-		SourceIPRule: api_keys.APIKeyNewParamsSourceIPRule{
+		SourceIPRule: shared.SourceIPRuleParam{
 			Allowed: []string{"192.168.1.0/24", "10.0.0.0/8"},
 			Blocked: []string{"192.168.1.100/32"},
 		},
@@ -65,7 +66,7 @@ func TestAPIKeyUpdateWithOptionalParams(t *testing.T) {
 		"api_key_id",
 		api_keys.APIKeyUpdateParams{
 			Name: nirvana.String("My Updated API Key"),
-			SourceIPRule: api_keys.APIKeyUpdateParamsSourceIPRule{
+			SourceIPRule: shared.SourceIPRuleParam{
 				Allowed: []string{"192.168.1.0/24", "10.0.0.0/8"},
 				Blocked: []string{"192.168.1.100/32"},
 			},
