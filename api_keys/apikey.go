@@ -212,7 +212,7 @@ type APIKeyNewParams struct {
 	// When the API Key starts to be valid.
 	StartsAt param.Opt[time.Time] `json:"starts_at,omitzero" format:"date-time"`
 	// IP filter rules.
-	SourceIPRule APIKeyNewParamsSourceIPRule `json:"source_ip_rule,omitzero"`
+	SourceIPRule shared.SourceIPRuleParam `json:"source_ip_rule,omitzero"`
 	// Tags to attach to the API Key.
 	Tags []string `json:"tags,omitzero"`
 	paramObj
@@ -226,28 +226,11 @@ func (r *APIKeyNewParams) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// IP filter rules.
-type APIKeyNewParamsSourceIPRule struct {
-	// List of IPv4 CIDR addresses to allow.
-	Allowed []string `json:"allowed,omitzero"`
-	// List of IPv4 CIDR addresses to deny.
-	Blocked []string `json:"blocked,omitzero"`
-	paramObj
-}
-
-func (r APIKeyNewParamsSourceIPRule) MarshalJSON() (data []byte, err error) {
-	type shadow APIKeyNewParamsSourceIPRule
-	return param.MarshalObject(r, (*shadow)(&r))
-}
-func (r *APIKeyNewParamsSourceIPRule) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
 type APIKeyUpdateParams struct {
 	// API Key name.
 	Name param.Opt[string] `json:"name,omitzero"`
 	// IP filter rules.
-	SourceIPRule APIKeyUpdateParamsSourceIPRule `json:"source_ip_rule,omitzero"`
+	SourceIPRule shared.SourceIPRuleParam `json:"source_ip_rule,omitzero"`
 	// Tags to attach to the API Key.
 	Tags []string `json:"tags,omitzero"`
 	paramObj
@@ -258,23 +241,6 @@ func (r APIKeyUpdateParams) MarshalJSON() (data []byte, err error) {
 	return param.MarshalObject(r, (*shadow)(&r))
 }
 func (r *APIKeyUpdateParams) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// IP filter rules.
-type APIKeyUpdateParamsSourceIPRule struct {
-	// List of IPv4 CIDR addresses to allow.
-	Allowed []string `json:"allowed,omitzero"`
-	// List of IPv4 CIDR addresses to deny.
-	Blocked []string `json:"blocked,omitzero"`
-	paramObj
-}
-
-func (r APIKeyUpdateParamsSourceIPRule) MarshalJSON() (data []byte, err error) {
-	type shadow APIKeyUpdateParamsSourceIPRule
-	return param.MarshalObject(r, (*shadow)(&r))
-}
-func (r *APIKeyUpdateParamsSourceIPRule) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 

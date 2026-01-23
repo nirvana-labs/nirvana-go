@@ -11,6 +11,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go"
 	"github.com/nirvana-labs/nirvana-go/internal/testutil"
 	"github.com/nirvana-labs/nirvana-go/option"
+	"github.com/nirvana-labs/nirvana-go/shared"
 	"github.com/nirvana-labs/nirvana-go/user"
 )
 
@@ -28,7 +29,7 @@ func TestSecurityUpdateWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.User.Security.Update(context.TODO(), user.SecurityUpdateParams{
-		SourceIPRule: user.SecurityUpdateParamsSourceIPRule{
+		SourceIPRule: shared.SourceIPRuleParam{
 			Allowed: []string{"192.168.1.0/24", "10.0.0.0/8"},
 			Blocked: []string{"192.168.1.100/32"},
 		},
