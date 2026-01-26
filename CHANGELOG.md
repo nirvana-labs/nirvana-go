@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.35.0 (2026-01-26)
+
+Full Changelog: [v1.34.1...v1.35.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.34.1...v1.35.0)
+
+### Features
+
+* **api:** api update ([abb5d35](https://github.com/nirvana-labs/nirvana-go/commit/abb5d35a2a960c59d05f1b7d20a120ba6ff7f7a3))
+* **client:** add a convenient param.SetJSON helper ([6067c4d](https://github.com/nirvana-labs/nirvana-go/commit/6067c4dc1d19f7bcfc3f46c8dfc473674391b726))
+
 ## 1.34.1 (2026-01-19)
 
 Full Changelog: [v1.34.0...v1.34.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.34.0...v1.34.1)

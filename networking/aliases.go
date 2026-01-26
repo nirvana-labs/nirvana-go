@@ -78,3 +78,8 @@ const ResourceStatusDeleted = shared.ResourceStatusDeleted
 
 // Equals "error"
 const ResourceStatusError = shared.ResourceStatusError
+
+// IP filter rules.
+//
+// This is an alias to an internal type.
+type SourceIPRuleParam = shared.SourceIPRuleParam

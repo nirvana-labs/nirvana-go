@@ -62,3 +62,20 @@ const (
 	ResourceStatusDeleted  ResourceStatus = "deleted"
 	ResourceStatusError    ResourceStatus = "error"
 )
+
+// IP filter rules.
+type SourceIPRuleParam struct {
+	// List of IPv4 CIDR addresses to allow.
+	Allowed []string `json:"allowed,omitzero"`
+	// List of IPv4 CIDR addresses to deny.
+	Blocked []string `json:"blocked,omitzero"`
+	paramObj
+}
+
+func (r SourceIPRuleParam) MarshalJSON() (data []byte, err error) {
+	type shadow SourceIPRuleParam
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *SourceIPRuleParam) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}

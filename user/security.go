@@ -13,6 +13,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/option"
 	"github.com/nirvana-labs/nirvana-go/packages/param"
 	"github.com/nirvana-labs/nirvana-go/packages/respjson"
+	"github.com/nirvana-labs/nirvana-go/shared"
 )
 
 // SecurityService contains methods and other services that help with interacting
@@ -97,7 +98,7 @@ func (r *UserSecuritySourceIPRule) UnmarshalJSON(data []byte) error {
 
 type SecurityUpdateParams struct {
 	// IP filter rules.
-	SourceIPRule SecurityUpdateParamsSourceIPRule `json:"source_ip_rule,omitzero"`
+	SourceIPRule shared.SourceIPRuleParam `json:"source_ip_rule,omitzero"`
 	paramObj
 }
 
@@ -106,22 +107,5 @@ func (r SecurityUpdateParams) MarshalJSON() (data []byte, err error) {
 	return param.MarshalObject(r, (*shadow)(&r))
 }
 func (r *SecurityUpdateParams) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// IP filter rules.
-type SecurityUpdateParamsSourceIPRule struct {
-	// List of IPv4 CIDR addresses to allow.
-	Allowed []string `json:"allowed,omitzero"`
-	// List of IPv4 CIDR addresses to deny.
-	Blocked []string `json:"blocked,omitzero"`
-	paramObj
-}
-
-func (r SecurityUpdateParamsSourceIPRule) MarshalJSON() (data []byte, err error) {
-	type shadow SecurityUpdateParamsSourceIPRule
-	return param.MarshalObject(r, (*shadow)(&r))
-}
-func (r *SecurityUpdateParamsSourceIPRule) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
