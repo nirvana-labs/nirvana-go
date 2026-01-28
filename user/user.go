@@ -48,12 +48,18 @@ type User struct {
 	ID string `json:"id,required"`
 	// Email address of the user.
 	Email string `json:"email,required"`
+	// First name of the user.
+	FirstName string `json:"first_name,required"`
+	// Last name of the user.
+	LastName string `json:"last_name,required"`
 	// Services that the User has access to.
 	Services UserServices `json:"services,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field
 		Email       respjson.Field
+		FirstName   respjson.Field
+		LastName    respjson.Field
 		Services    respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
