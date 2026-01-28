@@ -262,7 +262,7 @@ type VM struct {
 	// Region the resource is in.
 	//
 	// Any of "us-sea-1", "us-sva-1", "us-sva-2", "us-chi-1", "us-wdc-1", "eu-frk-1",
-	// "ap-sin-1", "ap-seo-1", "ap-tyo-1".
+	// "ap-sin-1", "ap-tyo-1".
 	Region shared.RegionName `json:"region,required"`
 	// Status of the resource.
 	//
@@ -344,7 +344,7 @@ type VMNewParams struct {
 	// Region the resource is in.
 	//
 	// Any of "us-sea-1", "us-sva-1", "us-sva-2", "us-chi-1", "us-wdc-1", "eu-frk-1",
-	// "ap-sin-1", "ap-seo-1", "ap-tyo-1".
+	// "ap-sin-1", "ap-tyo-1".
 	Region shared.RegionName `json:"region,omitzero,required"`
 	// Public SSH key configuration for the VM.
 	SSHKey SSHKeyRequestParam `json:"ssh_key,omitzero,required"`

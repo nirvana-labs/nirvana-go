@@ -47,9 +47,6 @@ const RegionNameEuFrk1 = shared.RegionNameEuFrk1
 // Equals "ap-sin-1"
 const RegionNameApSin1 = shared.RegionNameApSin1
 
-// Equals "ap-seo-1"
-const RegionNameApSeo1 = shared.RegionNameApSeo1
-
 // Equals "ap-tyo-1"
 const RegionNameApTyo1 = shared.RegionNameApTyo1
 
