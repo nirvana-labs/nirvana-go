@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.36.0 (2026-01-29)
+
+Full Changelog: [v1.35.0...v1.36.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.35.0...v1.36.0)
+
+### Features
+
+* **api:** api update ([8910c74](https://github.com/nirvana-labs/nirvana-go/commit/8910c743cab94af0cb67e1c632cd913fbaad329d))
+* **api:** api update ([83a0569](https://github.com/nirvana-labs/nirvana-go/commit/83a056931e25af21e8f1c9d50f4a9b30e34abdab))
+* **api:** api update ([ecaee41](https://github.com/nirvana-labs/nirvana-go/commit/ecaee41e15f0fef2b99fad95c26b6408e7f8e00a))
+
+
+### Bug Fixes
+
+* **docs:** fix mcp installation instructions for remote servers ([792738c](https://github.com/nirvana-labs/nirvana-go/commit/792738cd87cc80a400089f8c2a4a88165fac21e8))
+
 ## 1.35.0 (2026-01-26)
 
 Full Changelog: [v1.34.1...v1.35.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.34.1...v1.35.0)
