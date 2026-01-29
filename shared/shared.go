@@ -46,8 +46,6 @@ const (
 	RegionNameUsWdc1 RegionName = "us-wdc-1"
 	RegionNameEuFrk1 RegionName = "eu-frk-1"
 	RegionNameApSin1 RegionName = "ap-sin-1"
-	RegionNameApSeo1 RegionName = "ap-seo-1"
-	RegionNameApTyo1 RegionName = "ap-tyo-1"
 )
 
 // Status of the resource.
