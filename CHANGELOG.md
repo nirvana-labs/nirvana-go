@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.36.1 (2026-01-31)
+
+Full Changelog: [v1.36.0...v1.36.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.36.0...v1.36.1)
+
+### Documentation
+
+* split `api.md` by standalone resources ([44629fb](https://github.com/nirvana-labs/nirvana-go/commit/44629fb69fd28dbc585fa94f769cd9896e455ea6))
+
 ## 1.36.0 (2026-01-29)
 
 Full Changelog: [v1.35.0...v1.36.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.35.0...v1.36.0)
