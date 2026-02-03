@@ -116,6 +116,8 @@ type Project struct {
 	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
 	// Project name.
 	Name string `json:"name,required"`
+	// Resource counts for the project.
+	Resources ProjectResources `json:"resources,required"`
 	// Tags attached to the Project.
 	Tags []string `json:"tags,required"`
 	// When the Project was updated.
@@ -127,6 +129,7 @@ type Project struct {
 		ID          respjson.Field
 		CreatedAt   respjson.Field
 		Name        respjson.Field
+		Resources   respjson.Field
 		Tags        respjson.Field
 		UpdatedAt   respjson.Field
 		UserID      respjson.Field
@@ -138,6 +141,75 @@ type Project struct {
 // Returns the unmodified JSON received from the API
 func (r Project) RawJSON() string { return r.JSON.raw }
 func (r *Project) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// Resource counts for the project.
+type ProjectResources struct {
+	// Blockchain resources.
+	Blockchain ProjectResourcesBlockchain `json:"blockchain,required"`
+	// Cloud infrastructure resources.
+	Cloud ProjectResourcesCloud `json:"cloud,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Blockchain  respjson.Field
+		Cloud       respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r ProjectResources) RawJSON() string { return r.JSON.raw }
+func (r *ProjectResources) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// Blockchain resources.
+type ProjectResourcesBlockchain struct {
+	// Number of dedicated RPC nodes in the project.
+	RPCNodesDedicated int64 `json:"rpc_nodes_dedicated,required"`
+	// Number of flex RPC nodes in the project.
+	RPCNodesFlex int64 `json:"rpc_nodes_flex,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		RPCNodesDedicated respjson.Field
+		RPCNodesFlex      respjson.Field
+		ExtraFields       map[string]respjson.Field
+		raw               string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r ProjectResourcesBlockchain) RawJSON() string { return r.JSON.raw }
+func (r *ProjectResourcesBlockchain) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// Cloud infrastructure resources.
+type ProjectResourcesCloud struct {
+	// Number of Connect connections in the project.
+	ConnectConnections int64 `json:"connect_connections,required"`
+	// Number of VMs in the project.
+	VMs int64 `json:"vms,required"`
+	// Number of volumes in the project.
+	Volumes int64 `json:"volumes,required"`
+	// Number of VPCs in the project.
+	VPCs int64 `json:"vpcs,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		ConnectConnections respjson.Field
+		VMs                respjson.Field
+		Volumes            respjson.Field
+		VPCs               respjson.Field
+		ExtraFields        map[string]respjson.Field
+		raw                string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r ProjectResourcesCloud) RawJSON() string { return r.JSON.raw }
+func (r *ProjectResourcesCloud) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
