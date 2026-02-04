@@ -150,6 +150,8 @@ type VPC struct {
 	FirewallRuleIDs []string `json:"firewall_rule_ids,required"`
 	// Name of the VPC.
 	Name string `json:"name,required"`
+	// Project ID the VPC belongs to.
+	ProjectID string `json:"project_id,required"`
 	// Region the resource is in.
 	//
 	// Any of "us-sea-1", "us-sva-1", "us-sva-2", "us-chi-1", "us-wdc-1", "eu-frk-1",
@@ -172,6 +174,7 @@ type VPC struct {
 		CreatedAt       respjson.Field
 		FirewallRuleIDs respjson.Field
 		Name            respjson.Field
+		ProjectID       respjson.Field
 		Region          respjson.Field
 		Status          respjson.Field
 		Subnet          respjson.Field
@@ -217,6 +220,8 @@ type VPCNewParams struct {
 	Region shared.RegionName `json:"region,omitzero,required"`
 	// Name of the subnet to create.
 	SubnetName string `json:"subnet_name,required"`
+	// Project ID the VPC belongs to.
+	ProjectID param.Opt[string] `json:"project_id,omitzero"`
 	// Tags to attach to the VPC.
 	Tags []string `json:"tags,omitzero"`
 	paramObj
@@ -253,6 +258,8 @@ type VPCListParams struct {
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
 	// Maximum number of items to return
 	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	// Project ID of resources to request
+	ProjectID param.Opt[string] `query:"project_id,omitzero" json:"-"`
 	paramObj
 }
 

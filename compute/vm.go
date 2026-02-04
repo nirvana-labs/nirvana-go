@@ -255,6 +255,8 @@ type VM struct {
 	Name string `json:"name,required"`
 	// Private IP of the VM.
 	PrivateIP string `json:"private_ip,required"`
+	// Project ID the VM belongs to.
+	ProjectID string `json:"project_id,required"`
 	// Public IP of the VM.
 	PublicIP string `json:"public_ip,required"`
 	// Whether the public IP is enabled for the VM.
@@ -289,6 +291,7 @@ type VM struct {
 		MemoryConfig    respjson.Field
 		Name            respjson.Field
 		PrivateIP       respjson.Field
+		ProjectID       respjson.Field
 		PublicIP        respjson.Field
 		PublicIPEnabled respjson.Field
 		Region          respjson.Field
@@ -350,6 +353,8 @@ type VMNewParams struct {
 	SSHKey SSHKeyRequestParam `json:"ssh_key,omitzero,required"`
 	// ID of the subnet to use for the VM.
 	SubnetID string `json:"subnet_id,required"`
+	// Project ID to create the VM in.
+	ProjectID param.Opt[string] `json:"project_id,omitzero"`
 	// Data volumes for the VM.
 	DataVolumes []VMNewParamsDataVolume `json:"data_volumes,omitzero"`
 	// Tags to attach to the VM.
@@ -440,6 +445,8 @@ type VMListParams struct {
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
 	// Maximum number of items to return
 	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	// Project ID of resources to request
+	ProjectID param.Opt[string] `query:"project_id,omitzero" json:"-"`
 	paramObj
 }
 

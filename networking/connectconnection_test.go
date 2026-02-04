@@ -38,7 +38,8 @@ func TestConnectConnectionNewWithOptionalParams(t *testing.T) {
 			AccountID: "523816707215",
 			Region:    "us-east-1",
 		},
-		Tags: []string{"production", "ethereum"},
+		ProjectID: nirvana.String("123e4567-e89b-12d3-a456-426614174000"),
+		Tags:      []string{"production", "ethereum"},
 	})
 	if err != nil {
 		var apierr *nirvana.Error
@@ -93,8 +94,9 @@ func TestConnectConnectionListWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Networking.Connect.Connections.List(context.TODO(), networking.ConnectConnectionListParams{
-		Cursor: nirvana.String("cursor"),
-		Limit:  nirvana.Int(10),
+		Cursor:    nirvana.String("cursor"),
+		Limit:     nirvana.Int(10),
+		ProjectID: nirvana.String("project_id"),
 	})
 	if err != nil {
 		var apierr *nirvana.Error

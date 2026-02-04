@@ -71,6 +71,8 @@ type VolumeAvailabilityNewParams struct {
 	//
 	// Any of "nvme", "abs".
 	Type VolumeType `json:"type,omitzero,required"`
+	// Project ID the Volume belongs to.
+	ProjectID param.Opt[string] `json:"project_id,omitzero"`
 	// ID of the VM the Volume is attached to.
 	VMID param.Opt[string] `json:"vm_id,omitzero"`
 	// Tags to attach to the Volume.

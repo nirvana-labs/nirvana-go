@@ -54,7 +54,8 @@ func TestVMAvailabilityNewWithOptionalParams(t *testing.T) {
 			Type: compute.VolumeTypeNvme,
 			Tags: []string{"production", "ethereum"},
 		}},
-		Tags: []string{"production", "ethereum"},
+		ProjectID: nirvana.String("123e4567-e89b-12d3-a456-426614174000"),
+		Tags:      []string{"production", "ethereum"},
 	})
 	if err != nil {
 		var apierr *nirvana.Error
