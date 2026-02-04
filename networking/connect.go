@@ -64,6 +64,8 @@ type ConnectConnection struct {
 	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
 	// Name of the Connect Connection
 	Name string `json:"name,required"`
+	// Project ID the Connect Connection belongs to
+	ProjectID string `json:"project_id,required"`
 	// Provider ASN
 	ProviderASN int64 `json:"provider_asn,required"`
 	// Provider CIDRs for the Connect Connection
@@ -95,6 +97,7 @@ type ConnectConnection struct {
 		CIDRs            respjson.Field
 		CreatedAt        respjson.Field
 		Name             respjson.Field
+		ProjectID        respjson.Field
 		ProviderASN      respjson.Field
 		ProviderCIDRs    respjson.Field
 		ProviderRouterIP respjson.Field

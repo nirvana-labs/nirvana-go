@@ -29,12 +29,13 @@ func TestVolumeAvailabilityNewWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Compute.Volumes.Availability.New(context.TODO(), compute.VolumeAvailabilityNewParams{
-		Name:   "my-data-volume",
-		Region: shared.RegionNameUsWdc1,
-		Size:   100,
-		Type:   compute.VolumeTypeNvme,
-		Tags:   []string{"production", "ethereum"},
-		VMID:   nirvana.String("123e4567-e89b-12d3-a456-426614174000"),
+		Name:      "my-data-volume",
+		Region:    shared.RegionNameUsWdc1,
+		Size:      100,
+		Type:      compute.VolumeTypeNvme,
+		ProjectID: nirvana.String("123e4567-e89b-12d3-a456-426614174000"),
+		Tags:      []string{"production", "ethereum"},
+		VMID:      nirvana.String("123e4567-e89b-12d3-a456-426614174000"),
 	})
 	if err != nil {
 		var apierr *nirvana.Error

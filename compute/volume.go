@@ -146,6 +146,8 @@ type Volume struct {
 	Kind VolumeKind `json:"kind,required"`
 	// Name of the Volume.
 	Name string `json:"name,required"`
+	// Project ID the Volume belongs to.
+	ProjectID string `json:"project_id,required"`
 	// Region the resource is in.
 	//
 	// Any of "us-sea-1", "us-sva-1", "us-sva-2", "us-chi-1", "us-wdc-1", "eu-frk-1",
@@ -176,6 +178,7 @@ type Volume struct {
 		CreatedAt   respjson.Field
 		Kind        respjson.Field
 		Name        respjson.Field
+		ProjectID   respjson.Field
 		Region      respjson.Field
 		Size        respjson.Field
 		Status      respjson.Field
@@ -244,6 +247,8 @@ type VolumeNewParams struct {
 	//
 	// Any of "nvme", "abs".
 	Type VolumeType `json:"type,omitzero,required"`
+	// Project ID the Volume belongs to.
+	ProjectID param.Opt[string] `json:"project_id,omitzero"`
 	// ID of the VM the Volume is attached to.
 	VMID param.Opt[string] `json:"vm_id,omitzero"`
 	// Tags to attach to the Volume.
@@ -282,6 +287,8 @@ type VolumeListParams struct {
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
 	// Maximum number of items to return
 	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	// Project ID of resources to request
+	ProjectID param.Opt[string] `query:"project_id,omitzero" json:"-"`
 	paramObj
 }
 
