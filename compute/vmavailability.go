@@ -79,6 +79,8 @@ type VMAvailabilityNewParams struct {
 	SSHKey SSHKeyRequestParam `json:"ssh_key,omitzero,required"`
 	// ID of the subnet to use for the VM.
 	SubnetID string `json:"subnet_id,required"`
+	// Project ID to create the VM in.
+	ProjectID param.Opt[string] `json:"project_id,omitzero"`
 	// Data volumes for the VM.
 	DataVolumes []VMAvailabilityNewParamsDataVolume `json:"data_volumes,omitzero"`
 	// Tags to attach to the VM.

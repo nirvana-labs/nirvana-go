@@ -67,6 +67,8 @@ type VPCAvailabilityNewParams struct {
 	Region shared.RegionName `json:"region,omitzero,required"`
 	// Name of the subnet to create.
 	SubnetName string `json:"subnet_name,required"`
+	// Project ID the VPC belongs to.
+	ProjectID param.Opt[string] `json:"project_id,omitzero"`
 	// Tags to attach to the VPC.
 	Tags []string `json:"tags,omitzero"`
 	paramObj
