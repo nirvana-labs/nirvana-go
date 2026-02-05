@@ -14,6 +14,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/networking"
 	"github.com/nirvana-labs/nirvana-go/operations"
 	"github.com/nirvana-labs/nirvana-go/option"
+	"github.com/nirvana-labs/nirvana-go/organizations"
 	"github.com/nirvana-labs/nirvana-go/projects"
 	"github.com/nirvana-labs/nirvana-go/regions"
 	"github.com/nirvana-labs/nirvana-go/rpc_nodes"
@@ -24,15 +25,16 @@ import (
 // interacting with the Nirvana Labs API. You should not instantiate this client
 // directly, and instead use the [NewClient] method instead.
 type Client struct {
-	Options    []option.RequestOption
-	User       user.UserService
-	APIKeys    api_keys.APIKeyService
-	Operations operations.OperationService
-	Projects   projects.ProjectService
-	Regions    regions.RegionService
-	Compute    compute.ComputeService
-	Networking networking.NetworkingService
-	RPCNodes   rpc_nodes.RPCNodeService
+	Options       []option.RequestOption
+	User          user.UserService
+	APIKeys       api_keys.APIKeyService
+	Operations    operations.OperationService
+	Organizations organizations.OrganizationService
+	Projects      projects.ProjectService
+	Regions       regions.RegionService
+	Compute       compute.ComputeService
+	Networking    networking.NetworkingService
+	RPCNodes      rpc_nodes.RPCNodeService
 }
 
 // DefaultClientOptions read from the environment (NIRVANA_LABS_API_KEY,
@@ -60,6 +62,7 @@ func NewClient(opts ...option.RequestOption) (r Client) {
 	r.User = user.NewUserService(opts...)
 	r.APIKeys = api_keys.NewAPIKeyService(opts...)
 	r.Operations = operations.NewOperationService(opts...)
+	r.Organizations = organizations.NewOrganizationService(opts...)
 	r.Projects = projects.NewProjectService(opts...)
 	r.Regions = regions.NewRegionService(opts...)
 	r.Compute = compute.NewComputeService(opts...)
