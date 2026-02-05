@@ -42,6 +42,7 @@ func TestVMNewWithOptionalParams(t *testing.T) {
 		},
 		Name:            "my-vm",
 		OSImageName:     "ubuntu-noble-2025-10-01",
+		ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
 		PublicIPEnabled: true,
 		Region:          shared.RegionNameUsWdc1,
 		SSHKey: compute.SSHKeyRequestParam{
@@ -54,8 +55,7 @@ func TestVMNewWithOptionalParams(t *testing.T) {
 			Type: compute.VolumeTypeNvme,
 			Tags: []string{"production", "ethereum"},
 		}},
-		ProjectID: nirvana.String("123e4567-e89b-12d3-a456-426614174000"),
-		Tags:      []string{"production", "ethereum"},
+		Tags: []string{"production", "ethereum"},
 	})
 	if err != nil {
 		var apierr *nirvana.Error
@@ -117,9 +117,9 @@ func TestVMListWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Compute.VMs.List(context.TODO(), compute.VMListParams{
+		ProjectID: "project_id",
 		Cursor:    nirvana.String("cursor"),
 		Limit:     nirvana.Int(10),
-		ProjectID: nirvana.String("project_id"),
 	})
 	if err != nil {
 		var apierr *nirvana.Error

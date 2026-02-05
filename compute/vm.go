@@ -342,6 +342,8 @@ type VMNewParams struct {
 	Name string `json:"name,required"`
 	// Name of the OS Image to use for the VM.
 	OSImageName string `json:"os_image_name,required"`
+	// Project ID to create the VM in.
+	ProjectID string `json:"project_id,required"`
 	// Whether to enable public IP for the VM.
 	PublicIPEnabled bool `json:"public_ip_enabled,required"`
 	// Region the resource is in.
@@ -353,8 +355,6 @@ type VMNewParams struct {
 	SSHKey SSHKeyRequestParam `json:"ssh_key,omitzero,required"`
 	// ID of the subnet to use for the VM.
 	SubnetID string `json:"subnet_id,required"`
-	// Project ID to create the VM in.
-	ProjectID param.Opt[string] `json:"project_id,omitzero"`
 	// Data volumes for the VM.
 	DataVolumes []VMNewParamsDataVolume `json:"data_volumes,omitzero"`
 	// Tags to attach to the VM.
@@ -441,12 +441,12 @@ func (r *VMUpdateParams) UnmarshalJSON(data []byte) error {
 }
 
 type VMListParams struct {
+	// Project ID of resources to request
+	ProjectID string `query:"project_id,required" json:"-"`
 	// Pagination cursor returned by a previous request
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
 	// Maximum number of items to return
 	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
-	// Project ID of resources to request
-	ProjectID param.Opt[string] `query:"project_id,omitzero" json:"-"`
 	paramObj
 }
 

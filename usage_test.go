@@ -40,6 +40,7 @@ func TestUsage(t *testing.T) {
 		},
 		Name:            "my-vm",
 		OSImageName:     "ubuntu-noble-2025-10-01",
+		ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
 		PublicIPEnabled: true,
 		Region:          shared.RegionNameUsWdc1,
 		SSHKey: compute.SSHKeyRequestParam{

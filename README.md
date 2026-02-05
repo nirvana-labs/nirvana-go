@@ -82,6 +82,7 @@ func main() {
 		},
 		Name:            "my-vm",
 		OSImageName:     "ubuntu-noble-2025-10-01",
+		ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
 		PublicIPEnabled: true,
 		Region:          shared.RegionNameUsWdc1,
 		SSHKey: compute.SSHKeyRequestParam{
@@ -318,7 +319,8 @@ You can use `.ListAutoPaging()` methods to iterate through items across all page
 
 ```go
 iter := client.Compute.VMs.ListAutoPaging(context.TODO(), compute.VMListParams{
-	Limit: nirvana.Int(10),
+	ProjectID: "project_id",
+	Limit:     nirvana.Int(10),
 })
 // Automatically fetches more pages as needed.
 for iter.Next() {
@@ -335,7 +337,8 @@ with additional helper methods like `.GetNextPage()`, e.g.:
 
 ```go
 page, err := client.Compute.VMs.List(context.TODO(), compute.VMListParams{
-	Limit: nirvana.Int(10),
+	ProjectID: "project_id",
+	Limit:     nirvana.Int(10),
 })
 for page != nil {
 	for _, vm := range page.Items {
@@ -371,6 +374,7 @@ _, err := client.Compute.VMs.New(context.TODO(), compute.VMNewParams{
 	},
 	Name:            "my-vm",
 	OSImageName:     "ubuntu-noble-2025-10-01",
+	ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
 	PublicIPEnabled: true,
 	Region:          shared.RegionNameUsWdc1,
 	SSHKey: compute.SSHKeyRequestParam{
@@ -417,6 +421,7 @@ client.Compute.VMs.New(
 		},
 		Name:            "my-vm",
 		OSImageName:     "ubuntu-noble-2025-10-01",
+		ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
 		PublicIPEnabled: true,
 		Region:          shared.RegionNameUsWdc1,
 		SSHKey: compute.SSHKeyRequestParam{
@@ -472,6 +477,7 @@ client.Compute.VMs.New(
 		},
 		Name:            "my-vm",
 		OSImageName:     "ubuntu-noble-2025-10-01",
+		ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
 		PublicIPEnabled: true,
 		Region:          shared.RegionNameUsWdc1,
 		SSHKey: compute.SSHKeyRequestParam{
@@ -506,6 +512,7 @@ operation, err := client.Compute.VMs.New(
 		},
 		Name:            "my-vm",
 		OSImageName:     "ubuntu-noble-2025-10-01",
+		ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
 		PublicIPEnabled: true,
 		Region:          shared.RegionNameUsWdc1,
 		SSHKey: compute.SSHKeyRequestParam{

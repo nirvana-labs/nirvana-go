@@ -32,14 +32,14 @@ func TestConnectConnectionNewWithOptionalParams(t *testing.T) {
 		BandwidthMbps: 50,
 		CIDRs:         []string{"10.0.0.0/16"},
 		Name:          "my-connect-connection",
+		ProjectID:     "123e4567-e89b-12d3-a456-426614174000",
 		ProviderCIDRs: []string{"172.16.0.0/16"},
 		Region:        shared.RegionNameUsWdc1,
 		AWS: networking.ConnectConnectionAWSConfigRequestParam{
 			AccountID: "523816707215",
 			Region:    "us-east-1",
 		},
-		ProjectID: nirvana.String("123e4567-e89b-12d3-a456-426614174000"),
-		Tags:      []string{"production", "ethereum"},
+		Tags: []string{"production", "ethereum"},
 	})
 	if err != nil {
 		var apierr *nirvana.Error
@@ -94,9 +94,9 @@ func TestConnectConnectionListWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Networking.Connect.Connections.List(context.TODO(), networking.ConnectConnectionListParams{
+		ProjectID: "project_id",
 		Cursor:    nirvana.String("cursor"),
 		Limit:     nirvana.Int(10),
-		ProjectID: nirvana.String("project_id"),
 	})
 	if err != nil {
 		var apierr *nirvana.Error

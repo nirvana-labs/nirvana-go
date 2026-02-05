@@ -68,6 +68,8 @@ type VMAvailabilityNewParams struct {
 	Name string `json:"name,required"`
 	// Name of the OS Image to use for the VM.
 	OSImageName string `json:"os_image_name,required"`
+	// Project ID to create the VM in.
+	ProjectID string `json:"project_id,required"`
 	// Whether to enable public IP for the VM.
 	PublicIPEnabled bool `json:"public_ip_enabled,required"`
 	// Region the resource is in.
@@ -79,8 +81,6 @@ type VMAvailabilityNewParams struct {
 	SSHKey SSHKeyRequestParam `json:"ssh_key,omitzero,required"`
 	// ID of the subnet to use for the VM.
 	SubnetID string `json:"subnet_id,required"`
-	// Project ID to create the VM in.
-	ProjectID param.Opt[string] `json:"project_id,omitzero"`
 	// Data volumes for the VM.
 	DataVolumes []VMAvailabilityNewParamsDataVolume `json:"data_volumes,omitzero"`
 	// Tags to attach to the VM.
