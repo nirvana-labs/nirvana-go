@@ -28,9 +28,9 @@ func TestOperationListWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Operations.List(context.TODO(), operations.OperationListParams{
+		ProjectID: "project_id",
 		Cursor:    nirvana.String("cursor"),
 		Limit:     nirvana.Int(10),
-		ProjectID: nirvana.String("project_id"),
 	})
 	if err != nil {
 		var apierr *nirvana.Error

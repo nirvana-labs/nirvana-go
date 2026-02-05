@@ -30,9 +30,9 @@ func TestVPCNewWithOptionalParams(t *testing.T) {
 	)
 	_, err := client.Networking.VPCs.New(context.TODO(), networking.VPCNewParams{
 		Name:       "my-vpc",
+		ProjectID:  "123e4567-e89b-12d3-a456-426614174000",
 		Region:     shared.RegionNameUsWdc1,
 		SubnetName: "my-subnet",
-		ProjectID:  nirvana.String("123e4567-e89b-12d3-a456-426614174000"),
 		Tags:       []string{"production", "ethereum"},
 	})
 	if err != nil {
@@ -89,9 +89,9 @@ func TestVPCListWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Networking.VPCs.List(context.TODO(), networking.VPCListParams{
+		ProjectID: "project_id",
 		Cursor:    nirvana.String("cursor"),
 		Limit:     nirvana.Int(10),
-		ProjectID: nirvana.String("project_id"),
 	})
 	if err != nil {
 		var apierr *nirvana.Error
