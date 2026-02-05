@@ -15,6 +15,8 @@
 
 # [Operations](operations/api.md)
 
+# [Organizations](organizations/api.md)
+
 # [Projects](projects/api.md)
 
 # [Regions](regions/api.md)
