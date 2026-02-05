@@ -179,12 +179,12 @@ func (r *DedicatedList) UnmarshalJSON(data []byte) error {
 }
 
 type DedicatedListParams struct {
+	// Project ID of resources to request
+	ProjectID string `query:"project_id,required" json:"-"`
 	// Pagination cursor returned by a previous request
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
 	// Maximum number of items to return
 	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
-	// Project ID of resources to request
-	ProjectID param.Opt[string] `query:"project_id,omitzero" json:"-"`
 	paramObj
 }
 

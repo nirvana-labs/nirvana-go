@@ -60,6 +60,8 @@ func (r *VPCAvailabilityService) Update(ctx context.Context, vpcID string, body 
 type VPCAvailabilityNewParams struct {
 	// Name of the VPC.
 	Name string `json:"name,required"`
+	// Project ID the VPC belongs to.
+	ProjectID string `json:"project_id,required"`
 	// Region the resource is in.
 	//
 	// Any of "us-sea-1", "us-sva-1", "us-sva-2", "us-chi-1", "us-wdc-1", "eu-frk-1",
@@ -67,8 +69,6 @@ type VPCAvailabilityNewParams struct {
 	Region shared.RegionName `json:"region,omitzero,required"`
 	// Name of the subnet to create.
 	SubnetName string `json:"subnet_name,required"`
-	// Project ID the VPC belongs to.
-	ProjectID param.Opt[string] `json:"project_id,omitzero"`
 	// Tags to attach to the VPC.
 	Tags []string `json:"tags,omitzero"`
 	paramObj

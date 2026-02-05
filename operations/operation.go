@@ -85,6 +85,8 @@ type Operation struct {
 	//
 	// Any of "vm", "volume", "vpc", "firewall_rule".
 	Kind OperationKind `json:"kind,required"`
+	// Project ID the Operation belongs to.
+	ProjectID string `json:"project_id,required"`
 	// ID of the resource that the Operation is acting on.
 	ResourceID string `json:"resource_id,required"`
 	// Status of the Operation.
@@ -97,18 +99,16 @@ type Operation struct {
 	Type OperationType `json:"type,required"`
 	// When the Operation was updated.
 	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
-	// Project ID the Operation belongs to.
-	ProjectID string `json:"project_id"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field
 		CreatedAt   respjson.Field
 		Kind        respjson.Field
+		ProjectID   respjson.Field
 		ResourceID  respjson.Field
 		Status      respjson.Field
 		Type        respjson.Field
 		UpdatedAt   respjson.Field
-		ProjectID   respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`
@@ -171,12 +171,12 @@ const (
 )
 
 type OperationListParams struct {
+	// Project ID of resources to request
+	ProjectID string `query:"project_id,required" json:"-"`
 	// Pagination cursor returned by a previous request
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
 	// Maximum number of items to return
 	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
-	// Project ID of resources to request
-	ProjectID param.Opt[string] `query:"project_id,omitzero" json:"-"`
 	paramObj
 }
 
