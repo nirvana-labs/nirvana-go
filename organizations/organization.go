@@ -40,6 +40,26 @@ func NewOrganizationService(opts ...option.RequestOption) (r OrganizationService
 	return
 }
 
+// Create a new organization
+func (r *OrganizationService) New(ctx context.Context, body OrganizationNewParams, opts ...option.RequestOption) (res *Organization, err error) {
+	opts = slices.Concat(r.Options, opts)
+	path := "v1/organizations"
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
+	return
+}
+
+// Update an existing organization
+func (r *OrganizationService) Update(ctx context.Context, organizationID string, body OrganizationUpdateParams, opts ...option.RequestOption) (res *Organization, err error) {
+	opts = slices.Concat(r.Options, opts)
+	if organizationID == "" {
+		err = errors.New("missing required organization_id parameter")
+		return
+	}
+	path := fmt.Sprintf("v1/organizations/%s", organizationID)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
+	return
+}
+
 // List all Organizations
 func (r *OrganizationService) List(ctx context.Context, query OrganizationListParams, opts ...option.RequestOption) (res *pagination.Cursor[Organization], err error) {
 	var raw *http.Response
@@ -118,6 +138,34 @@ type OrganizationList struct {
 // Returns the unmodified JSON received from the API
 func (r OrganizationList) RawJSON() string { return r.JSON.raw }
 func (r *OrganizationList) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+type OrganizationNewParams struct {
+	// Organization name.
+	Name string `json:"name,required"`
+	paramObj
+}
+
+func (r OrganizationNewParams) MarshalJSON() (data []byte, err error) {
+	type shadow OrganizationNewParams
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *OrganizationNewParams) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+type OrganizationUpdateParams struct {
+	// Organization name.
+	Name param.Opt[string] `json:"name,omitzero"`
+	paramObj
+}
+
+func (r OrganizationUpdateParams) MarshalJSON() (data []byte, err error) {
+	type shadow OrganizationUpdateParams
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *OrganizationUpdateParams) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
