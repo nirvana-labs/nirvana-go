@@ -60,7 +60,7 @@ func (r *OrganizationService) Update(ctx context.Context, organizationID string,
 	return
 }
 
-// List all Organizations
+// List organizations for the authenticated user
 func (r *OrganizationService) List(ctx context.Context, query OrganizationListParams, opts ...option.RequestOption) (res *pagination.Cursor[Organization], err error) {
 	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
@@ -78,7 +78,7 @@ func (r *OrganizationService) List(ctx context.Context, query OrganizationListPa
 	return res, nil
 }
 
-// List all Organizations
+// List organizations for the authenticated user
 func (r *OrganizationService) ListAutoPaging(ctx context.Context, query OrganizationListParams, opts ...option.RequestOption) *pagination.CursorAutoPager[Organization] {
 	return pagination.NewCursorAutoPager(r.List(ctx, query, opts...))
 }
