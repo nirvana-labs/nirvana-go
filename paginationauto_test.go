@@ -26,7 +26,7 @@ func TestAutoPagination(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	iter := client.Compute.VMs.ListAutoPaging(context.TODO(), compute.VMListParams{
-		ProjectID: "project_id",
+		ProjectID: "123e4567-e89b-12d3-a456-426614174000",
 		Limit:     nirvana.Int(10),
 	})
 	// Prism mock isn't going to give us real pagination

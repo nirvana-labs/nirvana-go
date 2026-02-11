@@ -319,7 +319,7 @@ You can use `.ListAutoPaging()` methods to iterate through items across all page
 
 ```go
 iter := client.Compute.VMs.ListAutoPaging(context.TODO(), compute.VMListParams{
-	ProjectID: "project_id",
+	ProjectID: "123e4567-e89b-12d3-a456-426614174000",
 	Limit:     nirvana.Int(10),
 })
 // Automatically fetches more pages as needed.
@@ -337,7 +337,7 @@ with additional helper methods like `.GetNextPage()`, e.g.:
 
 ```go
 page, err := client.Compute.VMs.List(context.TODO(), compute.VMListParams{
-	ProjectID: "project_id",
+	ProjectID: "123e4567-e89b-12d3-a456-426614174000",
 	Limit:     nirvana.Int(10),
 })
 for page != nil {
