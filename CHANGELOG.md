@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.43.0 (2026-02-11)
+
+Full Changelog: [v1.42.0...v1.43.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.42.0...v1.43.0)
+
+### Features
+
+* **api:** api update ([7ada4d8](https://github.com/nirvana-labs/nirvana-go/commit/7ada4d8dd78eededebe572d994c8e514ca6feeb1))
+
+
+### Bug Fixes
+
+* **encoder:** correctly serialize NullStruct ([c0e5821](https://github.com/nirvana-labs/nirvana-go/commit/c0e5821f6ae3dc15437c8580ce98e0bc7b04e3c7))
+
 ## 1.42.0 (2026-02-11)
 
 Full Changelog: [v1.41.0...v1.42.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.41.0...v1.42.0)
