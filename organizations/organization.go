@@ -60,7 +60,7 @@ func (r *OrganizationService) Update(ctx context.Context, organizationID string,
 	return
 }
 
-// List all Organizations
+// List organizations for the authenticated user
 func (r *OrganizationService) List(ctx context.Context, query OrganizationListParams, opts ...option.RequestOption) (res *pagination.Cursor[Organization], err error) {
 	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
@@ -78,7 +78,7 @@ func (r *OrganizationService) List(ctx context.Context, query OrganizationListPa
 	return res, nil
 }
 
-// List all Organizations
+// List organizations for the authenticated user
 func (r *OrganizationService) ListAutoPaging(ctx context.Context, query OrganizationListParams, opts ...option.RequestOption) *pagination.CursorAutoPager[Organization] {
 	return pagination.NewCursorAutoPager(r.List(ctx, query, opts...))
 }
@@ -105,12 +105,15 @@ type Organization struct {
 	Name string `json:"name,required"`
 	// When the Organization was updated.
 	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
+	// Authentication provider organization ID.
+	AuthID string `json:"auth_id"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field
 		CreatedAt   respjson.Field
 		Name        respjson.Field
 		UpdatedAt   respjson.Field
+		AuthID      respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`
