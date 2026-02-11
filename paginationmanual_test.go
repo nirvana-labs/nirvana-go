@@ -26,7 +26,7 @@ func TestManualPagination(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	page, err := client.Compute.VMs.List(context.TODO(), compute.VMListParams{
-		ProjectID: "project_id",
+		ProjectID: "123e4567-e89b-12d3-a456-426614174000",
 		Limit:     nirvana.Int(10),
 	})
 	if err != nil {

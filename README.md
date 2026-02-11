@@ -39,7 +39,7 @@ Or to pin the version:
 <!-- x-release-please-start-version -->
 
 ```sh
-go get -u 'github.com/nirvana-labs/nirvana-go@v1.43.0'
+go get -u 'github.com/nirvana-labs/nirvana-go@v1.44.0'
 ```
 
 <!-- x-release-please-end -->
@@ -319,7 +319,7 @@ You can use `.ListAutoPaging()` methods to iterate through items across all page
 
 ```go
 iter := client.Compute.VMs.ListAutoPaging(context.TODO(), compute.VMListParams{
-	ProjectID: "project_id",
+	ProjectID: "123e4567-e89b-12d3-a456-426614174000",
 	Limit:     nirvana.Int(10),
 })
 // Automatically fetches more pages as needed.
@@ -337,7 +337,7 @@ with additional helper methods like `.GetNextPage()`, e.g.:
 
 ```go
 page, err := client.Compute.VMs.List(context.TODO(), compute.VMListParams{
-	ProjectID: "project_id",
+	ProjectID: "123e4567-e89b-12d3-a456-426614174000",
 	Limit:     nirvana.Int(10),
 })
 for page != nil {
