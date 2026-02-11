@@ -28,7 +28,7 @@ func TestVMAvailabilityNewWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Compute.VMs.Availability.New(context.TODO(), compute.VMAvailabilityNewParams{
+	err := client.Compute.VMs.Availability.New(context.TODO(), compute.VMAvailabilityNewParams{
 		BootVolume: compute.VMAvailabilityNewParamsBootVolume{
 			Size: 100,
 			Type: compute.VolumeTypeNvme,
@@ -79,7 +79,7 @@ func TestVMAvailabilityUpdateWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Compute.VMs.Availability.Update(
+	err := client.Compute.VMs.Availability.Update(
 		context.TODO(),
 		"vm_id",
 		compute.VMAvailabilityUpdateParams{

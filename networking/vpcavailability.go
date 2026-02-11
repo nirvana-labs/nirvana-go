@@ -36,24 +36,24 @@ func NewVPCAvailabilityService(opts ...option.RequestOption) (r VPCAvailabilityS
 }
 
 // Check if a VPC can be created
-func (r *VPCAvailabilityService) New(ctx context.Context, body VPCAvailabilityNewParams, opts ...option.RequestOption) (res *string, err error) {
+func (r *VPCAvailabilityService) New(ctx context.Context, body VPCAvailabilityNewParams, opts ...option.RequestOption) (err error) {
 	opts = slices.Concat(r.Options, opts)
-	opts = append([]option.RequestOption{option.WithHeader("Accept", "text/plain")}, opts...)
+	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	path := "v1/networking/vpcs/availability"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, nil, opts...)
 	return
 }
 
 // Check if a VPC can be updated
-func (r *VPCAvailabilityService) Update(ctx context.Context, vpcID string, body VPCAvailabilityUpdateParams, opts ...option.RequestOption) (res *string, err error) {
+func (r *VPCAvailabilityService) Update(ctx context.Context, vpcID string, body VPCAvailabilityUpdateParams, opts ...option.RequestOption) (err error) {
 	opts = slices.Concat(r.Options, opts)
-	opts = append([]option.RequestOption{option.WithHeader("Accept", "text/plain")}, opts...)
+	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	if vpcID == "" {
 		err = errors.New("missing required vpc_id parameter")
 		return
 	}
 	path := fmt.Sprintf("v1/networking/vpcs/%s/availability", vpcID)
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, nil, opts...)
 	return
 }
 
