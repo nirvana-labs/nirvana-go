@@ -28,7 +28,7 @@ func TestVPCAvailabilityNewWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Networking.VPCs.Availability.New(context.TODO(), networking.VPCAvailabilityNewParams{
+	err := client.Networking.VPCs.Availability.New(context.TODO(), networking.VPCAvailabilityNewParams{
 		Name:       "my-vpc",
 		ProjectID:  "123e4567-e89b-12d3-a456-426614174000",
 		Region:     shared.RegionNameUsWdc1,
@@ -57,7 +57,7 @@ func TestVPCAvailabilityUpdateWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Networking.VPCs.Availability.Update(
+	err := client.Networking.VPCs.Availability.Update(
 		context.TODO(),
 		"vpc_id",
 		networking.VPCAvailabilityUpdateParams{
