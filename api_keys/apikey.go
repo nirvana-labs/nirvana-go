@@ -60,7 +60,7 @@ func (r *APIKeyService) Update(ctx context.Context, apiKeyID string, body APIKey
 	return
 }
 
-// List all API keys for the authenticated user
+// List all API keys
 func (r *APIKeyService) List(ctx context.Context, query APIKeyListParams, opts ...option.RequestOption) (res *pagination.Cursor[APIKey], err error) {
 	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
@@ -78,7 +78,7 @@ func (r *APIKeyService) List(ctx context.Context, query APIKeyListParams, opts .
 	return res, nil
 }
 
-// List all API keys for the authenticated user
+// List all API keys
 func (r *APIKeyService) ListAutoPaging(ctx context.Context, query APIKeyListParams, opts ...option.RequestOption) *pagination.CursorAutoPager[APIKey] {
 	return pagination.NewCursorAutoPager(r.List(ctx, query, opts...))
 }
