@@ -60,7 +60,7 @@ func (r *ProjectService) Update(ctx context.Context, projectID string, body Proj
 	return
 }
 
-// List all projects for the authenticated user
+// List all projects
 func (r *ProjectService) List(ctx context.Context, query ProjectListParams, opts ...option.RequestOption) (res *pagination.Cursor[Project], err error) {
 	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
@@ -78,7 +78,7 @@ func (r *ProjectService) List(ctx context.Context, query ProjectListParams, opts
 	return res, nil
 }
 
-// List all projects for the authenticated user
+// List all projects
 func (r *ProjectService) ListAutoPaging(ctx context.Context, query ProjectListParams, opts ...option.RequestOption) *pagination.CursorAutoPager[Project] {
 	return pagination.NewCursorAutoPager(r.List(ctx, query, opts...))
 }
@@ -122,8 +122,6 @@ type Project struct {
 	Tags []string `json:"tags,required"`
 	// When the Project was updated.
 	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
-	// User ID that owns the project.
-	UserID string `json:"user_id,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field
@@ -132,7 +130,6 @@ type Project struct {
 		Resources   respjson.Field
 		Tags        respjson.Field
 		UpdatedAt   respjson.Field
-		UserID      respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`
