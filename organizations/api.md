@@ -4,6 +4,7 @@ Response Types:
 
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/organizations">organizations</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/organizations#Organization">Organization</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/organizations">organizations</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/organizations#OrganizationList">OrganizationList</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/organizations">organizations</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/organizations#OrganizationMembership">OrganizationMembership</a>
 
 Methods:
 
