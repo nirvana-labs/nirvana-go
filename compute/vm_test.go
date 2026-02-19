@@ -31,7 +31,7 @@ func TestVMNewWithOptionalParams(t *testing.T) {
 	_, err := client.Compute.VMs.New(context.TODO(), compute.VMNewParams{
 		BootVolume: compute.VMNewParamsBootVolume{
 			Size: 100,
-			Type: compute.VolumeTypeNvme,
+			Type: compute.VolumeTypeABS,
 			Tags: []string{"production", "ethereum"},
 		},
 		CPUConfig: compute.CPUConfigRequestParam{
@@ -52,7 +52,7 @@ func TestVMNewWithOptionalParams(t *testing.T) {
 		DataVolumes: []compute.VMNewParamsDataVolume{{
 			Name: "my-data-volume",
 			Size: 100,
-			Type: compute.VolumeTypeNvme,
+			Type: compute.VolumeTypeABS,
 			Tags: []string{"production", "ethereum"},
 		}},
 		Tags: []string{"production", "ethereum"},

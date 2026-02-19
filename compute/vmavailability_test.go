@@ -31,7 +31,7 @@ func TestVMAvailabilityNewWithOptionalParams(t *testing.T) {
 	err := client.Compute.VMs.Availability.New(context.TODO(), compute.VMAvailabilityNewParams{
 		BootVolume: compute.VMAvailabilityNewParamsBootVolume{
 			Size: 100,
-			Type: compute.VolumeTypeNvme,
+			Type: compute.VolumeTypeABS,
 			Tags: []string{"production", "ethereum"},
 		},
 		CPUConfig: compute.CPUConfigRequestParam{
@@ -52,7 +52,7 @@ func TestVMAvailabilityNewWithOptionalParams(t *testing.T) {
 		DataVolumes: []compute.VMAvailabilityNewParamsDataVolume{{
 			Name: "my-data-volume",
 			Size: 100,
-			Type: compute.VolumeTypeNvme,
+			Type: compute.VolumeTypeABS,
 			Tags: []string{"production", "ethereum"},
 		}},
 		Tags: []string{"production", "ethereum"},
