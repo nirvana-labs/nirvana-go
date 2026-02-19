@@ -33,7 +33,7 @@ func TestVolumeAvailabilityNewWithOptionalParams(t *testing.T) {
 		ProjectID: "123e4567-e89b-12d3-a456-426614174000",
 		Region:    shared.RegionNameUsWdc1,
 		Size:      100,
-		Type:      compute.VolumeTypeNvme,
+		Type:      compute.VolumeTypeABS,
 		Tags:      []string{"production", "ethereum"},
 		VMID:      nirvana.String("123e4567-e89b-12d3-a456-426614174000"),
 	})
