@@ -128,29 +128,6 @@ func (r *Organization) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// Current user's membership details.
-type OrganizationMembership struct {
-	// Membership ID.
-	ID string `json:"id,required"`
-	// Role of the user in the organization.
-	//
-	// Any of "owner", "member".
-	Role string `json:"role,required"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		ID          respjson.Field
-		Role        respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
-	} `json:"-"`
-}
-
-// Returns the unmodified JSON received from the API
-func (r OrganizationMembership) RawJSON() string { return r.JSON.raw }
-func (r *OrganizationMembership) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
 type OrganizationList struct {
 	Items []Organization `json:"items,required"`
 	// Pagination response details.
@@ -169,6 +146,37 @@ func (r OrganizationList) RawJSON() string { return r.JSON.raw }
 func (r *OrganizationList) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
+
+// Current user's membership details.
+type OrganizationMembership struct {
+	// Membership ID.
+	ID string `json:"id,required"`
+	// Role of the user in the organization.
+	//
+	// Any of "owner", "member".
+	Role OrganizationMembershipRole `json:"role,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		ID          respjson.Field
+		Role        respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r OrganizationMembership) RawJSON() string { return r.JSON.raw }
+func (r *OrganizationMembership) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// Role of the user in the organization.
+type OrganizationMembershipRole string
+
+const (
+	OrganizationMembershipRoleOwner  OrganizationMembershipRole = "owner"
+	OrganizationMembershipRoleMember OrganizationMembershipRole = "member"
+)
 
 type OrganizationNewParams struct {
 	// Organization name.
