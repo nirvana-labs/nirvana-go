@@ -26,7 +26,7 @@ func TestUsage(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	t.Skip("Prism tests are disabled")
+	t.Skip("Mock server tests are disabled")
 	operation, err := client.Compute.VMs.New(context.TODO(), compute.VMNewParams{
 		BootVolume: compute.VMNewParamsBootVolume{
 			Size: 100,
