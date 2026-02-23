@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.46.1 (2026-02-22)
+
+Full Changelog: [v1.46.0...v1.46.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.46.0...v1.46.1)
+
+### Bug Fixes
+
+* allow canceling a request while it is waiting to retry ([35f30a8](https://github.com/nirvana-labs/nirvana-go/commit/35f30a812506bf39ef39bc0cccd6e69bf6d2b410))
+* **internal:** skip tests that depend on mock server ([58fc627](https://github.com/nirvana-labs/nirvana-go/commit/58fc627e61139d1a9f3ce5db485e6cbb8402bee3))
+
+
+### Chores
+
+* **internal:** remove mock server code ([3e8cd04](https://github.com/nirvana-labs/nirvana-go/commit/3e8cd04193fbc6259c7da800edb6f69b66b993e1))
+* update mock server docs ([aef0495](https://github.com/nirvana-labs/nirvana-go/commit/aef0495293489e82d166a69ceca120c7c31ee6bd))
+
 ## 1.46.0 (2026-02-19)
 
 Full Changelog: [v1.45.0...v1.46.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.45.0...v1.46.0)
