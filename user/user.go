@@ -52,15 +52,12 @@ type User struct {
 	FirstName string `json:"first_name,required"`
 	// Last name of the user.
 	LastName string `json:"last_name,required"`
-	// Services that the User has access to.
-	Services UserServices `json:"services,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field
 		Email       respjson.Field
 		FirstName   respjson.Field
 		LastName    respjson.Field
-		Services    respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`
@@ -69,22 +66,5 @@ type User struct {
 // Returns the unmodified JSON received from the API
 func (r User) RawJSON() string { return r.JSON.raw }
 func (r *User) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// Services that the User has access to.
-type UserServices struct {
-	Cloud bool `json:"cloud"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		Cloud       respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
-	} `json:"-"`
-}
-
-// Returns the unmodified JSON received from the API
-func (r UserServices) RawJSON() string { return r.JSON.raw }
-func (r *UserServices) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
