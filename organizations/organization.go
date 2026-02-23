@@ -105,6 +105,8 @@ type Organization struct {
 	Membership OrganizationMembership `json:"membership,required"`
 	// Organization name.
 	Name string `json:"name,required"`
+	// Services that the Organization has access to.
+	Services Services `json:"services,required"`
 	// When the Organization was updated.
 	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
 	// Authentication provider organization ID.
@@ -115,6 +117,7 @@ type Organization struct {
 		CreatedAt   respjson.Field
 		Membership  respjson.Field
 		Name        respjson.Field
+		Services    respjson.Field
 		UpdatedAt   respjson.Field
 		AuthID      respjson.Field
 		ExtraFields map[string]respjson.Field
@@ -177,6 +180,23 @@ const (
 	OrganizationMembershipRoleOwner  OrganizationMembershipRole = "owner"
 	OrganizationMembershipRoleMember OrganizationMembershipRole = "member"
 )
+
+// Services that the Organization has access to.
+type Services struct {
+	Cloud bool `json:"cloud"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Cloud       respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r Services) RawJSON() string { return r.JSON.raw }
+func (r *Services) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
 
 type OrganizationNewParams struct {
 	// Organization name.
