@@ -105,6 +105,8 @@ type Organization struct {
 	Membership OrganizationMembership `json:"membership,required"`
 	// Organization name.
 	Name string `json:"name,required"`
+	// Whether the organization is a personal Organization.
+	Personal bool `json:"personal,required"`
 	// Services that the Organization has access to.
 	Services Services `json:"services,required"`
 	// When the Organization was updated.
@@ -117,6 +119,7 @@ type Organization struct {
 		CreatedAt   respjson.Field
 		Membership  respjson.Field
 		Name        respjson.Field
+		Personal    respjson.Field
 		Services    respjson.Field
 		UpdatedAt   respjson.Field
 		AuthID      respjson.Field
