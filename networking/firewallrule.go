@@ -131,33 +131,33 @@ func (r *FirewallRuleService) Get(ctx context.Context, vpcID string, firewallRul
 // Firewall rule details.
 type FirewallRule struct {
 	// Unique identifier for the Firewall Rule.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// When the Firewall Rule was created.
-	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
+	CreatedAt time.Time `json:"created_at" api:"required" format:"date-time"`
 	// Destination address of the Firewall Rule. Either VPC CIDR or VM in VPC.
-	DestinationAddress string `json:"destination_address,required"`
+	DestinationAddress string `json:"destination_address" api:"required"`
 	// Destination ports of the Firewall Rule.
-	DestinationPorts []string `json:"destination_ports,required"`
+	DestinationPorts []string `json:"destination_ports" api:"required"`
 	// Name of the Firewall Rule.
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// Protocol of the Firewall Rule.
 	//
 	// Any of "tcp", "udp".
-	Protocol FirewallRuleProtocol `json:"protocol,required"`
+	Protocol FirewallRuleProtocol `json:"protocol" api:"required"`
 	// Source address of the Firewall Rule. Address of 0.0.0.0 requires a CIDR mask
 	// of 0.
-	SourceAddress string `json:"source_address,required"`
+	SourceAddress string `json:"source_address" api:"required"`
 	// Status of the resource.
 	//
 	// Any of "pending", "creating", "updating", "ready", "deleting", "deleted",
 	// "error".
-	Status shared.ResourceStatus `json:"status,required"`
+	Status shared.ResourceStatus `json:"status" api:"required"`
 	// Tags to attach to the Firewall Rule.
-	Tags []string `json:"tags,required"`
+	Tags []string `json:"tags" api:"required"`
 	// When the Firewall Rule was updated.
-	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
+	UpdatedAt time.Time `json:"updated_at" api:"required" format:"date-time"`
 	// ID of the VPC the Firewall Rule belongs to.
-	VPCID string `json:"vpc_id,required"`
+	VPCID string `json:"vpc_id" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID                 respjson.Field
@@ -191,9 +191,9 @@ const (
 )
 
 type FirewallRuleList struct {
-	Items []FirewallRule `json:"items,required"`
+	Items []FirewallRule `json:"items" api:"required"`
 	// Pagination response details.
-	Pagination shared.Pagination `json:"pagination,required"`
+	Pagination shared.Pagination `json:"pagination" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
@@ -212,18 +212,18 @@ func (r *FirewallRuleList) UnmarshalJSON(data []byte) error {
 type FirewallRuleNewParams struct {
 	// Destination address of the Firewall Rule. Either VPC CIDR or VM in VPC. Must be
 	// in network-aligned/canonical form.
-	DestinationAddress string `json:"destination_address,required"`
+	DestinationAddress string `json:"destination_address" api:"required"`
 	// Destination ports of the Firewall Rule.
-	DestinationPorts []string `json:"destination_ports,omitzero,required"`
+	DestinationPorts []string `json:"destination_ports,omitzero" api:"required"`
 	// Name of the Firewall Rule.
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// Protocol of the Firewall Rule.
 	//
 	// Any of "tcp", "udp".
-	Protocol FirewallRuleNewParamsProtocol `json:"protocol,omitzero,required"`
+	Protocol FirewallRuleNewParamsProtocol `json:"protocol,omitzero" api:"required"`
 	// Source address of the Firewall Rule. Address of 0.0.0.0 requires a CIDR mask
 	// of 0. Must be in network-aligned/canonical form.
-	SourceAddress string `json:"source_address,required"`
+	SourceAddress string `json:"source_address" api:"required"`
 	// Tags to attach to the Firewall Rule.
 	Tags []string `json:"tags,omitzero"`
 	paramObj

@@ -137,41 +137,41 @@ func (r *VolumeService) Get(ctx context.Context, volumeID string, opts ...option
 // Volume details.
 type Volume struct {
 	// Unique identifier for the Volume.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// When the Volume was created.
-	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
+	CreatedAt time.Time `json:"created_at" api:"required" format:"date-time"`
 	// Volume kind.
 	//
 	// Any of "boot", "data".
-	Kind VolumeKind `json:"kind,required"`
+	Kind VolumeKind `json:"kind" api:"required"`
 	// Name of the Volume.
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// Project ID the Volume belongs to.
-	ProjectID string `json:"project_id,required"`
+	ProjectID string `json:"project_id" api:"required"`
 	// Region the resource is in.
 	//
 	// Any of "us-sea-1", "us-sva-1", "us-sva-2", "us-chi-1", "us-wdc-1", "eu-frk-1",
 	// "ap-sin-1".
-	Region shared.RegionName `json:"region,required"`
+	Region shared.RegionName `json:"region" api:"required"`
 	// Size of the Volume in GB.
-	Size int64 `json:"size,required"`
+	Size int64 `json:"size" api:"required"`
 	// Status of the resource.
 	//
 	// Any of "pending", "creating", "updating", "ready", "deleting", "deleted",
 	// "error".
-	Status shared.ResourceStatus `json:"status,required"`
+	Status shared.ResourceStatus `json:"status" api:"required"`
 	// Tags to attach to the Volume.
-	Tags []string `json:"tags,required"`
+	Tags []string `json:"tags" api:"required"`
 	// Type of the Volume.
 	//
 	// Any of "nvme", "abs".
-	Type VolumeType `json:"type,required"`
+	Type VolumeType `json:"type" api:"required"`
 	// When the Volume was updated.
-	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
+	UpdatedAt time.Time `json:"updated_at" api:"required" format:"date-time"`
 	// ID of the VM the Volume is attached to.
-	VMID string `json:"vm_id,required"`
+	VMID string `json:"vm_id" api:"required"`
 	// Name of the VM the Volume is attached to.
-	VMName string `json:"vm_name,required"`
+	VMName string `json:"vm_name" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field
@@ -207,9 +207,9 @@ const (
 )
 
 type VolumeList struct {
-	Items []Volume `json:"items,required"`
+	Items []Volume `json:"items" api:"required"`
 	// Pagination response details.
-	Pagination shared.Pagination `json:"pagination,required"`
+	Pagination shared.Pagination `json:"pagination" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
@@ -235,20 +235,20 @@ const (
 
 type VolumeNewParams struct {
 	// Name of the Volume.
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// Project ID the Volume belongs to.
-	ProjectID string `json:"project_id,required"`
+	ProjectID string `json:"project_id" api:"required"`
 	// Region the resource is in.
 	//
 	// Any of "us-sea-1", "us-sva-1", "us-sva-2", "us-chi-1", "us-wdc-1", "eu-frk-1",
 	// "ap-sin-1".
-	Region shared.RegionName `json:"region,omitzero,required"`
+	Region shared.RegionName `json:"region,omitzero" api:"required"`
 	// Size of the Volume in GB.
-	Size int64 `json:"size,required"`
+	Size int64 `json:"size" api:"required"`
 	// Type of the Volume.
 	//
 	// Any of "nvme", "abs".
-	Type VolumeType `json:"type,omitzero,required"`
+	Type VolumeType `json:"type,omitzero" api:"required"`
 	// ID of the VM the Volume is attached to.
 	VMID param.Opt[string] `json:"vm_id,omitzero"`
 	// Tags to attach to the Volume.
@@ -284,7 +284,7 @@ func (r *VolumeUpdateParams) UnmarshalJSON(data []byte) error {
 
 type VolumeListParams struct {
 	// Project ID of resources to request
-	ProjectID string `query:"project_id,required" json:"-"`
+	ProjectID string `query:"project_id" api:"required" json:"-"`
 	// Pagination cursor returned by a previous request
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
 	// Maximum number of items to return
@@ -302,7 +302,7 @@ func (r VolumeListParams) URLQuery() (v url.Values, err error) {
 
 type VolumeAttachParams struct {
 	// ID of the VM to attach the Volume to.
-	VMID string `json:"vm_id,required"`
+	VMID string `json:"vm_id" api:"required"`
 	paramObj
 }
 

@@ -79,15 +79,15 @@ type Region struct {
 	// Availability status of the region.
 	//
 	// Any of "live", "preview", "maintenance", "sunset".
-	Availability RegionAvailability `json:"availability,required"`
+	Availability RegionAvailability `json:"availability" api:"required"`
 	// Compute products available in this region.
-	Compute RegionCompute `json:"compute,required"`
+	Compute RegionCompute `json:"compute" api:"required"`
 	// Name of the region.
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// Networking products available in this region.
-	Networking RegionNetworking `json:"networking,required"`
+	Networking RegionNetworking `json:"networking" api:"required"`
 	// Storage products available in this region.
-	Storage RegionStorage `json:"storage,required"`
+	Storage RegionStorage `json:"storage" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Availability respjson.Field
@@ -109,7 +109,7 @@ func (r *Region) UnmarshalJSON(data []byte) error {
 // Compute products available in this region.
 type RegionCompute struct {
 	// VMs indicates if Virtual Machines are available.
-	VMs bool `json:"vms,required"`
+	VMs bool `json:"vms" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		VMs         respjson.Field
@@ -127,9 +127,9 @@ func (r *RegionCompute) UnmarshalJSON(data []byte) error {
 // Networking products available in this region.
 type RegionNetworking struct {
 	// Connect indicates if Nirvana Connect is available.
-	Connect bool `json:"connect,required"`
+	Connect bool `json:"connect" api:"required"`
 	// VPCs indicates if Virtual Private Clouds are available.
-	VPCs bool `json:"vpcs,required"`
+	VPCs bool `json:"vpcs" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Connect     respjson.Field
@@ -148,9 +148,9 @@ func (r *RegionNetworking) UnmarshalJSON(data []byte) error {
 // Storage products available in this region.
 type RegionStorage struct {
 	// ABS indicates if Accelerated Block Storage is available.
-	ABS bool `json:"abs,required"`
+	ABS bool `json:"abs" api:"required"`
 	// LocalNVMe indicates if locally-attached NVMe storage is available.
-	LocalNvme bool `json:"local_nvme,required"`
+	LocalNvme bool `json:"local_nvme" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ABS         respjson.Field
@@ -177,9 +177,9 @@ const (
 )
 
 type RegionList struct {
-	Items []Region `json:"items,required"`
+	Items []Region `json:"items" api:"required"`
 	// Pagination response details.
-	Pagination shared.Pagination `json:"pagination,required"`
+	Pagination shared.Pagination `json:"pagination" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field

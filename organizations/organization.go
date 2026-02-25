@@ -98,19 +98,19 @@ func (r *OrganizationService) Get(ctx context.Context, organizationID string, op
 // Organization response.
 type Organization struct {
 	// Organization ID.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// When the Organization was created.
-	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
+	CreatedAt time.Time `json:"created_at" api:"required" format:"date-time"`
 	// Current user's membership details.
-	Membership OrganizationMembership `json:"membership,required"`
+	Membership OrganizationMembership `json:"membership" api:"required"`
 	// Organization name.
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// Whether the organization is a personal Organization.
-	Personal bool `json:"personal,required"`
+	Personal bool `json:"personal" api:"required"`
 	// Services that the Organization has access to.
-	Services Services `json:"services,required"`
+	Services Services `json:"services" api:"required"`
 	// When the Organization was updated.
-	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
+	UpdatedAt time.Time `json:"updated_at" api:"required" format:"date-time"`
 	// Authentication provider organization ID.
 	AuthID string `json:"auth_id"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -135,9 +135,9 @@ func (r *Organization) UnmarshalJSON(data []byte) error {
 }
 
 type OrganizationList struct {
-	Items []Organization `json:"items,required"`
+	Items []Organization `json:"items" api:"required"`
 	// Pagination response details.
-	Pagination shared.Pagination `json:"pagination,required"`
+	Pagination shared.Pagination `json:"pagination" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
@@ -156,11 +156,11 @@ func (r *OrganizationList) UnmarshalJSON(data []byte) error {
 // Current user's membership details.
 type OrganizationMembership struct {
 	// Membership ID.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// Role of the user in the organization.
 	//
 	// Any of "owner", "member".
-	Role OrganizationMembershipRole `json:"role,required"`
+	Role OrganizationMembershipRole `json:"role" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field
@@ -203,7 +203,7 @@ func (r *Services) UnmarshalJSON(data []byte) error {
 
 type OrganizationNewParams struct {
 	// Organization name.
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	paramObj
 }
 

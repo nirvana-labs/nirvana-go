@@ -59,28 +59,28 @@ func (r *VMAvailabilityService) Update(ctx context.Context, vmID string, body VM
 
 type VMAvailabilityNewParams struct {
 	// Boot volume for the VM.
-	BootVolume VMAvailabilityNewParamsBootVolume `json:"boot_volume,omitzero,required"`
+	BootVolume VMAvailabilityNewParamsBootVolume `json:"boot_volume,omitzero" api:"required"`
 	// CPU configuration for the VM.
-	CPUConfig CPUConfigRequestParam `json:"cpu_config,omitzero,required"`
+	CPUConfig CPUConfigRequestParam `json:"cpu_config,omitzero" api:"required"`
 	// Memory configuration for the VM.
-	MemoryConfig MemoryConfigRequestParam `json:"memory_config,omitzero,required"`
+	MemoryConfig MemoryConfigRequestParam `json:"memory_config,omitzero" api:"required"`
 	// Name of the VM.
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// Name of the OS Image to use for the VM.
-	OSImageName string `json:"os_image_name,required"`
+	OSImageName string `json:"os_image_name" api:"required"`
 	// Project ID to create the VM in.
-	ProjectID string `json:"project_id,required"`
+	ProjectID string `json:"project_id" api:"required"`
 	// Whether to enable public IP for the VM.
-	PublicIPEnabled bool `json:"public_ip_enabled,required"`
+	PublicIPEnabled bool `json:"public_ip_enabled" api:"required"`
 	// Region the resource is in.
 	//
 	// Any of "us-sea-1", "us-sva-1", "us-sva-2", "us-chi-1", "us-wdc-1", "eu-frk-1",
 	// "ap-sin-1".
-	Region shared.RegionName `json:"region,omitzero,required"`
+	Region shared.RegionName `json:"region,omitzero" api:"required"`
 	// Public SSH key configuration for the VM.
-	SSHKey SSHKeyRequestParam `json:"ssh_key,omitzero,required"`
+	SSHKey SSHKeyRequestParam `json:"ssh_key,omitzero" api:"required"`
 	// ID of the subnet to use for the VM.
-	SubnetID string `json:"subnet_id,required"`
+	SubnetID string `json:"subnet_id" api:"required"`
 	// Data volumes for the VM.
 	DataVolumes []VMAvailabilityNewParamsDataVolume `json:"data_volumes,omitzero"`
 	// Tags to attach to the VM.
@@ -101,11 +101,11 @@ func (r *VMAvailabilityNewParams) UnmarshalJSON(data []byte) error {
 // The properties Size, Type are required.
 type VMAvailabilityNewParamsBootVolume struct {
 	// Size of the Volume in GB.
-	Size int64 `json:"size,required"`
+	Size int64 `json:"size" api:"required"`
 	// Type of the Volume.
 	//
 	// Any of "nvme", "abs".
-	Type VolumeType `json:"type,omitzero,required"`
+	Type VolumeType `json:"type,omitzero" api:"required"`
 	// Tags to attach to the Volume.
 	Tags []string `json:"tags,omitzero"`
 	paramObj
@@ -124,13 +124,13 @@ func (r *VMAvailabilityNewParamsBootVolume) UnmarshalJSON(data []byte) error {
 // The properties Name, Size, Type are required.
 type VMAvailabilityNewParamsDataVolume struct {
 	// Name of the Volume.
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// Size of the Volume in GB.
-	Size int64 `json:"size,required"`
+	Size int64 `json:"size" api:"required"`
 	// Type of the Volume.
 	//
 	// Any of "nvme", "abs".
-	Type VolumeType `json:"type,omitzero,required"`
+	Type VolumeType `json:"type,omitzero" api:"required"`
 	// Tags to attach to the Volume.
 	Tags []string `json:"tags,omitzero"`
 	paramObj

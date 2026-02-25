@@ -19,8 +19,8 @@ type paramUnion = param.APIUnion
 type paramObj = param.APIObject
 
 type CursorPagination struct {
-	NextCursor     string `json:"next_cursor,nullable"`
-	PreviousCursor string `json:"previous_cursor,nullable"`
+	NextCursor     string `json:"next_cursor" api:"nullable"`
+	PreviousCursor string `json:"previous_cursor" api:"nullable"`
 	TotalCount     int64  `json:"total_count"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -40,7 +40,7 @@ func (r *CursorPagination) UnmarshalJSON(data []byte) error {
 
 type Cursor[T any] struct {
 	Items      []T              `json:"items"`
-	Pagination CursorPagination `json:"pagination,nullable"`
+	Pagination CursorPagination `json:"pagination" api:"nullable"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field

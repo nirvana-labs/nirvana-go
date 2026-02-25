@@ -80,23 +80,23 @@ func (r *DedicatedService) Get(ctx context.Context, nodeID string, opts ...optio
 // RPC Node Dedicated details.
 type Dedicated struct {
 	// Unique identifier for the RPC Node Dedicated.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// Blockchain type.
-	Blockchain string `json:"blockchain,required"`
+	Blockchain string `json:"blockchain" api:"required"`
 	// When the RPC Node Dedicated was created.
-	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
+	CreatedAt time.Time `json:"created_at" api:"required" format:"date-time"`
 	// RPC endpoint URL.
-	Endpoint string `json:"endpoint,required"`
+	Endpoint string `json:"endpoint" api:"required"`
 	// Name of the RPC Node Dedicated.
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// Network type (e.g., mainnet, testnet).
-	Network string `json:"network,required"`
+	Network string `json:"network" api:"required"`
 	// Project identifier associated with the RPC Node Dedicated.
-	ProjectID string `json:"project_id,required"`
+	ProjectID string `json:"project_id" api:"required"`
 	// Tags to attach to the RPC Node Dedicated.
-	Tags []string `json:"tags,required"`
+	Tags []string `json:"tags" api:"required"`
 	// When the RPC Node Dedicated was updated.
-	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
+	UpdatedAt time.Time `json:"updated_at" api:"required" format:"date-time"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field
@@ -122,9 +122,9 @@ func (r *Dedicated) UnmarshalJSON(data []byte) error {
 // Blockchain supported by the RPC Node Dedicated.
 type DedicatedBlockchain struct {
 	// Blockchain type.
-	Blockchain string `json:"blockchain,required"`
+	Blockchain string `json:"blockchain" api:"required"`
 	// Network type (e.g., mainnet, testnet).
-	Network string `json:"network,required"`
+	Network string `json:"network" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Blockchain  respjson.Field
@@ -141,9 +141,9 @@ func (r *DedicatedBlockchain) UnmarshalJSON(data []byte) error {
 }
 
 type DedicatedBlockchainList struct {
-	Items []DedicatedBlockchain `json:"items,required"`
+	Items []DedicatedBlockchain `json:"items" api:"required"`
 	// Pagination response details.
-	Pagination shared.Pagination `json:"pagination,required"`
+	Pagination shared.Pagination `json:"pagination" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
@@ -160,9 +160,9 @@ func (r *DedicatedBlockchainList) UnmarshalJSON(data []byte) error {
 }
 
 type DedicatedList struct {
-	Items []Dedicated `json:"items,required"`
+	Items []Dedicated `json:"items" api:"required"`
 	// Pagination response details.
-	Pagination shared.Pagination `json:"pagination,required"`
+	Pagination shared.Pagination `json:"pagination" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
@@ -180,7 +180,7 @@ func (r *DedicatedList) UnmarshalJSON(data []byte) error {
 
 type DedicatedListParams struct {
 	// Project ID of resources to request
-	ProjectID string `query:"project_id,required" json:"-"`
+	ProjectID string `query:"project_id" api:"required" json:"-"`
 	// Pagination cursor returned by a previous request
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
 	// Maximum number of items to return

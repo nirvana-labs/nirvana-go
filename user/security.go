@@ -54,7 +54,7 @@ func (r *SecurityService) Get(ctx context.Context, opts ...option.RequestOption)
 // User security settings response.
 type UserSecurity struct {
 	// IP filter rules.
-	SourceIPRule UserSecuritySourceIPRule `json:"source_ip_rule,required"`
+	SourceIPRule UserSecuritySourceIPRule `json:"source_ip_rule" api:"required"`
 	// When the user security settings were created.
 	CreatedAt time.Time `json:"created_at" format:"date-time"`
 	// When the user security settings were updated.
@@ -78,9 +78,9 @@ func (r *UserSecurity) UnmarshalJSON(data []byte) error {
 // IP filter rules.
 type UserSecuritySourceIPRule struct {
 	// List of IPv4 CIDR addresses to allow.
-	Allowed []string `json:"allowed,required"`
+	Allowed []string `json:"allowed" api:"required"`
 	// List of IPv4 CIDR addresses to deny.
-	Blocked []string `json:"blocked,required"`
+	Blocked []string `json:"blocked" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Allowed     respjson.Field
