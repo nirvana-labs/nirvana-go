@@ -49,45 +49,45 @@ const (
 // Connect Connection details.
 type ConnectConnection struct {
 	// Unique identifier for the Connect Connection
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// ASN
-	ASN int64 `json:"asn,required"`
+	ASN int64 `json:"asn" api:"required"`
 	// AWS provider configuration
-	AWS ConnectConnectionAWSConfig `json:"aws,required"`
+	AWS ConnectConnectionAWSConfig `json:"aws" api:"required"`
 	// Connect Connection speed in Mbps
 	//
 	// Any of 50, 200, 500, 1000, 2000.
-	BandwidthMbps int64 `json:"bandwidth_mbps,required"`
+	BandwidthMbps int64 `json:"bandwidth_mbps" api:"required"`
 	// CIDRs for the Connect Connection
-	CIDRs []string `json:"cidrs,required"`
+	CIDRs []string `json:"cidrs" api:"required"`
 	// When the Connect Connection was created
-	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
+	CreatedAt time.Time `json:"created_at" api:"required" format:"date-time"`
 	// Name of the Connect Connection
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// Project ID the Connect Connection belongs to
-	ProjectID string `json:"project_id,required"`
+	ProjectID string `json:"project_id" api:"required"`
 	// Provider ASN
-	ProviderASN int64 `json:"provider_asn,required"`
+	ProviderASN int64 `json:"provider_asn" api:"required"`
 	// Provider CIDRs for the Connect Connection
-	ProviderCIDRs []string `json:"provider_cidrs,required"`
+	ProviderCIDRs []string `json:"provider_cidrs" api:"required"`
 	// Provider Router IP for the Connect Connection
-	ProviderRouterIP string `json:"provider_router_ip,required"`
+	ProviderRouterIP string `json:"provider_router_ip" api:"required"`
 	// Region the resource is in.
 	//
 	// Any of "us-sea-1", "us-sva-1", "us-sva-2", "us-chi-1", "us-wdc-1", "eu-frk-1",
 	// "ap-sin-1".
-	Region shared.RegionName `json:"region,required"`
+	Region shared.RegionName `json:"region" api:"required"`
 	// Router IP
-	RouterIP string `json:"router_ip,required"`
+	RouterIP string `json:"router_ip" api:"required"`
 	// Status of the resource.
 	//
 	// Any of "pending", "creating", "updating", "ready", "deleting", "deleted",
 	// "error".
-	Status shared.ResourceStatus `json:"status,required"`
+	Status shared.ResourceStatus `json:"status" api:"required"`
 	// Tags to attach to the Connect Connection
-	Tags []string `json:"tags,required"`
+	Tags []string `json:"tags" api:"required"`
 	// When the Connect Connection was updated
-	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
+	UpdatedAt time.Time `json:"updated_at" api:"required" format:"date-time"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID               respjson.Field
@@ -120,7 +120,7 @@ func (r *ConnectConnection) UnmarshalJSON(data []byte) error {
 // AWS provider configuration
 type ConnectConnectionAWSConfig struct {
 	// AWS region where the connection is established
-	Region string `json:"region,required"`
+	Region string `json:"region" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Region      respjson.Field
@@ -140,9 +140,9 @@ func (r *ConnectConnectionAWSConfig) UnmarshalJSON(data []byte) error {
 // The properties AccountID, Region are required.
 type ConnectConnectionAWSConfigRequestParam struct {
 	// AWS account id
-	AccountID string `json:"account_id,required"`
+	AccountID string `json:"account_id" api:"required"`
 	// AWS region where the connection will be established
-	Region string `json:"region,required"`
+	Region string `json:"region" api:"required"`
 	paramObj
 }
 
@@ -155,9 +155,9 @@ func (r *ConnectConnectionAWSConfigRequestParam) UnmarshalJSON(data []byte) erro
 }
 
 type ConnectConnectionList struct {
-	Items []ConnectConnection `json:"items,required"`
+	Items []ConnectConnection `json:"items" api:"required"`
 	// Pagination response details.
-	Pagination shared.Pagination `json:"pagination,required"`
+	Pagination shared.Pagination `json:"pagination" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
@@ -179,11 +179,11 @@ type ConnectRoute struct {
 	//
 	// Any of "us-sea-1", "us-sva-1", "us-sva-2", "us-chi-1", "us-wdc-1", "eu-frk-1",
 	// "ap-sin-1".
-	NirvanaRegion shared.RegionName `json:"nirvana_region,required"`
+	NirvanaRegion shared.RegionName `json:"nirvana_region" api:"required"`
 	// Provider name.
-	Provider string `json:"provider,required"`
+	Provider string `json:"provider" api:"required"`
 	// Provider region name.
-	ProviderRegion string `json:"provider_region,required"`
+	ProviderRegion string `json:"provider_region" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		NirvanaRegion  respjson.Field
@@ -201,9 +201,9 @@ func (r *ConnectRoute) UnmarshalJSON(data []byte) error {
 }
 
 type ConnectRouteList struct {
-	Items []ConnectRoute `json:"items,required"`
+	Items []ConnectRoute `json:"items" api:"required"`
 	// Pagination response details.
-	Pagination shared.Pagination `json:"pagination,required"`
+	Pagination shared.Pagination `json:"pagination" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field

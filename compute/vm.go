@@ -129,7 +129,7 @@ func (r *VMService) Restart(ctx context.Context, vmID string, opts ...option.Req
 // CPU configuration for the VM.
 type CPUConfig struct {
 	// Number of virtual CPUs.
-	Vcpu int64 `json:"vcpu,required"`
+	Vcpu int64 `json:"vcpu" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Vcpu        respjson.Field
@@ -149,7 +149,7 @@ func (r *CPUConfig) UnmarshalJSON(data []byte) error {
 // The property Vcpu is required.
 type CPUConfigRequestParam struct {
 	// Number of virtual CPUs.
-	Vcpu int64 `json:"vcpu,required"`
+	Vcpu int64 `json:"vcpu" api:"required"`
 	paramObj
 }
 
@@ -164,7 +164,7 @@ func (r *CPUConfigRequestParam) UnmarshalJSON(data []byte) error {
 // Memory configuration for the VM.
 type MemoryConfig struct {
 	// Size of the memory in GB.
-	Size int64 `json:"size,required"`
+	Size int64 `json:"size" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Size        respjson.Field
@@ -184,7 +184,7 @@ func (r *MemoryConfig) UnmarshalJSON(data []byte) error {
 // The property Size is required.
 type MemoryConfigRequestParam struct {
 	// Size of the memory in GB.
-	Size int64 `json:"size,required"`
+	Size int64 `json:"size" api:"required"`
 	paramObj
 }
 
@@ -199,11 +199,11 @@ func (r *MemoryConfigRequestParam) UnmarshalJSON(data []byte) error {
 // OS Image details.
 type OSImage struct {
 	// When the OS Image was created.
-	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
+	CreatedAt time.Time `json:"created_at" api:"required" format:"date-time"`
 	// Display name of the OS Image.
-	DisplayName string `json:"display_name,required"`
+	DisplayName string `json:"display_name" api:"required"`
 	// Name of the OS Image.
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		CreatedAt   respjson.Field
@@ -225,7 +225,7 @@ func (r *OSImage) UnmarshalJSON(data []byte) error {
 // The property PublicKey is required.
 type SSHKeyRequestParam struct {
 	// Public key to and and use to access the VM.
-	PublicKey string `json:"public_key,required"`
+	PublicKey string `json:"public_key" api:"required"`
 	paramObj
 }
 
@@ -240,47 +240,47 @@ func (r *SSHKeyRequestParam) UnmarshalJSON(data []byte) error {
 // VM details.
 type VM struct {
 	// Unique identifier for the VM.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// ID of the boot volume attached to the VM.
-	BootVolumeID string `json:"boot_volume_id,required"`
+	BootVolumeID string `json:"boot_volume_id" api:"required"`
 	// CPU configuration for the VM.
-	CPUConfig CPUConfig `json:"cpu_config,required"`
+	CPUConfig CPUConfig `json:"cpu_config" api:"required"`
 	// When the VM was created.
-	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
+	CreatedAt time.Time `json:"created_at" api:"required" format:"date-time"`
 	// IDs of the data volumes attached to the VM.
-	DataVolumeIDs []string `json:"data_volume_ids,required"`
+	DataVolumeIDs []string `json:"data_volume_ids" api:"required"`
 	// Memory configuration for the VM.
-	MemoryConfig MemoryConfig `json:"memory_config,required"`
+	MemoryConfig MemoryConfig `json:"memory_config" api:"required"`
 	// Name of the VM.
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// Private IP of the VM.
-	PrivateIP string `json:"private_ip,required"`
+	PrivateIP string `json:"private_ip" api:"required"`
 	// Project ID the VM belongs to.
-	ProjectID string `json:"project_id,required"`
+	ProjectID string `json:"project_id" api:"required"`
 	// Public IP of the VM.
-	PublicIP string `json:"public_ip,required"`
+	PublicIP string `json:"public_ip" api:"required"`
 	// Whether the public IP is enabled for the VM.
-	PublicIPEnabled bool `json:"public_ip_enabled,required"`
+	PublicIPEnabled bool `json:"public_ip_enabled" api:"required"`
 	// Region the resource is in.
 	//
 	// Any of "us-sea-1", "us-sva-1", "us-sva-2", "us-chi-1", "us-wdc-1", "eu-frk-1",
 	// "ap-sin-1".
-	Region shared.RegionName `json:"region,required"`
+	Region shared.RegionName `json:"region" api:"required"`
 	// Status of the resource.
 	//
 	// Any of "pending", "creating", "updating", "ready", "deleting", "deleted",
 	// "error".
-	Status shared.ResourceStatus `json:"status,required"`
+	Status shared.ResourceStatus `json:"status" api:"required"`
 	// ID of the subnet the VM is in.
-	SubnetID string `json:"subnet_id,required"`
+	SubnetID string `json:"subnet_id" api:"required"`
 	// Tags to attach to the VM.
-	Tags []string `json:"tags,required"`
+	Tags []string `json:"tags" api:"required"`
 	// When the VM was updated.
-	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
+	UpdatedAt time.Time `json:"updated_at" api:"required" format:"date-time"`
 	// ID of the VPC the VM is in.
-	VPCID string `json:"vpc_id,required"`
+	VPCID string `json:"vpc_id" api:"required"`
 	// Name of the VPC the VM is in.
-	VPCName string `json:"vpc_name,required"`
+	VPCName string `json:"vpc_name" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID              respjson.Field
@@ -313,9 +313,9 @@ func (r *VM) UnmarshalJSON(data []byte) error {
 }
 
 type VMList struct {
-	Items []VM `json:"items,required"`
+	Items []VM `json:"items" api:"required"`
 	// Pagination response details.
-	Pagination shared.Pagination `json:"pagination,required"`
+	Pagination shared.Pagination `json:"pagination" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
@@ -333,28 +333,28 @@ func (r *VMList) UnmarshalJSON(data []byte) error {
 
 type VMNewParams struct {
 	// Boot volume for the VM.
-	BootVolume VMNewParamsBootVolume `json:"boot_volume,omitzero,required"`
+	BootVolume VMNewParamsBootVolume `json:"boot_volume,omitzero" api:"required"`
 	// CPU configuration for the VM.
-	CPUConfig CPUConfigRequestParam `json:"cpu_config,omitzero,required"`
+	CPUConfig CPUConfigRequestParam `json:"cpu_config,omitzero" api:"required"`
 	// Memory configuration for the VM.
-	MemoryConfig MemoryConfigRequestParam `json:"memory_config,omitzero,required"`
+	MemoryConfig MemoryConfigRequestParam `json:"memory_config,omitzero" api:"required"`
 	// Name of the VM.
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// Name of the OS Image to use for the VM.
-	OSImageName string `json:"os_image_name,required"`
+	OSImageName string `json:"os_image_name" api:"required"`
 	// Project ID to create the VM in.
-	ProjectID string `json:"project_id,required"`
+	ProjectID string `json:"project_id" api:"required"`
 	// Whether to enable public IP for the VM.
-	PublicIPEnabled bool `json:"public_ip_enabled,required"`
+	PublicIPEnabled bool `json:"public_ip_enabled" api:"required"`
 	// Region the resource is in.
 	//
 	// Any of "us-sea-1", "us-sva-1", "us-sva-2", "us-chi-1", "us-wdc-1", "eu-frk-1",
 	// "ap-sin-1".
-	Region shared.RegionName `json:"region,omitzero,required"`
+	Region shared.RegionName `json:"region,omitzero" api:"required"`
 	// Public SSH key configuration for the VM.
-	SSHKey SSHKeyRequestParam `json:"ssh_key,omitzero,required"`
+	SSHKey SSHKeyRequestParam `json:"ssh_key,omitzero" api:"required"`
 	// ID of the subnet to use for the VM.
-	SubnetID string `json:"subnet_id,required"`
+	SubnetID string `json:"subnet_id" api:"required"`
 	// Data volumes for the VM.
 	DataVolumes []VMNewParamsDataVolume `json:"data_volumes,omitzero"`
 	// Tags to attach to the VM.
@@ -375,11 +375,11 @@ func (r *VMNewParams) UnmarshalJSON(data []byte) error {
 // The properties Size, Type are required.
 type VMNewParamsBootVolume struct {
 	// Size of the Volume in GB.
-	Size int64 `json:"size,required"`
+	Size int64 `json:"size" api:"required"`
 	// Type of the Volume.
 	//
 	// Any of "nvme", "abs".
-	Type VolumeType `json:"type,omitzero,required"`
+	Type VolumeType `json:"type,omitzero" api:"required"`
 	// Tags to attach to the Volume.
 	Tags []string `json:"tags,omitzero"`
 	paramObj
@@ -398,13 +398,13 @@ func (r *VMNewParamsBootVolume) UnmarshalJSON(data []byte) error {
 // The properties Name, Size, Type are required.
 type VMNewParamsDataVolume struct {
 	// Name of the Volume.
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// Size of the Volume in GB.
-	Size int64 `json:"size,required"`
+	Size int64 `json:"size" api:"required"`
 	// Type of the Volume.
 	//
 	// Any of "nvme", "abs".
-	Type VolumeType `json:"type,omitzero,required"`
+	Type VolumeType `json:"type,omitzero" api:"required"`
 	// Tags to attach to the Volume.
 	Tags []string `json:"tags,omitzero"`
 	paramObj
@@ -442,7 +442,7 @@ func (r *VMUpdateParams) UnmarshalJSON(data []byte) error {
 
 type VMListParams struct {
 	// Project ID of resources to request
-	ProjectID string `query:"project_id,required" json:"-"`
+	ProjectID string `query:"project_id" api:"required" json:"-"`
 	// Pagination cursor returned by a previous request
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
 	// Maximum number of items to return

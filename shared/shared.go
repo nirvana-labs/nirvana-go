@@ -16,9 +16,9 @@ type paramObj = param.APIObject
 
 // Pagination response details.
 type Pagination struct {
-	NextCursor     string `json:"next_cursor,required"`
-	PreviousCursor string `json:"previous_cursor,required"`
-	TotalCount     int64  `json:"total_count,required"`
+	NextCursor     string `json:"next_cursor" api:"required"`
+	PreviousCursor string `json:"previous_cursor" api:"required"`
+	TotalCount     int64  `json:"total_count" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		NextCursor     respjson.Field

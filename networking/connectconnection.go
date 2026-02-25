@@ -110,20 +110,20 @@ type ConnectConnectionNewParams struct {
 	// Connect Connection speed in Mbps
 	//
 	// Any of 50, 200, 500, 1000, 2000.
-	BandwidthMbps int64 `json:"bandwidth_mbps,omitzero,required"`
+	BandwidthMbps int64 `json:"bandwidth_mbps,omitzero" api:"required"`
 	// CIDRs for the Connect Connection. Must be in network-aligned/canonical form.
-	CIDRs []string `json:"cidrs,omitzero,required"`
+	CIDRs []string `json:"cidrs,omitzero" api:"required"`
 	// Name of the Connect Connection
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// Project ID the Connect Connection belongs to
-	ProjectID string `json:"project_id,required"`
+	ProjectID string `json:"project_id" api:"required"`
 	// Provider CIDRs. Must be in network-aligned/canonical form.
-	ProviderCIDRs []string `json:"provider_cidrs,omitzero,required"`
+	ProviderCIDRs []string `json:"provider_cidrs,omitzero" api:"required"`
 	// Region the resource is in.
 	//
 	// Any of "us-sea-1", "us-sva-1", "us-sva-2", "us-chi-1", "us-wdc-1", "eu-frk-1",
 	// "ap-sin-1".
-	Region shared.RegionName `json:"region,omitzero,required"`
+	Region shared.RegionName `json:"region,omitzero" api:"required"`
 	// AWS provider configuration
 	AWS ConnectConnectionAWSConfigRequestParam `json:"aws,omitzero"`
 	// Tags to attach to the Connect Connection
@@ -157,7 +157,7 @@ func (r *ConnectConnectionUpdateParams) UnmarshalJSON(data []byte) error {
 
 type ConnectConnectionListParams struct {
 	// Project ID of resources to request
-	ProjectID string `query:"project_id,required" json:"-"`
+	ProjectID string `query:"project_id" api:"required" json:"-"`
 	// Pagination cursor returned by a previous request
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
 	// Maximum number of items to return
