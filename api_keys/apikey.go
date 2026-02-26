@@ -111,23 +111,23 @@ func (r *APIKeyService) Get(ctx context.Context, apiKeyID string, opts ...option
 // API Key response.
 type APIKey struct {
 	// API Key ID.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// When the API Key was created.
-	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
+	CreatedAt time.Time `json:"created_at" api:"required" format:"date-time"`
 	// When the API Key expires and is no longer valid.
-	ExpiresAt time.Time `json:"expires_at,required" format:"date-time"`
+	ExpiresAt time.Time `json:"expires_at" api:"required" format:"date-time"`
 	// API Key name.
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// IP filter rules.
-	SourceIPRule APIKeySourceIPRule `json:"source_ip_rule,required"`
+	SourceIPRule APIKeySourceIPRule `json:"source_ip_rule" api:"required"`
 	// Status of the API Key.
 	//
 	// Any of "active", "inactive", "expired".
-	Status APIKeyStatus `json:"status,required"`
+	Status APIKeyStatus `json:"status" api:"required"`
 	// Tags to attach to the API Key.
-	Tags []string `json:"tags,required"`
+	Tags []string `json:"tags" api:"required"`
 	// When the API Key was updated.
-	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
+	UpdatedAt time.Time `json:"updated_at" api:"required" format:"date-time"`
 	// API Key. Only returned on creation.
 	Key string `json:"key"`
 	// When the API Key starts to be valid.
@@ -158,9 +158,9 @@ func (r *APIKey) UnmarshalJSON(data []byte) error {
 // IP filter rules.
 type APIKeySourceIPRule struct {
 	// List of IPv4 CIDR addresses to allow.
-	Allowed []string `json:"allowed,required"`
+	Allowed []string `json:"allowed" api:"required"`
 	// List of IPv4 CIDR addresses to deny.
-	Blocked []string `json:"blocked,required"`
+	Blocked []string `json:"blocked" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Allowed     respjson.Field
@@ -186,9 +186,9 @@ const (
 )
 
 type APIKeyList struct {
-	Items []APIKey `json:"items,required"`
+	Items []APIKey `json:"items" api:"required"`
 	// Pagination response details.
-	Pagination shared.Pagination `json:"pagination,required"`
+	Pagination shared.Pagination `json:"pagination" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
@@ -206,9 +206,9 @@ func (r *APIKeyList) UnmarshalJSON(data []byte) error {
 
 type APIKeyNewParams struct {
 	// When the API Key expires and is no longer valid.
-	ExpiresAt time.Time `json:"expires_at,required" format:"date-time"`
+	ExpiresAt time.Time `json:"expires_at" api:"required" format:"date-time"`
 	// API Key name.
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// When the API Key starts to be valid.
 	StartsAt param.Opt[time.Time] `json:"starts_at,omitzero" format:"date-time"`
 	// IP filter rules.

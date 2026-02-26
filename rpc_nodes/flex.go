@@ -113,23 +113,23 @@ func (r *FlexService) Get(ctx context.Context, nodeID string, opts ...option.Req
 // RPC Node Flex details.
 type Flex struct {
 	// Unique identifier for the RPC Node Flex.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// Blockchain type.
-	Blockchain string `json:"blockchain,required"`
+	Blockchain string `json:"blockchain" api:"required"`
 	// When the RPC Node Flex was created.
-	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
+	CreatedAt time.Time `json:"created_at" api:"required" format:"date-time"`
 	// RPC endpoint URL.
-	Endpoint string `json:"endpoint,required"`
+	Endpoint string `json:"endpoint" api:"required"`
 	// Name of the RPC Node Flex.
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// Network type (e.g., mainnet, testnet).
-	Network string `json:"network,required"`
+	Network string `json:"network" api:"required"`
 	// Project identifier associated with the RPC Node Flex.
-	ProjectID string `json:"project_id,required"`
+	ProjectID string `json:"project_id" api:"required"`
 	// Tags to attach to the RPC Node Flex.
-	Tags []string `json:"tags,required"`
+	Tags []string `json:"tags" api:"required"`
 	// When the RPC Node Flex was updated.
-	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
+	UpdatedAt time.Time `json:"updated_at" api:"required" format:"date-time"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field
@@ -155,9 +155,9 @@ func (r *Flex) UnmarshalJSON(data []byte) error {
 // Blockchain supported by the RPC Node Flex.
 type FlexBlockchain struct {
 	// Blockchain type.
-	Blockchain string `json:"blockchain,required"`
+	Blockchain string `json:"blockchain" api:"required"`
 	// Network type (e.g., mainnet, testnet).
-	Network string `json:"network,required"`
+	Network string `json:"network" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Blockchain  respjson.Field
@@ -174,9 +174,9 @@ func (r *FlexBlockchain) UnmarshalJSON(data []byte) error {
 }
 
 type FlexBlockchainList struct {
-	Items []FlexBlockchain `json:"items,required"`
+	Items []FlexBlockchain `json:"items" api:"required"`
 	// Pagination response details.
-	Pagination shared.Pagination `json:"pagination,required"`
+	Pagination shared.Pagination `json:"pagination" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
@@ -193,9 +193,9 @@ func (r *FlexBlockchainList) UnmarshalJSON(data []byte) error {
 }
 
 type FlexList struct {
-	Items []Flex `json:"items,required"`
+	Items []Flex `json:"items" api:"required"`
 	// Pagination response details.
-	Pagination shared.Pagination `json:"pagination,required"`
+	Pagination shared.Pagination `json:"pagination" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
@@ -213,13 +213,13 @@ func (r *FlexList) UnmarshalJSON(data []byte) error {
 
 type FlexNewParams struct {
 	// Blockchain.
-	Blockchain string `json:"blockchain,required"`
+	Blockchain string `json:"blockchain" api:"required"`
 	// Name of the RPC Node Flex.
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// Network type (e.g., mainnet, testnet).
-	Network string `json:"network,required"`
+	Network string `json:"network" api:"required"`
 	// Project ID to associate with the RPC Node Flex.
-	ProjectID string `json:"project_id,required"`
+	ProjectID string `json:"project_id" api:"required"`
 	// Tags to attach to the RPC Node Flex (optional, max 50).
 	Tags []string `json:"tags,omitzero"`
 	paramObj
@@ -251,7 +251,7 @@ func (r *FlexUpdateParams) UnmarshalJSON(data []byte) error {
 
 type FlexListParams struct {
 	// Project ID of resources to request
-	ProjectID string `query:"project_id,required" json:"-"`
+	ProjectID string `query:"project_id" api:"required" json:"-"`
 	// Pagination cursor returned by a previous request
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
 	// Maximum number of items to return

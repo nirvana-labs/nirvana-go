@@ -111,17 +111,17 @@ func (r *ProjectService) Get(ctx context.Context, projectID string, opts ...opti
 // Project response.
 type Project struct {
 	// Project ID.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// When the Project was created.
-	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
+	CreatedAt time.Time `json:"created_at" api:"required" format:"date-time"`
 	// Project name.
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// Resource counts for the project.
-	Resources ProjectResources `json:"resources,required"`
+	Resources ProjectResources `json:"resources" api:"required"`
 	// Tags attached to the Project.
-	Tags []string `json:"tags,required"`
+	Tags []string `json:"tags" api:"required"`
 	// When the Project was updated.
-	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
+	UpdatedAt time.Time `json:"updated_at" api:"required" format:"date-time"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field
@@ -144,9 +144,9 @@ func (r *Project) UnmarshalJSON(data []byte) error {
 // Resource counts for the project.
 type ProjectResources struct {
 	// Blockchain resources.
-	Blockchain ProjectResourcesBlockchain `json:"blockchain,required"`
+	Blockchain ProjectResourcesBlockchain `json:"blockchain" api:"required"`
 	// Cloud infrastructure resources.
-	Cloud ProjectResourcesCloud `json:"cloud,required"`
+	Cloud ProjectResourcesCloud `json:"cloud" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Blockchain  respjson.Field
@@ -165,9 +165,9 @@ func (r *ProjectResources) UnmarshalJSON(data []byte) error {
 // Blockchain resources.
 type ProjectResourcesBlockchain struct {
 	// Number of dedicated RPC nodes in the project.
-	RPCNodesDedicated int64 `json:"rpc_nodes_dedicated,required"`
+	RPCNodesDedicated int64 `json:"rpc_nodes_dedicated" api:"required"`
 	// Number of flex RPC nodes in the project.
-	RPCNodesFlex int64 `json:"rpc_nodes_flex,required"`
+	RPCNodesFlex int64 `json:"rpc_nodes_flex" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		RPCNodesDedicated respjson.Field
@@ -186,13 +186,13 @@ func (r *ProjectResourcesBlockchain) UnmarshalJSON(data []byte) error {
 // Cloud infrastructure resources.
 type ProjectResourcesCloud struct {
 	// Number of Connect connections in the project.
-	ConnectConnections int64 `json:"connect_connections,required"`
+	ConnectConnections int64 `json:"connect_connections" api:"required"`
 	// Number of VMs in the project.
-	VMs int64 `json:"vms,required"`
+	VMs int64 `json:"vms" api:"required"`
 	// Number of volumes in the project.
-	Volumes int64 `json:"volumes,required"`
+	Volumes int64 `json:"volumes" api:"required"`
 	// Number of VPCs in the project.
-	VPCs int64 `json:"vpcs,required"`
+	VPCs int64 `json:"vpcs" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ConnectConnections respjson.Field
@@ -211,9 +211,9 @@ func (r *ProjectResourcesCloud) UnmarshalJSON(data []byte) error {
 }
 
 type ProjectList struct {
-	Items []Project `json:"items,required"`
+	Items []Project `json:"items" api:"required"`
 	// Pagination response details.
-	Pagination shared.Pagination `json:"pagination,required"`
+	Pagination shared.Pagination `json:"pagination" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
@@ -231,7 +231,7 @@ func (r *ProjectList) UnmarshalJSON(data []byte) error {
 
 type ProjectNewParams struct {
 	// Project name.
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// Tags to attach to the Project.
 	Tags []string `json:"tags,omitzero"`
 	paramObj

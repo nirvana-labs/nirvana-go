@@ -45,13 +45,13 @@ func (r *UserService) Get(ctx context.Context, opts ...option.RequestOption) (re
 // User details.
 type User struct {
 	// Unique identifier for the User.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// Email address of the user.
-	Email string `json:"email,required"`
+	Email string `json:"email" api:"required"`
 	// First name of the user.
-	FirstName string `json:"first_name,required"`
+	FirstName string `json:"first_name" api:"required"`
 	// Last name of the user.
-	LastName string `json:"last_name,required"`
+	LastName string `json:"last_name" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field

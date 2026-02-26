@@ -78,27 +78,27 @@ func (r *OperationService) Get(ctx context.Context, operationID string, opts ...
 // Operation details.
 type Operation struct {
 	// Unique identifier for the Operation.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// When the Operation was created.
-	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
+	CreatedAt time.Time `json:"created_at" api:"required" format:"date-time"`
 	// Kind of Operation.
 	//
 	// Any of "vm", "volume", "vpc", "firewall_rule".
-	Kind OperationKind `json:"kind,required"`
+	Kind OperationKind `json:"kind" api:"required"`
 	// Project ID the Operation belongs to.
-	ProjectID string `json:"project_id,required"`
+	ProjectID string `json:"project_id" api:"required"`
 	// ID of the resource that the Operation is acting on.
-	ResourceID string `json:"resource_id,required"`
+	ResourceID string `json:"resource_id" api:"required"`
 	// Status of the Operation.
 	//
 	// Any of "pending", "running", "done", "failed", "unknown".
-	Status OperationStatus `json:"status,required"`
+	Status OperationStatus `json:"status" api:"required"`
 	// Type of Operation.
 	//
 	// Any of "create", "update", "delete", "restart".
-	Type OperationType `json:"type,required"`
+	Type OperationType `json:"type" api:"required"`
 	// When the Operation was updated.
-	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
+	UpdatedAt time.Time `json:"updated_at" api:"required" format:"date-time"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field
@@ -131,9 +131,9 @@ const (
 )
 
 type OperationList struct {
-	Items []Operation `json:"items,required"`
+	Items []Operation `json:"items" api:"required"`
 	// Pagination response details.
-	Pagination shared.Pagination `json:"pagination,required"`
+	Pagination shared.Pagination `json:"pagination" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
@@ -172,7 +172,7 @@ const (
 
 type OperationListParams struct {
 	// Project ID of resources to request
-	ProjectID string `query:"project_id,required" json:"-"`
+	ProjectID string `query:"project_id" api:"required" json:"-"`
 	// Pagination cursor returned by a previous request
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
 	// Maximum number of items to return

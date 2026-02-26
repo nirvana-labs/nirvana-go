@@ -28,7 +28,8 @@ import (
 // automatically. You should not instantiate this service directly, and instead use
 // the [NewOrganizationService] method instead.
 type OrganizationService struct {
-	Options []option.RequestOption
+	Options   []option.RequestOption
+	AuditLogs AuditLogService
 }
 
 // NewOrganizationService generates a new service that applies the given options to
@@ -37,6 +38,7 @@ type OrganizationService struct {
 func NewOrganizationService(opts ...option.RequestOption) (r OrganizationService) {
 	r = OrganizationService{}
 	r.Options = opts
+	r.AuditLogs = NewAuditLogService(opts...)
 	return
 }
 
@@ -95,22 +97,92 @@ func (r *OrganizationService) Get(ctx context.Context, organizationID string, op
 	return
 }
 
+// Audit log entry.
+type AuditLog struct {
+	// Unique identifier for the audit log entry.
+	ID string `json:"id" api:"required"`
+	// The entity that performed the action.
+	Actor AuditLogActor `json:"actor" api:"required"`
+	// Client IP address.
+	ClientIP string `json:"client_ip" api:"required"`
+	// When the action occurred.
+	CreatedAt time.Time `json:"created_at" api:"required" format:"date-time"`
+	// HTTP method of the request.
+	Method string `json:"method" api:"required"`
+	// Request path.
+	Path string `json:"path" api:"required"`
+	// HTTP status code of the response.
+	StatusCode int64 `json:"status_code" api:"required"`
+	// User agent string.
+	UserAgent string `json:"user_agent" api:"required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		ID          respjson.Field
+		Actor       respjson.Field
+		ClientIP    respjson.Field
+		CreatedAt   respjson.Field
+		Method      respjson.Field
+		Path        respjson.Field
+		StatusCode  respjson.Field
+		UserAgent   respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r AuditLog) RawJSON() string { return r.JSON.raw }
+func (r *AuditLog) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// The entity that performed the action.
+type AuditLogActor struct {
+	// Unique identifier for the actor.
+	ID string `json:"id" api:"required"`
+	// Type of actor.
+	//
+	// Any of "user", "api_key".
+	Type AuditLogType `json:"type" api:"required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		ID          respjson.Field
+		Type        respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r AuditLogActor) RawJSON() string { return r.JSON.raw }
+func (r *AuditLogActor) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// Type of actor.
+type AuditLogType string
+
+const (
+	AuditLogTypeUser   AuditLogType = "user"
+	AuditLogTypeAPIKey AuditLogType = "api_key"
+)
+
 // Organization response.
 type Organization struct {
 	// Organization ID.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// When the Organization was created.
-	CreatedAt time.Time `json:"created_at,required" format:"date-time"`
+	CreatedAt time.Time `json:"created_at" api:"required" format:"date-time"`
 	// Current user's membership details.
-	Membership OrganizationMembership `json:"membership,required"`
+	Membership OrganizationMembership `json:"membership" api:"required"`
 	// Organization name.
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	// Whether the organization is a personal Organization.
-	Personal bool `json:"personal,required"`
+	Personal bool `json:"personal" api:"required"`
 	// Services that the Organization has access to.
-	Services Services `json:"services,required"`
+	Services Services `json:"services" api:"required"`
 	// When the Organization was updated.
-	UpdatedAt time.Time `json:"updated_at,required" format:"date-time"`
+	UpdatedAt time.Time `json:"updated_at" api:"required" format:"date-time"`
 	// Authentication provider organization ID.
 	AuthID string `json:"auth_id"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -135,9 +207,9 @@ func (r *Organization) UnmarshalJSON(data []byte) error {
 }
 
 type OrganizationList struct {
-	Items []Organization `json:"items,required"`
+	Items []Organization `json:"items" api:"required"`
 	// Pagination response details.
-	Pagination shared.Pagination `json:"pagination,required"`
+	Pagination shared.Pagination `json:"pagination" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Items       respjson.Field
@@ -156,11 +228,11 @@ func (r *OrganizationList) UnmarshalJSON(data []byte) error {
 // Current user's membership details.
 type OrganizationMembership struct {
 	// Membership ID.
-	ID string `json:"id,required"`
+	ID string `json:"id" api:"required"`
 	// Role of the user in the organization.
 	//
 	// Any of "owner", "member".
-	Role OrganizationMembershipRole `json:"role,required"`
+	Role OrganizationMembershipRole `json:"role" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field
@@ -203,7 +275,7 @@ func (r *Services) UnmarshalJSON(data []byte) error {
 
 type OrganizationNewParams struct {
 	// Organization name.
-	Name string `json:"name,required"`
+	Name string `json:"name" api:"required"`
 	paramObj
 }
 
