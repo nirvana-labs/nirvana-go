@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.49.0 (2026-02-26)
+
+Full Changelog: [v1.48.0...v1.49.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.48.0...v1.49.0)
+
+### Features
+
+* **api:** api update ([d4b21a9](https://github.com/nirvana-labs/nirvana-go/commit/d4b21a988bf5a8ee0f06b819edc3c603afa84818))
+
+
+### Chores
+
+* **internal:** move custom custom `json` tags to `api` ([ec01950](https://github.com/nirvana-labs/nirvana-go/commit/ec0195091f3f5a059f4bb8b6d3fa1ae7fcaf2362))
+
 ## 1.48.0 (2026-02-24)
 
 Full Changelog: [v1.47.0...v1.48.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.47.0...v1.48.0)
