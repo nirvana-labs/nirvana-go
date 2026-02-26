@@ -28,7 +28,8 @@ import (
 // automatically. You should not instantiate this service directly, and instead use
 // the [NewOrganizationService] method instead.
 type OrganizationService struct {
-	Options []option.RequestOption
+	Options   []option.RequestOption
+	AuditLogs AuditLogService
 }
 
 // NewOrganizationService generates a new service that applies the given options to
@@ -37,6 +38,7 @@ type OrganizationService struct {
 func NewOrganizationService(opts ...option.RequestOption) (r OrganizationService) {
 	r = OrganizationService{}
 	r.Options = opts
+	r.AuditLogs = NewAuditLogService(opts...)
 	return
 }
 
@@ -94,6 +96,76 @@ func (r *OrganizationService) Get(ctx context.Context, organizationID string, op
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
 }
+
+// Audit log entry.
+type AuditLog struct {
+	// Unique identifier for the audit log entry.
+	ID string `json:"id" api:"required"`
+	// The entity that performed the action.
+	Actor AuditLogActor `json:"actor" api:"required"`
+	// Client IP address.
+	ClientIP string `json:"client_ip" api:"required"`
+	// When the action occurred.
+	CreatedAt time.Time `json:"created_at" api:"required" format:"date-time"`
+	// HTTP method of the request.
+	Method string `json:"method" api:"required"`
+	// Request path.
+	Path string `json:"path" api:"required"`
+	// HTTP status code of the response.
+	StatusCode int64 `json:"status_code" api:"required"`
+	// User agent string.
+	UserAgent string `json:"user_agent" api:"required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		ID          respjson.Field
+		Actor       respjson.Field
+		ClientIP    respjson.Field
+		CreatedAt   respjson.Field
+		Method      respjson.Field
+		Path        respjson.Field
+		StatusCode  respjson.Field
+		UserAgent   respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r AuditLog) RawJSON() string { return r.JSON.raw }
+func (r *AuditLog) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// The entity that performed the action.
+type AuditLogActor struct {
+	// Unique identifier for the actor.
+	ID string `json:"id" api:"required"`
+	// Type of actor.
+	//
+	// Any of "user", "api_key".
+	Type AuditLogType `json:"type" api:"required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		ID          respjson.Field
+		Type        respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r AuditLogActor) RawJSON() string { return r.JSON.raw }
+func (r *AuditLogActor) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// Type of actor.
+type AuditLogType string
+
+const (
+	AuditLogTypeUser   AuditLogType = "user"
+	AuditLogTypeAPIKey AuditLogType = "api_key"
+)
 
 // Organization response.
 type Organization struct {
