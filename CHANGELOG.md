@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.49.1 (2026-03-03)
+
+Full Changelog: [v1.49.0...v1.49.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.49.0...v1.49.1)
+
+### Chores
+
+* **internal:** codegen related update ([c93b1d0](https://github.com/nirvana-labs/nirvana-go/commit/c93b1d0b141be64a6051f59e25062170adb13d70))
+
 ## 1.49.0 (2026-02-26)
 
 Full Changelog: [v1.48.0...v1.49.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.48.0...v1.49.0)
