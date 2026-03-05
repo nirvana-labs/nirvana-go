@@ -17,6 +17,8 @@
 
 # [Organizations](organizations/api.md)
 
+# [AuditLogs](audit_logs/api.md)
+
 # [Projects](projects/api.md)
 
 # [Regions](regions/api.md)

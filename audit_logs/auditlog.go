@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package organizations
+package audit_logs
 
 import (
 	"context"
@@ -10,11 +10,15 @@ import (
 	"net/url"
 	"slices"
 
+	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/apiquery"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/option"
+	"github.com/nirvana-labs/nirvana-go/organizations"
 	"github.com/nirvana-labs/nirvana-go/packages/pagination"
 	"github.com/nirvana-labs/nirvana-go/packages/param"
+	"github.com/nirvana-labs/nirvana-go/packages/respjson"
+	"github.com/nirvana-labs/nirvana-go/shared"
 )
 
 // AuditLogService contains methods and other services that help with interacting
@@ -37,15 +41,11 @@ func NewAuditLogService(opts ...option.RequestOption) (r AuditLogService) {
 }
 
 // List Audit Log entries for an organization
-func (r *AuditLogService) List(ctx context.Context, organizationID string, query AuditLogListParams, opts ...option.RequestOption) (res *pagination.Cursor[AuditLog], err error) {
+func (r *AuditLogService) List(ctx context.Context, query AuditLogListParams, opts ...option.RequestOption) (res *pagination.Cursor[organizations.AuditLog], err error) {
 	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithResponseInto(&raw)}, opts...)
-	if organizationID == "" {
-		err = errors.New("missing required organization_id parameter")
-		return
-	}
-	path := fmt.Sprintf("v1/organizations/%s/audit_logs", organizationID)
+	path := "v1/audit_logs"
 	cfg, err := requestconfig.NewRequestConfig(ctx, http.MethodGet, path, query, &res, opts...)
 	if err != nil {
 		return nil, err
@@ -59,24 +59,39 @@ func (r *AuditLogService) List(ctx context.Context, organizationID string, query
 }
 
 // List Audit Log entries for an organization
-func (r *AuditLogService) ListAutoPaging(ctx context.Context, organizationID string, query AuditLogListParams, opts ...option.RequestOption) *pagination.CursorAutoPager[AuditLog] {
-	return pagination.NewCursorAutoPager(r.List(ctx, organizationID, query, opts...))
+func (r *AuditLogService) ListAutoPaging(ctx context.Context, query AuditLogListParams, opts ...option.RequestOption) *pagination.CursorAutoPager[organizations.AuditLog] {
+	return pagination.NewCursorAutoPager(r.List(ctx, query, opts...))
 }
 
 // Get an Audit Log entry
-func (r *AuditLogService) Get(ctx context.Context, organizationID string, auditLogID string, opts ...option.RequestOption) (res *AuditLog, err error) {
+func (r *AuditLogService) Get(ctx context.Context, auditLogID string, opts ...option.RequestOption) (res *organizations.AuditLog, err error) {
 	opts = slices.Concat(r.Options, opts)
-	if organizationID == "" {
-		err = errors.New("missing required organization_id parameter")
-		return
-	}
 	if auditLogID == "" {
 		err = errors.New("missing required audit_log_id parameter")
 		return
 	}
-	path := fmt.Sprintf("v1/organizations/%s/audit_logs/%s", organizationID, auditLogID)
+	path := fmt.Sprintf("v1/audit_logs/%s", auditLogID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return
+}
+
+type AuditLogList struct {
+	Items []organizations.AuditLog `json:"items" api:"required"`
+	// Pagination response details.
+	Pagination shared.Pagination `json:"pagination" api:"required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Items       respjson.Field
+		Pagination  respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r AuditLogList) RawJSON() string { return r.JSON.raw }
+func (r *AuditLogList) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
 }
 
 type AuditLogListParams struct {
