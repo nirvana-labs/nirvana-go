@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package organizations_test
+package audit_logs_test
 
 import (
 	"context"
@@ -9,9 +9,9 @@ import (
 	"testing"
 
 	"github.com/nirvana-labs/nirvana-go"
+	"github.com/nirvana-labs/nirvana-go/audit_logs"
 	"github.com/nirvana-labs/nirvana-go/internal/testutil"
 	"github.com/nirvana-labs/nirvana-go/option"
-	"github.com/nirvana-labs/nirvana-go/organizations"
 )
 
 func TestAuditLogListWithOptionalParams(t *testing.T) {
@@ -27,14 +27,10 @@ func TestAuditLogListWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Organizations.AuditLogs.List(
-		context.TODO(),
-		"organization_id",
-		organizations.AuditLogListParams{
-			Cursor: nirvana.String("cursor"),
-			Limit:  nirvana.Int(10),
-		},
-	)
+	_, err := client.AuditLogs.List(context.TODO(), audit_logs.AuditLogListParams{
+		Cursor: nirvana.String("cursor"),
+		Limit:  nirvana.Int(10),
+	})
 	if err != nil {
 		var apierr *nirvana.Error
 		if errors.As(err, &apierr) {
@@ -57,11 +53,7 @@ func TestAuditLogGet(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Organizations.AuditLogs.Get(
-		context.TODO(),
-		"organization_id",
-		"audit_log_id",
-	)
+	_, err := client.AuditLogs.Get(context.TODO(), "audit_log_id")
 	if err != nil {
 		var apierr *nirvana.Error
 		if errors.As(err, &apierr) {

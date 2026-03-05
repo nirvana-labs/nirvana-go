@@ -28,8 +28,7 @@ import (
 // automatically. You should not instantiate this service directly, and instead use
 // the [NewOrganizationService] method instead.
 type OrganizationService struct {
-	Options   []option.RequestOption
-	AuditLogs AuditLogService
+	Options []option.RequestOption
 }
 
 // NewOrganizationService generates a new service that applies the given options to
@@ -38,7 +37,6 @@ type OrganizationService struct {
 func NewOrganizationService(opts ...option.RequestOption) (r OrganizationService) {
 	r = OrganizationService{}
 	r.Options = opts
-	r.AuditLogs = NewAuditLogService(opts...)
 	return
 }
 

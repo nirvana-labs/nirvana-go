@@ -9,6 +9,7 @@ import (
 	"slices"
 
 	"github.com/nirvana-labs/nirvana-go/api_keys"
+	"github.com/nirvana-labs/nirvana-go/audit_logs"
 	"github.com/nirvana-labs/nirvana-go/compute"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/networking"
@@ -30,6 +31,7 @@ type Client struct {
 	APIKeys       api_keys.APIKeyService
 	Operations    operations.OperationService
 	Organizations organizations.OrganizationService
+	AuditLogs     audit_logs.AuditLogService
 	Projects      projects.ProjectService
 	Regions       regions.RegionService
 	Compute       compute.ComputeService
@@ -63,6 +65,7 @@ func NewClient(opts ...option.RequestOption) (r Client) {
 	r.APIKeys = api_keys.NewAPIKeyService(opts...)
 	r.Operations = operations.NewOperationService(opts...)
 	r.Organizations = organizations.NewOrganizationService(opts...)
+	r.AuditLogs = audit_logs.NewAuditLogService(opts...)
 	r.Projects = projects.NewProjectService(opts...)
 	r.Regions = regions.NewRegionService(opts...)
 	r.Compute = compute.NewComputeService(opts...)
