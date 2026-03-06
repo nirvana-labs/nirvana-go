@@ -9,12 +9,12 @@ import (
 	"net/http"
 	"net/url"
 	"slices"
+	"time"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/apiquery"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/option"
-	"github.com/nirvana-labs/nirvana-go/organizations"
 	"github.com/nirvana-labs/nirvana-go/packages/pagination"
 	"github.com/nirvana-labs/nirvana-go/packages/param"
 	"github.com/nirvana-labs/nirvana-go/packages/respjson"
@@ -41,7 +41,7 @@ func NewAuditLogService(opts ...option.RequestOption) (r AuditLogService) {
 }
 
 // List Audit Log entries for an organization
-func (r *AuditLogService) List(ctx context.Context, query AuditLogListParams, opts ...option.RequestOption) (res *pagination.Cursor[organizations.AuditLog], err error) {
+func (r *AuditLogService) List(ctx context.Context, query AuditLogListParams, opts ...option.RequestOption) (res *pagination.Cursor[AuditLog], err error) {
 	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithResponseInto(&raw)}, opts...)
@@ -59,12 +59,12 @@ func (r *AuditLogService) List(ctx context.Context, query AuditLogListParams, op
 }
 
 // List Audit Log entries for an organization
-func (r *AuditLogService) ListAutoPaging(ctx context.Context, query AuditLogListParams, opts ...option.RequestOption) *pagination.CursorAutoPager[organizations.AuditLog] {
+func (r *AuditLogService) ListAutoPaging(ctx context.Context, query AuditLogListParams, opts ...option.RequestOption) *pagination.CursorAutoPager[AuditLog] {
 	return pagination.NewCursorAutoPager(r.List(ctx, query, opts...))
 }
 
 // Get an Audit Log entry
-func (r *AuditLogService) Get(ctx context.Context, auditLogID string, opts ...option.RequestOption) (res *organizations.AuditLog, err error) {
+func (r *AuditLogService) Get(ctx context.Context, auditLogID string, opts ...option.RequestOption) (res *AuditLog, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if auditLogID == "" {
 		err = errors.New("missing required audit_log_id parameter")
@@ -75,8 +75,70 @@ func (r *AuditLogService) Get(ctx context.Context, auditLogID string, opts ...op
 	return
 }
 
+// Audit log entry.
+type AuditLog struct {
+	// Unique identifier for the audit log entry.
+	ID string `json:"id" api:"required"`
+	// The entity that performed the action.
+	Actor AuditLogActor `json:"actor" api:"required"`
+	// Client IP address.
+	ClientIP string `json:"client_ip" api:"required"`
+	// When the action occurred.
+	CreatedAt time.Time `json:"created_at" api:"required" format:"date-time"`
+	// HTTP method of the request.
+	Method string `json:"method" api:"required"`
+	// Request path.
+	Path string `json:"path" api:"required"`
+	// HTTP status code of the response.
+	StatusCode int64 `json:"status_code" api:"required"`
+	// User agent string.
+	UserAgent string `json:"user_agent" api:"required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		ID          respjson.Field
+		Actor       respjson.Field
+		ClientIP    respjson.Field
+		CreatedAt   respjson.Field
+		Method      respjson.Field
+		Path        respjson.Field
+		StatusCode  respjson.Field
+		UserAgent   respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r AuditLog) RawJSON() string { return r.JSON.raw }
+func (r *AuditLog) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// The entity that performed the action.
+type AuditLogActor struct {
+	// Unique identifier for the actor.
+	ID string `json:"id" api:"required"`
+	// Type of actor.
+	//
+	// Any of "user", "api_key".
+	Type AuditLogType `json:"type" api:"required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		ID          respjson.Field
+		Type        respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r AuditLogActor) RawJSON() string { return r.JSON.raw }
+func (r *AuditLogActor) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
 type AuditLogList struct {
-	Items []organizations.AuditLog `json:"items" api:"required"`
+	Items []AuditLog `json:"items" api:"required"`
 	// Pagination response details.
 	Pagination shared.Pagination `json:"pagination" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -93,6 +155,14 @@ func (r AuditLogList) RawJSON() string { return r.JSON.raw }
 func (r *AuditLogList) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
+
+// Type of actor.
+type AuditLogType string
+
+const (
+	AuditLogTypeUser   AuditLogType = "user"
+	AuditLogTypeAPIKey AuditLogType = "api_key"
+)
 
 type AuditLogListParams struct {
 	// Pagination cursor returned by a previous request
