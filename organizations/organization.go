@@ -95,75 +95,18 @@ func (r *OrganizationService) Get(ctx context.Context, organizationID string, op
 	return
 }
 
-// Audit log entry.
-type AuditLog struct {
-	// Unique identifier for the audit log entry.
-	ID string `json:"id" api:"required"`
-	// The entity that performed the action.
-	Actor AuditLogActor `json:"actor" api:"required"`
-	// Client IP address.
-	ClientIP string `json:"client_ip" api:"required"`
-	// When the action occurred.
-	CreatedAt time.Time `json:"created_at" api:"required" format:"date-time"`
-	// HTTP method of the request.
-	Method string `json:"method" api:"required"`
-	// Request path.
-	Path string `json:"path" api:"required"`
-	// HTTP status code of the response.
-	StatusCode int64 `json:"status_code" api:"required"`
-	// User agent string.
-	UserAgent string `json:"user_agent" api:"required"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		ID          respjson.Field
-		Actor       respjson.Field
-		ClientIP    respjson.Field
-		CreatedAt   respjson.Field
-		Method      respjson.Field
-		Path        respjson.Field
-		StatusCode  respjson.Field
-		UserAgent   respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
-	} `json:"-"`
+// Leave an Organization
+func (r *OrganizationService) Leave(ctx context.Context, organizationID string, opts ...option.RequestOption) (err error) {
+	opts = slices.Concat(r.Options, opts)
+	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
+	if organizationID == "" {
+		err = errors.New("missing required organization_id parameter")
+		return
+	}
+	path := fmt.Sprintf("v1/organizations/%s/leave", organizationID)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, nil, opts...)
+	return
 }
-
-// Returns the unmodified JSON received from the API
-func (r AuditLog) RawJSON() string { return r.JSON.raw }
-func (r *AuditLog) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// The entity that performed the action.
-type AuditLogActor struct {
-	// Unique identifier for the actor.
-	ID string `json:"id" api:"required"`
-	// Type of actor.
-	//
-	// Any of "user", "api_key".
-	Type AuditLogType `json:"type" api:"required"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		ID          respjson.Field
-		Type        respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
-	} `json:"-"`
-}
-
-// Returns the unmodified JSON received from the API
-func (r AuditLogActor) RawJSON() string { return r.JSON.raw }
-func (r *AuditLogActor) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// Type of actor.
-type AuditLogType string
-
-const (
-	AuditLogTypeUser   AuditLogType = "user"
-	AuditLogTypeAPIKey AuditLogType = "api_key"
-)
 
 // Organization response.
 type Organization struct {
