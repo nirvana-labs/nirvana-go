@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.51.1 (2026-03-07)
+
+Full Changelog: [v1.51.0...v1.51.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.51.0...v1.51.1)
+
+### Chores
+
+* **ci:** skip uploading artifacts on stainless-internal branches ([b346286](https://github.com/nirvana-labs/nirvana-go/commit/b346286dd1301e8ebbdca8272ceafb2df9edc95c))
+
 ## 1.51.0 (2026-03-06)
 
 Full Changelog: [v1.50.0...v1.51.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.50.0...v1.51.0)
