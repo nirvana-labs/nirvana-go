@@ -114,6 +114,8 @@ type Organization struct {
 	ID string `json:"id" api:"required"`
 	// When the Organization was created.
 	CreatedAt time.Time `json:"created_at" api:"required" format:"date-time"`
+	// Domains associated with the organization.
+	Domains []OrganizationDomain `json:"domains" api:"required"`
 	// Current user's membership details.
 	Membership OrganizationMembership `json:"membership" api:"required"`
 	// Organization name.
@@ -121,7 +123,7 @@ type Organization struct {
 	// Whether the organization is a personal Organization.
 	Personal bool `json:"personal" api:"required"`
 	// Services that the Organization has access to.
-	Services Services `json:"services" api:"required"`
+	Services OrganizationServices `json:"services" api:"required"`
 	// When the Organization was updated.
 	UpdatedAt time.Time `json:"updated_at" api:"required" format:"date-time"`
 	// Authentication provider organization ID.
@@ -130,6 +132,7 @@ type Organization struct {
 	JSON struct {
 		ID          respjson.Field
 		CreatedAt   respjson.Field
+		Domains     respjson.Field
 		Membership  respjson.Field
 		Name        respjson.Field
 		Personal    respjson.Field
@@ -144,6 +147,30 @@ type Organization struct {
 // Returns the unmodified JSON received from the API
 func (r Organization) RawJSON() string { return r.JSON.raw }
 func (r *Organization) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// Organization domain details.
+type OrganizationDomain struct {
+	// Domain ID.
+	ID string `json:"id" api:"required"`
+	// Domain name.
+	Domain string `json:"domain" api:"required"`
+	// Whether the domain has been verified.
+	Verified bool `json:"verified" api:"required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		ID          respjson.Field
+		Domain      respjson.Field
+		Verified    respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r OrganizationDomain) RawJSON() string { return r.JSON.raw }
+func (r *OrganizationDomain) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -198,19 +225,25 @@ const (
 )
 
 // Services that the Organization has access to.
-type Services struct {
-	Cloud bool `json:"cloud"`
+type OrganizationServices struct {
+	Cloud bool `json:"cloud" api:"required"`
+	SCIM  bool `json:"scim" api:"required"`
+	SIEM  bool `json:"siem" api:"required"`
+	SSO   bool `json:"sso" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Cloud       respjson.Field
+		SCIM        respjson.Field
+		SIEM        respjson.Field
+		SSO         respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`
 }
 
 // Returns the unmodified JSON received from the API
-func (r Services) RawJSON() string { return r.JSON.raw }
-func (r *Services) UnmarshalJSON(data []byte) error {
+func (r OrganizationServices) RawJSON() string { return r.JSON.raw }
+func (r *OrganizationServices) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
