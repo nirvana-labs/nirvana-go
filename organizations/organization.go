@@ -123,7 +123,7 @@ type Organization struct {
 	// Whether the organization is a personal Organization.
 	Personal bool `json:"personal" api:"required"`
 	// Services that the Organization has access to.
-	Services Services `json:"services" api:"required"`
+	Services OrganizationServices `json:"services" api:"required"`
 	// When the Organization was updated.
 	UpdatedAt time.Time `json:"updated_at" api:"required" format:"date-time"`
 	// Authentication provider organization ID.
@@ -147,6 +147,29 @@ type Organization struct {
 // Returns the unmodified JSON received from the API
 func (r Organization) RawJSON() string { return r.JSON.raw }
 func (r *Organization) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// Services that the Organization has access to.
+type OrganizationServices struct {
+	Cloud bool `json:"cloud" api:"required"`
+	Scim  bool `json:"scim" api:"required"`
+	Siem  bool `json:"siem" api:"required"`
+	SSO   bool `json:"sso" api:"required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Cloud       respjson.Field
+		Scim        respjson.Field
+		Siem        respjson.Field
+		SSO         respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r OrganizationServices) RawJSON() string { return r.JSON.raw }
+func (r *OrganizationServices) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -223,29 +246,6 @@ const (
 	OrganizationMembershipRoleOwner  OrganizationMembershipRole = "owner"
 	OrganizationMembershipRoleMember OrganizationMembershipRole = "member"
 )
-
-// Services that the Organization has access to.
-type Services struct {
-	Cloud bool `json:"cloud"`
-	Scim  bool `json:"scim"`
-	Siem  bool `json:"siem"`
-	SSO   bool `json:"sso"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		Cloud       respjson.Field
-		Scim        respjson.Field
-		Siem        respjson.Field
-		SSO         respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
-	} `json:"-"`
-}
-
-// Returns the unmodified JSON received from the API
-func (r Services) RawJSON() string { return r.JSON.raw }
-func (r *Services) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
 
 type OrganizationNewParams struct {
 	// Organization name.
