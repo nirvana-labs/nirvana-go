@@ -150,6 +150,29 @@ func (r *Organization) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
+// Services that the Organization has access to.
+type OrganizationServices struct {
+	Cloud bool `json:"cloud" api:"required"`
+	Scim  bool `json:"scim" api:"required"`
+	Siem  bool `json:"siem" api:"required"`
+	SSO   bool `json:"sso" api:"required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Cloud       respjson.Field
+		Scim        respjson.Field
+		Siem        respjson.Field
+		SSO         respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r OrganizationServices) RawJSON() string { return r.JSON.raw }
+func (r *OrganizationServices) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
 // Organization domain details.
 type OrganizationDomain struct {
 	// Domain ID.
@@ -223,29 +246,6 @@ const (
 	OrganizationMembershipRoleOwner  OrganizationMembershipRole = "owner"
 	OrganizationMembershipRoleMember OrganizationMembershipRole = "member"
 )
-
-// Services that the Organization has access to.
-type OrganizationServices struct {
-	Cloud bool `json:"cloud" api:"required"`
-	Scim  bool `json:"scim" api:"required"`
-	Siem  bool `json:"siem" api:"required"`
-	SSO   bool `json:"sso" api:"required"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		Cloud       respjson.Field
-		Scim        respjson.Field
-		Siem        respjson.Field
-		SSO         respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
-	} `json:"-"`
-}
-
-// Returns the unmodified JSON received from the API
-func (r OrganizationServices) RawJSON() string { return r.JSON.raw }
-func (r *OrganizationServices) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
 
 type OrganizationNewParams struct {
 	// Organization name.
