@@ -227,14 +227,14 @@ const (
 // Services that the Organization has access to.
 type OrganizationServices struct {
 	Cloud bool `json:"cloud" api:"required"`
-	Scim  bool `json:"scim" api:"required"`
-	Siem  bool `json:"siem" api:"required"`
+	SCIM  bool `json:"scim" api:"required"`
+	SIEM  bool `json:"siem" api:"required"`
 	SSO   bool `json:"sso" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Cloud       respjson.Field
-		Scim        respjson.Field
-		Siem        respjson.Field
+		SCIM        respjson.Field
+		SIEM        respjson.Field
 		SSO         respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
