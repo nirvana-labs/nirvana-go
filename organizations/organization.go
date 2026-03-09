@@ -114,6 +114,8 @@ type Organization struct {
 	ID string `json:"id" api:"required"`
 	// When the Organization was created.
 	CreatedAt time.Time `json:"created_at" api:"required" format:"date-time"`
+	// Domains associated with the organization.
+	Domains []OrganizationDomain `json:"domains" api:"required"`
 	// Current user's membership details.
 	Membership OrganizationMembership `json:"membership" api:"required"`
 	// Organization name.
@@ -130,6 +132,7 @@ type Organization struct {
 	JSON struct {
 		ID          respjson.Field
 		CreatedAt   respjson.Field
+		Domains     respjson.Field
 		Membership  respjson.Field
 		Name        respjson.Field
 		Personal    respjson.Field
@@ -144,6 +147,30 @@ type Organization struct {
 // Returns the unmodified JSON received from the API
 func (r Organization) RawJSON() string { return r.JSON.raw }
 func (r *Organization) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// Organization domain details.
+type OrganizationDomain struct {
+	// Domain ID.
+	ID string `json:"id" api:"required"`
+	// Domain name.
+	Domain string `json:"domain" api:"required"`
+	// Whether the domain has been verified.
+	Verified bool `json:"verified" api:"required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		ID          respjson.Field
+		Domain      respjson.Field
+		Verified    respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r OrganizationDomain) RawJSON() string { return r.JSON.raw }
+func (r *OrganizationDomain) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -200,9 +227,15 @@ const (
 // Services that the Organization has access to.
 type Services struct {
 	Cloud bool `json:"cloud"`
+	Scim  bool `json:"scim"`
+	Siem  bool `json:"siem"`
+	SSO   bool `json:"sso"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Cloud       respjson.Field
+		Scim        respjson.Field
+		Siem        respjson.Field
+		SSO         respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`
