@@ -70,11 +70,11 @@ func (r *DedicatedService) Get(ctx context.Context, nodeID string, opts ...optio
 	opts = slices.Concat(r.Options, opts)
 	if nodeID == "" {
 		err = errors.New("missing required node_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("v1/rpc_nodes/dedicated/%s", nodeID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // RPC Node Dedicated details.

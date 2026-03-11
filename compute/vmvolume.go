@@ -43,7 +43,7 @@ func (r *VMVolumeService) List(ctx context.Context, vmID string, query VMVolumeL
 	opts = append([]option.RequestOption{option.WithResponseInto(&raw)}, opts...)
 	if vmID == "" {
 		err = errors.New("missing required vm_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("v1/compute/vms/%s/volumes", vmID)
 	cfg, err := requestconfig.NewRequestConfig(ctx, http.MethodGet, path, query, &res, opts...)

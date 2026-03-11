@@ -46,11 +46,11 @@ func (r *FirewallRuleService) New(ctx context.Context, vpcID string, body Firewa
 	opts = slices.Concat(r.Options, opts)
 	if vpcID == "" {
 		err = errors.New("missing required vpc_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("v1/networking/vpcs/%s/firewall_rules", vpcID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Update a firewall rule
@@ -58,15 +58,15 @@ func (r *FirewallRuleService) Update(ctx context.Context, vpcID string, firewall
 	opts = slices.Concat(r.Options, opts)
 	if vpcID == "" {
 		err = errors.New("missing required vpc_id parameter")
-		return
+		return nil, err
 	}
 	if firewallRuleID == "" {
 		err = errors.New("missing required firewall_rule_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("v1/networking/vpcs/%s/firewall_rules/%s", vpcID, firewallRuleID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // List all firewall rules
@@ -76,7 +76,7 @@ func (r *FirewallRuleService) List(ctx context.Context, vpcID string, query Fire
 	opts = append([]option.RequestOption{option.WithResponseInto(&raw)}, opts...)
 	if vpcID == "" {
 		err = errors.New("missing required vpc_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("v1/networking/vpcs/%s/firewall_rules", vpcID)
 	cfg, err := requestconfig.NewRequestConfig(ctx, http.MethodGet, path, query, &res, opts...)
@@ -101,15 +101,15 @@ func (r *FirewallRuleService) Delete(ctx context.Context, vpcID string, firewall
 	opts = slices.Concat(r.Options, opts)
 	if vpcID == "" {
 		err = errors.New("missing required vpc_id parameter")
-		return
+		return nil, err
 	}
 	if firewallRuleID == "" {
 		err = errors.New("missing required firewall_rule_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("v1/networking/vpcs/%s/firewall_rules/%s", vpcID, firewallRuleID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Get details about a firewall rule
@@ -117,15 +117,15 @@ func (r *FirewallRuleService) Get(ctx context.Context, vpcID string, firewallRul
 	opts = slices.Concat(r.Options, opts)
 	if vpcID == "" {
 		err = errors.New("missing required vpc_id parameter")
-		return
+		return nil, err
 	}
 	if firewallRuleID == "" {
 		err = errors.New("missing required firewall_rule_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("v1/networking/vpcs/%s/firewall_rules/%s", vpcID, firewallRuleID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Firewall rule details.

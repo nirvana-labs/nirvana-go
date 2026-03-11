@@ -41,7 +41,7 @@ func (r *VPCAvailabilityService) New(ctx context.Context, body VPCAvailabilityNe
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	path := "v1/networking/vpcs/availability"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, nil, opts...)
-	return
+	return err
 }
 
 // Check if a VPC can be updated
@@ -50,11 +50,11 @@ func (r *VPCAvailabilityService) Update(ctx context.Context, vpcID string, body 
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	if vpcID == "" {
 		err = errors.New("missing required vpc_id parameter")
-		return
+		return err
 	}
 	path := fmt.Sprintf("v1/networking/vpcs/%s/availability", vpcID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, nil, opts...)
-	return
+	return err
 }
 
 type VPCAvailabilityNewParams struct {

@@ -48,7 +48,7 @@ func (r *VPCService) New(ctx context.Context, body VPCNewParams, opts ...option.
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/networking/vpcs"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Update a VPC
@@ -56,11 +56,11 @@ func (r *VPCService) Update(ctx context.Context, vpcID string, body VPCUpdatePar
 	opts = slices.Concat(r.Options, opts)
 	if vpcID == "" {
 		err = errors.New("missing required vpc_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("v1/networking/vpcs/%s", vpcID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // List all VPCs
@@ -91,11 +91,11 @@ func (r *VPCService) Delete(ctx context.Context, vpcID string, opts ...option.Re
 	opts = slices.Concat(r.Options, opts)
 	if vpcID == "" {
 		err = errors.New("missing required vpc_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("v1/networking/vpcs/%s", vpcID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Get details about a VPC
@@ -103,11 +103,11 @@ func (r *VPCService) Get(ctx context.Context, vpcID string, opts ...option.Reque
 	opts = slices.Concat(r.Options, opts)
 	if vpcID == "" {
 		err = errors.New("missing required vpc_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("v1/networking/vpcs/%s", vpcID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Subnet of the VPC.
