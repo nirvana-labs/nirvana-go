@@ -40,7 +40,7 @@ func (r *SecurityService) Update(ctx context.Context, body SecurityUpdateParams,
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/user/security"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Get the current user's security settings
@@ -48,7 +48,7 @@ func (r *SecurityService) Get(ctx context.Context, opts ...option.RequestOption)
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/user/security"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // User security settings response.

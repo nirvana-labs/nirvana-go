@@ -52,7 +52,7 @@ func (r *VMService) New(ctx context.Context, body VMNewParams, opts ...option.Re
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/compute/vms"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Update a VM
@@ -60,11 +60,11 @@ func (r *VMService) Update(ctx context.Context, vmID string, body VMUpdateParams
 	opts = slices.Concat(r.Options, opts)
 	if vmID == "" {
 		err = errors.New("missing required vm_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("v1/compute/vms/%s", vmID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // List all VMs
@@ -95,11 +95,11 @@ func (r *VMService) Delete(ctx context.Context, vmID string, opts ...option.Requ
 	opts = slices.Concat(r.Options, opts)
 	if vmID == "" {
 		err = errors.New("missing required vm_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("v1/compute/vms/%s", vmID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Get details about a VM
@@ -107,11 +107,11 @@ func (r *VMService) Get(ctx context.Context, vmID string, opts ...option.Request
 	opts = slices.Concat(r.Options, opts)
 	if vmID == "" {
 		err = errors.New("missing required vm_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("v1/compute/vms/%s", vmID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Restart a VM
@@ -119,11 +119,11 @@ func (r *VMService) Restart(ctx context.Context, vmID string, opts ...option.Req
 	opts = slices.Concat(r.Options, opts)
 	if vmID == "" {
 		err = errors.New("missing required vm_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("v1/compute/vms/%s/restart", vmID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // CPU configuration for the VM.

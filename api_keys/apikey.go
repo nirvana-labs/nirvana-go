@@ -45,7 +45,7 @@ func (r *APIKeyService) New(ctx context.Context, body APIKeyNewParams, opts ...o
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/api_keys"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Update an existing API key
@@ -53,11 +53,11 @@ func (r *APIKeyService) Update(ctx context.Context, apiKeyID string, body APIKey
 	opts = slices.Concat(r.Options, opts)
 	if apiKeyID == "" {
 		err = errors.New("missing required api_key_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("v1/api_keys/%s", apiKeyID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // List all API keys
@@ -89,11 +89,11 @@ func (r *APIKeyService) Delete(ctx context.Context, apiKeyID string, opts ...opt
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	if apiKeyID == "" {
 		err = errors.New("missing required api_key_id parameter")
-		return
+		return err
 	}
 	path := fmt.Sprintf("v1/api_keys/%s", apiKeyID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, nil, opts...)
-	return
+	return err
 }
 
 // Get details about an API key
@@ -101,11 +101,11 @@ func (r *APIKeyService) Get(ctx context.Context, apiKeyID string, opts ...option
 	opts = slices.Concat(r.Options, opts)
 	if apiKeyID == "" {
 		err = errors.New("missing required api_key_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("v1/api_keys/%s", apiKeyID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // API Key response.

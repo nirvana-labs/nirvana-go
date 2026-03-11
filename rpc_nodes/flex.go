@@ -47,7 +47,7 @@ func (r *FlexService) New(ctx context.Context, body FlexNewParams, opts ...optio
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/rpc_nodes/flex"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Update an existing RPC Node Flex
@@ -55,11 +55,11 @@ func (r *FlexService) Update(ctx context.Context, nodeID string, body FlexUpdate
 	opts = slices.Concat(r.Options, opts)
 	if nodeID == "" {
 		err = errors.New("missing required node_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("v1/rpc_nodes/flex/%s", nodeID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // List all RPC Node Flex you created
@@ -91,11 +91,11 @@ func (r *FlexService) Delete(ctx context.Context, nodeID string, opts ...option.
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	if nodeID == "" {
 		err = errors.New("missing required node_id parameter")
-		return
+		return err
 	}
 	path := fmt.Sprintf("v1/rpc_nodes/flex/%s", nodeID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, nil, opts...)
-	return
+	return err
 }
 
 // Get details about an RPC Node Flex
@@ -103,11 +103,11 @@ func (r *FlexService) Get(ctx context.Context, nodeID string, opts ...option.Req
 	opts = slices.Concat(r.Options, opts)
 	if nodeID == "" {
 		err = errors.New("missing required node_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("v1/rpc_nodes/flex/%s", nodeID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // RPC Node Flex details.
