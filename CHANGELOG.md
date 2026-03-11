@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.52.1 (2026-03-11)
+
+Full Changelog: [v1.52.0...v1.52.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.52.0...v1.52.1)
+
+### Chores
+
+* **internal:** minor cleanup ([0195333](https://github.com/nirvana-labs/nirvana-go/commit/0195333475e92d71dec4aa9f645921fd7393458d))
+* **internal:** use explicit returns ([3d25b01](https://github.com/nirvana-labs/nirvana-go/commit/3d25b01115bc0ce87b52bf7ccb7a1525aa89efb1))
+* **internal:** use explicit returns in more places ([488d4e8](https://github.com/nirvana-labs/nirvana-go/commit/488d4e8d048767168714c34107fcc1a16ecea72a))
+
 ## 1.52.0 (2026-03-09)
 
 Full Changelog: [v1.51.1...v1.52.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.51.1...v1.52.0)

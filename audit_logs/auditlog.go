@@ -68,11 +68,11 @@ func (r *AuditLogService) Get(ctx context.Context, auditLogID string, opts ...op
 	opts = slices.Concat(r.Options, opts)
 	if auditLogID == "" {
 		err = errors.New("missing required audit_log_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("v1/audit_logs/%s", auditLogID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Audit log entry.

@@ -45,7 +45,7 @@ func (r *ProjectService) New(ctx context.Context, body ProjectNewParams, opts ..
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/projects"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Update an existing project
@@ -53,11 +53,11 @@ func (r *ProjectService) Update(ctx context.Context, projectID string, body Proj
 	opts = slices.Concat(r.Options, opts)
 	if projectID == "" {
 		err = errors.New("missing required project_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("v1/projects/%s", projectID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // List all projects
@@ -89,11 +89,11 @@ func (r *ProjectService) Delete(ctx context.Context, projectID string, opts ...o
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	if projectID == "" {
 		err = errors.New("missing required project_id parameter")
-		return
+		return err
 	}
 	path := fmt.Sprintf("v1/projects/%s", projectID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, nil, opts...)
-	return
+	return err
 }
 
 // Get details about a project
@@ -101,11 +101,11 @@ func (r *ProjectService) Get(ctx context.Context, projectID string, opts ...opti
 	opts = slices.Concat(r.Options, opts)
 	if projectID == "" {
 		err = errors.New("missing required project_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("v1/projects/%s", projectID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Project response.

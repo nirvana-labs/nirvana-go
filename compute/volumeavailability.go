@@ -41,7 +41,7 @@ func (r *VolumeAvailabilityService) New(ctx context.Context, body VolumeAvailabi
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	path := "v1/compute/volumes/availability"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, nil, opts...)
-	return
+	return err
 }
 
 // Check Volume Update Availability
@@ -50,11 +50,11 @@ func (r *VolumeAvailabilityService) Update(ctx context.Context, volumeID string,
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	if volumeID == "" {
 		err = errors.New("missing required volume_id parameter")
-		return
+		return err
 	}
 	path := fmt.Sprintf("v1/compute/volumes/%s/availability", volumeID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, nil, opts...)
-	return
+	return err
 }
 
 type VolumeAvailabilityNewParams struct {

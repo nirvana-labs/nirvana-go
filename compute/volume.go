@@ -48,7 +48,7 @@ func (r *VolumeService) New(ctx context.Context, body VolumeNewParams, opts ...o
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/compute/volumes"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Update a Volume. Boot or data volumes can be updated.
@@ -56,11 +56,11 @@ func (r *VolumeService) Update(ctx context.Context, volumeID string, body Volume
 	opts = slices.Concat(r.Options, opts)
 	if volumeID == "" {
 		err = errors.New("missing required volume_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("v1/compute/volumes/%s", volumeID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // List all volumes
@@ -91,11 +91,11 @@ func (r *VolumeService) Delete(ctx context.Context, volumeID string, opts ...opt
 	opts = slices.Concat(r.Options, opts)
 	if volumeID == "" {
 		err = errors.New("missing required volume_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("v1/compute/volumes/%s", volumeID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Attach a volume to a VM
@@ -103,11 +103,11 @@ func (r *VolumeService) Attach(ctx context.Context, volumeID string, body Volume
 	opts = slices.Concat(r.Options, opts)
 	if volumeID == "" {
 		err = errors.New("missing required volume_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("v1/compute/volumes/%s/attach", volumeID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Detach a volume from a VM
@@ -115,11 +115,11 @@ func (r *VolumeService) Detach(ctx context.Context, volumeID string, opts ...opt
 	opts = slices.Concat(r.Options, opts)
 	if volumeID == "" {
 		err = errors.New("missing required volume_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("v1/compute/volumes/%s/detach", volumeID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Get a Volume.
@@ -127,11 +127,11 @@ func (r *VolumeService) Get(ctx context.Context, volumeID string, opts ...option
 	opts = slices.Concat(r.Options, opts)
 	if volumeID == "" {
 		err = errors.New("missing required volume_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("v1/compute/volumes/%s", volumeID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Volume details.

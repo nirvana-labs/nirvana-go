@@ -45,7 +45,7 @@ func (r *OrganizationService) New(ctx context.Context, body OrganizationNewParam
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/organizations"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Update an existing organization
@@ -53,11 +53,11 @@ func (r *OrganizationService) Update(ctx context.Context, organizationID string,
 	opts = slices.Concat(r.Options, opts)
 	if organizationID == "" {
 		err = errors.New("missing required organization_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("v1/organizations/%s", organizationID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // List organizations
@@ -88,11 +88,11 @@ func (r *OrganizationService) Get(ctx context.Context, organizationID string, op
 	opts = slices.Concat(r.Options, opts)
 	if organizationID == "" {
 		err = errors.New("missing required organization_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("v1/organizations/%s", organizationID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Leave an Organization
@@ -101,11 +101,11 @@ func (r *OrganizationService) Leave(ctx context.Context, organizationID string, 
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	if organizationID == "" {
 		err = errors.New("missing required organization_id parameter")
-		return
+		return err
 	}
 	path := fmt.Sprintf("v1/organizations/%s/leave", organizationID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, nil, opts...)
-	return
+	return err
 }
 
 // Organization response.

@@ -44,7 +44,7 @@ func (r *ConnectConnectionService) New(ctx context.Context, body ConnectConnecti
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/networking/connect/connections"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // Update Connect Connection details
@@ -52,11 +52,11 @@ func (r *ConnectConnectionService) Update(ctx context.Context, connectionID stri
 	opts = slices.Concat(r.Options, opts)
 	if connectionID == "" {
 		err = errors.New("missing required connection_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("v1/networking/connect/connections/%s", connectionID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
-	return
+	return res, err
 }
 
 // List all Connect Connections
@@ -87,11 +87,11 @@ func (r *ConnectConnectionService) Delete(ctx context.Context, connectionID stri
 	opts = slices.Concat(r.Options, opts)
 	if connectionID == "" {
 		err = errors.New("missing required connection_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("v1/networking/connect/connections/%s", connectionID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 // Get Connect Connection details
@@ -99,11 +99,11 @@ func (r *ConnectConnectionService) Get(ctx context.Context, connectionID string,
 	opts = slices.Concat(r.Options, opts)
 	if connectionID == "" {
 		err = errors.New("missing required connection_id parameter")
-		return
+		return nil, err
 	}
 	path := fmt.Sprintf("v1/networking/connect/connections/%s", connectionID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
-	return
+	return res, err
 }
 
 type ConnectConnectionNewParams struct {
