@@ -40,7 +40,7 @@ func TestUserAgentHeader(t *testing.T) {
 			},
 		}),
 	)
-	client.Compute.VMs.New(context.Background(), compute.VMNewParams{
+	_, _ = client.Compute.VMs.New(context.Background(), compute.VMNewParams{
 		BootVolume: compute.VMNewParamsBootVolume{
 			Size: 100,
 			Type: compute.VolumeTypeNvme,
