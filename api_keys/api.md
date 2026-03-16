@@ -4,6 +4,7 @@ Response Types:
 
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/api_keys">api_keys</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/api_keys#APIKey">APIKey</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/api_keys">api_keys</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/api_keys#APIKeyList">APIKeyList</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/api_keys">api_keys</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/api_keys#APIKeyPermission">APIKeyPermission</a>
 
 Methods:
 
