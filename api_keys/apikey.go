@@ -215,12 +215,12 @@ type APIKeyPermission struct {
 	// Permission level: "read" or "edit".
 	//
 	// Any of "read", "edit".
-	Permission APIKeyPermissionPermission `json:"permission"`
+	Permission APIPermissionLevel `json:"permission"`
 	// Resource type this permission applies to.
 	//
 	// Any of "vm", "vpc", "volume", "connect_connection", "rpc_node_dedicated",
 	// "rpc_node_flex", "nks_cluster", "nks_worker_pool", "project", "api_key".
-	ResourceType APIKeyPermissionResourceType `json:"resource_type"`
+	ResourceType APIPermissionResourceType `json:"resource_type"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Permission   respjson.Field
@@ -237,27 +237,27 @@ func (r *APIKeyPermission) UnmarshalJSON(data []byte) error {
 }
 
 // Permission level: "read" or "edit".
-type APIKeyPermissionPermission string
+type APIPermissionLevel string
 
 const (
-	APIKeyPermissionPermissionRead APIKeyPermissionPermission = "read"
-	APIKeyPermissionPermissionEdit APIKeyPermissionPermission = "edit"
+	APIPermissionLevelRead APIPermissionLevel = "read"
+	APIPermissionLevelEdit APIPermissionLevel = "edit"
 )
 
 // Resource type this permission applies to.
-type APIKeyPermissionResourceType string
+type APIPermissionResourceType string
 
 const (
-	APIKeyPermissionResourceTypeVM                APIKeyPermissionResourceType = "vm"
-	APIKeyPermissionResourceTypeVPC               APIKeyPermissionResourceType = "vpc"
-	APIKeyPermissionResourceTypeVolume            APIKeyPermissionResourceType = "volume"
-	APIKeyPermissionResourceTypeConnectConnection APIKeyPermissionResourceType = "connect_connection"
-	APIKeyPermissionResourceTypeRPCNodeDedicated  APIKeyPermissionResourceType = "rpc_node_dedicated"
-	APIKeyPermissionResourceTypeRPCNodeFlex       APIKeyPermissionResourceType = "rpc_node_flex"
-	APIKeyPermissionResourceTypeNksCluster        APIKeyPermissionResourceType = "nks_cluster"
-	APIKeyPermissionResourceTypeNksWorkerPool     APIKeyPermissionResourceType = "nks_worker_pool"
-	APIKeyPermissionResourceTypeProject           APIKeyPermissionResourceType = "project"
-	APIKeyPermissionResourceTypeAPIKey            APIKeyPermissionResourceType = "api_key"
+	APIPermissionResourceTypeVM                APIPermissionResourceType = "vm"
+	APIPermissionResourceTypeVPC               APIPermissionResourceType = "vpc"
+	APIPermissionResourceTypeVolume            APIPermissionResourceType = "volume"
+	APIPermissionResourceTypeConnectConnection APIPermissionResourceType = "connect_connection"
+	APIPermissionResourceTypeRPCNodeDedicated  APIPermissionResourceType = "rpc_node_dedicated"
+	APIPermissionResourceTypeRPCNodeFlex       APIPermissionResourceType = "rpc_node_flex"
+	APIPermissionResourceTypeNksCluster        APIPermissionResourceType = "nks_cluster"
+	APIPermissionResourceTypeNksWorkerPool     APIPermissionResourceType = "nks_worker_pool"
+	APIPermissionResourceTypeProject           APIPermissionResourceType = "project"
+	APIPermissionResourceTypeAPIKey            APIPermissionResourceType = "api_key"
 )
 
 type APIKeyNewParams struct {
@@ -293,12 +293,12 @@ type APIKeyNewParamsPermission struct {
 	// Permission level: "read" or "edit".
 	//
 	// Any of "read", "edit".
-	Permission string `json:"permission,omitzero" api:"required"`
+	Permission APIPermissionLevel `json:"permission,omitzero" api:"required"`
 	// Resource type this permission applies to.
 	//
 	// Any of "vm", "vpc", "volume", "connect_connection", "rpc_node_dedicated",
 	// "rpc_node_flex", "nks_cluster", "nks_worker_pool", "project", "api_key".
-	ResourceType string `json:"resource_type,omitzero" api:"required"`
+	ResourceType APIPermissionResourceType `json:"resource_type,omitzero" api:"required"`
 	paramObj
 }
 
@@ -308,15 +308,6 @@ func (r APIKeyNewParamsPermission) MarshalJSON() (data []byte, err error) {
 }
 func (r *APIKeyNewParamsPermission) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
-}
-
-func init() {
-	apijson.RegisterFieldValidator[APIKeyNewParamsPermission](
-		"permission", "read", "edit",
-	)
-	apijson.RegisterFieldValidator[APIKeyNewParamsPermission](
-		"resource_type", "vm", "vpc", "volume", "connect_connection", "rpc_node_dedicated", "rpc_node_flex", "nks_cluster", "nks_worker_pool", "project", "api_key",
-	)
 }
 
 type APIKeyUpdateParams struct {
@@ -350,12 +341,12 @@ type APIKeyUpdateParamsPermission struct {
 	// Permission level: "read" or "edit".
 	//
 	// Any of "read", "edit".
-	Permission string `json:"permission,omitzero" api:"required"`
+	Permission APIPermissionLevel `json:"permission,omitzero" api:"required"`
 	// Resource type this permission applies to.
 	//
 	// Any of "vm", "vpc", "volume", "connect_connection", "rpc_node_dedicated",
 	// "rpc_node_flex", "nks_cluster", "nks_worker_pool", "project", "api_key".
-	ResourceType string `json:"resource_type,omitzero" api:"required"`
+	ResourceType APIPermissionResourceType `json:"resource_type,omitzero" api:"required"`
 	paramObj
 }
 
@@ -365,15 +356,6 @@ func (r APIKeyUpdateParamsPermission) MarshalJSON() (data []byte, err error) {
 }
 func (r *APIKeyUpdateParamsPermission) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
-}
-
-func init() {
-	apijson.RegisterFieldValidator[APIKeyUpdateParamsPermission](
-		"permission", "read", "edit",
-	)
-	apijson.RegisterFieldValidator[APIKeyUpdateParamsPermission](
-		"resource_type", "vm", "vpc", "volume", "connect_connection", "rpc_node_dedicated", "rpc_node_flex", "nks_cluster", "nks_worker_pool", "project", "api_key",
-	)
 }
 
 type APIKeyListParams struct {
