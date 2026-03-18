@@ -167,8 +167,6 @@ type NKSNodePool struct {
 	NodeConfig NKSNodePoolNodeConfig `json:"node_config" api:"required"`
 	// Number of nodes.
 	NodeCount int64 `json:"node_count" api:"required"`
-	// Project ID the node pool belongs to.
-	ProjectID string `json:"project_id" api:"required"`
 	// Status of the resource.
 	//
 	// Any of "pending", "creating", "updating", "ready", "deleting", "deleted",
@@ -186,7 +184,6 @@ type NKSNodePool struct {
 		Name        respjson.Field
 		NodeConfig  respjson.Field
 		NodeCount   respjson.Field
-		ProjectID   respjson.Field
 		Status      respjson.Field
 		Tags        respjson.Field
 		UpdatedAt   respjson.Field
