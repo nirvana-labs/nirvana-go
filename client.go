@@ -13,6 +13,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/compute"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/networking"
+	"github.com/nirvana-labs/nirvana-go/nks"
 	"github.com/nirvana-labs/nirvana-go/operations"
 	"github.com/nirvana-labs/nirvana-go/option"
 	"github.com/nirvana-labs/nirvana-go/organizations"
@@ -37,6 +38,7 @@ type Client struct {
 	Compute       compute.ComputeService
 	Networking    networking.NetworkingService
 	RPCNodes      rpc_nodes.RPCNodeService
+	NKS           nks.NKSService
 }
 
 // DefaultClientOptions read from the environment (NIRVANA_LABS_API_KEY,
@@ -71,6 +73,7 @@ func NewClient(opts ...option.RequestOption) (r Client) {
 	r.Compute = compute.NewComputeService(opts...)
 	r.Networking = networking.NewNetworkingService(opts...)
 	r.RPCNodes = rpc_nodes.NewRPCNodeService(opts...)
+	r.NKS = nks.NewNKSService(opts...)
 
 	return
 }

@@ -83,7 +83,7 @@ type Operation struct {
 	CreatedAt time.Time `json:"created_at" api:"required" format:"date-time"`
 	// Kind of Operation.
 	//
-	// Any of "vm", "volume", "vpc", "firewall_rule".
+	// Any of "vm", "volume", "vpc", "firewall_rule", "nks_cluster", "nks_worker_pool".
 	Kind OperationKind `json:"kind" api:"required"`
 	// Project ID the Operation belongs to.
 	ProjectID string `json:"project_id" api:"required"`
@@ -124,10 +124,12 @@ func (r *Operation) UnmarshalJSON(data []byte) error {
 type OperationKind string
 
 const (
-	OperationKindVM           OperationKind = "vm"
-	OperationKindVolume       OperationKind = "volume"
-	OperationKindVPC          OperationKind = "vpc"
-	OperationKindFirewallRule OperationKind = "firewall_rule"
+	OperationKindVM            OperationKind = "vm"
+	OperationKindVolume        OperationKind = "volume"
+	OperationKindVPC           OperationKind = "vpc"
+	OperationKindFirewallRule  OperationKind = "firewall_rule"
+	OperationKindNKSCluster    OperationKind = "nks_cluster"
+	OperationKindNKSWorkerPool OperationKind = "nks_worker_pool"
 )
 
 type OperationList struct {
