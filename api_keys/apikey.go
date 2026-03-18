@@ -118,10 +118,6 @@ type APIKey struct {
 	ExpiresAt time.Time `json:"expires_at" api:"required" format:"date-time"`
 	// API Key name.
 	Name string `json:"name" api:"required"`
-	// Scoped permissions for this API key.
-	Permissions []APIKeyPermission `json:"permissions" api:"required"`
-	// Project IDs this API key is scoped to.
-	ProjectIDs []string `json:"project_ids" api:"required"`
 	// IP filter rules.
 	SourceIPRule APIKeySourceIPRule `json:"source_ip_rule" api:"required"`
 	// Status of the API Key.
@@ -142,8 +138,6 @@ type APIKey struct {
 		CreatedAt    respjson.Field
 		ExpiresAt    respjson.Field
 		Name         respjson.Field
-		Permissions  respjson.Field
-		ProjectIDs   respjson.Field
 		SourceIPRule respjson.Field
 		Status       respjson.Field
 		Tags         respjson.Field
@@ -210,65 +204,11 @@ func (r *APIKeyList) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// API Key permission.
-type APIKeyPermission struct {
-	// Permission level: "read" or "edit".
-	//
-	// Any of "read", "edit".
-	Permission APIPermissionLevel `json:"permission"`
-	// Resource type this permission applies to.
-	//
-	// Any of "vm", "vpc", "volume", "connect_connection", "rpc_node_dedicated",
-	// "rpc_node_flex", "nks_cluster", "nks_worker_pool", "project", "api_key".
-	ResourceType APIPermissionResourceType `json:"resource_type"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		Permission   respjson.Field
-		ResourceType respjson.Field
-		ExtraFields  map[string]respjson.Field
-		raw          string
-	} `json:"-"`
-}
-
-// Returns the unmodified JSON received from the API
-func (r APIKeyPermission) RawJSON() string { return r.JSON.raw }
-func (r *APIKeyPermission) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// Permission level: "read" or "edit".
-type APIPermissionLevel string
-
-const (
-	APIPermissionLevelRead APIPermissionLevel = "read"
-	APIPermissionLevelEdit APIPermissionLevel = "edit"
-)
-
-// Resource type this permission applies to.
-type APIPermissionResourceType string
-
-const (
-	APIPermissionResourceTypeVM                APIPermissionResourceType = "vm"
-	APIPermissionResourceTypeVPC               APIPermissionResourceType = "vpc"
-	APIPermissionResourceTypeVolume            APIPermissionResourceType = "volume"
-	APIPermissionResourceTypeConnectConnection APIPermissionResourceType = "connect_connection"
-	APIPermissionResourceTypeRPCNodeDedicated  APIPermissionResourceType = "rpc_node_dedicated"
-	APIPermissionResourceTypeRPCNodeFlex       APIPermissionResourceType = "rpc_node_flex"
-	APIPermissionResourceTypeNksCluster        APIPermissionResourceType = "nks_cluster"
-	APIPermissionResourceTypeNksWorkerPool     APIPermissionResourceType = "nks_worker_pool"
-	APIPermissionResourceTypeProject           APIPermissionResourceType = "project"
-	APIPermissionResourceTypeAPIKey            APIPermissionResourceType = "api_key"
-)
-
 type APIKeyNewParams struct {
 	// When the API Key expires and is no longer valid.
 	ExpiresAt time.Time `json:"expires_at" api:"required" format:"date-time"`
 	// API Key name.
 	Name string `json:"name" api:"required"`
-	// Scoped permissions for this API key. At least one is required.
-	Permissions []APIKeyNewParamsPermission `json:"permissions,omitzero" api:"required"`
-	// Project IDs this API key is scoped to. At least one is required.
-	ProjectIDs []string `json:"project_ids,omitzero" api:"required"`
 	// When the API Key starts to be valid.
 	StartsAt param.Opt[time.Time] `json:"starts_at,omitzero" format:"date-time"`
 	// IP filter rules.
@@ -286,39 +226,9 @@ func (r *APIKeyNewParams) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// API Key permission request.
-//
-// The properties Permission, ResourceType are required.
-type APIKeyNewParamsPermission struct {
-	// Permission level: "read" or "edit".
-	//
-	// Any of "read", "edit".
-	Permission APIPermissionLevel `json:"permission,omitzero" api:"required"`
-	// Resource type this permission applies to.
-	//
-	// Any of "vm", "vpc", "volume", "connect_connection", "rpc_node_dedicated",
-	// "rpc_node_flex", "nks_cluster", "nks_worker_pool", "project", "api_key".
-	ResourceType APIPermissionResourceType `json:"resource_type,omitzero" api:"required"`
-	paramObj
-}
-
-func (r APIKeyNewParamsPermission) MarshalJSON() (data []byte, err error) {
-	type shadow APIKeyNewParamsPermission
-	return param.MarshalObject(r, (*shadow)(&r))
-}
-func (r *APIKeyNewParamsPermission) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
 type APIKeyUpdateParams struct {
 	// API Key name.
 	Name param.Opt[string] `json:"name,omitzero"`
-	// Scoped permissions for this API key. When provided, replaces the entire set. At
-	// least one is required.
-	Permissions []APIKeyUpdateParamsPermission `json:"permissions,omitzero"`
-	// Project IDs this API key is scoped to. When provided, replaces the entire set.
-	// At least one is required.
-	ProjectIDs []string `json:"project_ids,omitzero"`
 	// IP filter rules.
 	SourceIPRule shared.SourceIPRuleParam `json:"source_ip_rule,omitzero"`
 	// Tags to attach to the API Key.
@@ -331,30 +241,6 @@ func (r APIKeyUpdateParams) MarshalJSON() (data []byte, err error) {
 	return param.MarshalObject(r, (*shadow)(&r))
 }
 func (r *APIKeyUpdateParams) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// API Key permission request.
-//
-// The properties Permission, ResourceType are required.
-type APIKeyUpdateParamsPermission struct {
-	// Permission level: "read" or "edit".
-	//
-	// Any of "read", "edit".
-	Permission APIPermissionLevel `json:"permission,omitzero" api:"required"`
-	// Resource type this permission applies to.
-	//
-	// Any of "vm", "vpc", "volume", "connect_connection", "rpc_node_dedicated",
-	// "rpc_node_flex", "nks_cluster", "nks_worker_pool", "project", "api_key".
-	ResourceType APIPermissionResourceType `json:"resource_type,omitzero" api:"required"`
-	paramObj
-}
-
-func (r APIKeyUpdateParamsPermission) MarshalJSON() (data []byte, err error) {
-	type shadow APIKeyUpdateParamsPermission
-	return param.MarshalObject(r, (*shadow)(&r))
-}
-func (r *APIKeyUpdateParamsPermission) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 

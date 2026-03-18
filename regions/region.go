@@ -86,6 +86,8 @@ type Region struct {
 	Name string `json:"name" api:"required"`
 	// Networking products available in this region.
 	Networking RegionNetworking `json:"networking" api:"required"`
+	// NKS products available in this region.
+	NKS RegionNKS `json:"nks" api:"required"`
 	// Storage products available in this region.
 	Storage RegionStorage `json:"storage" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -94,6 +96,7 @@ type Region struct {
 		Compute      respjson.Field
 		Name         respjson.Field
 		Networking   respjson.Field
+		NKS          respjson.Field
 		Storage      respjson.Field
 		ExtraFields  map[string]respjson.Field
 		raw          string
@@ -142,6 +145,24 @@ type RegionNetworking struct {
 // Returns the unmodified JSON received from the API
 func (r RegionNetworking) RawJSON() string { return r.JSON.raw }
 func (r *RegionNetworking) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// NKS products available in this region.
+type RegionNKS struct {
+	// Clusters indicates if NKS managed Kubernetes clusters are available.
+	Clusters bool `json:"clusters" api:"required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Clusters    respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r RegionNKS) RawJSON() string { return r.JSON.raw }
+func (r *RegionNKS) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 

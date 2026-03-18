@@ -1,22 +1,21 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package api_keys_test
+package nks_test
 
 import (
 	"context"
 	"errors"
 	"os"
 	"testing"
-	"time"
 
 	"github.com/nirvana-labs/nirvana-go"
-	"github.com/nirvana-labs/nirvana-go/api_keys"
 	"github.com/nirvana-labs/nirvana-go/internal/testutil"
+	"github.com/nirvana-labs/nirvana-go/nks"
 	"github.com/nirvana-labs/nirvana-go/option"
 	"github.com/nirvana-labs/nirvana-go/shared"
 )
 
-func TestAPIKeyNewWithOptionalParams(t *testing.T) {
+func TestClusterNewWithOptionalParams(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -29,15 +28,12 @@ func TestAPIKeyNewWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.APIKeys.New(context.TODO(), api_keys.APIKeyNewParams{
-		ExpiresAt: time.Now(),
-		Name:      "My API Key",
-		SourceIPRule: shared.SourceIPRuleParam{
-			Allowed: []string{"192.168.1.0/24", "10.0.0.0/8"},
-			Blocked: []string{"192.168.1.100/32"},
-		},
-		StartsAt: nirvana.Time(time.Now()),
-		Tags:     []string{"production", "ethereum"},
+	_, err := client.NKS.Clusters.New(context.TODO(), nks.ClusterNewParams{
+		Name:      "my-cluster",
+		ProjectID: "123e4567-e89b-12d3-a456-426614174000",
+		Region:    shared.RegionNameUsWdc1,
+		VPCID:     "123e4567-e89b-12d3-a456-426614174000",
+		Tags:      []string{"production", "ethereum"},
 	})
 	if err != nil {
 		var apierr *nirvana.Error
@@ -48,7 +44,7 @@ func TestAPIKeyNewWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestAPIKeyUpdateWithOptionalParams(t *testing.T) {
+func TestClusterUpdateWithOptionalParams(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -61,15 +57,11 @@ func TestAPIKeyUpdateWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.APIKeys.Update(
+	_, err := client.NKS.Clusters.Update(
 		context.TODO(),
-		"api_key_id",
-		api_keys.APIKeyUpdateParams{
-			Name: nirvana.String("My Updated API Key"),
-			SourceIPRule: shared.SourceIPRuleParam{
-				Allowed: []string{"192.168.1.0/24", "10.0.0.0/8"},
-				Blocked: []string{"192.168.1.100/32"},
-			},
+		"cluster_id",
+		nks.ClusterUpdateParams{
+			Name: nirvana.String("my-cluster"),
 			Tags: []string{"production", "ethereum"},
 		},
 	)
@@ -82,7 +74,7 @@ func TestAPIKeyUpdateWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestAPIKeyListWithOptionalParams(t *testing.T) {
+func TestClusterListWithOptionalParams(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -95,9 +87,10 @@ func TestAPIKeyListWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.APIKeys.List(context.TODO(), api_keys.APIKeyListParams{
-		Cursor: nirvana.String("cursor"),
-		Limit:  nirvana.Int(10),
+	_, err := client.NKS.Clusters.List(context.TODO(), nks.ClusterListParams{
+		ProjectID: "project_id",
+		Cursor:    nirvana.String("cursor"),
+		Limit:     nirvana.Int(10),
 	})
 	if err != nil {
 		var apierr *nirvana.Error
@@ -108,7 +101,7 @@ func TestAPIKeyListWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestAPIKeyDelete(t *testing.T) {
+func TestClusterDelete(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -121,7 +114,7 @@ func TestAPIKeyDelete(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	err := client.APIKeys.Delete(context.TODO(), "api_key_id")
+	_, err := client.NKS.Clusters.Delete(context.TODO(), "cluster_id")
 	if err != nil {
 		var apierr *nirvana.Error
 		if errors.As(err, &apierr) {
@@ -131,7 +124,7 @@ func TestAPIKeyDelete(t *testing.T) {
 	}
 }
 
-func TestAPIKeyGet(t *testing.T) {
+func TestClusterGet(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -144,7 +137,7 @@ func TestAPIKeyGet(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.APIKeys.Get(context.TODO(), "api_key_id")
+	_, err := client.NKS.Clusters.Get(context.TODO(), "cluster_id")
 	if err != nil {
 		var apierr *nirvana.Error
 		if errors.As(err, &apierr) {
