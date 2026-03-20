@@ -3,7 +3,10 @@
 Response Types:
 
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/projects">projects</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/projects#Project">Project</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/projects">projects</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/projects#ProjectBlockchainResources">ProjectBlockchainResources</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/projects">projects</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/projects#ProjectCloudResources">ProjectCloudResources</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/projects">projects</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/projects#ProjectList">ProjectList</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/projects">projects</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/projects#ProjectResources">ProjectResources</a>
 
 Methods:
 
