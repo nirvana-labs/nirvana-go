@@ -166,6 +166,10 @@ func (r *ProjectBlockchainResources) UnmarshalJSON(data []byte) error {
 type ProjectCloudResources struct {
 	// Number of Connect connections in the project.
 	ConnectConnections int64 `json:"connect_connections" api:"required"`
+	// Number of NKS clusters in the project.
+	NKSClusters int64 `json:"nks_clusters" api:"required"`
+	// Number of NKS node pools in the project.
+	NKSNodePools int64 `json:"nks_node_pools" api:"required"`
 	// Number of VMs in the project.
 	VMs int64 `json:"vms" api:"required"`
 	// Number of volumes in the project.
@@ -175,6 +179,8 @@ type ProjectCloudResources struct {
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ConnectConnections respjson.Field
+		NKSClusters        respjson.Field
+		NKSNodePools       respjson.Field
 		VMs                respjson.Field
 		Volumes            respjson.Field
 		VPCs               respjson.Field
@@ -214,13 +220,10 @@ type ProjectResources struct {
 	Blockchain ProjectBlockchainResources `json:"blockchain" api:"required"`
 	// Cloud infrastructure resources.
 	Cloud ProjectCloudResources `json:"cloud" api:"required"`
-	// NKS resources.
-	NKS ProjectResourcesNKS `json:"nks" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Blockchain  respjson.Field
 		Cloud       respjson.Field
-		NKS         respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`
@@ -229,24 +232,6 @@ type ProjectResources struct {
 // Returns the unmodified JSON received from the API
 func (r ProjectResources) RawJSON() string { return r.JSON.raw }
 func (r *ProjectResources) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// NKS resources.
-type ProjectResourcesNKS struct {
-	// Number of NKS clusters in the project.
-	Clusters int64 `json:"clusters" api:"required"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		Clusters    respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
-	} `json:"-"`
-}
-
-// Returns the unmodified JSON received from the API
-func (r ProjectResourcesNKS) RawJSON() string { return r.JSON.raw }
-func (r *ProjectResourcesNKS) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
