@@ -41,12 +41,6 @@ const RegionNameUsChi1 = shared.RegionNameUsChi1
 // Equals "us-wdc-1"
 const RegionNameUsWdc1 = shared.RegionNameUsWdc1
 
-// Equals "eu-frk-1"
-const RegionNameEuFrk1 = shared.RegionNameEuFrk1
-
-// Equals "ap-sin-1"
-const RegionNameApSin1 = shared.RegionNameApSin1
-
 // Status of the resource.
 //
 // This is an alias to an internal type.
