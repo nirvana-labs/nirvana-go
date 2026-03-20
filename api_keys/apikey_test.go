@@ -32,6 +32,11 @@ func TestAPIKeyNewWithOptionalParams(t *testing.T) {
 	_, err := client.APIKeys.New(context.TODO(), api_keys.APIKeyNewParams{
 		ExpiresAt: time.Now(),
 		Name:      "My API Key",
+		Permissions: []api_keys.APIKeyNewParamsPermission{{
+			Permission:   "edit",
+			ResourceType: "vm",
+		}},
+		ProjectIDs: []string{"123e4567-e89b-12d3-a456-426614174000", "123e4567-e89b-12d3-a456-426614174001"},
 		SourceIPRule: shared.SourceIPRuleParam{
 			Allowed: []string{"192.168.1.0/24", "10.0.0.0/8"},
 			Blocked: []string{"192.168.1.100/32"},
@@ -66,6 +71,11 @@ func TestAPIKeyUpdateWithOptionalParams(t *testing.T) {
 		"api_key_id",
 		api_keys.APIKeyUpdateParams{
 			Name: nirvana.String("My Updated API Key"),
+			Permissions: []api_keys.APIKeyUpdateParamsPermission{{
+				Permission:   "edit",
+				ResourceType: "vm",
+			}},
+			ProjectIDs: []string{"string"},
 			SourceIPRule: shared.SourceIPRuleParam{
 				Allowed: []string{"192.168.1.0/24", "10.0.0.0/8"},
 				Blocked: []string{"192.168.1.100/32"},
