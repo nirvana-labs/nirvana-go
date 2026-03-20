@@ -119,7 +119,7 @@ type APIKey struct {
 	// API Key name.
 	Name string `json:"name" api:"required"`
 	// IP filter rules.
-	SourceIPRule APIKeySourceIPRule `json:"source_ip_rule" api:"required"`
+	SourceIPRule shared.SourceIPRuleResponse `json:"source_ip_rule" api:"required"`
 	// Status of the API Key.
 	//
 	// Any of "active", "inactive", "expired".
@@ -152,27 +152,6 @@ type APIKey struct {
 // Returns the unmodified JSON received from the API
 func (r APIKey) RawJSON() string { return r.JSON.raw }
 func (r *APIKey) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// IP filter rules.
-type APIKeySourceIPRule struct {
-	// List of IPv4 CIDR addresses to allow.
-	Allowed []string `json:"allowed" api:"required"`
-	// List of IPv4 CIDR addresses to deny.
-	Blocked []string `json:"blocked" api:"required"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		Allowed     respjson.Field
-		Blocked     respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
-	} `json:"-"`
-}
-
-// Returns the unmodified JSON received from the API
-func (r APIKeySourceIPRule) RawJSON() string { return r.JSON.raw }
-func (r *APIKeySourceIPRule) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 

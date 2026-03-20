@@ -44,8 +44,6 @@ const (
 	RegionNameUsSva2 RegionName = "us-sva-2"
 	RegionNameUsChi1 RegionName = "us-chi-1"
 	RegionNameUsWdc1 RegionName = "us-wdc-1"
-	RegionNameEuFrk1 RegionName = "eu-frk-1"
-	RegionNameApSin1 RegionName = "ap-sin-1"
 )
 
 // Status of the resource.
@@ -75,5 +73,26 @@ func (r SourceIPRuleParam) MarshalJSON() (data []byte, err error) {
 	return param.MarshalObject(r, (*shadow)(&r))
 }
 func (r *SourceIPRuleParam) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// IP filter rules.
+type SourceIPRuleResponse struct {
+	// List of IPv4 CIDR addresses to allow.
+	Allowed []string `json:"allowed" api:"required"`
+	// List of IPv4 CIDR addresses to deny.
+	Blocked []string `json:"blocked" api:"required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Allowed     respjson.Field
+		Blocked     respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r SourceIPRuleResponse) RawJSON() string { return r.JSON.raw }
+func (r *SourceIPRuleResponse) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }

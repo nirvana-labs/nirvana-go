@@ -37,6 +37,7 @@ Params Types:
 
 Response Types:
 
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks">nks</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks#NKSNodeConfigResponse">NKSNodeConfigResponse</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks">nks</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks#NKSNodePool">NKSNodePool</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks">nks</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks#NKSNodePoolList">NKSNodePoolList</a>
 

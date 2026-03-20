@@ -54,7 +54,7 @@ func (r *SecurityService) Get(ctx context.Context, opts ...option.RequestOption)
 // User security settings response.
 type UserSecurity struct {
 	// IP filter rules.
-	SourceIPRule UserSecuritySourceIPRule `json:"source_ip_rule" api:"required"`
+	SourceIPRule shared.SourceIPRuleResponse `json:"source_ip_rule" api:"required"`
 	// When the user security settings were created.
 	CreatedAt time.Time `json:"created_at" format:"date-time"`
 	// When the user security settings were updated.
@@ -72,27 +72,6 @@ type UserSecurity struct {
 // Returns the unmodified JSON received from the API
 func (r UserSecurity) RawJSON() string { return r.JSON.raw }
 func (r *UserSecurity) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// IP filter rules.
-type UserSecuritySourceIPRule struct {
-	// List of IPv4 CIDR addresses to allow.
-	Allowed []string `json:"allowed" api:"required"`
-	// List of IPv4 CIDR addresses to deny.
-	Blocked []string `json:"blocked" api:"required"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		Allowed     respjson.Field
-		Blocked     respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
-	} `json:"-"`
-}
-
-// Returns the unmodified JSON received from the API
-func (r UserSecuritySourceIPRule) RawJSON() string { return r.JSON.raw }
-func (r *UserSecuritySourceIPRule) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
