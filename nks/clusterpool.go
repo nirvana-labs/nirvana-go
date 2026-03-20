@@ -153,6 +153,30 @@ func (r *NKSNodeConfigParam) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
+// Node configuration.
+type NKSNodeConfigResponse struct {
+	// RAM size in GiB per node.
+	RamGi int64 `json:"ram_gi" api:"required"`
+	// Storage size in GiB per node.
+	StorageGi int64 `json:"storage_gi" api:"required"`
+	// Number of virtual CPUs per node.
+	Vcpu int64 `json:"vcpu" api:"required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		RamGi       respjson.Field
+		StorageGi   respjson.Field
+		Vcpu        respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r NKSNodeConfigResponse) RawJSON() string { return r.JSON.raw }
+func (r *NKSNodeConfigResponse) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
 // NKS node pool details.
 type NKSNodePool struct {
 	// Unique identifier for the node pool.
@@ -164,7 +188,7 @@ type NKSNodePool struct {
 	// Name of the node pool.
 	Name string `json:"name" api:"required"`
 	// Node configuration.
-	NodeConfig NKSNodePoolNodeConfig `json:"node_config" api:"required"`
+	NodeConfig NKSNodeConfigResponse `json:"node_config" api:"required"`
 	// Number of nodes.
 	NodeCount int64 `json:"node_count" api:"required"`
 	// Status of the resource.
@@ -195,30 +219,6 @@ type NKSNodePool struct {
 // Returns the unmodified JSON received from the API
 func (r NKSNodePool) RawJSON() string { return r.JSON.raw }
 func (r *NKSNodePool) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// Node configuration.
-type NKSNodePoolNodeConfig struct {
-	// RAM size in GiB per node.
-	RamGi int64 `json:"ram_gi" api:"required"`
-	// Storage size in GiB per node.
-	StorageGi int64 `json:"storage_gi" api:"required"`
-	// Number of virtual CPUs per node.
-	Vcpu int64 `json:"vcpu" api:"required"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		RamGi       respjson.Field
-		StorageGi   respjson.Field
-		Vcpu        respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
-	} `json:"-"`
-}
-
-// Returns the unmodified JSON received from the API
-func (r NKSNodePoolNodeConfig) RawJSON() string { return r.JSON.raw }
-func (r *NKSNodePoolNodeConfig) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
