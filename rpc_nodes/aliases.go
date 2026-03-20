@@ -71,3 +71,8 @@ const ResourceStatusError = shared.ResourceStatusError
 //
 // This is an alias to an internal type.
 type SourceIPRuleParam = shared.SourceIPRuleParam
+
+// IP filter rules.
+//
+// This is an alias to an internal type.
+type SourceIPRuleResponse = shared.SourceIPRuleResponse
