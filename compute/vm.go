@@ -263,8 +263,7 @@ type VM struct {
 	PublicIPEnabled bool `json:"public_ip_enabled" api:"required"`
 	// Region the resource is in.
 	//
-	// Any of "us-sea-1", "us-sva-1", "us-sva-2", "us-chi-1", "us-wdc-1", "eu-frk-1",
-	// "ap-sin-1".
+	// Any of "us-sea-1", "us-sva-1", "us-sva-2", "us-chi-1", "us-wdc-1".
 	Region shared.RegionName `json:"region" api:"required"`
 	// Status of the resource.
 	//
@@ -348,8 +347,7 @@ type VMNewParams struct {
 	PublicIPEnabled bool `json:"public_ip_enabled" api:"required"`
 	// Region the resource is in.
 	//
-	// Any of "us-sea-1", "us-sva-1", "us-sva-2", "us-chi-1", "us-wdc-1", "eu-frk-1",
-	// "ap-sin-1".
+	// Any of "us-sea-1", "us-sva-1", "us-sva-2", "us-chi-1", "us-wdc-1".
 	Region shared.RegionName `json:"region,omitzero" api:"required"`
 	// Public SSH key configuration for the VM.
 	SSHKey SSHKeyRequestParam `json:"ssh_key,omitzero" api:"required"`
