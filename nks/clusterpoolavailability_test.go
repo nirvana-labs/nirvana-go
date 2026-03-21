@@ -33,15 +33,15 @@ func TestClusterPoolAvailabilityNewWithOptionalParams(t *testing.T) {
 		"cluster_id",
 		nks.ClusterPoolAvailabilityNewParams{
 			Name: "my-node-pool",
-			NodeConfig: nks.ClusterPoolAvailabilityNewParamsNodeConfig{
-				BootVolume: nks.ClusterPoolAvailabilityNewParamsNodeConfigBootVolume{
+			NodeConfig: nks.NKSNodePoolNodeConfigParam{
+				BootVolume: nks.NKSNodePoolBootVolumeParam{
 					Size: 100,
 					Type: compute.VolumeTypeABS,
 				},
-				CPUConfig: nks.ClusterPoolAvailabilityNewParamsNodeConfigCPUConfig{
+				CPUConfig: nks.NKSNodePoolCPUConfigParam{
 					Vcpu: 4,
 				},
-				MemoryConfig: nks.ClusterPoolAvailabilityNewParamsNodeConfigMemoryConfig{
+				MemoryConfig: nks.NKSNodePoolMemoryConfigParam{
 					Size: 8,
 				},
 			},
