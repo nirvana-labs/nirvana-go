@@ -33,13 +33,19 @@ Methods:
 
 Params Types:
 
-- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks">nks</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks#NKSNodeConfigParam">NKSNodeConfigParam</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks">nks</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks#NKSNodePoolBootVolumeParam">NKSNodePoolBootVolumeParam</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks">nks</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks#NKSNodePoolCPUConfigParam">NKSNodePoolCPUConfigParam</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks">nks</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks#NKSNodePoolMemoryConfigParam">NKSNodePoolMemoryConfigParam</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks">nks</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks#NKSNodePoolNodeConfigParam">NKSNodePoolNodeConfigParam</a>
 
 Response Types:
 
-- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks">nks</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks#NKSNodeConfigResponse">NKSNodeConfigResponse</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks">nks</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks#NKSNodePool">NKSNodePool</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks">nks</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks#NKSNodePoolBootVolumeResponse">NKSNodePoolBootVolumeResponse</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks">nks</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks#NKSNodePoolCPUConfigResponse">NKSNodePoolCPUConfigResponse</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks">nks</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks#NKSNodePoolList">NKSNodePoolList</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks">nks</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks#NKSNodePoolMemoryConfigResponse">NKSNodePoolMemoryConfigResponse</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks">nks</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks#NKSNodePoolNodeConfigResponse">NKSNodePoolNodeConfigResponse</a>
 
 Methods:
 

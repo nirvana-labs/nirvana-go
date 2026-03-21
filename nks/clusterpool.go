@@ -11,6 +11,7 @@ import (
 	"slices"
 	"time"
 
+	"github.com/nirvana-labs/nirvana-go/compute"
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/apiquery"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
@@ -132,51 +133,6 @@ func (r *ClusterPoolService) Get(ctx context.Context, clusterID string, poolID s
 	return res, err
 }
 
-// Node configuration.
-//
-// The properties RamGi, StorageGi, Vcpu are required.
-type NKSNodeConfigParam struct {
-	// RAM size in GiB per node.
-	RamGi int64 `json:"ram_gi" api:"required"`
-	// Storage size in GiB per node.
-	StorageGi int64 `json:"storage_gi" api:"required"`
-	// Number of virtual CPUs per node.
-	Vcpu int64 `json:"vcpu" api:"required"`
-	paramObj
-}
-
-func (r NKSNodeConfigParam) MarshalJSON() (data []byte, err error) {
-	type shadow NKSNodeConfigParam
-	return param.MarshalObject(r, (*shadow)(&r))
-}
-func (r *NKSNodeConfigParam) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// Node configuration.
-type NKSNodeConfigResponse struct {
-	// RAM size in GiB per node.
-	RamGi int64 `json:"ram_gi" api:"required"`
-	// Storage size in GiB per node.
-	StorageGi int64 `json:"storage_gi" api:"required"`
-	// Number of virtual CPUs per node.
-	Vcpu int64 `json:"vcpu" api:"required"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		RamGi       respjson.Field
-		StorageGi   respjson.Field
-		Vcpu        respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
-	} `json:"-"`
-}
-
-// Returns the unmodified JSON received from the API
-func (r NKSNodeConfigResponse) RawJSON() string { return r.JSON.raw }
-func (r *NKSNodeConfigResponse) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
 // NKS node pool details.
 type NKSNodePool struct {
 	// Unique identifier for the node pool.
@@ -188,7 +144,7 @@ type NKSNodePool struct {
 	// Name of the node pool.
 	Name string `json:"name" api:"required"`
 	// Node configuration.
-	NodeConfig NKSNodeConfigResponse `json:"node_config" api:"required"`
+	NodeConfig NKSNodePoolNodeConfigResponse `json:"node_config" api:"required"`
 	// Number of nodes.
 	NodeCount int64 `json:"node_count" api:"required"`
 	// Status of the resource.
@@ -222,6 +178,85 @@ func (r *NKSNodePool) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
+// Boot volume configuration.
+//
+// The properties Size, Type are required.
+type NKSNodePoolBootVolumeParam struct {
+	// Size of the boot volume in GB.
+	Size int64 `json:"size" api:"required"`
+	// Type of the Volume.
+	//
+	// Any of "nvme", "abs".
+	Type compute.VolumeType `json:"type,omitzero" api:"required"`
+	paramObj
+}
+
+func (r NKSNodePoolBootVolumeParam) MarshalJSON() (data []byte, err error) {
+	type shadow NKSNodePoolBootVolumeParam
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *NKSNodePoolBootVolumeParam) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// Boot volume configuration.
+type NKSNodePoolBootVolumeResponse struct {
+	// Size of the boot volume in GB.
+	Size int64 `json:"size" api:"required"`
+	// Type of the Volume.
+	//
+	// Any of "nvme", "abs".
+	Type compute.VolumeType `json:"type" api:"required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Size        respjson.Field
+		Type        respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r NKSNodePoolBootVolumeResponse) RawJSON() string { return r.JSON.raw }
+func (r *NKSNodePoolBootVolumeResponse) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// CPU configuration.
+//
+// The property Vcpu is required.
+type NKSNodePoolCPUConfigParam struct {
+	// Number of virtual CPUs.
+	Vcpu int64 `json:"vcpu" api:"required"`
+	paramObj
+}
+
+func (r NKSNodePoolCPUConfigParam) MarshalJSON() (data []byte, err error) {
+	type shadow NKSNodePoolCPUConfigParam
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *NKSNodePoolCPUConfigParam) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// CPU configuration.
+type NKSNodePoolCPUConfigResponse struct {
+	// Number of virtual CPUs.
+	Vcpu int64 `json:"vcpu" api:"required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Vcpu        respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r NKSNodePoolCPUConfigResponse) RawJSON() string { return r.JSON.raw }
+func (r *NKSNodePoolCPUConfigResponse) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
 type NKSNodePoolList struct {
 	Items []NKSNodePool `json:"items" api:"required"`
 	// Pagination response details.
@@ -241,11 +276,91 @@ func (r *NKSNodePoolList) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
+// Memory configuration.
+//
+// The property Size is required.
+type NKSNodePoolMemoryConfigParam struct {
+	// Size of the memory in GB.
+	Size int64 `json:"size" api:"required"`
+	paramObj
+}
+
+func (r NKSNodePoolMemoryConfigParam) MarshalJSON() (data []byte, err error) {
+	type shadow NKSNodePoolMemoryConfigParam
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *NKSNodePoolMemoryConfigParam) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// Memory configuration.
+type NKSNodePoolMemoryConfigResponse struct {
+	// Size of the memory in GB.
+	Size int64 `json:"size" api:"required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Size        respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r NKSNodePoolMemoryConfigResponse) RawJSON() string { return r.JSON.raw }
+func (r *NKSNodePoolMemoryConfigResponse) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// Node configuration.
+//
+// The properties BootVolume, CPUConfig, MemoryConfig are required.
+type NKSNodePoolNodeConfigParam struct {
+	// Boot volume configuration.
+	BootVolume NKSNodePoolBootVolumeParam `json:"boot_volume,omitzero" api:"required"`
+	// CPU configuration.
+	CPUConfig NKSNodePoolCPUConfigParam `json:"cpu_config,omitzero" api:"required"`
+	// Memory configuration.
+	MemoryConfig NKSNodePoolMemoryConfigParam `json:"memory_config,omitzero" api:"required"`
+	paramObj
+}
+
+func (r NKSNodePoolNodeConfigParam) MarshalJSON() (data []byte, err error) {
+	type shadow NKSNodePoolNodeConfigParam
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *NKSNodePoolNodeConfigParam) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// Node configuration.
+type NKSNodePoolNodeConfigResponse struct {
+	// Boot volume configuration.
+	BootVolume NKSNodePoolBootVolumeResponse `json:"boot_volume" api:"required"`
+	// CPU configuration.
+	CPUConfig NKSNodePoolCPUConfigResponse `json:"cpu_config" api:"required"`
+	// Memory configuration.
+	MemoryConfig NKSNodePoolMemoryConfigResponse `json:"memory_config" api:"required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		BootVolume   respjson.Field
+		CPUConfig    respjson.Field
+		MemoryConfig respjson.Field
+		ExtraFields  map[string]respjson.Field
+		raw          string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r NKSNodePoolNodeConfigResponse) RawJSON() string { return r.JSON.raw }
+func (r *NKSNodePoolNodeConfigResponse) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
 type ClusterPoolNewParams struct {
 	// Name of the node pool.
 	Name string `json:"name" api:"required"`
 	// Node configuration.
-	NodeConfig NKSNodeConfigParam `json:"node_config,omitzero" api:"required"`
+	NodeConfig NKSNodePoolNodeConfigParam `json:"node_config,omitzero" api:"required"`
 	// Number of nodes. Must be between 1 and 100.
 	NodeCount int64 `json:"node_count" api:"required"`
 	// Tags to attach to the node pool.

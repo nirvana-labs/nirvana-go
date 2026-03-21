@@ -68,7 +68,7 @@ type ClusterPoolAvailabilityNewParams struct {
 	// Name of the node pool.
 	Name string `json:"name" api:"required"`
 	// Node configuration.
-	NodeConfig NKSNodeConfigParam `json:"node_config,omitzero" api:"required"`
+	NodeConfig NKSNodePoolNodeConfigParam `json:"node_config,omitzero" api:"required"`
 	// Number of nodes. Must be between 1 and 100.
 	NodeCount int64 `json:"node_count" api:"required"`
 	// Tags to attach to the node pool.

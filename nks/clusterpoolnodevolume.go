@@ -112,6 +112,8 @@ type NKSNodeVolume struct {
 	Kind compute.VolumeKind `json:"kind" api:"required"`
 	// Name of the volume.
 	Name string `json:"name" api:"required"`
+	// Size of the volume in GB.
+	Size int64 `json:"size" api:"required"`
 	// Status of the resource.
 	//
 	// Any of "pending", "creating", "updating", "ready", "deleting", "deleted",
@@ -129,6 +131,7 @@ type NKSNodeVolume struct {
 		CreatedAt   respjson.Field
 		Kind        respjson.Field
 		Name        respjson.Field
+		Size        respjson.Field
 		Status      respjson.Field
 		Type        respjson.Field
 		UpdatedAt   respjson.Field
