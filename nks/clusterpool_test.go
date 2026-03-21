@@ -9,6 +9,7 @@ import (
 	"testing"
 
 	"github.com/nirvana-labs/nirvana-go"
+	"github.com/nirvana-labs/nirvana-go/compute"
 	"github.com/nirvana-labs/nirvana-go/internal/testutil"
 	"github.com/nirvana-labs/nirvana-go/nks"
 	"github.com/nirvana-labs/nirvana-go/option"
@@ -32,10 +33,17 @@ func TestClusterPoolNewWithOptionalParams(t *testing.T) {
 		"cluster_id",
 		nks.ClusterPoolNewParams{
 			Name: "my-node-pool",
-			NodeConfig: nks.NKSNodeConfigParam{
-				RamGi:     8,
-				StorageGi: 100,
-				Vcpu:      4,
+			NodeConfig: nks.ClusterPoolNewParamsNodeConfig{
+				BootVolume: nks.ClusterPoolNewParamsNodeConfigBootVolume{
+					Size: 100,
+					Type: compute.VolumeTypeABS,
+				},
+				CPUConfig: nks.ClusterPoolNewParamsNodeConfigCPUConfig{
+					Vcpu: 4,
+				},
+				MemoryConfig: nks.ClusterPoolNewParamsNodeConfigMemoryConfig{
+					Size: 8,
+				},
 			},
 			NodeCount: 3,
 			Tags:      []string{"production", "ethereum"},

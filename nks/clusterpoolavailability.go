@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"slices"
 
+	"github.com/nirvana-labs/nirvana-go/compute"
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/option"
@@ -68,7 +69,7 @@ type ClusterPoolAvailabilityNewParams struct {
 	// Name of the node pool.
 	Name string `json:"name" api:"required"`
 	// Node configuration.
-	NodeConfig NKSNodeConfigParam `json:"node_config,omitzero" api:"required"`
+	NodeConfig ClusterPoolAvailabilityNewParamsNodeConfig `json:"node_config,omitzero" api:"required"`
 	// Number of nodes. Must be between 1 and 100.
 	NodeCount int64 `json:"node_count" api:"required"`
 	// Tags to attach to the node pool.
@@ -81,6 +82,82 @@ func (r ClusterPoolAvailabilityNewParams) MarshalJSON() (data []byte, err error)
 	return param.MarshalObject(r, (*shadow)(&r))
 }
 func (r *ClusterPoolAvailabilityNewParams) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// Node configuration.
+//
+// The properties BootVolume, CPUConfig, MemoryConfig are required.
+type ClusterPoolAvailabilityNewParamsNodeConfig struct {
+	// Boot volume configuration.
+	BootVolume ClusterPoolAvailabilityNewParamsNodeConfigBootVolume `json:"boot_volume,omitzero" api:"required"`
+	// CPU configuration.
+	CPUConfig ClusterPoolAvailabilityNewParamsNodeConfigCPUConfig `json:"cpu_config,omitzero" api:"required"`
+	// Memory configuration.
+	MemoryConfig ClusterPoolAvailabilityNewParamsNodeConfigMemoryConfig `json:"memory_config,omitzero" api:"required"`
+	paramObj
+}
+
+func (r ClusterPoolAvailabilityNewParamsNodeConfig) MarshalJSON() (data []byte, err error) {
+	type shadow ClusterPoolAvailabilityNewParamsNodeConfig
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *ClusterPoolAvailabilityNewParamsNodeConfig) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// Boot volume configuration.
+//
+// The properties Size, Type are required.
+type ClusterPoolAvailabilityNewParamsNodeConfigBootVolume struct {
+	// Size of the boot volume in GB.
+	Size int64 `json:"size" api:"required"`
+	// Type of the Volume.
+	//
+	// Any of "nvme", "abs".
+	Type compute.VolumeType `json:"type,omitzero" api:"required"`
+	paramObj
+}
+
+func (r ClusterPoolAvailabilityNewParamsNodeConfigBootVolume) MarshalJSON() (data []byte, err error) {
+	type shadow ClusterPoolAvailabilityNewParamsNodeConfigBootVolume
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *ClusterPoolAvailabilityNewParamsNodeConfigBootVolume) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// CPU configuration.
+//
+// The property Vcpu is required.
+type ClusterPoolAvailabilityNewParamsNodeConfigCPUConfig struct {
+	// Number of virtual CPUs.
+	Vcpu int64 `json:"vcpu" api:"required"`
+	paramObj
+}
+
+func (r ClusterPoolAvailabilityNewParamsNodeConfigCPUConfig) MarshalJSON() (data []byte, err error) {
+	type shadow ClusterPoolAvailabilityNewParamsNodeConfigCPUConfig
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *ClusterPoolAvailabilityNewParamsNodeConfigCPUConfig) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// Memory configuration.
+//
+// The property Size is required.
+type ClusterPoolAvailabilityNewParamsNodeConfigMemoryConfig struct {
+	// Size of the memory in GB.
+	Size int64 `json:"size" api:"required"`
+	paramObj
+}
+
+func (r ClusterPoolAvailabilityNewParamsNodeConfigMemoryConfig) MarshalJSON() (data []byte, err error) {
+	type shadow ClusterPoolAvailabilityNewParamsNodeConfigMemoryConfig
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *ClusterPoolAvailabilityNewParamsNodeConfigMemoryConfig) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
