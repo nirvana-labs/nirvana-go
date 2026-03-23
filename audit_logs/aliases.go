@@ -26,9 +26,6 @@ type Pagination = shared.Pagination
 // This is an alias to an internal type.
 type RegionName = shared.RegionName
 
-// Equals "us-sea-1"
-const RegionNameUsSea1 = shared.RegionNameUsSea1
-
 // Equals "us-sva-1"
 const RegionNameUsSva1 = shared.RegionNameUsSva1
 

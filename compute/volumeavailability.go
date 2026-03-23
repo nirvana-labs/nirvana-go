@@ -64,7 +64,7 @@ type VolumeAvailabilityNewParams struct {
 	ProjectID string `json:"project_id" api:"required"`
 	// Region the resource is in.
 	//
-	// Any of "us-sea-1", "us-sva-1", "us-sva-2", "us-chi-1", "us-wdc-1".
+	// Any of "us-sva-1", "us-sva-2", "us-chi-1", "us-wdc-1".
 	Region shared.RegionName `json:"region,omitzero" api:"required"`
 	// Size of the Volume in GB.
 	Size int64 `json:"size" api:"required"`
