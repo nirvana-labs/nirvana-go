@@ -90,11 +90,11 @@ type NKSController struct {
 	// Unique identifier for the controller.
 	ID string `json:"id" api:"required"`
 	// CPU configuration.
-	CPUConfig NKSNodePoolCPUConfigResponse `json:"cpu_config" api:"required"`
+	CPUConfig NKSControllerCPUConfig `json:"cpu_config" api:"required"`
 	// When the controller was created.
 	CreatedAt time.Time `json:"created_at" api:"required" format:"date-time"`
 	// Memory configuration.
-	MemoryConfig NKSNodePoolMemoryConfigResponse `json:"memory_config" api:"required"`
+	MemoryConfig NKSControllerMemoryConfig `json:"memory_config" api:"required"`
 	// Name of the controller.
 	Name string `json:"name" api:"required"`
 	// Private IP address of the controller.
@@ -124,6 +124,42 @@ type NKSController struct {
 // Returns the unmodified JSON received from the API
 func (r NKSController) RawJSON() string { return r.JSON.raw }
 func (r *NKSController) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// CPU configuration.
+type NKSControllerCPUConfig struct {
+	// Number of virtual CPUs.
+	Vcpu int64 `json:"vcpu" api:"required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Vcpu        respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r NKSControllerCPUConfig) RawJSON() string { return r.JSON.raw }
+func (r *NKSControllerCPUConfig) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// Memory configuration.
+type NKSControllerMemoryConfig struct {
+	// Size of the memory in GB.
+	Size int64 `json:"size" api:"required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Size        respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r NKSControllerMemoryConfig) RawJSON() string { return r.JSON.raw }
+func (r *NKSControllerMemoryConfig) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
