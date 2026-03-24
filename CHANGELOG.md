@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.56.2 (2026-03-24)
+
+Full Changelog: [v1.56.1...v1.56.2](https://github.com/nirvana-labs/nirvana-go/compare/v1.56.1...v1.56.2)
+
+### Chores
+
+* **internal:** update gitignore ([6556c95](https://github.com/nirvana-labs/nirvana-go/commit/6556c95700a6db93132d96a702be82a7fb9aee28))
+
 ## 1.56.1 (2026-03-23)
 
 Full Changelog: [v1.56.0...v1.56.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.56.0...v1.56.1)
