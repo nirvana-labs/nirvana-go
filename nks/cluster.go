@@ -32,6 +32,7 @@ type ClusterService struct {
 	Options      []option.RequestOption
 	Availability ClusterAvailabilityService
 	Kubeconfig   ClusterKubeconfigService
+	Controllers  ClusterControllerService
 	Pools        ClusterPoolService
 }
 
@@ -43,6 +44,7 @@ func NewClusterService(opts ...option.RequestOption) (r ClusterService) {
 	r.Options = opts
 	r.Availability = NewClusterAvailabilityService(opts...)
 	r.Kubeconfig = NewClusterKubeconfigService(opts...)
+	r.Controllers = NewClusterControllerService(opts...)
 	r.Pools = NewClusterPoolService(opts...)
 	return
 }
