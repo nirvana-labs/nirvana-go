@@ -79,6 +79,8 @@ func (r *AuditLogService) Get(ctx context.Context, auditLogID string, opts ...op
 type AuditLog struct {
 	// Unique identifier for the audit log entry.
 	ID string `json:"id" api:"required"`
+	// The action that was performed.
+	Action string `json:"action" api:"required"`
 	// The entity that performed the action.
 	Actor AuditLogActor `json:"actor" api:"required"`
 	// Client IP address.
@@ -93,9 +95,12 @@ type AuditLog struct {
 	StatusCode int64 `json:"status_code" api:"required"`
 	// User agent string.
 	UserAgent string `json:"user_agent" api:"required"`
+	// The target resource of the action.
+	Target AuditLogTarget `json:"target" api:"nullable"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field
+		Action      respjson.Field
 		Actor       respjson.Field
 		ClientIP    respjson.Field
 		CreatedAt   respjson.Field
@@ -103,6 +108,7 @@ type AuditLog struct {
 		Path        respjson.Field
 		StatusCode  respjson.Field
 		UserAgent   respjson.Field
+		Target      respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`
@@ -111,6 +117,27 @@ type AuditLog struct {
 // Returns the unmodified JSON received from the API
 func (r AuditLog) RawJSON() string { return r.JSON.raw }
 func (r *AuditLog) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// The target resource of the action.
+type AuditLogTarget struct {
+	// Unique identifier for the target resource.
+	ID string `json:"id" api:"required"`
+	// Type of the target resource.
+	Type string `json:"type" api:"required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		ID          respjson.Field
+		Type        respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r AuditLogTarget) RawJSON() string { return r.JSON.raw }
+func (r *AuditLogTarget) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
