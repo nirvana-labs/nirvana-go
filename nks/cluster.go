@@ -29,11 +29,12 @@ import (
 // automatically. You should not instantiate this service directly, and instead use
 // the [NewClusterService] method instead.
 type ClusterService struct {
-	Options      []option.RequestOption
-	Availability ClusterAvailabilityService
-	Kubeconfig   ClusterKubeconfigService
-	Controllers  ClusterControllerService
-	Pools        ClusterPoolService
+	Options       []option.RequestOption
+	Availability  ClusterAvailabilityService
+	Kubeconfig    ClusterKubeconfigService
+	Controllers   ClusterControllerService
+	LoadBalancers ClusterLoadBalancerService
+	Pools         ClusterPoolService
 }
 
 // NewClusterService generates a new service that applies the given options to each
@@ -45,6 +46,7 @@ func NewClusterService(opts ...option.RequestOption) (r ClusterService) {
 	r.Availability = NewClusterAvailabilityService(opts...)
 	r.Kubeconfig = NewClusterKubeconfigService(opts...)
 	r.Controllers = NewClusterControllerService(opts...)
+	r.LoadBalancers = NewClusterLoadBalancerService(opts...)
 	r.Pools = NewClusterPoolService(opts...)
 	return
 }
