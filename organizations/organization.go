@@ -124,8 +124,6 @@ type Organization struct {
 	Personal bool `json:"personal" api:"required"`
 	// Services that the Organization has access to.
 	Services OrganizationServices `json:"services" api:"required"`
-	// Organization settings.
-	Settings OrganizationSettings `json:"settings" api:"required"`
 	// When the Organization was updated.
 	UpdatedAt time.Time `json:"updated_at" api:"required" format:"date-time"`
 	// Authentication provider organization ID.
@@ -139,7 +137,6 @@ type Organization struct {
 		Name        respjson.Field
 		Personal    respjson.Field
 		Services    respjson.Field
-		Settings    respjson.Field
 		UpdatedAt   respjson.Field
 		AuthID      respjson.Field
 		ExtraFields map[string]respjson.Field
@@ -150,24 +147,6 @@ type Organization struct {
 // Returns the unmodified JSON received from the API
 func (r Organization) RawJSON() string { return r.JSON.raw }
 func (r *Organization) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// Organization settings.
-type OrganizationSettings struct {
-	// Whether just-in-time provisioning is enabled for the organization.
-	JitProvisioning bool `json:"jit_provisioning" api:"required"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		JitProvisioning respjson.Field
-		ExtraFields     map[string]respjson.Field
-		raw             string
-	} `json:"-"`
-}
-
-// Returns the unmodified JSON received from the API
-func (r OrganizationSettings) RawJSON() string { return r.JSON.raw }
-func (r *OrganizationSettings) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -247,18 +226,25 @@ const (
 
 // Services that the Organization has access to.
 type OrganizationServices struct {
+	// Whether cloud services are enabled for the organization.
 	Cloud bool `json:"cloud" api:"required"`
-	SCIM  bool `json:"scim" api:"required"`
-	SIEM  bool `json:"siem" api:"required"`
-	SSO   bool `json:"sso" api:"required"`
+	// Whether just-in-time provisioning is enabled for the organization.
+	JitProvisioning bool `json:"jit_provisioning" api:"required"`
+	// Whether SCIM provisioning is enabled for the organization.
+	SCIM bool `json:"scim" api:"required"`
+	// Whether SIEM integration is enabled for the organization.
+	SIEM bool `json:"siem" api:"required"`
+	// Whether single sign-on is enabled for the organization.
+	SSO bool `json:"sso" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
-		Cloud       respjson.Field
-		SCIM        respjson.Field
-		SIEM        respjson.Field
-		SSO         respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
+		Cloud           respjson.Field
+		JitProvisioning respjson.Field
+		SCIM            respjson.Field
+		SIEM            respjson.Field
+		SSO             respjson.Field
+		ExtraFields     map[string]respjson.Field
+		raw             string
 	} `json:"-"`
 }
 
@@ -285,8 +271,6 @@ func (r *OrganizationNewParams) UnmarshalJSON(data []byte) error {
 type OrganizationUpdateParams struct {
 	// Organization name.
 	Name param.Opt[string] `json:"name,omitzero"`
-	// Organization settings.
-	Settings OrganizationUpdateParamsSettings `json:"settings,omitzero"`
 	paramObj
 }
 
@@ -295,23 +279,6 @@ func (r OrganizationUpdateParams) MarshalJSON() (data []byte, err error) {
 	return param.MarshalObject(r, (*shadow)(&r))
 }
 func (r *OrganizationUpdateParams) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// Organization settings.
-type OrganizationUpdateParamsSettings struct {
-	// Whether JIT provisioning is enabled. When enabled, users with SSO access are
-	// automatically added to the organization on first login. When disabled, users
-	// must be invited.
-	JitProvisioning param.Opt[bool] `json:"jit_provisioning,omitzero"`
-	paramObj
-}
-
-func (r OrganizationUpdateParamsSettings) MarshalJSON() (data []byte, err error) {
-	type shadow OrganizationUpdateParamsSettings
-	return param.MarshalObject(r, (*shadow)(&r))
-}
-func (r *OrganizationUpdateParamsSettings) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
