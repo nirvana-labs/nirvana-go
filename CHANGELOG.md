@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.57.1 (2026-03-26)
+
+Full Changelog: [v1.57.0...v1.57.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.57.0...v1.57.1)
+
+### Bug Fixes
+
+* **types:** generate shared enum types that are not referenced by other schemas ([e2da5ea](https://github.com/nirvana-labs/nirvana-go/commit/e2da5eaf2bcdddcb9dc1bb2973d1d946d2db3da7))
+
+
+### Chores
+
+* **ci:** skip lint on metadata-only changes ([5b22274](https://github.com/nirvana-labs/nirvana-go/commit/5b2227469486fdc85451dc43d55003588931b425))
+* **client:** fix multipart serialisation of Default() fields ([54a1590](https://github.com/nirvana-labs/nirvana-go/commit/54a1590694440203b149cb709ed778f1e2948a9b))
+* **internal:** support default value struct tag ([5dcd7ac](https://github.com/nirvana-labs/nirvana-go/commit/5dcd7ac2c994f466ab5a3ffd5c2bfc9fef79c011))
+
 ## 1.57.0 (2026-03-24)
 
 Full Changelog: [v1.56.2...v1.57.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.56.2...v1.57.0)
