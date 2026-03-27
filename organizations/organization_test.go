@@ -57,6 +57,9 @@ func TestOrganizationUpdateWithOptionalParams(t *testing.T) {
 		"organization_id",
 		organizations.OrganizationUpdateParams{
 			Name: nirvana.String("My Updated Organization"),
+			Settings: organizations.OrganizationUpdateParamsSettings{
+				JitProvisioning: nirvana.Bool(false),
+			},
 		},
 	)
 	if err != nil {
