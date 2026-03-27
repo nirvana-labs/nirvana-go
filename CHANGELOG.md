@@ -1,5 +1,25 @@
 # Changelog
 
+## 1.58.0 (2026-03-27)
+
+Full Changelog: [v1.57.1...v1.58.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.57.1...v1.58.0)
+
+### Features
+
+* **api:** api update ([b872635](https://github.com/nirvana-labs/nirvana-go/commit/b8726354361ab0e0f67bbb6fa53d5b4175f0c38a))
+* **api:** api update ([12a94d1](https://github.com/nirvana-labs/nirvana-go/commit/12a94d124021807b88aa1de528e24743baa8fb27))
+* **internal:** support comma format in multipart form encoding ([7b49b69](https://github.com/nirvana-labs/nirvana-go/commit/7b49b6936562ebe997f1b680378504de10490241))
+
+
+### Bug Fixes
+
+* prevent duplicate ? in query params ([ee63e4f](https://github.com/nirvana-labs/nirvana-go/commit/ee63e4f45bc124b0513200d245320a3f0cde3f47))
+
+
+### Chores
+
+* remove unnecessary error check for url parsing ([60ff4fc](https://github.com/nirvana-labs/nirvana-go/commit/60ff4fccb51301d927148dd5902928a825b09651))
+
 ## 1.57.1 (2026-03-26)
 
 Full Changelog: [v1.57.0...v1.57.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.57.0...v1.57.1)
