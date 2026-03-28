@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.60.1 (2026-03-28)
+
+Full Changelog: [v1.60.0...v1.60.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.60.0...v1.60.1)
+
+### Chores
+
+* **ci:** support opting out of skipping builds on metadata-only commits ([d54872f](https://github.com/nirvana-labs/nirvana-go/commit/d54872ff1ea247a397b02fc7148c40bc2580801b))
+* update docs for api:"required" ([e5589db](https://github.com/nirvana-labs/nirvana-go/commit/e5589db5476428432b4034219d7d4e62db29d33f))
+
 ## 1.60.0 (2026-03-27)
 
 Full Changelog: [v1.59.0...v1.60.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.59.0...v1.60.0)
