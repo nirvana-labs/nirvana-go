@@ -87,6 +87,8 @@ func (r *ClusterPoolAvailabilityNewParams) UnmarshalJSON(data []byte) error {
 type ClusterPoolAvailabilityUpdateParams struct {
 	// Name of the node pool.
 	Name param.Opt[string] `json:"name,omitzero"`
+	// Number of nodes.
+	NodeCount param.Opt[int64] `json:"node_count,omitzero"`
 	// Tags to attach to the node pool.
 	Tags []string `json:"tags,omitzero"`
 	paramObj

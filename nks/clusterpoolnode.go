@@ -14,6 +14,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/apiquery"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
+	"github.com/nirvana-labs/nirvana-go/operations"
 	"github.com/nirvana-labs/nirvana-go/option"
 	"github.com/nirvana-labs/nirvana-go/packages/pagination"
 	"github.com/nirvana-labs/nirvana-go/packages/param"
@@ -71,6 +72,26 @@ func (r *ClusterPoolNodeService) List(ctx context.Context, clusterID string, poo
 // List all nodes in an NKS node pool
 func (r *ClusterPoolNodeService) ListAutoPaging(ctx context.Context, clusterID string, poolID string, query ClusterPoolNodeListParams, opts ...option.RequestOption) *pagination.CursorAutoPager[NKSNode] {
 	return pagination.NewCursorAutoPager(r.List(ctx, clusterID, poolID, query, opts...))
+}
+
+// Delete a single node from an NKS node pool
+func (r *ClusterPoolNodeService) Delete(ctx context.Context, clusterID string, poolID string, nodeID string, opts ...option.RequestOption) (res *operations.Operation, err error) {
+	opts = slices.Concat(r.Options, opts)
+	if clusterID == "" {
+		err = errors.New("missing required cluster_id parameter")
+		return nil, err
+	}
+	if poolID == "" {
+		err = errors.New("missing required pool_id parameter")
+		return nil, err
+	}
+	if nodeID == "" {
+		err = errors.New("missing required node_id parameter")
+		return nil, err
+	}
+	path := fmt.Sprintf("v1/nks/clusters/%s/pools/%s/nodes/%s", clusterID, poolID, nodeID)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
+	return res, err
 }
 
 // Get details about an NKS node

@@ -59,7 +59,7 @@ func (r *ClusterPoolService) New(ctx context.Context, clusterID string, body Clu
 }
 
 // Update an NKS node pool
-func (r *ClusterPoolService) Update(ctx context.Context, clusterID string, poolID string, body ClusterPoolUpdateParams, opts ...option.RequestOption) (res *NKSNodePool, err error) {
+func (r *ClusterPoolService) Update(ctx context.Context, clusterID string, poolID string, body ClusterPoolUpdateParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if clusterID == "" {
 		err = errors.New("missing required cluster_id parameter")
@@ -379,6 +379,8 @@ func (r *ClusterPoolNewParams) UnmarshalJSON(data []byte) error {
 type ClusterPoolUpdateParams struct {
 	// Name of the node pool.
 	Name param.Opt[string] `json:"name,omitzero"`
+	// Number of nodes.
+	NodeCount param.Opt[int64] `json:"node_count,omitzero"`
 	// Tags to attach to the node pool.
 	Tags []string `json:"tags,omitzero"`
 	paramObj
