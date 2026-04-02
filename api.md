@@ -25,6 +25,8 @@
 
 # [Regions](regions/api.md)
 
+# [InstanceTypes](instance_types/api.md)
+
 # [Compute](compute/api.md)
 
 # [Networking](networking/api.md)

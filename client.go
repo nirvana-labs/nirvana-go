@@ -11,6 +11,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/api_keys"
 	"github.com/nirvana-labs/nirvana-go/audit_logs"
 	"github.com/nirvana-labs/nirvana-go/compute"
+	"github.com/nirvana-labs/nirvana-go/instance_types"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/networking"
 	"github.com/nirvana-labs/nirvana-go/nks"
@@ -35,6 +36,7 @@ type Client struct {
 	AuditLogs     audit_logs.AuditLogService
 	Projects      projects.ProjectService
 	Regions       regions.RegionService
+	InstanceTypes instance_types.InstanceTypeService
 	Compute       compute.ComputeService
 	Networking    networking.NetworkingService
 	RPCNodes      rpc_nodes.RPCNodeService
@@ -70,6 +72,7 @@ func NewClient(opts ...option.RequestOption) (r Client) {
 	r.AuditLogs = audit_logs.NewAuditLogService(opts...)
 	r.Projects = projects.NewProjectService(opts...)
 	r.Regions = regions.NewRegionService(opts...)
+	r.InstanceTypes = instance_types.NewInstanceTypeService(opts...)
 	r.Compute = compute.NewComputeService(opts...)
 	r.Networking = networking.NewNetworkingService(opts...)
 	r.RPCNodes = rpc_nodes.NewRPCNodeService(opts...)
