@@ -4,6 +4,8 @@ package instance_types
 
 import (
 	"context"
+	"errors"
+	"fmt"
 	"net/http"
 	"net/url"
 	"slices"
@@ -39,7 +41,7 @@ func NewInstanceTypeService(opts ...option.RequestOption) (r InstanceTypeService
 }
 
 // List instance types
-func (r *InstanceTypeService) List(ctx context.Context, query InstanceTypeListParams, opts ...option.RequestOption) (res *pagination.Cursor[InstanceTypeListItem], err error) {
+func (r *InstanceTypeService) List(ctx context.Context, query InstanceTypeListParams, opts ...option.RequestOption) (res *pagination.Cursor[InstanceType], err error) {
 	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithResponseInto(&raw)}, opts...)
@@ -57,37 +59,33 @@ func (r *InstanceTypeService) List(ctx context.Context, query InstanceTypeListPa
 }
 
 // List instance types
-func (r *InstanceTypeService) ListAutoPaging(ctx context.Context, query InstanceTypeListParams, opts ...option.RequestOption) *pagination.CursorAutoPager[InstanceTypeListItem] {
+func (r *InstanceTypeService) ListAutoPaging(ctx context.Context, query InstanceTypeListParams, opts ...option.RequestOption) *pagination.CursorAutoPager[InstanceType] {
 	return pagination.NewCursorAutoPager(r.List(ctx, query, opts...))
 }
 
-type InstanceTypeList struct {
-	Items []InstanceTypeListItem `json:"items" api:"required"`
-	// Pagination response details.
-	Pagination shared.Pagination `json:"pagination" api:"required"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		Items       respjson.Field
-		Pagination  respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
-	} `json:"-"`
-}
-
-// Returns the unmodified JSON received from the API
-func (r InstanceTypeList) RawJSON() string { return r.JSON.raw }
-func (r *InstanceTypeList) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
+// Get an instance type by region and name
+func (r *InstanceTypeService) Get(ctx context.Context, region InstanceTypeGetParamsRegion, name string, opts ...option.RequestOption) (res *InstanceType, err error) {
+	opts = slices.Concat(r.Options, opts)
+	if name == "" {
+		err = errors.New("missing required name parameter")
+		return nil, err
+	}
+	path := fmt.Sprintf("v1/instance_types/%v/%s", region, name)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
+	return res, err
 }
 
 // Instance type.
-type InstanceTypeListItem struct {
+type InstanceType struct {
 	Chipset string `json:"chipset" api:"required"`
 	// When the Instance Type was created.
 	CreatedAt time.Time `json:"created_at" api:"required" format:"date-time"`
 	MemoryGi  int64     `json:"memory_gi" api:"required"`
 	Name      string    `json:"name" api:"required"`
-	Region    string    `json:"region" api:"required"`
+	// Region the resource is in.
+	//
+	// Any of "us-sva-1", "us-sva-2", "us-chi-1", "us-wdc-1".
+	Region shared.RegionName `json:"region" api:"required"`
 	// When the Instance Type was updated.
 	UpdatedAt time.Time `json:"updated_at" api:"required" format:"date-time"`
 	Vcpu      int64     `json:"vcpu" api:"required"`
@@ -106,8 +104,27 @@ type InstanceTypeListItem struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r InstanceTypeListItem) RawJSON() string { return r.JSON.raw }
-func (r *InstanceTypeListItem) UnmarshalJSON(data []byte) error {
+func (r InstanceType) RawJSON() string { return r.JSON.raw }
+func (r *InstanceType) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+type InstanceTypeList struct {
+	Items []InstanceType `json:"items" api:"required"`
+	// Pagination response details.
+	Pagination shared.Pagination `json:"pagination" api:"required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Items       respjson.Field
+		Pagination  respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r InstanceTypeList) RawJSON() string { return r.JSON.raw }
+func (r *InstanceTypeList) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -126,3 +143,12 @@ func (r InstanceTypeListParams) URLQuery() (v url.Values, err error) {
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
 	})
 }
+
+type InstanceTypeGetParamsRegion string
+
+const (
+	InstanceTypeGetParamsRegionUsSva1 InstanceTypeGetParamsRegion = "us-sva-1"
+	InstanceTypeGetParamsRegionUsSva2 InstanceTypeGetParamsRegion = "us-sva-2"
+	InstanceTypeGetParamsRegionUsChi1 InstanceTypeGetParamsRegion = "us-chi-1"
+	InstanceTypeGetParamsRegionUsWdc1 InstanceTypeGetParamsRegion = "us-wdc-1"
+)
