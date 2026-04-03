@@ -82,7 +82,10 @@ type InstanceType struct {
 	CreatedAt time.Time `json:"created_at" api:"required" format:"date-time"`
 	MemoryGi  int64     `json:"memory_gi" api:"required"`
 	Name      string    `json:"name" api:"required"`
-	Region    string    `json:"region" api:"required"`
+	// Region the resource is in.
+	//
+	// Any of "us-sva-1", "us-sva-2", "us-chi-1", "us-wdc-1".
+	Region shared.RegionName `json:"region" api:"required"`
 	// When the Instance Type was updated.
 	UpdatedAt time.Time `json:"updated_at" api:"required" format:"date-time"`
 	Vcpu      int64     `json:"vcpu" api:"required"`
