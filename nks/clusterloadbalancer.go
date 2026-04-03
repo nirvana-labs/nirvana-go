@@ -95,6 +95,10 @@ type NKSLoadBalancer struct {
 	Namespace string `json:"namespace" api:"required"`
 	// Private IP address of the load balancer.
 	PrivateIP string `json:"private_ip" api:"required"`
+	// Public IP address assigned to this load balancer.
+	PublicIP string `json:"public_ip" api:"required"`
+	// Whether a public IP is enabled for this load balancer.
+	PublicIPEnabled bool `json:"public_ip_enabled" api:"required"`
 	// Kubernetes service name of the load balancer.
 	ServiceName string `json:"service_name" api:"required"`
 	// Status of the resource.
@@ -106,16 +110,18 @@ type NKSLoadBalancer struct {
 	UpdatedAt time.Time `json:"updated_at" api:"required" format:"date-time"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
-		ID          respjson.Field
-		ClusterID   respjson.Field
-		CreatedAt   respjson.Field
-		Namespace   respjson.Field
-		PrivateIP   respjson.Field
-		ServiceName respjson.Field
-		Status      respjson.Field
-		UpdatedAt   respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
+		ID              respjson.Field
+		ClusterID       respjson.Field
+		CreatedAt       respjson.Field
+		Namespace       respjson.Field
+		PrivateIP       respjson.Field
+		PublicIP        respjson.Field
+		PublicIPEnabled respjson.Field
+		ServiceName     respjson.Field
+		Status          respjson.Field
+		UpdatedAt       respjson.Field
+		ExtraFields     map[string]respjson.Field
+		raw             string
 	} `json:"-"`
 }
 
