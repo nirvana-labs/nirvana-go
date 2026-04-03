@@ -23,6 +23,18 @@ Methods:
 - <code title="post /v1/nks/clusters/availability">client.NKS.Clusters.Availability.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks#ClusterAvailabilityService.New">New</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, body <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks">nks</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks#ClusterAvailabilityNewParams">ClusterAvailabilityNewParams</a>) <a href="https://pkg.go.dev/builtin#error">error</a></code>
 - <code title="patch /v1/nks/clusters/{cluster_id}/availability">client.NKS.Clusters.Availability.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks#ClusterAvailabilityService.Update">Update</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, clusterID <a href="https://pkg.go.dev/builtin#string">string</a>, body <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks">nks</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks#ClusterAvailabilityUpdateParams">ClusterAvailabilityUpdateParams</a>) <a href="https://pkg.go.dev/builtin#error">error</a></code>
 
+### PersistentVolumeClaims
+
+Response Types:
+
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks">nks</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks#PersistentVolumeClaim">PersistentVolumeClaim</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks">nks</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks#PersistentVolumeClaimList">PersistentVolumeClaimList</a>
+
+Methods:
+
+- <code title="get /v1/nks/clusters/{cluster_id}/persistent_volume_claims">client.NKS.Clusters.PersistentVolumeClaims.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks#ClusterPersistentVolumeClaimService.List">List</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, clusterID <a href="https://pkg.go.dev/builtin#string">string</a>, query <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks">nks</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks#ClusterPersistentVolumeClaimListParams">ClusterPersistentVolumeClaimListParams</a>) (\*<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/packages/pagination">pagination</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/packages/pagination#Cursor">Cursor</a>[<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks">nks</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks#PersistentVolumeClaim">PersistentVolumeClaim</a>], <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
+- <code title="get /v1/nks/clusters/{cluster_id}/persistent_volume_claims/{persistent_volume_claim_id}">client.NKS.Clusters.PersistentVolumeClaims.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks#ClusterPersistentVolumeClaimService.Get">Get</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, clusterID <a href="https://pkg.go.dev/builtin#string">string</a>, persistentVolumeClaimID <a href="https://pkg.go.dev/builtin#string">string</a>) (\*<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks">nks</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks#PersistentVolumeClaim">PersistentVolumeClaim</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
+
 ### Kubeconfig
 
 Methods:
