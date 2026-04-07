@@ -38,12 +38,7 @@ func TestClusterPoolAvailabilityNewWithOptionalParams(t *testing.T) {
 					Size: 100,
 					Type: compute.VolumeTypeABS,
 				},
-				CPUConfig: nks.NKSNodePoolCPUConfigParam{
-					Vcpu: 4,
-				},
-				MemoryConfig: nks.NKSNodePoolMemoryConfigParam{
-					Size: 8,
-				},
+				InstanceType: "n1-standard-8",
 			},
 			NodeCount: 3,
 			Tags:      []string{"production", "ethereum"},

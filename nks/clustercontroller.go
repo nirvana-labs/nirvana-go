@@ -89,12 +89,10 @@ func (r *ClusterControllerService) Get(ctx context.Context, clusterID string, co
 type NKSController struct {
 	// Unique identifier for the controller.
 	ID string `json:"id" api:"required"`
-	// CPU configuration.
-	CPUConfig NKSControllerCPUConfigResponse `json:"cpu_config" api:"required"`
 	// When the controller was created.
 	CreatedAt time.Time `json:"created_at" api:"required" format:"date-time"`
-	// Memory configuration.
-	MemoryConfig NKSControllerMemoryConfigResponse `json:"memory_config" api:"required"`
+	// Instance type name.
+	InstanceType string `json:"instance_type" api:"required"`
 	// Name of the controller.
 	Name string `json:"name" api:"required"`
 	// Private IP address of the controller.
@@ -109,9 +107,8 @@ type NKSController struct {
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID           respjson.Field
-		CPUConfig    respjson.Field
 		CreatedAt    respjson.Field
-		MemoryConfig respjson.Field
+		InstanceType respjson.Field
 		Name         respjson.Field
 		PrivateIP    respjson.Field
 		Status       respjson.Field
@@ -124,24 +121,6 @@ type NKSController struct {
 // Returns the unmodified JSON received from the API
 func (r NKSController) RawJSON() string { return r.JSON.raw }
 func (r *NKSController) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// CPU configuration.
-type NKSControllerCPUConfigResponse struct {
-	// Number of virtual CPUs.
-	Vcpu int64 `json:"vcpu" api:"required"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		Vcpu        respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
-	} `json:"-"`
-}
-
-// Returns the unmodified JSON received from the API
-func (r NKSControllerCPUConfigResponse) RawJSON() string { return r.JSON.raw }
-func (r *NKSControllerCPUConfigResponse) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -161,24 +140,6 @@ type NKSControllerList struct {
 // Returns the unmodified JSON received from the API
 func (r NKSControllerList) RawJSON() string { return r.JSON.raw }
 func (r *NKSControllerList) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// Memory configuration.
-type NKSControllerMemoryConfigResponse struct {
-	// Size of the memory in GB.
-	Size int64 `json:"size" api:"required"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		Size        respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
-	} `json:"-"`
-}
-
-// Returns the unmodified JSON received from the API
-func (r NKSControllerMemoryConfigResponse) RawJSON() string { return r.JSON.raw }
-func (r *NKSControllerMemoryConfigResponse) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
