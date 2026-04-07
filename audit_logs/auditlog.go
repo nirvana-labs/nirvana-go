@@ -145,6 +145,8 @@ func (r *AuditLogTarget) UnmarshalJSON(data []byte) error {
 type AuditLogActor struct {
 	// Unique identifier for the actor.
 	ID string `json:"id" api:"required"`
+	// Display name of the actor.
+	Name string `json:"name" api:"required"`
 	// Type of actor.
 	//
 	// Any of "user", "api_key".
@@ -152,6 +154,7 @@ type AuditLogActor struct {
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field
+		Name        respjson.Field
 		Type        respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
