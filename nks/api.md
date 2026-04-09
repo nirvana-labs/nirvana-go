@@ -4,7 +4,6 @@
 
 Response Types:
 
-- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks">nks</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks#Kubeconfig">Kubeconfig</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks">nks</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks#NKSCluster">NKSCluster</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks">nks</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks#NKSClusterList">NKSClusterList</a>
 
@@ -36,6 +35,10 @@ Methods:
 - <code title="get /v1/nks/clusters/{cluster_id}/persistent_volume_claims/{persistent_volume_claim_id}">client.NKS.Clusters.PersistentVolumeClaims.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks#ClusterPersistentVolumeClaimService.Get">Get</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, clusterID <a href="https://pkg.go.dev/builtin#string">string</a>, persistentVolumeClaimID <a href="https://pkg.go.dev/builtin#string">string</a>) (\*<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks">nks</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks#PersistentVolumeClaim">PersistentVolumeClaim</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
 
 ### Kubeconfig
+
+Response Types:
+
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks">nks</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks#Kubeconfig">Kubeconfig</a>
 
 Methods:
 
