@@ -9,8 +9,10 @@ import (
 	"net/http"
 	"slices"
 
+	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/option"
+	"github.com/nirvana-labs/nirvana-go/packages/respjson"
 )
 
 // ClusterKubeconfigService contains methods and other services that help with
@@ -42,4 +44,22 @@ func (r *ClusterKubeconfigService) Get(ctx context.Context, clusterID string, op
 	path := fmt.Sprintf("v1/nks/clusters/%s/kubeconfig", clusterID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return res, err
+}
+
+// Kubeconfig for an NKS Cluster.
+type Kubeconfig struct {
+	// Kubeconfig content for the Cluster.
+	Kubeconfig string `json:"kubeconfig" api:"required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Kubeconfig  respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r Kubeconfig) RawJSON() string { return r.JSON.raw }
+func (r *Kubeconfig) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
 }
