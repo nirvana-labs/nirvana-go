@@ -64,7 +64,7 @@ type VPCAvailabilityNewParams struct {
 	ProjectID string `json:"project_id" api:"required"`
 	// Region the resource is in.
 	//
-	// Any of "us-sva-1", "us-sva-2", "us-chi-1", "us-wdc-1".
+	// Any of "us-sva-1", "us-sva-2", "us-chi-1".
 	Region shared.RegionName `json:"region,omitzero" api:"required"`
 	// Name of the subnet to create.
 	SubnetName string `json:"subnet_name" api:"required"`

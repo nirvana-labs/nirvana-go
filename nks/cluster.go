@@ -138,7 +138,7 @@ type NKSCluster struct {
 	PublicIP string `json:"public_ip" api:"required"`
 	// Region the resource is in.
 	//
-	// Any of "us-sva-1", "us-sva-2", "us-chi-1", "us-wdc-1".
+	// Any of "us-sva-1", "us-sva-2", "us-chi-1".
 	Region shared.RegionName `json:"region" api:"required"`
 	// Status of the resource.
 	//
@@ -202,7 +202,7 @@ type ClusterNewParams struct {
 	ProjectID string `json:"project_id" api:"required"`
 	// Region the resource is in.
 	//
-	// Any of "us-sva-1", "us-sva-2", "us-chi-1", "us-wdc-1".
+	// Any of "us-sva-1", "us-sva-2", "us-chi-1".
 	Region shared.RegionName `json:"region,omitzero" api:"required"`
 	// ID of the VPC to use for the Cluster.
 	VPCID string `json:"vpc_id" api:"required"`

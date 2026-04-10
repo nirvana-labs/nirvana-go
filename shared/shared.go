@@ -42,7 +42,6 @@ const (
 	RegionNameUsSva1 RegionName = "us-sva-1"
 	RegionNameUsSva2 RegionName = "us-sva-2"
 	RegionNameUsChi1 RegionName = "us-chi-1"
-	RegionNameUsWdc1 RegionName = "us-wdc-1"
 )
 
 // Status of the resource.

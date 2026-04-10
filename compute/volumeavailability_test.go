@@ -31,7 +31,7 @@ func TestVolumeAvailabilityNewWithOptionalParams(t *testing.T) {
 	err := client.Compute.Volumes.Availability.New(context.TODO(), compute.VolumeAvailabilityNewParams{
 		Name:      "my-data-volume",
 		ProjectID: "123e4567-e89b-12d3-a456-426614174000",
-		Region:    shared.RegionNameUsWdc1,
+		Region:    shared.RegionNameUsSva2,
 		Size:      100,
 		Type:      compute.VolumeTypeABS,
 		Tags:      []string{"production", "ethereum"},

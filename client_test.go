@@ -55,7 +55,7 @@ func TestUserAgentHeader(t *testing.T) {
 		OSImageName:     "ubuntu-noble-2025-10-01",
 		ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
 		PublicIPEnabled: true,
-		Region:          shared.RegionNameUsWdc1,
+		Region:          shared.RegionNameUsSva1,
 		SSHKey: compute.SSHKeyRequestParam{
 			PublicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDBIASkmwNiLcdlW6927Zjt1Hf7Kw/PpEZ4Zm+wU9wn2",
 		},
@@ -99,7 +99,7 @@ func TestRetryAfter(t *testing.T) {
 		OSImageName:     "ubuntu-noble-2025-10-01",
 		ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
 		PublicIPEnabled: true,
-		Region:          shared.RegionNameUsWdc1,
+		Region:          shared.RegionNameUsSva1,
 		SSHKey: compute.SSHKeyRequestParam{
 			PublicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDBIASkmwNiLcdlW6927Zjt1Hf7Kw/PpEZ4Zm+wU9wn2",
 		},
@@ -154,7 +154,7 @@ func TestDeleteRetryCountHeader(t *testing.T) {
 		OSImageName:     "ubuntu-noble-2025-10-01",
 		ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
 		PublicIPEnabled: true,
-		Region:          shared.RegionNameUsWdc1,
+		Region:          shared.RegionNameUsSva1,
 		SSHKey: compute.SSHKeyRequestParam{
 			PublicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDBIASkmwNiLcdlW6927Zjt1Hf7Kw/PpEZ4Zm+wU9wn2",
 		},
@@ -204,7 +204,7 @@ func TestOverwriteRetryCountHeader(t *testing.T) {
 		OSImageName:     "ubuntu-noble-2025-10-01",
 		ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
 		PublicIPEnabled: true,
-		Region:          shared.RegionNameUsWdc1,
+		Region:          shared.RegionNameUsSva1,
 		SSHKey: compute.SSHKeyRequestParam{
 			PublicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDBIASkmwNiLcdlW6927Zjt1Hf7Kw/PpEZ4Zm+wU9wn2",
 		},
@@ -253,7 +253,7 @@ func TestRetryAfterMs(t *testing.T) {
 		OSImageName:     "ubuntu-noble-2025-10-01",
 		ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
 		PublicIPEnabled: true,
-		Region:          shared.RegionNameUsWdc1,
+		Region:          shared.RegionNameUsSva1,
 		SSHKey: compute.SSHKeyRequestParam{
 			PublicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDBIASkmwNiLcdlW6927Zjt1Hf7Kw/PpEZ4Zm+wU9wn2",
 		},
@@ -296,7 +296,7 @@ func TestContextCancel(t *testing.T) {
 		OSImageName:     "ubuntu-noble-2025-10-01",
 		ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
 		PublicIPEnabled: true,
-		Region:          shared.RegionNameUsWdc1,
+		Region:          shared.RegionNameUsSva1,
 		SSHKey: compute.SSHKeyRequestParam{
 			PublicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDBIASkmwNiLcdlW6927Zjt1Hf7Kw/PpEZ4Zm+wU9wn2",
 		},
@@ -336,7 +336,7 @@ func TestContextCancelDelay(t *testing.T) {
 		OSImageName:     "ubuntu-noble-2025-10-01",
 		ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
 		PublicIPEnabled: true,
-		Region:          shared.RegionNameUsWdc1,
+		Region:          shared.RegionNameUsSva1,
 		SSHKey: compute.SSHKeyRequestParam{
 			PublicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDBIASkmwNiLcdlW6927Zjt1Hf7Kw/PpEZ4Zm+wU9wn2",
 		},
@@ -382,7 +382,7 @@ func TestContextDeadline(t *testing.T) {
 			OSImageName:     "ubuntu-noble-2025-10-01",
 			ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
 			PublicIPEnabled: true,
-			Region:          shared.RegionNameUsWdc1,
+			Region:          shared.RegionNameUsSva1,
 			SSHKey: compute.SSHKeyRequestParam{
 				PublicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDBIASkmwNiLcdlW6927Zjt1Hf7Kw/PpEZ4Zm+wU9wn2",
 			},

@@ -31,7 +31,7 @@ func TestClusterAvailabilityNewWithOptionalParams(t *testing.T) {
 	err := client.NKS.Clusters.Availability.New(context.TODO(), nks.ClusterAvailabilityNewParams{
 		Name:      "my-cluster",
 		ProjectID: "123e4567-e89b-12d3-a456-426614174000",
-		Region:    shared.RegionNameUsWdc1,
+		Region:    shared.RegionNameUsSva2,
 		VPCID:     "123e4567-e89b-12d3-a456-426614174000",
 		Tags:      []string{"production", "ethereum"},
 	})
