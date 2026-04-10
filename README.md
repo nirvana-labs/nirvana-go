@@ -84,7 +84,7 @@ func main() {
 		OSImageName:     "ubuntu-noble-2025-10-01",
 		ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
 		PublicIPEnabled: true,
-		Region:          shared.RegionNameUsSea1,
+		Region:          shared.RegionNameUsSva1,
 		SSHKey: compute.SSHKeyRequestParam{
 			PublicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDBIASkmwNiLcdlW6927Zjt1Hf7Kw/PpEZ4Zm+wU9wn2",
 		},
@@ -376,7 +376,7 @@ _, err := client.Compute.VMs.New(context.TODO(), compute.VMNewParams{
 	OSImageName:     "ubuntu-noble-2025-10-01",
 	ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
 	PublicIPEnabled: true,
-	Region:          shared.RegionNameUsSea1,
+	Region:          shared.RegionNameUsSva1,
 	SSHKey: compute.SSHKeyRequestParam{
 		PublicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDBIASkmwNiLcdlW6927Zjt1Hf7Kw/PpEZ4Zm+wU9wn2",
 	},
@@ -423,7 +423,7 @@ client.Compute.VMs.New(
 		OSImageName:     "ubuntu-noble-2025-10-01",
 		ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
 		PublicIPEnabled: true,
-		Region:          shared.RegionNameUsSea1,
+		Region:          shared.RegionNameUsSva1,
 		SSHKey: compute.SSHKeyRequestParam{
 			PublicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDBIASkmwNiLcdlW6927Zjt1Hf7Kw/PpEZ4Zm+wU9wn2",
 		},
@@ -479,7 +479,7 @@ client.Compute.VMs.New(
 		OSImageName:     "ubuntu-noble-2025-10-01",
 		ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
 		PublicIPEnabled: true,
-		Region:          shared.RegionNameUsSea1,
+		Region:          shared.RegionNameUsSva1,
 		SSHKey: compute.SSHKeyRequestParam{
 			PublicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDBIASkmwNiLcdlW6927Zjt1Hf7Kw/PpEZ4Zm+wU9wn2",
 		},
@@ -514,7 +514,7 @@ operation, err := client.Compute.VMs.New(
 		OSImageName:     "ubuntu-noble-2025-10-01",
 		ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
 		PublicIPEnabled: true,
-		Region:          shared.RegionNameUsSea1,
+		Region:          shared.RegionNameUsSva1,
 		SSHKey: compute.SSHKeyRequestParam{
 			PublicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDBIASkmwNiLcdlW6927Zjt1Hf7Kw/PpEZ4Zm+wU9wn2",
 		},
