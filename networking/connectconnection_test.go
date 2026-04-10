@@ -34,7 +34,7 @@ func TestConnectConnectionNewWithOptionalParams(t *testing.T) {
 		Name:          "my-connect-connection",
 		ProjectID:     "123e4567-e89b-12d3-a456-426614174000",
 		ProviderCIDRs: []string{"172.16.0.0/16"},
-		Region:        shared.RegionNameUsWdc1,
+		Region:        shared.RegionNameUsSva2,
 		AWS: networking.ConnectConnectionAWSConfigRequestParam{
 			AccountID: "523816707215",
 			Region:    "us-east-1",

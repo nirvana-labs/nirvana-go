@@ -85,7 +85,7 @@ type InstanceType struct {
 	Name      string    `json:"name" api:"required"`
 	// Region the resource is in.
 	//
-	// Any of "us-sva-1", "us-sva-2", "us-chi-1", "us-wdc-1".
+	// Any of "us-sea-1", "us-sva-1", "us-sva-2", "us-chi-1", "ap-sin-1".
 	Region shared.RegionName `json:"region" api:"required"`
 	Series string            `json:"series" api:"required"`
 	// When the Instance Type was updated.
@@ -151,8 +151,9 @@ func (r InstanceTypeListParams) URLQuery() (v url.Values, err error) {
 type InstanceTypeGetParamsRegion string
 
 const (
+	InstanceTypeGetParamsRegionUsSea1 InstanceTypeGetParamsRegion = "us-sea-1"
 	InstanceTypeGetParamsRegionUsSva1 InstanceTypeGetParamsRegion = "us-sva-1"
 	InstanceTypeGetParamsRegionUsSva2 InstanceTypeGetParamsRegion = "us-sva-2"
 	InstanceTypeGetParamsRegionUsChi1 InstanceTypeGetParamsRegion = "us-chi-1"
-	InstanceTypeGetParamsRegionUsWdc1 InstanceTypeGetParamsRegion = "us-wdc-1"
+	InstanceTypeGetParamsRegionApSin1 InstanceTypeGetParamsRegion = "ap-sin-1"
 )

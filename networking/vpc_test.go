@@ -31,7 +31,7 @@ func TestVPCNewWithOptionalParams(t *testing.T) {
 	_, err := client.Networking.VPCs.New(context.TODO(), networking.VPCNewParams{
 		Name:       "my-vpc",
 		ProjectID:  "123e4567-e89b-12d3-a456-426614174000",
-		Region:     shared.RegionNameUsWdc1,
+		Region:     shared.RegionNameUsSva2,
 		SubnetName: "my-subnet",
 		Tags:       []string{"production", "ethereum"},
 	})

@@ -53,7 +53,7 @@ func TestRegionGet(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Regions.Get(context.TODO(), "us-wdc-1")
+	_, err := client.Regions.Get(context.TODO(), "us-sva-2")
 	if err != nil {
 		var apierr *nirvana.Error
 		if errors.As(err, &apierr) {

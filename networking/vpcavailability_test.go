@@ -31,7 +31,7 @@ func TestVPCAvailabilityNewWithOptionalParams(t *testing.T) {
 	err := client.Networking.VPCs.Availability.New(context.TODO(), networking.VPCAvailabilityNewParams{
 		Name:       "my-vpc",
 		ProjectID:  "123e4567-e89b-12d3-a456-426614174000",
-		Region:     shared.RegionNameUsWdc1,
+		Region:     shared.RegionNameUsSva2,
 		SubnetName: "my-subnet",
 		Tags:       []string{"production", "ethereum"},
 	})
