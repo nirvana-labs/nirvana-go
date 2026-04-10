@@ -121,7 +121,7 @@ type ConnectConnectionNewParams struct {
 	ProviderCIDRs []string `json:"provider_cidrs,omitzero" api:"required"`
 	// Region the resource is in.
 	//
-	// Any of "us-sea-1", "us-sva-1", "us-sva-2", "us-chi-1", "ap-sin-1".
+	// Any of "us-sva-1", "us-sva-2", "us-chi-1".
 	Region shared.RegionName `json:"region,omitzero" api:"required"`
 	// AWS provider configuration
 	AWS ConnectConnectionAWSConfigRequestParam `json:"aws,omitzero"`
