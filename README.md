@@ -74,12 +74,6 @@ func main() {
 			Size: 100,
 			Type: compute.VolumeTypeNvme,
 		},
-		CPUConfig: compute.CPUConfigRequestParam{
-			Vcpu: 2,
-		},
-		MemoryConfig: compute.MemoryConfigRequestParam{
-			Size: 2,
-		},
 		Name:            "my-vm",
 		OSImageName:     "ubuntu-noble-2025-10-01",
 		ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
@@ -89,6 +83,12 @@ func main() {
 			PublicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDBIASkmwNiLcdlW6927Zjt1Hf7Kw/PpEZ4Zm+wU9wn2",
 		},
 		SubnetID: "123e4567-e89b-12d3-a456-426614174000",
+		CPUConfig: compute.CPUConfigRequestParam{
+			Vcpu: nirvana.Int(2),
+		},
+		MemoryConfig: compute.MemoryConfigRequestParam{
+			Size: nirvana.Int(2),
+		},
 	})
 	if err != nil {
 		panic(err.Error())
@@ -366,12 +366,6 @@ _, err := client.Compute.VMs.New(context.TODO(), compute.VMNewParams{
 		Size: 100,
 		Type: compute.VolumeTypeNvme,
 	},
-	CPUConfig: compute.CPUConfigRequestParam{
-		Vcpu: 2,
-	},
-	MemoryConfig: compute.MemoryConfigRequestParam{
-		Size: 2,
-	},
 	Name:            "my-vm",
 	OSImageName:     "ubuntu-noble-2025-10-01",
 	ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
@@ -381,6 +375,12 @@ _, err := client.Compute.VMs.New(context.TODO(), compute.VMNewParams{
 		PublicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDBIASkmwNiLcdlW6927Zjt1Hf7Kw/PpEZ4Zm+wU9wn2",
 	},
 	SubnetID: "123e4567-e89b-12d3-a456-426614174000",
+	CPUConfig: compute.CPUConfigRequestParam{
+		Vcpu: nirvana.Int(2),
+	},
+	MemoryConfig: compute.MemoryConfigRequestParam{
+		Size: nirvana.Int(2),
+	},
 })
 if err != nil {
 	var apierr *nirvana.Error
@@ -413,12 +413,6 @@ client.Compute.VMs.New(
 			Size: 100,
 			Type: compute.VolumeTypeNvme,
 		},
-		CPUConfig: compute.CPUConfigRequestParam{
-			Vcpu: 2,
-		},
-		MemoryConfig: compute.MemoryConfigRequestParam{
-			Size: 2,
-		},
 		Name:            "my-vm",
 		OSImageName:     "ubuntu-noble-2025-10-01",
 		ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
@@ -428,6 +422,12 @@ client.Compute.VMs.New(
 			PublicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDBIASkmwNiLcdlW6927Zjt1Hf7Kw/PpEZ4Zm+wU9wn2",
 		},
 		SubnetID: "123e4567-e89b-12d3-a456-426614174000",
+		CPUConfig: compute.CPUConfigRequestParam{
+			Vcpu: nirvana.Int(2),
+		},
+		MemoryConfig: compute.MemoryConfigRequestParam{
+			Size: nirvana.Int(2),
+		},
 	},
 	// This sets the per-retry timeout
 	option.WithRequestTimeout(20*time.Second),
@@ -469,12 +469,6 @@ client.Compute.VMs.New(
 			Size: 100,
 			Type: compute.VolumeTypeNvme,
 		},
-		CPUConfig: compute.CPUConfigRequestParam{
-			Vcpu: 2,
-		},
-		MemoryConfig: compute.MemoryConfigRequestParam{
-			Size: 2,
-		},
 		Name:            "my-vm",
 		OSImageName:     "ubuntu-noble-2025-10-01",
 		ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
@@ -484,6 +478,12 @@ client.Compute.VMs.New(
 			PublicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDBIASkmwNiLcdlW6927Zjt1Hf7Kw/PpEZ4Zm+wU9wn2",
 		},
 		SubnetID: "123e4567-e89b-12d3-a456-426614174000",
+		CPUConfig: compute.CPUConfigRequestParam{
+			Vcpu: nirvana.Int(2),
+		},
+		MemoryConfig: compute.MemoryConfigRequestParam{
+			Size: nirvana.Int(2),
+		},
 	},
 	option.WithMaxRetries(5),
 )
@@ -504,12 +504,6 @@ operation, err := client.Compute.VMs.New(
 			Size: 100,
 			Type: compute.VolumeTypeNvme,
 		},
-		CPUConfig: compute.CPUConfigRequestParam{
-			Vcpu: 2,
-		},
-		MemoryConfig: compute.MemoryConfigRequestParam{
-			Size: 2,
-		},
 		Name:            "my-vm",
 		OSImageName:     "ubuntu-noble-2025-10-01",
 		ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
@@ -519,6 +513,12 @@ operation, err := client.Compute.VMs.New(
 			PublicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDBIASkmwNiLcdlW6927Zjt1Hf7Kw/PpEZ4Zm+wU9wn2",
 		},
 		SubnetID: "123e4567-e89b-12d3-a456-426614174000",
+		CPUConfig: compute.CPUConfigRequestParam{
+			Vcpu: nirvana.Int(2),
+		},
+		MemoryConfig: compute.MemoryConfigRequestParam{
+			Size: nirvana.Int(2),
+		},
 	},
 	option.WithResponseInto(&response),
 )

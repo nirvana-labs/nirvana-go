@@ -34,12 +34,6 @@ func TestVMAvailabilityNewWithOptionalParams(t *testing.T) {
 			Type: compute.VolumeTypeABS,
 			Tags: []string{"production", "ethereum"},
 		},
-		CPUConfig: compute.CPUConfigRequestParam{
-			Vcpu: 2,
-		},
-		MemoryConfig: compute.MemoryConfigRequestParam{
-			Size: 2,
-		},
 		Name:            "my-vm",
 		OSImageName:     "ubuntu-noble-2025-10-01",
 		ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
@@ -49,12 +43,19 @@ func TestVMAvailabilityNewWithOptionalParams(t *testing.T) {
 			PublicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDBIASkmwNiLcdlW6927Zjt1Hf7Kw/PpEZ4Zm+wU9wn2",
 		},
 		SubnetID: "123e4567-e89b-12d3-a456-426614174000",
+		CPUConfig: compute.CPUConfigRequestParam{
+			Vcpu: nirvana.Int(2),
+		},
 		DataVolumes: []compute.VMAvailabilityNewParamsDataVolume{{
 			Name: "my-data-volume",
 			Size: 100,
 			Type: compute.VolumeTypeABS,
 			Tags: []string{"production", "ethereum"},
 		}},
+		InstanceType: nirvana.String("n1-standard-8"),
+		MemoryConfig: compute.MemoryConfigRequestParam{
+			Size: nirvana.Int(2),
+		},
 		Tags: []string{"production", "ethereum"},
 	})
 	if err != nil {
@@ -84,10 +85,11 @@ func TestVMAvailabilityUpdateWithOptionalParams(t *testing.T) {
 		"vm_id",
 		compute.VMAvailabilityUpdateParams{
 			CPUConfig: compute.CPUConfigRequestParam{
-				Vcpu: 2,
+				Vcpu: nirvana.Int(2),
 			},
+			InstanceType: nirvana.String("n1-standard-8"),
 			MemoryConfig: compute.MemoryConfigRequestParam{
-				Size: 2,
+				Size: nirvana.Int(2),
 			},
 			Name:            nirvana.String("my-vm"),
 			PublicIPEnabled: nirvana.Bool(true),
