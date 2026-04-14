@@ -145,11 +145,9 @@ func (r *CPUConfig) UnmarshalJSON(data []byte) error {
 }
 
 // CPU configuration for the VM.
-//
-// The property Vcpu is required.
 type CPUConfigRequestParam struct {
 	// Number of virtual CPUs.
-	Vcpu int64 `json:"vcpu" api:"required"`
+	Vcpu param.Opt[int64] `json:"vcpu,omitzero"`
 	paramObj
 }
 
@@ -180,11 +178,9 @@ func (r *MemoryConfig) UnmarshalJSON(data []byte) error {
 }
 
 // Memory configuration for the VM.
-//
-// The property Size is required.
 type MemoryConfigRequestParam struct {
 	// Size of the memory in GB.
-	Size int64 `json:"size" api:"required"`
+	Size param.Opt[int64] `json:"size,omitzero"`
 	paramObj
 }
 
@@ -280,6 +276,8 @@ type VM struct {
 	VPCID string `json:"vpc_id" api:"required"`
 	// Name of the VPC the VM is in.
 	VPCName string `json:"vpc_name" api:"required"`
+	// Instance type name.
+	InstanceType string `json:"instance_type" api:"nullable"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID              respjson.Field
@@ -300,6 +298,7 @@ type VM struct {
 		UpdatedAt       respjson.Field
 		VPCID           respjson.Field
 		VPCName         respjson.Field
+		InstanceType    respjson.Field
 		ExtraFields     map[string]respjson.Field
 		raw             string
 	} `json:"-"`
@@ -333,10 +332,6 @@ func (r *VMList) UnmarshalJSON(data []byte) error {
 type VMNewParams struct {
 	// Boot volume for the VM.
 	BootVolume VMNewParamsBootVolume `json:"boot_volume,omitzero" api:"required"`
-	// CPU configuration for the VM.
-	CPUConfig CPUConfigRequestParam `json:"cpu_config,omitzero" api:"required"`
-	// Memory configuration for the VM.
-	MemoryConfig MemoryConfigRequestParam `json:"memory_config,omitzero" api:"required"`
 	// Name of the VM.
 	Name string `json:"name" api:"required"`
 	// Name of the OS Image to use for the VM.
@@ -353,8 +348,14 @@ type VMNewParams struct {
 	SSHKey SSHKeyRequestParam `json:"ssh_key,omitzero" api:"required"`
 	// ID of the subnet to use for the VM.
 	SubnetID string `json:"subnet_id" api:"required"`
+	// Instance type name.
+	InstanceType param.Opt[string] `json:"instance_type,omitzero"`
+	// CPU configuration for the VM.
+	CPUConfig CPUConfigRequestParam `json:"cpu_config,omitzero"`
 	// Data volumes for the VM.
 	DataVolumes []VMNewParamsDataVolume `json:"data_volumes,omitzero"`
+	// Memory configuration for the VM.
+	MemoryConfig MemoryConfigRequestParam `json:"memory_config,omitzero"`
 	// Tags to attach to the VM.
 	Tags []string `json:"tags,omitzero"`
 	paramObj
@@ -417,6 +418,8 @@ func (r *VMNewParamsDataVolume) UnmarshalJSON(data []byte) error {
 }
 
 type VMUpdateParams struct {
+	// Instance type name.
+	InstanceType param.Opt[string] `json:"instance_type,omitzero"`
 	// Name of the VM.
 	Name param.Opt[string] `json:"name,omitzero"`
 	// Whether to enable public IP for the VM.
