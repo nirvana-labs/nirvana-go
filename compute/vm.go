@@ -220,7 +220,7 @@ func (r *OSImage) UnmarshalJSON(data []byte) error {
 //
 // The property PublicKey is required.
 type SSHKeyRequestParam struct {
-	// Public key to and and use to access the VM.
+	// Public key to and use to access the VM.
 	PublicKey string `json:"public_key" api:"required"`
 	paramObj
 }
