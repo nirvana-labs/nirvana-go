@@ -39,7 +39,7 @@ Or to pin the version:
 <!-- x-release-please-start-version -->
 
 ```sh
-go get -u 'github.com/nirvana-labs/nirvana-go@v1.73.1'
+go get -u 'github.com/nirvana-labs/nirvana-go@v1.74.0'
 ```
 
 <!-- x-release-please-end -->
@@ -72,23 +72,18 @@ func main() {
 	operation, err := client.Compute.VMs.New(context.TODO(), compute.VMNewParams{
 		BootVolume: compute.VMNewParamsBootVolume{
 			Size: 100,
-			Type: compute.VolumeTypeNvme,
+			Type: compute.VolumeTypeABS,
 		},
 		Name:            "my-vm",
 		OSImageName:     "ubuntu-noble-2025-10-01",
 		ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
 		PublicIPEnabled: true,
-		Region:          shared.RegionNameUsSva1,
+		Region:          shared.RegionNameUsSva2,
 		SSHKey: compute.SSHKeyRequestParam{
 			PublicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDBIASkmwNiLcdlW6927Zjt1Hf7Kw/PpEZ4Zm+wU9wn2",
 		},
-		SubnetID: "123e4567-e89b-12d3-a456-426614174000",
-		CPUConfig: compute.CPUConfigRequestParam{
-			Vcpu: nirvana.Int(2),
-		},
-		MemoryConfig: compute.MemoryConfigRequestParam{
-			Size: nirvana.Int(2),
-		},
+		SubnetID:     "123e4567-e89b-12d3-a456-426614174000",
+		InstanceType: nirvana.String("n1-standard-2"),
 	})
 	if err != nil {
 		panic(err.Error())
@@ -364,23 +359,18 @@ To handle errors, we recommend that you use the `errors.As` pattern:
 _, err := client.Compute.VMs.New(context.TODO(), compute.VMNewParams{
 	BootVolume: compute.VMNewParamsBootVolume{
 		Size: 100,
-		Type: compute.VolumeTypeNvme,
+		Type: compute.VolumeTypeABS,
 	},
 	Name:            "my-vm",
 	OSImageName:     "ubuntu-noble-2025-10-01",
 	ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
 	PublicIPEnabled: true,
-	Region:          shared.RegionNameUsSva1,
+	Region:          shared.RegionNameUsSva2,
 	SSHKey: compute.SSHKeyRequestParam{
 		PublicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDBIASkmwNiLcdlW6927Zjt1Hf7Kw/PpEZ4Zm+wU9wn2",
 	},
-	SubnetID: "123e4567-e89b-12d3-a456-426614174000",
-	CPUConfig: compute.CPUConfigRequestParam{
-		Vcpu: nirvana.Int(2),
-	},
-	MemoryConfig: compute.MemoryConfigRequestParam{
-		Size: nirvana.Int(2),
-	},
+	SubnetID:     "123e4567-e89b-12d3-a456-426614174000",
+	InstanceType: nirvana.String("n1-standard-2"),
 })
 if err != nil {
 	var apierr *nirvana.Error
@@ -411,23 +401,18 @@ client.Compute.VMs.New(
 	compute.VMNewParams{
 		BootVolume: compute.VMNewParamsBootVolume{
 			Size: 100,
-			Type: compute.VolumeTypeNvme,
+			Type: compute.VolumeTypeABS,
 		},
 		Name:            "my-vm",
 		OSImageName:     "ubuntu-noble-2025-10-01",
 		ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
 		PublicIPEnabled: true,
-		Region:          shared.RegionNameUsSva1,
+		Region:          shared.RegionNameUsSva2,
 		SSHKey: compute.SSHKeyRequestParam{
 			PublicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDBIASkmwNiLcdlW6927Zjt1Hf7Kw/PpEZ4Zm+wU9wn2",
 		},
-		SubnetID: "123e4567-e89b-12d3-a456-426614174000",
-		CPUConfig: compute.CPUConfigRequestParam{
-			Vcpu: nirvana.Int(2),
-		},
-		MemoryConfig: compute.MemoryConfigRequestParam{
-			Size: nirvana.Int(2),
-		},
+		SubnetID:     "123e4567-e89b-12d3-a456-426614174000",
+		InstanceType: nirvana.String("n1-standard-2"),
 	},
 	// This sets the per-retry timeout
 	option.WithRequestTimeout(20*time.Second),
@@ -467,23 +452,18 @@ client.Compute.VMs.New(
 	compute.VMNewParams{
 		BootVolume: compute.VMNewParamsBootVolume{
 			Size: 100,
-			Type: compute.VolumeTypeNvme,
+			Type: compute.VolumeTypeABS,
 		},
 		Name:            "my-vm",
 		OSImageName:     "ubuntu-noble-2025-10-01",
 		ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
 		PublicIPEnabled: true,
-		Region:          shared.RegionNameUsSva1,
+		Region:          shared.RegionNameUsSva2,
 		SSHKey: compute.SSHKeyRequestParam{
 			PublicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDBIASkmwNiLcdlW6927Zjt1Hf7Kw/PpEZ4Zm+wU9wn2",
 		},
-		SubnetID: "123e4567-e89b-12d3-a456-426614174000",
-		CPUConfig: compute.CPUConfigRequestParam{
-			Vcpu: nirvana.Int(2),
-		},
-		MemoryConfig: compute.MemoryConfigRequestParam{
-			Size: nirvana.Int(2),
-		},
+		SubnetID:     "123e4567-e89b-12d3-a456-426614174000",
+		InstanceType: nirvana.String("n1-standard-2"),
 	},
 	option.WithMaxRetries(5),
 )
@@ -502,23 +482,18 @@ operation, err := client.Compute.VMs.New(
 	compute.VMNewParams{
 		BootVolume: compute.VMNewParamsBootVolume{
 			Size: 100,
-			Type: compute.VolumeTypeNvme,
+			Type: compute.VolumeTypeABS,
 		},
 		Name:            "my-vm",
 		OSImageName:     "ubuntu-noble-2025-10-01",
 		ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
 		PublicIPEnabled: true,
-		Region:          shared.RegionNameUsSva1,
+		Region:          shared.RegionNameUsSva2,
 		SSHKey: compute.SSHKeyRequestParam{
 			PublicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDBIASkmwNiLcdlW6927Zjt1Hf7Kw/PpEZ4Zm+wU9wn2",
 		},
-		SubnetID: "123e4567-e89b-12d3-a456-426614174000",
-		CPUConfig: compute.CPUConfigRequestParam{
-			Vcpu: nirvana.Int(2),
-		},
-		MemoryConfig: compute.MemoryConfigRequestParam{
-			Size: nirvana.Int(2),
-		},
+		SubnetID:     "123e4567-e89b-12d3-a456-426614174000",
+		InstanceType: nirvana.String("n1-standard-2"),
 	},
 	option.WithResponseInto(&response),
 )

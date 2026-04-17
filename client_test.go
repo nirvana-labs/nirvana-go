@@ -43,23 +43,18 @@ func TestUserAgentHeader(t *testing.T) {
 	_, _ = client.Compute.VMs.New(context.Background(), compute.VMNewParams{
 		BootVolume: compute.VMNewParamsBootVolume{
 			Size: 100,
-			Type: compute.VolumeTypeNvme,
+			Type: compute.VolumeTypeABS,
 		},
 		Name:            "my-vm",
 		OSImageName:     "ubuntu-noble-2025-10-01",
 		ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
 		PublicIPEnabled: true,
-		Region:          shared.RegionNameUsSva1,
+		Region:          shared.RegionNameUsSva2,
 		SSHKey: compute.SSHKeyRequestParam{
 			PublicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDBIASkmwNiLcdlW6927Zjt1Hf7Kw/PpEZ4Zm+wU9wn2",
 		},
-		SubnetID: "123e4567-e89b-12d3-a456-426614174000",
-		CPUConfig: compute.CPUConfigRequestParam{
-			Vcpu: nirvana.Int(2),
-		},
-		MemoryConfig: compute.MemoryConfigRequestParam{
-			Size: nirvana.Int(2),
-		},
+		SubnetID:     "123e4567-e89b-12d3-a456-426614174000",
+		InstanceType: nirvana.String("n1-standard-2"),
 	})
 	if userAgent != fmt.Sprintf("NirvanaLabs/Go %s", internal.PackageVersion) {
 		t.Errorf("Expected User-Agent to be correct, but got: %#v", userAgent)
@@ -87,23 +82,18 @@ func TestRetryAfter(t *testing.T) {
 	_, err := client.Compute.VMs.New(context.Background(), compute.VMNewParams{
 		BootVolume: compute.VMNewParamsBootVolume{
 			Size: 100,
-			Type: compute.VolumeTypeNvme,
+			Type: compute.VolumeTypeABS,
 		},
 		Name:            "my-vm",
 		OSImageName:     "ubuntu-noble-2025-10-01",
 		ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
 		PublicIPEnabled: true,
-		Region:          shared.RegionNameUsSva1,
+		Region:          shared.RegionNameUsSva2,
 		SSHKey: compute.SSHKeyRequestParam{
 			PublicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDBIASkmwNiLcdlW6927Zjt1Hf7Kw/PpEZ4Zm+wU9wn2",
 		},
-		SubnetID: "123e4567-e89b-12d3-a456-426614174000",
-		CPUConfig: compute.CPUConfigRequestParam{
-			Vcpu: nirvana.Int(2),
-		},
-		MemoryConfig: compute.MemoryConfigRequestParam{
-			Size: nirvana.Int(2),
-		},
+		SubnetID:     "123e4567-e89b-12d3-a456-426614174000",
+		InstanceType: nirvana.String("n1-standard-2"),
 	})
 	if err == nil {
 		t.Error("Expected there to be a cancel error")
@@ -142,23 +132,18 @@ func TestDeleteRetryCountHeader(t *testing.T) {
 	_, err := client.Compute.VMs.New(context.Background(), compute.VMNewParams{
 		BootVolume: compute.VMNewParamsBootVolume{
 			Size: 100,
-			Type: compute.VolumeTypeNvme,
+			Type: compute.VolumeTypeABS,
 		},
 		Name:            "my-vm",
 		OSImageName:     "ubuntu-noble-2025-10-01",
 		ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
 		PublicIPEnabled: true,
-		Region:          shared.RegionNameUsSva1,
+		Region:          shared.RegionNameUsSva2,
 		SSHKey: compute.SSHKeyRequestParam{
 			PublicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDBIASkmwNiLcdlW6927Zjt1Hf7Kw/PpEZ4Zm+wU9wn2",
 		},
-		SubnetID: "123e4567-e89b-12d3-a456-426614174000",
-		CPUConfig: compute.CPUConfigRequestParam{
-			Vcpu: nirvana.Int(2),
-		},
-		MemoryConfig: compute.MemoryConfigRequestParam{
-			Size: nirvana.Int(2),
-		},
+		SubnetID:     "123e4567-e89b-12d3-a456-426614174000",
+		InstanceType: nirvana.String("n1-standard-2"),
 	})
 	if err == nil {
 		t.Error("Expected there to be a cancel error")
@@ -192,23 +177,18 @@ func TestOverwriteRetryCountHeader(t *testing.T) {
 	_, err := client.Compute.VMs.New(context.Background(), compute.VMNewParams{
 		BootVolume: compute.VMNewParamsBootVolume{
 			Size: 100,
-			Type: compute.VolumeTypeNvme,
+			Type: compute.VolumeTypeABS,
 		},
 		Name:            "my-vm",
 		OSImageName:     "ubuntu-noble-2025-10-01",
 		ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
 		PublicIPEnabled: true,
-		Region:          shared.RegionNameUsSva1,
+		Region:          shared.RegionNameUsSva2,
 		SSHKey: compute.SSHKeyRequestParam{
 			PublicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDBIASkmwNiLcdlW6927Zjt1Hf7Kw/PpEZ4Zm+wU9wn2",
 		},
-		SubnetID: "123e4567-e89b-12d3-a456-426614174000",
-		CPUConfig: compute.CPUConfigRequestParam{
-			Vcpu: nirvana.Int(2),
-		},
-		MemoryConfig: compute.MemoryConfigRequestParam{
-			Size: nirvana.Int(2),
-		},
+		SubnetID:     "123e4567-e89b-12d3-a456-426614174000",
+		InstanceType: nirvana.String("n1-standard-2"),
 	})
 	if err == nil {
 		t.Error("Expected there to be a cancel error")
@@ -241,23 +221,18 @@ func TestRetryAfterMs(t *testing.T) {
 	_, err := client.Compute.VMs.New(context.Background(), compute.VMNewParams{
 		BootVolume: compute.VMNewParamsBootVolume{
 			Size: 100,
-			Type: compute.VolumeTypeNvme,
+			Type: compute.VolumeTypeABS,
 		},
 		Name:            "my-vm",
 		OSImageName:     "ubuntu-noble-2025-10-01",
 		ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
 		PublicIPEnabled: true,
-		Region:          shared.RegionNameUsSva1,
+		Region:          shared.RegionNameUsSva2,
 		SSHKey: compute.SSHKeyRequestParam{
 			PublicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDBIASkmwNiLcdlW6927Zjt1Hf7Kw/PpEZ4Zm+wU9wn2",
 		},
-		SubnetID: "123e4567-e89b-12d3-a456-426614174000",
-		CPUConfig: compute.CPUConfigRequestParam{
-			Vcpu: nirvana.Int(2),
-		},
-		MemoryConfig: compute.MemoryConfigRequestParam{
-			Size: nirvana.Int(2),
-		},
+		SubnetID:     "123e4567-e89b-12d3-a456-426614174000",
+		InstanceType: nirvana.String("n1-standard-2"),
 	})
 	if err == nil {
 		t.Error("Expected there to be a cancel error")
@@ -284,23 +259,18 @@ func TestContextCancel(t *testing.T) {
 	_, err := client.Compute.VMs.New(cancelCtx, compute.VMNewParams{
 		BootVolume: compute.VMNewParamsBootVolume{
 			Size: 100,
-			Type: compute.VolumeTypeNvme,
+			Type: compute.VolumeTypeABS,
 		},
 		Name:            "my-vm",
 		OSImageName:     "ubuntu-noble-2025-10-01",
 		ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
 		PublicIPEnabled: true,
-		Region:          shared.RegionNameUsSva1,
+		Region:          shared.RegionNameUsSva2,
 		SSHKey: compute.SSHKeyRequestParam{
 			PublicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDBIASkmwNiLcdlW6927Zjt1Hf7Kw/PpEZ4Zm+wU9wn2",
 		},
-		SubnetID: "123e4567-e89b-12d3-a456-426614174000",
-		CPUConfig: compute.CPUConfigRequestParam{
-			Vcpu: nirvana.Int(2),
-		},
-		MemoryConfig: compute.MemoryConfigRequestParam{
-			Size: nirvana.Int(2),
-		},
+		SubnetID:     "123e4567-e89b-12d3-a456-426614174000",
+		InstanceType: nirvana.String("n1-standard-2"),
 	})
 	if err == nil {
 		t.Error("Expected there to be a cancel error")
@@ -324,23 +294,18 @@ func TestContextCancelDelay(t *testing.T) {
 	_, err := client.Compute.VMs.New(cancelCtx, compute.VMNewParams{
 		BootVolume: compute.VMNewParamsBootVolume{
 			Size: 100,
-			Type: compute.VolumeTypeNvme,
+			Type: compute.VolumeTypeABS,
 		},
 		Name:            "my-vm",
 		OSImageName:     "ubuntu-noble-2025-10-01",
 		ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
 		PublicIPEnabled: true,
-		Region:          shared.RegionNameUsSva1,
+		Region:          shared.RegionNameUsSva2,
 		SSHKey: compute.SSHKeyRequestParam{
 			PublicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDBIASkmwNiLcdlW6927Zjt1Hf7Kw/PpEZ4Zm+wU9wn2",
 		},
-		SubnetID: "123e4567-e89b-12d3-a456-426614174000",
-		CPUConfig: compute.CPUConfigRequestParam{
-			Vcpu: nirvana.Int(2),
-		},
-		MemoryConfig: compute.MemoryConfigRequestParam{
-			Size: nirvana.Int(2),
-		},
+		SubnetID:     "123e4567-e89b-12d3-a456-426614174000",
+		InstanceType: nirvana.String("n1-standard-2"),
 	})
 	if err == nil {
 		t.Error("expected there to be a cancel error")
@@ -370,23 +335,18 @@ func TestContextDeadline(t *testing.T) {
 		_, err := client.Compute.VMs.New(deadlineCtx, compute.VMNewParams{
 			BootVolume: compute.VMNewParamsBootVolume{
 				Size: 100,
-				Type: compute.VolumeTypeNvme,
+				Type: compute.VolumeTypeABS,
 			},
 			Name:            "my-vm",
 			OSImageName:     "ubuntu-noble-2025-10-01",
 			ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
 			PublicIPEnabled: true,
-			Region:          shared.RegionNameUsSva1,
+			Region:          shared.RegionNameUsSva2,
 			SSHKey: compute.SSHKeyRequestParam{
 				PublicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDBIASkmwNiLcdlW6927Zjt1Hf7Kw/PpEZ4Zm+wU9wn2",
 			},
-			SubnetID: "123e4567-e89b-12d3-a456-426614174000",
-			CPUConfig: compute.CPUConfigRequestParam{
-				Vcpu: nirvana.Int(2),
-			},
-			MemoryConfig: compute.MemoryConfigRequestParam{
-				Size: nirvana.Int(2),
-			},
+			SubnetID:     "123e4567-e89b-12d3-a456-426614174000",
+			InstanceType: nirvana.String("n1-standard-2"),
 		})
 		if err == nil {
 			t.Error("expected there to be a deadline error")

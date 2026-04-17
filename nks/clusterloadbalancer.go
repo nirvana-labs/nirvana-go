@@ -14,6 +14,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/apiquery"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
+	"github.com/nirvana-labs/nirvana-go/operations"
 	"github.com/nirvana-labs/nirvana-go/option"
 	"github.com/nirvana-labs/nirvana-go/packages/pagination"
 	"github.com/nirvana-labs/nirvana-go/packages/param"
@@ -38,6 +39,22 @@ func NewClusterLoadBalancerService(opts ...option.RequestOption) (r ClusterLoadB
 	r = ClusterLoadBalancerService{}
 	r.Options = opts
 	return
+}
+
+// Update an NKS load balancer
+func (r *ClusterLoadBalancerService) Update(ctx context.Context, clusterID string, loadBalancerID string, body ClusterLoadBalancerUpdateParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
+	opts = slices.Concat(r.Options, opts)
+	if clusterID == "" {
+		err = errors.New("missing required cluster_id parameter")
+		return nil, err
+	}
+	if loadBalancerID == "" {
+		err = errors.New("missing required load_balancer_id parameter")
+		return nil, err
+	}
+	path := fmt.Sprintf("v1/nks/clusters/%s/load_balancers/%s", clusterID, loadBalancerID)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPatch, path, body, &res, opts...)
+	return res, err
 }
 
 // List all load balancers in an NKS cluster
@@ -147,6 +164,20 @@ type NKSLoadBalancerList struct {
 // Returns the unmodified JSON received from the API
 func (r NKSLoadBalancerList) RawJSON() string { return r.JSON.raw }
 func (r *NKSLoadBalancerList) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+type ClusterLoadBalancerUpdateParams struct {
+	// Whether to enable a public IP for this load balancer.
+	PublicIPEnabled bool `json:"public_ip_enabled" api:"required"`
+	paramObj
+}
+
+func (r ClusterLoadBalancerUpdateParams) MarshalJSON() (data []byte, err error) {
+	type shadow ClusterLoadBalancerUpdateParams
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *ClusterLoadBalancerUpdateParams) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 

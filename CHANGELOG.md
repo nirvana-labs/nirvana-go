@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.74.0 (2026-04-17)
+
+Full Changelog: [v1.73.1...v1.74.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.73.1...v1.74.0)
+
+### Features
+
+* **api:** add update method to NKS load balancers ([935bb67](https://github.com/nirvana-labs/nirvana-go/commit/935bb672b3d7ffd3fed034ddeec9e6bfc5bea773))
+
 ## 1.73.1 (2026-04-15)
 
 Full Changelog: [v1.73.0...v1.73.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.73.0...v1.73.1)
