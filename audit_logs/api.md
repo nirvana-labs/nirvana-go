@@ -5,6 +5,7 @@ Response Types:
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/audit_logs">audit_logs</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/audit_logs#AuditLog">AuditLog</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/audit_logs">audit_logs</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/audit_logs#AuditLogActor">AuditLogActor</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/audit_logs">audit_logs</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/audit_logs#AuditLogList">AuditLogList</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/audit_logs">audit_logs</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/audit_logs#AuditLogTarget">AuditLogTarget</a>
 - <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/audit_logs">audit_logs</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/audit_logs#AuditLogType">AuditLogType</a>
 
 Methods:
