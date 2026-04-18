@@ -83,6 +83,8 @@ type InstanceType struct {
 	Family    string    `json:"family" api:"required"`
 	MemoryGB  int64     `json:"memory_gb" api:"required"`
 	Name      string    `json:"name" api:"required"`
+	// Network bandwidth in Gbps.
+	NetworkBandwidthGbps float64 `json:"network_bandwidth_gbps" api:"required"`
 	// Region the resource is in.
 	//
 	// Any of "us-sva-1", "us-sva-2", "us-chi-1".
@@ -93,17 +95,18 @@ type InstanceType struct {
 	Vcpu      int64     `json:"vcpu" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
-		Chipset     respjson.Field
-		CreatedAt   respjson.Field
-		Family      respjson.Field
-		MemoryGB    respjson.Field
-		Name        respjson.Field
-		Region      respjson.Field
-		Series      respjson.Field
-		UpdatedAt   respjson.Field
-		Vcpu        respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
+		Chipset              respjson.Field
+		CreatedAt            respjson.Field
+		Family               respjson.Field
+		MemoryGB             respjson.Field
+		Name                 respjson.Field
+		NetworkBandwidthGbps respjson.Field
+		Region               respjson.Field
+		Series               respjson.Field
+		UpdatedAt            respjson.Field
+		Vcpu                 respjson.Field
+		ExtraFields          map[string]respjson.Field
+		raw                  string
 	} `json:"-"`
 }
 

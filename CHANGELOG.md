@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.75.0 (2026-04-18)
+
+Full Changelog: [v1.74.0...v1.75.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.74.0...v1.75.0)
+
+### Features
+
+* add network_bandwidth_gbps to InstanceType ([97f2103](https://github.com/nirvana-labs/nirvana-go/commit/97f210370c5654358a979d9162a217e42c5ed225))
+
 ## 1.74.0 (2026-04-17)
 
 Full Changelog: [v1.73.1...v1.74.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.73.1...v1.74.0)
