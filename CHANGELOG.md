@@ -6,7 +6,7 @@ Full Changelog: [v1.75.0...v1.76.0](https://github.com/nirvana-labs/nirvana-go/c
 
 ### Features
 
-* **api:** add type field to Organization model ([9e80232](https://github.com/nirvana-labs/nirvana-go/commit/9e80232736fa9159dd8ef734206e93ac5d715fd4))
+* **api:** add type field to Organization model and introduce Quota endpoints ([9e80232](https://github.com/nirvana-labs/nirvana-go/commit/9e80232736fa9159dd8ef734206e93ac5d715fd4))
 
 ## 1.75.0 (2026-04-18)
 
