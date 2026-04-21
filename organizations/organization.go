@@ -124,6 +124,10 @@ type Organization struct {
 	Personal bool `json:"personal" api:"required"`
 	// Services that the Organization has access to.
 	Services OrganizationServices `json:"services" api:"required"`
+	// Organization type.
+	//
+	// Any of "personal", "company".
+	Type OrganizationType `json:"type" api:"required"`
 	// When the Organization was updated.
 	UpdatedAt time.Time `json:"updated_at" api:"required" format:"date-time"`
 	// Authentication provider organization ID.
@@ -136,6 +140,7 @@ type Organization struct {
 		Name        respjson.Field
 		Personal    respjson.Field
 		Services    respjson.Field
+		Type        respjson.Field
 		UpdatedAt   respjson.Field
 		AuthID      respjson.Field
 		ExtraFields map[string]respjson.Field
@@ -221,6 +226,14 @@ func (r OrganizationServices) RawJSON() string { return r.JSON.raw }
 func (r *OrganizationServices) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
+
+// Organization type.
+type OrganizationType string
+
+const (
+	OrganizationTypePersonal OrganizationType = "personal"
+	OrganizationTypeCompany  OrganizationType = "company"
+)
 
 type OrganizationNewParams struct {
 	// Organization name.

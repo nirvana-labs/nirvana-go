@@ -19,6 +19,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/option"
 	"github.com/nirvana-labs/nirvana-go/organizations"
 	"github.com/nirvana-labs/nirvana-go/projects"
+	"github.com/nirvana-labs/nirvana-go/quotas"
 	"github.com/nirvana-labs/nirvana-go/regions"
 	"github.com/nirvana-labs/nirvana-go/rpc_nodes"
 	"github.com/nirvana-labs/nirvana-go/user"
@@ -33,6 +34,7 @@ type Client struct {
 	APIKeys       api_keys.APIKeyService
 	Operations    operations.OperationService
 	Organizations organizations.OrganizationService
+	Quotas        quotas.QuotaService
 	AuditLogs     audit_logs.AuditLogService
 	Projects      projects.ProjectService
 	Regions       regions.RegionService
@@ -69,6 +71,7 @@ func NewClient(opts ...option.RequestOption) (r Client) {
 	r.APIKeys = api_keys.NewAPIKeyService(opts...)
 	r.Operations = operations.NewOperationService(opts...)
 	r.Organizations = organizations.NewOrganizationService(opts...)
+	r.Quotas = quotas.NewQuotaService(opts...)
 	r.AuditLogs = audit_logs.NewAuditLogService(opts...)
 	r.Projects = projects.NewProjectService(opts...)
 	r.Regions = regions.NewRegionService(opts...)
