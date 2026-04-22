@@ -39,6 +39,7 @@ func TestClusterPoolNewWithOptionalParams(t *testing.T) {
 					Type: compute.VolumeTypeABS,
 				},
 				InstanceType: "n1-standard-8",
+				Labels:       []string{"env=prod", "team=platform"},
 			},
 			NodeCount: 3,
 			Tags:      []string{"production", "ethereum"},
@@ -71,7 +72,10 @@ func TestClusterPoolUpdateWithOptionalParams(t *testing.T) {
 		"cluster_id",
 		"pool_id",
 		nks.ClusterPoolUpdateParams{
-			Name:      nirvana.String("my-node-pool"),
+			Name: nirvana.String("my-node-pool"),
+			NodeConfig: nks.ClusterPoolUpdateParamsNodeConfig{
+				Labels: []string{"env=prod", "team=platform"},
+			},
 			NodeCount: nirvana.Int(5),
 			Tags:      []string{"production", "ethereum"},
 		},
