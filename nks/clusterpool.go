@@ -249,6 +249,9 @@ type NKSNodePoolNodeConfigParam struct {
 	BootVolume NKSNodePoolBootVolumeParam `json:"boot_volume,omitzero" api:"required"`
 	// Instance type name used for worker nodes.
 	InstanceType string `json:"instance_type" api:"required"`
+	// Kubernetes labels to apply to each node in the pool. Each entry is "key=value".
+	// Keys under kubernetes.io, k8s.io, and nirvanalabs.io prefixes are reserved.
+	Labels []string `json:"labels,omitzero"`
 	paramObj
 }
 
@@ -266,10 +269,13 @@ type NKSNodePoolNodeConfigResponse struct {
 	BootVolume NKSNodePoolBootVolumeResponse `json:"boot_volume" api:"required"`
 	// Instance type name.
 	InstanceType string `json:"instance_type" api:"required"`
+	// Kubernetes labels applied to each node in the pool. Each entry is "key=value".
+	Labels []string `json:"labels" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		BootVolume   respjson.Field
 		InstanceType respjson.Field
+		Labels       respjson.Field
 		ExtraFields  map[string]respjson.Field
 		raw          string
 	} `json:"-"`
@@ -306,6 +312,8 @@ type ClusterPoolUpdateParams struct {
 	Name param.Opt[string] `json:"name,omitzero"`
 	// Number of nodes.
 	NodeCount param.Opt[int64] `json:"node_count,omitzero"`
+	// Partial node configuration update.
+	NodeConfig ClusterPoolUpdateParamsNodeConfig `json:"node_config,omitzero"`
 	// Tags to attach to the node pool.
 	Tags []string `json:"tags,omitzero"`
 	paramObj
@@ -316,6 +324,23 @@ func (r ClusterPoolUpdateParams) MarshalJSON() (data []byte, err error) {
 	return param.MarshalObject(r, (*shadow)(&r))
 }
 func (r *ClusterPoolUpdateParams) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// Partial node configuration update.
+type ClusterPoolUpdateParamsNodeConfig struct {
+	// Kubernetes labels to apply to each node in the pool. Each entry is "key=value".
+	// When provided, the list fully replaces the current labels on the pool and on
+	// live nodes.
+	Labels []string `json:"labels,omitzero"`
+	paramObj
+}
+
+func (r ClusterPoolUpdateParamsNodeConfig) MarshalJSON() (data []byte, err error) {
+	type shadow ClusterPoolUpdateParamsNodeConfig
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *ClusterPoolUpdateParamsNodeConfig) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
