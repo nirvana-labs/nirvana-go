@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.77.0 (2026-04-22)
+
+Full Changelog: [v1.76.0...v1.77.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.76.0...v1.77.0)
+
+### Features
+
+* **api:** add labels field to cluster pool and availability methods ([f17a230](https://github.com/nirvana-labs/nirvana-go/commit/f17a230434caf6a69e9cf0db642c552717c7fa38))
+
 ## 1.76.0 (2026-04-21)
 
 Full Changelog: [v1.75.0...v1.76.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.75.0...v1.76.0)
