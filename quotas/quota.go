@@ -151,19 +151,19 @@ type QuotaNKS struct {
 	// Quota resource detail.
 	Clusters QuotaResourceDetail `json:"clusters" api:"required"`
 	// Quota resource detail.
-	MemoryGB QuotaResourceDetail `json:"memory_gb" api:"required"`
+	NodePoolMemoryGB QuotaResourceDetail `json:"node_pool_memory_gb" api:"required"`
+	// Quota resource detail.
+	NodePoolVcpu QuotaResourceDetail `json:"node_pool_vcpu" api:"required"`
 	// Quota resource detail.
 	PublicIPs QuotaResourceDetail `json:"public_ips" api:"required"`
-	// Quota resource detail.
-	Vcpu QuotaResourceDetail `json:"vcpu" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
-		Clusters    respjson.Field
-		MemoryGB    respjson.Field
-		PublicIPs   respjson.Field
-		Vcpu        respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
+		Clusters         respjson.Field
+		NodePoolMemoryGB respjson.Field
+		NodePoolVcpu     respjson.Field
+		PublicIPs        respjson.Field
+		ExtraFields      map[string]respjson.Field
+		raw              string
 	} `json:"-"`
 }
 
