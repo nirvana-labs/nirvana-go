@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.77.2 (2026-04-23)
+
+Full Changelog: [v1.77.1...v1.77.2](https://github.com/nirvana-labs/nirvana-go/compare/v1.77.1...v1.77.2)
+
+### Bug Fixes
+
+* **types:** rename memory_gb/vcpu to node_pool_* in QuotaNKS ([d3e4404](https://github.com/nirvana-labs/nirvana-go/commit/d3e4404fe23fa496a21bff75ae6ef9b905319502))
+
 ## 1.77.1 (2026-04-23)
 
 Full Changelog: [v1.77.0...v1.77.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.77.0...v1.77.1)
