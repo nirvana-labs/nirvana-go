@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.77.1 (2026-04-23)
+
+Full Changelog: [v1.77.0...v1.77.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.77.0...v1.77.1)
+
+### Chores
+
+* **internal:** more robust bootstrap script ([ac75c7f](https://github.com/nirvana-labs/nirvana-go/commit/ac75c7fa36f64a28d188ff9454e1ee42256d92c1))
+
 ## 1.77.0 (2026-04-22)
 
 Full Changelog: [v1.76.0...v1.77.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.76.0...v1.77.0)
