@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.78.0 (2026-05-01)
+
+Full Changelog: [v1.77.2...v1.78.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.77.2...v1.78.0)
+
+### Features
+
+* **go:** add default http client with timeout ([a4696e7](https://github.com/nirvana-labs/nirvana-go/commit/a4696e7f38eb996ff4bfabc542c644107373753a))
+* support setting headers via env ([659ad3e](https://github.com/nirvana-labs/nirvana-go/commit/659ad3e221a957c86bdade83e2e0a0f83c03bf0a))
+
+
+### Chores
+
+* avoid embedding reflect.Type for dead code elimination ([724ebfb](https://github.com/nirvana-labs/nirvana-go/commit/724ebfb74029bc47a35a96525236ef99afdf38d2))
+
 ## 1.77.2 (2026-04-23)
 
 Full Changelog: [v1.77.1...v1.77.2](https://github.com/nirvana-labs/nirvana-go/compare/v1.77.1...v1.77.2)
