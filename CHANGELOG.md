@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.79.0 (2026-05-05)
+
+Full Changelog: [v1.78.0...v1.79.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.78.0...v1.79.0)
+
+### Features
+
+* **api:** add managed field to APIKey response ([9895ce9](https://github.com/nirvana-labs/nirvana-go/commit/9895ce9bcbaf25feee2eeb75efe7ce40d0bbf5ac))
+
 ## 1.78.0 (2026-05-01)
 
 Full Changelog: [v1.77.2...v1.78.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.77.2...v1.78.0)
