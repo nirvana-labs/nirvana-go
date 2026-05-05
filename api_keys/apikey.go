@@ -116,6 +116,8 @@ type APIKey struct {
 	CreatedAt time.Time `json:"created_at" api:"required" format:"date-time"`
 	// When the API Key expires and is no longer valid.
 	ExpiresAt time.Time `json:"expires_at" api:"required" format:"date-time"`
+	// Whether this API key is system-managed.
+	Managed bool `json:"managed" api:"required"`
 	// API Key name.
 	Name string `json:"name" api:"required"`
 	// Scoped permissions for this API key.
@@ -141,6 +143,7 @@ type APIKey struct {
 		ID           respjson.Field
 		CreatedAt    respjson.Field
 		ExpiresAt    respjson.Field
+		Managed      respjson.Field
 		Name         respjson.Field
 		Permissions  respjson.Field
 		ProjectIDs   respjson.Field
@@ -198,7 +201,8 @@ type APIKeyPermission struct {
 	// Resource type this permission applies to.
 	//
 	// Any of "vm", "vpc", "volume", "connect_connection", "rpc_node_dedicated",
-	// "rpc_node_flex", "nks_cluster", "nks_node_pool", "project", "api_key".
+	// "rpc_node_flex", "nks_cluster", "nks_node_pool", "project", "api_key",
+	// "organization", "audit_log".
 	ResourceType APIPermissionResourceType `json:"resource_type" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -237,6 +241,8 @@ const (
 	APIPermissionResourceTypeNKSNodePool       APIPermissionResourceType = "nks_node_pool"
 	APIPermissionResourceTypeProject           APIPermissionResourceType = "project"
 	APIPermissionResourceTypeAPIKey            APIPermissionResourceType = "api_key"
+	APIPermissionResourceTypeOrganization      APIPermissionResourceType = "organization"
+	APIPermissionResourceTypeAuditLog          APIPermissionResourceType = "audit_log"
 )
 
 type APIKeyNewParams struct {
@@ -276,7 +282,8 @@ type APIKeyNewParamsPermission struct {
 	// Resource type this permission applies to.
 	//
 	// Any of "vm", "vpc", "volume", "connect_connection", "rpc_node_dedicated",
-	// "rpc_node_flex", "nks_cluster", "nks_node_pool", "project", "api_key".
+	// "rpc_node_flex", "nks_cluster", "nks_node_pool", "project", "api_key",
+	// "organization", "audit_log".
 	ResourceType APIPermissionResourceType `json:"resource_type,omitzero" api:"required"`
 	paramObj
 }
@@ -324,7 +331,8 @@ type APIKeyUpdateParamsPermission struct {
 	// Resource type this permission applies to.
 	//
 	// Any of "vm", "vpc", "volume", "connect_connection", "rpc_node_dedicated",
-	// "rpc_node_flex", "nks_cluster", "nks_node_pool", "project", "api_key".
+	// "rpc_node_flex", "nks_cluster", "nks_node_pool", "project", "api_key",
+	// "organization", "audit_log".
 	ResourceType APIPermissionResourceType `json:"resource_type,omitzero" api:"required"`
 	paramObj
 }
