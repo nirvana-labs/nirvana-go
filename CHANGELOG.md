@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.79.1 (2026-05-08)
+
+Full Changelog: [v1.79.0...v1.79.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.79.0...v1.79.1)
+
+### Bug Fixes
+
+* **go:** avoid panic when http.DefaultTransport is wrapped ([bbe1191](https://github.com/nirvana-labs/nirvana-go/commit/bbe1191a79cc341f842c98757b91f5a517758d2f))
+
+
+### Chores
+
+* redact api-key headers in debug logs ([739acd2](https://github.com/nirvana-labs/nirvana-go/commit/739acd2b3eb302cccb4cbb71f7f2dff6184da468))
+
 ## 1.79.0 (2026-05-05)
 
 Full Changelog: [v1.78.0...v1.79.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.78.0...v1.79.0)
