@@ -70,7 +70,7 @@ type VMAvailabilityNewParams struct {
 	PublicIPEnabled bool `json:"public_ip_enabled" api:"required"`
 	// Region the resource is in.
 	//
-	// Any of "us-sva-1", "us-sva-2", "us-chi-1".
+	// Any of "us-sva-1", "us-sva-2".
 	Region shared.RegionName `json:"region,omitzero" api:"required"`
 	// Public SSH key configuration for the VM.
 	SSHKey SSHKeyRequestParam `json:"ssh_key,omitzero" api:"required"`
