@@ -66,7 +66,7 @@ type ClusterAvailabilityNewParams struct {
 	ProjectID string `json:"project_id" api:"required"`
 	// Region the resource is in.
 	//
-	// Any of "us-sva-1", "us-sva-2".
+	// Any of "us-sva-2".
 	Region shared.RegionName `json:"region,omitzero" api:"required"`
 	// ID of the VPC to use for the Cluster.
 	VPCID string `json:"vpc_id" api:"required"`
