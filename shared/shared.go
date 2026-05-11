@@ -39,7 +39,6 @@ func (r *Pagination) UnmarshalJSON(data []byte) error {
 type RegionName string
 
 const (
-	RegionNameUsSva1 RegionName = "us-sva-1"
 	RegionNameUsSva2 RegionName = "us-sva-2"
 )
 
