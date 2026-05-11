@@ -84,10 +84,10 @@ func (r *Quota) UnmarshalJSON(data []byte) error {
 
 // Compute quota.
 type QuotaCompute struct {
-	// Quota resource detail.
-	MemoryGB QuotaResourceDetail `json:"memory_gb" api:"required"`
-	// Quota resource detail.
-	Vcpu QuotaResourceDetail `json:"vcpu" api:"required"`
+	// Quota dimension detail.
+	MemoryGB QuotaDimensionDetail `json:"memory_gb" api:"required"`
+	// Quota dimension detail.
+	Vcpu QuotaDimensionDetail `json:"vcpu" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		MemoryGB    respjson.Field
@@ -100,6 +100,27 @@ type QuotaCompute struct {
 // Returns the unmodified JSON received from the API
 func (r QuotaCompute) RawJSON() string { return r.JSON.raw }
 func (r *QuotaCompute) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// Quota dimension detail.
+type QuotaDimensionDetail struct {
+	Limit     int64 `json:"limit" api:"required"`
+	Remaining int64 `json:"remaining" api:"required"`
+	Used      int64 `json:"used" api:"required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Limit       respjson.Field
+		Remaining   respjson.Field
+		Used        respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r QuotaDimensionDetail) RawJSON() string { return r.JSON.raw }
+func (r *QuotaDimensionDetail) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -124,12 +145,12 @@ func (r *QuotaList) UnmarshalJSON(data []byte) error {
 
 // Networking quota.
 type QuotaNetworking struct {
-	// Quota resource detail.
-	ConnectConnections QuotaResourceDetail `json:"connect_connections" api:"required"`
-	// Quota resource detail.
-	PublicIPs QuotaResourceDetail `json:"public_ips" api:"required"`
-	// Quota resource detail.
-	VPCs QuotaResourceDetail `json:"vpcs" api:"required"`
+	// Quota dimension detail.
+	ConnectConnections QuotaDimensionDetail `json:"connect_connections" api:"required"`
+	// Quota dimension detail.
+	PublicIPs QuotaDimensionDetail `json:"public_ips" api:"required"`
+	// Quota dimension detail.
+	VPCs QuotaDimensionDetail `json:"vpcs" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ConnectConnections respjson.Field
@@ -148,14 +169,14 @@ func (r *QuotaNetworking) UnmarshalJSON(data []byte) error {
 
 // NKS quota.
 type QuotaNKS struct {
-	// Quota resource detail.
-	Clusters QuotaResourceDetail `json:"clusters" api:"required"`
-	// Quota resource detail.
-	NodePoolMemoryGB QuotaResourceDetail `json:"node_pool_memory_gb" api:"required"`
-	// Quota resource detail.
-	NodePoolVcpu QuotaResourceDetail `json:"node_pool_vcpu" api:"required"`
-	// Quota resource detail.
-	PublicIPs QuotaResourceDetail `json:"public_ips" api:"required"`
+	// Quota dimension detail.
+	Clusters QuotaDimensionDetail `json:"clusters" api:"required"`
+	// Quota dimension detail.
+	NodePoolMemoryGB QuotaDimensionDetail `json:"node_pool_memory_gb" api:"required"`
+	// Quota dimension detail.
+	NodePoolVcpu QuotaDimensionDetail `json:"node_pool_vcpu" api:"required"`
+	// Quota dimension detail.
+	PublicIPs QuotaDimensionDetail `json:"public_ips" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Clusters         respjson.Field
@@ -173,33 +194,12 @@ func (r *QuotaNKS) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// Quota resource detail.
-type QuotaResourceDetail struct {
-	Limit     int64 `json:"limit" api:"required"`
-	Remaining int64 `json:"remaining" api:"required"`
-	Used      int64 `json:"used" api:"required"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		Limit       respjson.Field
-		Remaining   respjson.Field
-		Used        respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
-	} `json:"-"`
-}
-
-// Returns the unmodified JSON received from the API
-func (r QuotaResourceDetail) RawJSON() string { return r.JSON.raw }
-func (r *QuotaResourceDetail) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
 // Storage quota.
 type QuotaStorage struct {
-	// Quota resource detail.
-	ABS QuotaResourceDetail `json:"abs" api:"required"`
-	// Quota resource detail.
-	LocalNvme QuotaResourceDetail `json:"local_nvme" api:"required"`
+	// Quota dimension detail.
+	ABS QuotaDimensionDetail `json:"abs" api:"required"`
+	// Quota dimension detail.
+	LocalNvme QuotaDimensionDetail `json:"local_nvme" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ABS         respjson.Field
