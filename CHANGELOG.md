@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.81.0 (2026-05-11)
+
+Full Changelog: [v1.80.0...v1.81.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.80.0...v1.81.0)
+
+### Features
+
+* **api:** add autoscaling field to clusters, fix Update method return type ([0957fdb](https://github.com/nirvana-labs/nirvana-go/commit/0957fdb1a097258f230f01ee780af4e689530a70))
+
 ## 1.80.0 (2026-05-11)
 
 Full Changelog: [v1.79.2...v1.80.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.79.2...v1.80.0)

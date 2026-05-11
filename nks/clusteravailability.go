@@ -58,6 +58,8 @@ func (r *ClusterAvailabilityService) Update(ctx context.Context, clusterID strin
 }
 
 type ClusterAvailabilityNewParams struct {
+	// Whether to enable autoscaling for the Cluster.
+	Autoscaling bool `json:"autoscaling" api:"required"`
 	// Name of the Cluster.
 	Name string `json:"name" api:"required"`
 	// Project ID to create the Cluster in.
@@ -82,6 +84,8 @@ func (r *ClusterAvailabilityNewParams) UnmarshalJSON(data []byte) error {
 }
 
 type ClusterAvailabilityUpdateParams struct {
+	// Whether to enable autoscaling for the Cluster.
+	Autoscaling param.Opt[bool] `json:"autoscaling,omitzero"`
 	// Name of the Cluster.
 	Name param.Opt[string] `json:"name,omitzero"`
 	// Tags to attach to the Cluster.
