@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.81.1 (2026-05-11)
+
+Full Changelog: [v1.81.0...v1.81.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.81.0...v1.81.1)
+
+### Bug Fixes
+
+* **api:** remove us-sva-1 from RegionName enum ([bf3bf4e](https://github.com/nirvana-labs/nirvana-go/commit/bf3bf4e18a27b5e496031defac0c18e177e9be9a))
+
 ## 1.81.0 (2026-05-11)
 
 Full Changelog: [v1.80.0...v1.81.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.80.0...v1.81.0)
