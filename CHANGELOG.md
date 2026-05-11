@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.79.2 (2026-05-08)
+
+Full Changelog: [v1.79.1...v1.79.2](https://github.com/nirvana-labs/nirvana-go/compare/v1.79.1...v1.79.2)
+
+### Bug Fixes
+
+* **api:** remove us-chi-1 region option ([ccfb46c](https://github.com/nirvana-labs/nirvana-go/commit/ccfb46c163f33ae25a0893554a5ea3487a5ba627))
+
 ## 1.79.1 (2026-05-08)
 
 Full Changelog: [v1.79.0...v1.79.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.79.0...v1.79.1)

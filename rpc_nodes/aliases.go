@@ -32,9 +32,6 @@ const RegionNameUsSva1 = shared.RegionNameUsSva1
 // Equals "us-sva-2"
 const RegionNameUsSva2 = shared.RegionNameUsSva2
 
-// Equals "us-chi-1"
-const RegionNameUsChi1 = shared.RegionNameUsChi1
-
 // Status of the resource.
 //
 // This is an alias to an internal type.
