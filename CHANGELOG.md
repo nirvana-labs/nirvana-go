@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.80.0 (2026-05-11)
+
+Full Changelog: [v1.79.2...v1.80.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.79.2...v1.80.0)
+
+### Features
+
+* **api:** add autoscaling field to RegionNKS ([43f43a6](https://github.com/nirvana-labs/nirvana-go/commit/43f43a65c91774bc114d0826d52ef06cc7701baa))
+
 ## 1.79.2 (2026-05-08)
 
 Full Changelog: [v1.79.1...v1.79.2](https://github.com/nirvana-labs/nirvana-go/compare/v1.79.1...v1.79.2)
