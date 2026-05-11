@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.81.2 (2026-05-11)
+
+Full Changelog: [v1.81.1...v1.81.2](https://github.com/nirvana-labs/nirvana-go/compare/v1.81.1...v1.81.2)
+
+### Chores
+
+* **types:** replace shared QuotaResourceDetail with dimension-specific types ([660e593](https://github.com/nirvana-labs/nirvana-go/commit/660e593621a608c5b557ebf1677bb189c37647a7))
+
 ## 1.81.1 (2026-05-11)
 
 Full Changelog: [v1.81.0...v1.81.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.81.0...v1.81.1)
