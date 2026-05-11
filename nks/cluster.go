@@ -62,7 +62,7 @@ func (r *ClusterService) New(ctx context.Context, body ClusterNewParams, opts ..
 }
 
 // Update an NKS cluster
-func (r *ClusterService) Update(ctx context.Context, clusterID string, body ClusterUpdateParams, opts ...option.RequestOption) (res *NKSCluster, err error) {
+func (r *ClusterService) Update(ctx context.Context, clusterID string, body ClusterUpdateParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if clusterID == "" {
 		err = errors.New("missing required cluster_id parameter")
@@ -124,6 +124,8 @@ func (r *ClusterService) Get(ctx context.Context, clusterID string, opts ...opti
 type NKSCluster struct {
 	// Unique identifier for the Cluster.
 	ID string `json:"id" api:"required"`
+	// Whether autoscaling is enabled for the Cluster.
+	Autoscaling bool `json:"autoscaling" api:"required"`
 	// When the Cluster was created.
 	CreatedAt time.Time `json:"created_at" api:"required" format:"date-time"`
 	// Name of the Cluster.
@@ -154,6 +156,7 @@ type NKSCluster struct {
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field
+		Autoscaling respjson.Field
 		CreatedAt   respjson.Field
 		Name        respjson.Field
 		PoolIDs     respjson.Field
@@ -196,6 +199,8 @@ func (r *NKSClusterList) UnmarshalJSON(data []byte) error {
 }
 
 type ClusterNewParams struct {
+	// Whether to enable autoscaling for the Cluster.
+	Autoscaling bool `json:"autoscaling" api:"required"`
 	// Name of the Cluster.
 	Name string `json:"name" api:"required"`
 	// Project ID to create the Cluster in.
@@ -220,6 +225,8 @@ func (r *ClusterNewParams) UnmarshalJSON(data []byte) error {
 }
 
 type ClusterUpdateParams struct {
+	// Whether to enable autoscaling for the Cluster.
+	Autoscaling param.Opt[bool] `json:"autoscaling,omitzero"`
 	// Name of the Cluster.
 	Name param.Opt[string] `json:"name,omitzero"`
 	// Tags to attach to the Cluster.
