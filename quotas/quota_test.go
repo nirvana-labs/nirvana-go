@@ -50,7 +50,7 @@ func TestQuotaGet(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Quotas.Get(context.TODO(), quotas.QuotaGetParamsRegionUsSva1)
+	_, err := client.Quotas.Get(context.TODO(), quotas.QuotaGetParamsRegionUsSva2)
 	if err != nil {
 		var apierr *nirvana.Error
 		if errors.As(err, &apierr) {
