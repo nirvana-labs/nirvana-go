@@ -150,10 +150,13 @@ func (r *RegionNetworking) UnmarshalJSON(data []byte) error {
 
 // NKS products available in this region.
 type RegionNKS struct {
+	// Autoscaling indicates if NKS node pool autoscaling is available.
+	Autoscaling bool `json:"autoscaling" api:"required"`
 	// Clusters indicates if NKS managed Kubernetes clusters are available.
 	Clusters bool `json:"clusters" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
+		Autoscaling respjson.Field
 		Clusters    respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
