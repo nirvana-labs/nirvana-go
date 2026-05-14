@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.82.0 (2026-05-14)
+
+Full Changelog: [v1.81.3...v1.82.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.81.3...v1.82.0)
+
+### Features
+
+* **client:** optimize json encoder for internal types ([7e861d5](https://github.com/nirvana-labs/nirvana-go/commit/7e861d576dcde32495a010284e68ff1d7458a072))
+
 ## 1.81.3 (2026-05-13)
 
 Full Changelog: [v1.81.2...v1.81.3](https://github.com/nirvana-labs/nirvana-go/compare/v1.81.2...v1.81.3)
