@@ -21,6 +21,8 @@
 
 # [Quotas](quotas/api.md)
 
+# [Usage](usage/api.md)
+
 # [AuditLogs](audit_logs/api.md)
 
 # [Projects](projects/api.md)
