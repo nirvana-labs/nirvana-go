@@ -23,6 +23,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/quotas"
 	"github.com/nirvana-labs/nirvana-go/regions"
 	"github.com/nirvana-labs/nirvana-go/rpc_nodes"
+	"github.com/nirvana-labs/nirvana-go/usage"
 	"github.com/nirvana-labs/nirvana-go/user"
 )
 
@@ -36,6 +37,7 @@ type Client struct {
 	Operations    operations.OperationService
 	Organizations organizations.OrganizationService
 	Quotas        quotas.QuotaService
+	Usage         usage.UsageService
 	AuditLogs     audit_logs.AuditLogService
 	Projects      projects.ProjectService
 	Regions       regions.RegionService
@@ -81,6 +83,7 @@ func NewClient(opts ...option.RequestOption) (r Client) {
 	r.Operations = operations.NewOperationService(opts...)
 	r.Organizations = organizations.NewOrganizationService(opts...)
 	r.Quotas = quotas.NewQuotaService(opts...)
+	r.Usage = usage.NewUsageService(opts...)
 	r.AuditLogs = audit_logs.NewAuditLogService(opts...)
 	r.Projects = projects.NewProjectService(opts...)
 	r.Regions = regions.NewRegionService(opts...)
