@@ -32,6 +32,7 @@ func TestUsage(t *testing.T) {
 			Size: 100,
 			Type: compute.VolumeTypeABS,
 		},
+		InstanceType:    "n1-standard-2",
 		Name:            "my-vm",
 		OSImageName:     "ubuntu-noble-2025-10-01",
 		ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
@@ -40,8 +41,7 @@ func TestUsage(t *testing.T) {
 		SSHKey: compute.SSHKeyRequestParam{
 			PublicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDBIASkmwNiLcdlW6927Zjt1Hf7Kw/PpEZ4Zm+wU9wn2",
 		},
-		SubnetID:     "123e4567-e89b-12d3-a456-426614174000",
-		InstanceType: nirvana.String("n1-standard-2"),
+		SubnetID: "123e4567-e89b-12d3-a456-426614174000",
 	})
 	if err != nil {
 		t.Fatalf("err should be nil: %s", err.Error())
