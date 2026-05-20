@@ -4,6 +4,7 @@ package operations
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"net/http"
@@ -99,6 +100,8 @@ type Operation struct {
 	Type OperationType `json:"type" api:"required"`
 	// When the Operation was updated.
 	UpdatedAt time.Time `json:"updated_at" api:"required" format:"date-time"`
+	// Structured details about what an operation is changing.
+	Details OperationDetails `json:"details"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field
@@ -109,6 +112,7 @@ type Operation struct {
 		Status      respjson.Field
 		Type        respjson.Field
 		UpdatedAt   respjson.Field
+		Details     respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`
@@ -117,6 +121,151 @@ type Operation struct {
 // Returns the unmodified JSON received from the API
 func (r Operation) RawJSON() string { return r.JSON.raw }
 func (r *Operation) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// Structured details about what an operation is changing.
+type OperationDetails struct {
+	// Map of changed field names to their from/to diffs. Keys depend on the parent
+	// operation's kind+type.
+	Changes map[string]OperationDetailsChange `json:"changes" api:"required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Changes     respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r OperationDetails) RawJSON() string { return r.JSON.raw }
+func (r *OperationDetails) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// A single field's before/after pair on an operation. Values are scalars (string,
+// number, boolean) or string arrays.
+type OperationDetailsChange struct {
+	// Previous value.
+	From OperationDetailsChangeFromUnion `json:"from" api:"required"`
+	// New value.
+	To OperationDetailsChangeToUnion `json:"to" api:"required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		From        respjson.Field
+		To          respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r OperationDetailsChange) RawJSON() string { return r.JSON.raw }
+func (r *OperationDetailsChange) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// OperationDetailsChangeFromUnion contains all possible properties and values from
+// [string], [float64], [bool], [[]string].
+//
+// Use the methods beginning with 'As' to cast the union to one of its variants.
+//
+// If the underlying value is not a json object, one of the following properties
+// will be valid: OfString OfFloat OfBool OfStringArray]
+type OperationDetailsChangeFromUnion struct {
+	// This field will be present if the value is a [string] instead of an object.
+	OfString string `json:",inline"`
+	// This field will be present if the value is a [float64] instead of an object.
+	OfFloat float64 `json:",inline"`
+	// This field will be present if the value is a [bool] instead of an object.
+	OfBool bool `json:",inline"`
+	// This field will be present if the value is a [[]string] instead of an object.
+	OfStringArray []string `json:",inline"`
+	JSON          struct {
+		OfString      respjson.Field
+		OfFloat       respjson.Field
+		OfBool        respjson.Field
+		OfStringArray respjson.Field
+		raw           string
+	} `json:"-"`
+}
+
+func (u OperationDetailsChangeFromUnion) AsString() (v string) {
+	apijson.UnmarshalRoot(json.RawMessage(u.JSON.raw), &v)
+	return
+}
+
+func (u OperationDetailsChangeFromUnion) AsFloat() (v float64) {
+	apijson.UnmarshalRoot(json.RawMessage(u.JSON.raw), &v)
+	return
+}
+
+func (u OperationDetailsChangeFromUnion) AsBool() (v bool) {
+	apijson.UnmarshalRoot(json.RawMessage(u.JSON.raw), &v)
+	return
+}
+
+func (u OperationDetailsChangeFromUnion) AsStringArray() (v []string) {
+	apijson.UnmarshalRoot(json.RawMessage(u.JSON.raw), &v)
+	return
+}
+
+// Returns the unmodified JSON received from the API
+func (u OperationDetailsChangeFromUnion) RawJSON() string { return u.JSON.raw }
+
+func (r *OperationDetailsChangeFromUnion) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// OperationDetailsChangeToUnion contains all possible properties and values from
+// [string], [float64], [bool], [[]string].
+//
+// Use the methods beginning with 'As' to cast the union to one of its variants.
+//
+// If the underlying value is not a json object, one of the following properties
+// will be valid: OfString OfFloat OfBool OfStringArray]
+type OperationDetailsChangeToUnion struct {
+	// This field will be present if the value is a [string] instead of an object.
+	OfString string `json:",inline"`
+	// This field will be present if the value is a [float64] instead of an object.
+	OfFloat float64 `json:",inline"`
+	// This field will be present if the value is a [bool] instead of an object.
+	OfBool bool `json:",inline"`
+	// This field will be present if the value is a [[]string] instead of an object.
+	OfStringArray []string `json:",inline"`
+	JSON          struct {
+		OfString      respjson.Field
+		OfFloat       respjson.Field
+		OfBool        respjson.Field
+		OfStringArray respjson.Field
+		raw           string
+	} `json:"-"`
+}
+
+func (u OperationDetailsChangeToUnion) AsString() (v string) {
+	apijson.UnmarshalRoot(json.RawMessage(u.JSON.raw), &v)
+	return
+}
+
+func (u OperationDetailsChangeToUnion) AsFloat() (v float64) {
+	apijson.UnmarshalRoot(json.RawMessage(u.JSON.raw), &v)
+	return
+}
+
+func (u OperationDetailsChangeToUnion) AsBool() (v bool) {
+	apijson.UnmarshalRoot(json.RawMessage(u.JSON.raw), &v)
+	return
+}
+
+func (u OperationDetailsChangeToUnion) AsStringArray() (v []string) {
+	apijson.UnmarshalRoot(json.RawMessage(u.JSON.raw), &v)
+	return
+}
+
+// Returns the unmodified JSON received from the API
+func (u OperationDetailsChangeToUnion) RawJSON() string { return u.JSON.raw }
+
+func (r *OperationDetailsChangeToUnion) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
