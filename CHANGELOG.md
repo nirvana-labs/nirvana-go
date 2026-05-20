@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.84.0 (2026-05-20)
+
+Full Changelog: [v1.83.0...v1.84.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.83.0...v1.84.0)
+
+### Features
+
+* **api:** add details field to Operation model ([d81bdb7](https://github.com/nirvana-labs/nirvana-go/commit/d81bdb7af94264bfeb7e87a48dc33e9eefd85401))
+* **types:** add OperationChanges type, rename OperationDetailsChange in operations ([fc4fae7](https://github.com/nirvana-labs/nirvana-go/commit/fc4fae7197a33b39cfeac3390f04b233767c2acc))
+
 ## 1.83.0 (2026-05-15)
 
 Full Changelog: [v1.82.0...v1.83.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.82.0...v1.83.0)
