@@ -82,6 +82,8 @@ type Operation struct {
 	ID string `json:"id" api:"required"`
 	// When the Operation was created.
 	CreatedAt time.Time `json:"created_at" api:"required" format:"date-time"`
+	// Structured details about what an operation is changing.
+	Details OperationDetails `json:"details" api:"required"`
 	// Kind of Operation.
 	//
 	// Any of "vm", "volume", "vpc", "firewall_rule", "nks_cluster", "nks_node_pool".
@@ -100,19 +102,17 @@ type Operation struct {
 	Type OperationType `json:"type" api:"required"`
 	// When the Operation was updated.
 	UpdatedAt time.Time `json:"updated_at" api:"required" format:"date-time"`
-	// Structured details about what an operation is changing.
-	Details OperationDetails `json:"details"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field
 		CreatedAt   respjson.Field
+		Details     respjson.Field
 		Kind        respjson.Field
 		ProjectID   respjson.Field
 		ResourceID  respjson.Field
 		Status      respjson.Field
 		Type        respjson.Field
 		UpdatedAt   respjson.Field
-		Details     respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`
