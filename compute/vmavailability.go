@@ -60,6 +60,8 @@ func (r *VMAvailabilityService) Update(ctx context.Context, vmID string, body VM
 type VMAvailabilityNewParams struct {
 	// Boot volume for the VM.
 	BootVolume VMAvailabilityNewParamsBootVolume `json:"boot_volume,omitzero" api:"required"`
+	// Instance type name.
+	InstanceType string `json:"instance_type" api:"required"`
 	// Name of the VM.
 	Name string `json:"name" api:"required"`
 	// Name of the OS Image to use for the VM.
@@ -76,14 +78,8 @@ type VMAvailabilityNewParams struct {
 	SSHKey SSHKeyRequestParam `json:"ssh_key,omitzero" api:"required"`
 	// ID of the subnet to use for the VM.
 	SubnetID string `json:"subnet_id" api:"required"`
-	// Instance type name.
-	InstanceType param.Opt[string] `json:"instance_type,omitzero"`
-	// CPU configuration for the VM.
-	CPUConfig CPUConfigRequestParam `json:"cpu_config,omitzero"`
 	// Data volumes for the VM.
 	DataVolumes []VMAvailabilityNewParamsDataVolume `json:"data_volumes,omitzero"`
-	// Memory configuration for the VM.
-	MemoryConfig MemoryConfigRequestParam `json:"memory_config,omitzero"`
 	// Tags to attach to the VM.
 	Tags []string `json:"tags,omitzero"`
 	paramObj
@@ -152,10 +148,6 @@ type VMAvailabilityUpdateParams struct {
 	Name param.Opt[string] `json:"name,omitzero"`
 	// Whether to enable public IP for the VM.
 	PublicIPEnabled param.Opt[bool] `json:"public_ip_enabled,omitzero"`
-	// CPU configuration for the VM.
-	CPUConfig CPUConfigRequestParam `json:"cpu_config,omitzero"`
-	// Memory configuration for the VM.
-	MemoryConfig MemoryConfigRequestParam `json:"memory_config,omitzero"`
 	// Tags to attach to the VM.
 	Tags []string `json:"tags,omitzero"`
 	paramObj

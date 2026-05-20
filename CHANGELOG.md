@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.84.1 (2026-05-20)
+
+Full Changelog: [v1.84.0...v1.84.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.84.0...v1.84.1)
+
+### Bug Fixes
+
+* **api:** remove cpu/memory config params, make instance_type required in VMs ([25230e2](https://github.com/nirvana-labs/nirvana-go/commit/25230e2c022633f163b0aac50f6498c5572a5112))
+
 ## 1.84.0 (2026-05-20)
 
 Full Changelog: [v1.83.0...v1.84.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.83.0...v1.84.0)
