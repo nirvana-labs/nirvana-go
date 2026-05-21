@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.85.0 (2026-05-21)
+
+Full Changelog: [v1.84.1...v1.85.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.84.1...v1.85.0)
+
+### Features
+
+* **api:** add usage resource type to api_keys permissions ([37ab36f](https://github.com/nirvana-labs/nirvana-go/commit/37ab36ff3c8b945d1716d3c74d5c32f7a15a72f0))
+
 ## 1.84.1 (2026-05-20)
 
 Full Changelog: [v1.84.0...v1.84.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.84.0...v1.84.1)
