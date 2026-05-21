@@ -31,6 +31,7 @@ import (
 type ClusterService struct {
 	Options                []option.RequestOption
 	Availability           ClusterAvailabilityService
+	KubernetesVersions     ClusterKubernetesVersionService
 	PersistentVolumeClaims ClusterPersistentVolumeClaimService
 	Kubeconfig             ClusterKubeconfigService
 	Controllers            ClusterControllerService
@@ -45,6 +46,7 @@ func NewClusterService(opts ...option.RequestOption) (r ClusterService) {
 	r = ClusterService{}
 	r.Options = opts
 	r.Availability = NewClusterAvailabilityService(opts...)
+	r.KubernetesVersions = NewClusterKubernetesVersionService(opts...)
 	r.PersistentVolumeClaims = NewClusterPersistentVolumeClaimService(opts...)
 	r.Kubeconfig = NewClusterKubeconfigService(opts...)
 	r.Controllers = NewClusterControllerService(opts...)
@@ -128,6 +130,8 @@ type NKSCluster struct {
 	Autoscaling bool `json:"autoscaling" api:"required"`
 	// When the Cluster was created.
 	CreatedAt time.Time `json:"created_at" api:"required" format:"date-time"`
+	// Kubernetes version of the Cluster.
+	KubernetesVersion string `json:"kubernetes_version" api:"required"`
 	// Name of the Cluster.
 	Name string `json:"name" api:"required"`
 	// IDs of pools belonging to this Cluster.
@@ -155,21 +159,22 @@ type NKSCluster struct {
 	VPCID string `json:"vpc_id" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
-		ID          respjson.Field
-		Autoscaling respjson.Field
-		CreatedAt   respjson.Field
-		Name        respjson.Field
-		PoolIDs     respjson.Field
-		PrivateIP   respjson.Field
-		ProjectID   respjson.Field
-		PublicIP    respjson.Field
-		Region      respjson.Field
-		Status      respjson.Field
-		Tags        respjson.Field
-		UpdatedAt   respjson.Field
-		VPCID       respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
+		ID                respjson.Field
+		Autoscaling       respjson.Field
+		CreatedAt         respjson.Field
+		KubernetesVersion respjson.Field
+		Name              respjson.Field
+		PoolIDs           respjson.Field
+		PrivateIP         respjson.Field
+		ProjectID         respjson.Field
+		PublicIP          respjson.Field
+		Region            respjson.Field
+		Status            respjson.Field
+		Tags              respjson.Field
+		UpdatedAt         respjson.Field
+		VPCID             respjson.Field
+		ExtraFields       map[string]respjson.Field
+		raw               string
 	} `json:"-"`
 }
 
@@ -201,6 +206,8 @@ func (r *NKSClusterList) UnmarshalJSON(data []byte) error {
 type ClusterNewParams struct {
 	// Whether to enable autoscaling for the Cluster.
 	Autoscaling bool `json:"autoscaling" api:"required"`
+	// Kubernetes version for the Cluster.
+	KubernetesVersion string `json:"kubernetes_version" api:"required"`
 	// Name of the Cluster.
 	Name string `json:"name" api:"required"`
 	// Project ID to create the Cluster in.

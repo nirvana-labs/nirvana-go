@@ -29,12 +29,13 @@ func TestClusterNewWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.NKS.Clusters.New(context.TODO(), nks.ClusterNewParams{
-		Autoscaling: true,
-		Name:        "my-cluster",
-		ProjectID:   "123e4567-e89b-12d3-a456-426614174000",
-		Region:      shared.RegionNameUsSva2,
-		VPCID:       "123e4567-e89b-12d3-a456-426614174000",
-		Tags:        []string{"production", "ethereum"},
+		Autoscaling:       true,
+		KubernetesVersion: "v1.34.4",
+		Name:              "my-cluster",
+		ProjectID:         "123e4567-e89b-12d3-a456-426614174000",
+		Region:            shared.RegionNameUsSva2,
+		VPCID:             "123e4567-e89b-12d3-a456-426614174000",
+		Tags:              []string{"production", "ethereum"},
 	})
 	if err != nil {
 		var apierr *nirvana.Error
