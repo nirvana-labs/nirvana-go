@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.86.0 (2026-05-21)
+
+Full Changelog: [v1.85.0...v1.86.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.85.0...v1.86.0)
+
+### Features
+
+* **api:** add kubernetes_version field to cluster and cluster availability ([9f4eb13](https://github.com/nirvana-labs/nirvana-go/commit/9f4eb130953513370b1018d6de611019dc4491f9))
+
+
+### Chores
+
+* **internal:** regenerate SDK with no functional changes ([688b6fa](https://github.com/nirvana-labs/nirvana-go/commit/688b6faca7eee8ffaa8c44d618ccc12848ad9efe))
+
 ## 1.85.0 (2026-05-21)
 
 Full Changelog: [v1.84.1...v1.85.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.84.1...v1.85.0)
