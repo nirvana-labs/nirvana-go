@@ -38,7 +38,7 @@ func NewClusterKubernetesVersionService(opts ...option.RequestOption) (r Cluster
 }
 
 // List all supported Kubernetes versions for NKS clusters
-func (r *ClusterKubernetesVersionService) List(ctx context.Context, query ClusterKubernetesVersionListParams, opts ...option.RequestOption) (res *pagination.Cursor[KubernetesVersion], err error) {
+func (r *ClusterKubernetesVersionService) List(ctx context.Context, query ClusterKubernetesVersionListParams, opts ...option.RequestOption) (res *pagination.Cursor[ClusterKubernetesVersionListResponse], err error) {
 	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithResponseInto(&raw)}, opts...)
@@ -56,12 +56,12 @@ func (r *ClusterKubernetesVersionService) List(ctx context.Context, query Cluste
 }
 
 // List all supported Kubernetes versions for NKS clusters
-func (r *ClusterKubernetesVersionService) ListAutoPaging(ctx context.Context, query ClusterKubernetesVersionListParams, opts ...option.RequestOption) *pagination.CursorAutoPager[KubernetesVersion] {
+func (r *ClusterKubernetesVersionService) ListAutoPaging(ctx context.Context, query ClusterKubernetesVersionListParams, opts ...option.RequestOption) *pagination.CursorAutoPager[ClusterKubernetesVersionListResponse] {
 	return pagination.NewCursorAutoPager(r.List(ctx, query, opts...))
 }
 
 // NKS Kubernetes version details.
-type KubernetesVersion struct {
+type ClusterKubernetesVersionListResponse struct {
 	// When the Kubernetes version was created.
 	CreatedAt time.Time `json:"created_at" api:"required" format:"date-time"`
 	// Display name of the Kubernetes version.
@@ -79,8 +79,8 @@ type KubernetesVersion struct {
 }
 
 // Returns the unmodified JSON received from the API
-func (r KubernetesVersion) RawJSON() string { return r.JSON.raw }
-func (r *KubernetesVersion) UnmarshalJSON(data []byte) error {
+func (r ClusterKubernetesVersionListResponse) RawJSON() string { return r.JSON.raw }
+func (r *ClusterKubernetesVersionListResponse) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
