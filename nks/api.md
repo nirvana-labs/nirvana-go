@@ -26,11 +26,11 @@ Methods:
 
 Response Types:
 
-- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks">nks</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks#ClusterKubernetesVersionListResponse">ClusterKubernetesVersionListResponse</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks">nks</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks#KubernetesVersion">KubernetesVersion</a>
 
 Methods:
 
-- <code title="get /v1/nks/kubernetes_versions">client.NKS.Clusters.KubernetesVersions.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks#ClusterKubernetesVersionService.List">List</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, query <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks">nks</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks#ClusterKubernetesVersionListParams">ClusterKubernetesVersionListParams</a>) (\*<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/packages/pagination">pagination</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/packages/pagination#Cursor">Cursor</a>[<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks">nks</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks#ClusterKubernetesVersionListResponse">ClusterKubernetesVersionListResponse</a>], <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
+- <code title="get /v1/nks/kubernetes_versions">client.NKS.Clusters.KubernetesVersions.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks#ClusterKubernetesVersionService.List">List</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, query <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks">nks</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks#ClusterKubernetesVersionListParams">ClusterKubernetesVersionListParams</a>) (\*<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/packages/pagination">pagination</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/packages/pagination#Cursor">Cursor</a>[<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks">nks</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/nks#KubernetesVersion">KubernetesVersion</a>], <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
 
 ### PersistentVolumeClaims
 
