@@ -18,27 +18,27 @@ import (
 	"github.com/nirvana-labs/nirvana-go/packages/respjson"
 )
 
-// ClusterKubernetesVersionService contains methods and other services that help
-// with interacting with the Nirvana Labs API.
+// KubernetesVersionService contains methods and other services that help with
+// interacting with the Nirvana Labs API.
 //
 // Note, unlike clients, this service does not read variables from the environment
 // automatically. You should not instantiate this service directly, and instead use
-// the [NewClusterKubernetesVersionService] method instead.
-type ClusterKubernetesVersionService struct {
+// the [NewKubernetesVersionService] method instead.
+type KubernetesVersionService struct {
 	Options []option.RequestOption
 }
 
-// NewClusterKubernetesVersionService generates a new service that applies the
-// given options to each request. These options are applied after the parent
-// client's options (if there is one), and before any request-specific options.
-func NewClusterKubernetesVersionService(opts ...option.RequestOption) (r ClusterKubernetesVersionService) {
-	r = ClusterKubernetesVersionService{}
+// NewKubernetesVersionService generates a new service that applies the given
+// options to each request. These options are applied after the parent client's
+// options (if there is one), and before any request-specific options.
+func NewKubernetesVersionService(opts ...option.RequestOption) (r KubernetesVersionService) {
+	r = KubernetesVersionService{}
 	r.Options = opts
 	return
 }
 
 // List all supported Kubernetes versions for NKS clusters
-func (r *ClusterKubernetesVersionService) List(ctx context.Context, query ClusterKubernetesVersionListParams, opts ...option.RequestOption) (res *pagination.Cursor[KubernetesVersion], err error) {
+func (r *KubernetesVersionService) List(ctx context.Context, query KubernetesVersionListParams, opts ...option.RequestOption) (res *pagination.Cursor[KubernetesVersion], err error) {
 	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
 	opts = append([]option.RequestOption{option.WithResponseInto(&raw)}, opts...)
@@ -56,7 +56,7 @@ func (r *ClusterKubernetesVersionService) List(ctx context.Context, query Cluste
 }
 
 // List all supported Kubernetes versions for NKS clusters
-func (r *ClusterKubernetesVersionService) ListAutoPaging(ctx context.Context, query ClusterKubernetesVersionListParams, opts ...option.RequestOption) *pagination.CursorAutoPager[KubernetesVersion] {
+func (r *KubernetesVersionService) ListAutoPaging(ctx context.Context, query KubernetesVersionListParams, opts ...option.RequestOption) *pagination.CursorAutoPager[KubernetesVersion] {
 	return pagination.NewCursorAutoPager(r.List(ctx, query, opts...))
 }
 
@@ -84,7 +84,7 @@ func (r *KubernetesVersion) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type ClusterKubernetesVersionListParams struct {
+type KubernetesVersionListParams struct {
 	// Pagination cursor returned by a previous request
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
 	// Maximum number of items to return
@@ -92,9 +92,9 @@ type ClusterKubernetesVersionListParams struct {
 	paramObj
 }
 
-// URLQuery serializes [ClusterKubernetesVersionListParams]'s query parameters as
+// URLQuery serializes [KubernetesVersionListParams]'s query parameters as
 // `url.Values`.
-func (r ClusterKubernetesVersionListParams) URLQuery() (v url.Values, err error) {
+func (r KubernetesVersionListParams) URLQuery() (v url.Values, err error) {
 	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
 		ArrayFormat:  apiquery.ArrayQueryFormatComma,
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
