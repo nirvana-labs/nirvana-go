@@ -31,7 +31,6 @@ import (
 type ClusterService struct {
 	Options                []option.RequestOption
 	Availability           ClusterAvailabilityService
-	KubernetesVersions     ClusterKubernetesVersionService
 	PersistentVolumeClaims ClusterPersistentVolumeClaimService
 	Kubeconfig             ClusterKubeconfigService
 	Controllers            ClusterControllerService
@@ -46,7 +45,6 @@ func NewClusterService(opts ...option.RequestOption) (r ClusterService) {
 	r = ClusterService{}
 	r.Options = opts
 	r.Availability = NewClusterAvailabilityService(opts...)
-	r.KubernetesVersions = NewClusterKubernetesVersionService(opts...)
 	r.PersistentVolumeClaims = NewClusterPersistentVolumeClaimService(opts...)
 	r.Kubeconfig = NewClusterKubeconfigService(opts...)
 	r.Controllers = NewClusterControllerService(opts...)

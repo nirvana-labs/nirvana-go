@@ -13,8 +13,9 @@ import (
 // automatically. You should not instantiate this service directly, and instead use
 // the [NewNKSService] method instead.
 type NKSService struct {
-	Options  []option.RequestOption
-	Clusters ClusterService
+	Options            []option.RequestOption
+	KubernetesVersions KubernetesVersionService
+	Clusters           ClusterService
 }
 
 // NewNKSService generates a new service that applies the given options to each
@@ -23,6 +24,7 @@ type NKSService struct {
 func NewNKSService(opts ...option.RequestOption) (r NKSService) {
 	r = NKSService{}
 	r.Options = opts
+	r.KubernetesVersions = NewKubernetesVersionService(opts...)
 	r.Clusters = NewClusterService(opts...)
 	return
 }
