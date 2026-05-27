@@ -118,12 +118,16 @@ type Organization struct {
 	CreatedAt time.Time `json:"created_at" api:"required" format:"date-time"`
 	// Domains associated with the organization.
 	Domains []OrganizationDomain `json:"domains" api:"required"`
+	// Metronome customer ID.
+	MetronomeCustomerID string `json:"metronome_customer_id" api:"required"`
 	// Organization name.
 	Name string `json:"name" api:"required"`
 	// Whether the organization is a personal Organization.
 	Personal bool `json:"personal" api:"required"`
 	// Services that the Organization has access to.
 	Services OrganizationServices `json:"services" api:"required"`
+	// Stripe customer ID.
+	StripeCustomerID string `json:"stripe_customer_id" api:"required"`
 	// Organization type.
 	//
 	// Any of "personal", "company".
@@ -134,17 +138,19 @@ type Organization struct {
 	AuthID string `json:"auth_id"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
-		ID          respjson.Field
-		CreatedAt   respjson.Field
-		Domains     respjson.Field
-		Name        respjson.Field
-		Personal    respjson.Field
-		Services    respjson.Field
-		Type        respjson.Field
-		UpdatedAt   respjson.Field
-		AuthID      respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
+		ID                  respjson.Field
+		CreatedAt           respjson.Field
+		Domains             respjson.Field
+		MetronomeCustomerID respjson.Field
+		Name                respjson.Field
+		Personal            respjson.Field
+		Services            respjson.Field
+		StripeCustomerID    respjson.Field
+		Type                respjson.Field
+		UpdatedAt           respjson.Field
+		AuthID              respjson.Field
+		ExtraFields         map[string]respjson.Field
+		raw                 string
 	} `json:"-"`
 }
 

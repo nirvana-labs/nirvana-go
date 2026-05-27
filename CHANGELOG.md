@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.87.1 (2026-05-27)
+
+Full Changelog: [v1.87.0...v1.87.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.87.0...v1.87.1)
+
+### Chores
+
+* **nirvana-api:** add Billing IDs to Organization ([28ed999](https://github.com/nirvana-labs/nirvana-go/commit/28ed9992867c4a0fea8562bcd140a8c2e0a4273c))
+
 ## 1.87.0 (2026-05-23)
 
 Full Changelog: [v1.86.1...v1.87.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.86.1...v1.87.0)
