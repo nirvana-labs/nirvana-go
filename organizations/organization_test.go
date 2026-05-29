@@ -14,7 +14,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/organizations"
 )
 
-func TestOrganizationNew(t *testing.T) {
+func TestOrganizationNewWithOptionalParams(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -28,7 +28,8 @@ func TestOrganizationNew(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Organizations.New(context.TODO(), organizations.OrganizationNewParams{
-		Name: "My Organization",
+		Name:         "My Organization",
+		BillingEmail: nirvana.String("billing@example.com"),
 	})
 	if err != nil {
 		var apierr *nirvana.Error
@@ -56,7 +57,8 @@ func TestOrganizationUpdateWithOptionalParams(t *testing.T) {
 		context.TODO(),
 		"organization_id",
 		organizations.OrganizationUpdateParams{
-			Name: nirvana.String("My Updated Organization"),
+			BillingEmail: nirvana.String("billing@example.com"),
+			Name:         nirvana.String("My Updated Organization"),
 		},
 	)
 	if err != nil {

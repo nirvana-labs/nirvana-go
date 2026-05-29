@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.88.0 (2026-05-29)
+
+Full Changelog: [v1.87.1...v1.88.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.87.1...v1.88.0)
+
+### Features
+
+* **api:** add billing_email to organizations ([9558a02](https://github.com/nirvana-labs/nirvana-go/commit/9558a027d7f384b6a42700d6c17c23d96b792675))
+
 ## 1.87.1 (2026-05-27)
 
 Full Changelog: [v1.87.0...v1.87.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.87.0...v1.87.1)
