@@ -114,6 +114,9 @@ func (r *OrganizationService) Leave(ctx context.Context, organizationID string, 
 type Organization struct {
 	// Organization ID.
 	ID string `json:"id" api:"required"`
+	// Billing email. Null when no custom billing email is set (Stripe uses the oldest
+	// owner's email).
+	BillingEmail string `json:"billing_email" api:"required"`
 	// When the Organization was created.
 	CreatedAt time.Time `json:"created_at" api:"required" format:"date-time"`
 	// Domains associated with the organization.
@@ -139,6 +142,7 @@ type Organization struct {
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID                  respjson.Field
+		BillingEmail        respjson.Field
 		CreatedAt           respjson.Field
 		Domains             respjson.Field
 		MetronomeCustomerID respjson.Field
@@ -244,6 +248,8 @@ const (
 type OrganizationNewParams struct {
 	// Organization name.
 	Name string `json:"name" api:"required"`
+	// Optional billing email. When omitted, the oldest owner's email is used.
+	BillingEmail param.Opt[string] `json:"billing_email,omitzero"`
 	paramObj
 }
 
@@ -256,6 +262,9 @@ func (r *OrganizationNewParams) UnmarshalJSON(data []byte) error {
 }
 
 type OrganizationUpdateParams struct {
+	// Billing email. Omit to leave unchanged, send null to clear (reverts to the
+	// oldest owner's email), or send a value to set it.
+	BillingEmail param.Opt[string] `json:"billing_email,omitzero"`
 	// Organization name.
 	Name param.Opt[string] `json:"name,omitzero"`
 	paramObj
