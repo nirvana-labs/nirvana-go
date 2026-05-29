@@ -114,7 +114,7 @@ func (r *OrganizationService) Leave(ctx context.Context, organizationID string, 
 type Organization struct {
 	// Organization ID.
 	ID string `json:"id" api:"required"`
-	// Billing email. Null when no custom billing email is set (Stripe uses the oldest
+	// Billing email. Null when no custom billing email is set (reverts to the oldest
 	// owner's email).
 	BillingEmail string `json:"billing_email" api:"required"`
 	// When the Organization was created.
