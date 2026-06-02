@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.88.2 (2026-06-02)
+
+Full Changelog: [v1.88.1...v1.88.2](https://github.com/nirvana-labs/nirvana-go/compare/v1.88.1...v1.88.2)
+
+### Chores
+
+* **internal:** regenerate SDK with no functional changes ([99d1acd](https://github.com/nirvana-labs/nirvana-go/commit/99d1acdc01e9f8ab89dc788ce210bae9126ebe2e))
+
 ## 1.88.1 (2026-05-29)
 
 Full Changelog: [v1.88.0...v1.88.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.88.0...v1.88.1)
