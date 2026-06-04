@@ -1,0 +1,99 @@
+name: Promote SDK to production
+
+# Runs on every push to staging `main`. If production `main` already matches,
+# it no-ops. Otherwise it force-pushes staging `main` to `stainless/release` on
+# the production repo and opens/updates a release PR against production `main`.
+# Merging that PR triggers production's release-please + publish workflows.
+#
+# References only ever point downstream (config -> staging -> production); the
+# production repo holds no token or workflow pointing back here. The repo-name
+# guard below makes this workflow inert if it is ever propagated to production
+# via a release (mirrors the generated release-doctor.yml guard).
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: stlc-promote
+  cancel-in-progress: false
+
+jobs:
+  promote:
+    # Only run in the staging repo. If this file lands in production via a
+    # promoted release, this guard keeps it from running there.
+    if: github.repository == 'nirvana-labs/nirvana-go-staging'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PRODUCTION_REPO: nirvana-labs/nirvana-go
+    steps:
+      - name: Mint Nirvana Release Bot token (scoped to production repo)
+        # Push + open the release PR on production as the Nirvana Release Bot
+        # GitHub App. The app has Contents/Pull-requests/Workflows write and is
+        # installed org-wide, so a token scoped to the production repo can push
+        # the release branch and open the PR. An App token does not expire the
+        # way a PAT does — preferred for long-lived CI.
+        uses: actions/create-github-app-token@df432ceedc7162793a195dd1713ff69aefc7379e # v2.0.6
+        id: app_token
+        with:
+          app-id: ${{ vars.GH_NIRVANA_LABS_RELEASE_BOT_APP_ID }}
+          private-key: ${{ secrets.GH_NIRVANA_LABS_RELEASE_BOT_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: nirvana-go
+
+      - name: Check out staging
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Fetch production main
+        env:
+          GH_TOKEN: ${{ steps.app_token.outputs.token }}
+        run: |
+          git remote add production \
+            "https://x-access-token:${GH_TOKEN}@github.com/${PRODUCTION_REPO}.git"
+          git fetch production main
+
+      - name: Check if production is already in sync
+        id: diff
+        run: |
+          STAGING_SHA=$(git rev-parse origin/main)
+          PRODUCTION_SHA=$(git rev-parse production/main)
+          if [ "$STAGING_SHA" = "$PRODUCTION_SHA" ]; then
+            echo "Production is already at $STAGING_SHA. Nothing to release."
+            echo "synced=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "synced=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Push staging main to the release branch on production
+        if: steps.diff.outputs.synced == 'false'
+        run: |
+          git push production origin/main:refs/heads/stainless/release --force
+
+      - name: Open or update the release PR on production
+        if: steps.diff.outputs.synced == 'false'
+        env:
+          GH_TOKEN: ${{ steps.app_token.outputs.token }}
+        run: |
+          EXISTING_PR=$(gh pr list \
+            --repo "${PRODUCTION_REPO}" \
+            --head stainless/release \
+            --state open \
+            --json number \
+            --jq '.[0].number')
+          if [ -z "${EXISTING_PR}" ]; then
+            gh pr create \
+              --repo "${PRODUCTION_REPO}" \
+              --base main \
+              --head stainless/release \
+              --title "Release SDK updates" \
+              --body "$(git log --oneline production/main..origin/main)"
+          else
+            echo "Release PR #${EXISTING_PR} already exists. Force-push has updated it."
+          fi
