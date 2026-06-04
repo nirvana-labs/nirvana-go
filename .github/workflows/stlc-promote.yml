@@ -59,28 +59,70 @@ jobs:
             "https://x-access-token:${GH_TOKEN}@github.com/${PRODUCTION_REPO}.git"
           git fetch production main
 
-      - name: Check if production is already in sync
-        id: diff
+      - name: Prepare production release branch
+        id: release_branch
         run: |
-          STAGING_SHA=$(git rev-parse origin/main)
+          set -euo pipefail
+
+          git checkout -B production-release origin/main
+
+          restore_from_production_main() {
+            path="$1"
+            if git cat-file -e "production/main:${path}" 2> /dev/null; then
+              git checkout production/main -- "$path"
+            elif [ -e "$path" ]; then
+              rm -rf "$path"
+            fi
+          }
+
+          rm -f .github/workflows/stlc-promote.yml
+
+          for path in \
+            .github/actions/setup-go/action.yml \
+            .github/workflows/ci.yml \
+            .github/workflows/publish-npm.yml \
+            .github/workflows/publish-release.yml \
+            scripts/build \
+            scripts/link \
+            scripts/lint \
+            scripts/run \
+            scripts/test \
+            scripts/utils/upload-artifact.sh
+          do
+            restore_from_production_main "$path"
+          done
+
+          if ! git diff --quiet; then
+            git config user.name "nirvana-release-bot[bot]"
+            git config user.email "180491965+nirvana-release-bot[bot]@users.noreply.github.com"
+            git add -A
+            git commit -m "chore(release): sanitize production release branch"
+          fi
+
+          RELEASE_SHA=$(git rev-parse HEAD)
           PRODUCTION_SHA=$(git rev-parse production/main)
-          if [ "$STAGING_SHA" = "$PRODUCTION_SHA" ]; then
-            echo "Production is already at $STAGING_SHA. Nothing to release."
+          if [ "$RELEASE_SHA" = "$PRODUCTION_SHA" ]; then
+            echo "Production is already at $RELEASE_SHA. Nothing to release."
             echo "synced=true" >> "$GITHUB_OUTPUT"
           else
             echo "synced=false" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Push staging main to the release branch on production
-        if: steps.diff.outputs.synced == 'false'
+        if: steps.release_branch.outputs.synced == 'false'
         run: |
-          git push production origin/main:refs/heads/stainless/release --force
+          git push production production-release:refs/heads/stainless/release --force
 
       - name: Open or update the release PR on production
-        if: steps.diff.outputs.synced == 'false'
+        if: steps.release_branch.outputs.synced == 'false'
         env:
           GH_TOKEN: ${{ steps.app_token.outputs.token }}
         run: |
+          set -euo pipefail
+
+          release_pr_title="chore(release): update SDK"
+          git log --oneline production/main..production-release > /tmp/release-pr-body.md
+
           EXISTING_PR=$(gh pr list \
             --repo "${PRODUCTION_REPO}" \
             --head stainless/release \
@@ -92,8 +134,12 @@ jobs:
               --repo "${PRODUCTION_REPO}" \
               --base main \
               --head stainless/release \
-              --title "Release SDK updates" \
-              --body "$(git log --oneline production/main..origin/main)"
+              --title "$release_pr_title" \
+              --body-file /tmp/release-pr-body.md
           else
             echo "Release PR #${EXISTING_PR} already exists. Force-push has updated it."
+            gh pr edit "$EXISTING_PR" \
+              --repo "${PRODUCTION_REPO}" \
+              --title "$release_pr_title" \
+              --body-file /tmp/release-pr-body.md
           fi
