@@ -40,6 +40,7 @@ func TestClusterPoolNewWithOptionalParams(t *testing.T) {
 				},
 				InstanceType: "n1-standard-8",
 				Labels:       []string{"env=prod", "team=platform"},
+				Taints:       []string{"dedicated=gpu:NoSchedule"},
 			},
 			NodeCount: 3,
 			Tags:      []string{"production", "ethereum"},
