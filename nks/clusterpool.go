@@ -252,6 +252,10 @@ type NKSNodePoolNodeConfigParam struct {
 	// Kubernetes labels to apply to each node in the pool. Each entry is "key=value".
 	// Keys under kubernetes.io, k8s.io, and nirvanalabs.io prefixes are reserved.
 	Labels []string `json:"labels,omitzero"`
+	// Kubernetes taints to apply to each node in the pool at creation time. Each entry
+	// is "key=value:Effect" where Effect is NoSchedule, PreferNoSchedule, or
+	// NoExecute. Taints are immutable after pool creation.
+	Taints []string `json:"taints,omitzero"`
 	paramObj
 }
 
@@ -271,11 +275,15 @@ type NKSNodePoolNodeConfigResponse struct {
 	InstanceType string `json:"instance_type" api:"required"`
 	// Kubernetes labels applied to each node in the pool. Each entry is "key=value".
 	Labels []string `json:"labels" api:"required"`
+	// Kubernetes taints applied to each node in the pool. Each entry is
+	// "key=value:Effect".
+	Taints []string `json:"taints" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		BootVolume   respjson.Field
 		InstanceType respjson.Field
 		Labels       respjson.Field
+		Taints       respjson.Field
 		ExtraFields  map[string]respjson.Field
 		raw          string
 	} `json:"-"`
