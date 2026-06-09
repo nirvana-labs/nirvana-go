@@ -36,7 +36,7 @@ func TestVMAvailabilityNewWithOptionalParams(t *testing.T) {
 		},
 		InstanceType:    "n1-standard-8",
 		Name:            "my-vm",
-		OSImageName:     "ubuntu-noble-2025-10-01",
+		OSImageName:     "ubuntu-noble-2026-05-18",
 		ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
 		PublicIPEnabled: true,
 		Region:          shared.RegionNameUsSva2,
