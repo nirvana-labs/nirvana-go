@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.88.6](https://github.com/nirvana-labs/nirvana-go/compare/v1.88.5...v1.88.6) (2026-06-10)
+
+
+### Chores
+
+* **release:** update SDK ([#410](https://github.com/nirvana-labs/nirvana-go/issues/410)) ([8497320](https://github.com/nirvana-labs/nirvana-go/commit/8497320d8dfc9304efdd71b9b4e2d2289f9751e2))
+
 ## [1.88.5](https://github.com/nirvana-labs/nirvana-go/compare/v1.88.4...v1.88.5) (2026-06-10)
 
 
