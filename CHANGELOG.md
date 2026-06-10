@@ -1,5 +1,27 @@
 # Changelog
 
+## [1.88.5](https://github.com/nirvana-labs/nirvana-go/compare/v1.88.4...v1.88.5) (2026-06-10)
+
+
+### Chores
+
+* **release:** update SDK ([#408](https://github.com/nirvana-labs/nirvana-go/issues/408)) ([ecd1e21](https://github.com/nirvana-labs/nirvana-go/commit/ecd1e21378ba3d0885e93cd2bc8287f27d494ecf))
+
+## [1.88.4](https://github.com/nirvana-labs/nirvana-go/compare/v1.88.3...v1.88.4) (2026-06-06)
+
+
+### Chores
+
+* **release:** update SDK ([#403](https://github.com/nirvana-labs/nirvana-go/issues/403)) ([619f812](https://github.com/nirvana-labs/nirvana-go/commit/619f8126e1a77cb9b9de16f3763be6b61b7d2ed2))
+* **release:** update SDK ([#405](https://github.com/nirvana-labs/nirvana-go/issues/405)) ([c9c0a1e](https://github.com/nirvana-labs/nirvana-go/commit/c9c0a1e09fee13517ccf2dd0b9cf5a90390ce512))
+
+## [1.88.3](https://github.com/nirvana-labs/nirvana-go/compare/v1.88.2...v1.88.3) (2026-06-05)
+
+
+### Chores
+
+* **release:** update SDK ([#401](https://github.com/nirvana-labs/nirvana-go/issues/401)) ([a190dff](https://github.com/nirvana-labs/nirvana-go/commit/a190dff8abdf525b8b1ac6dd76794c0c013e9616))
+
 ## 1.88.2 (2026-06-02)
 
 Full Changelog: [v1.88.1...v1.88.2](https://github.com/nirvana-labs/nirvana-go/compare/v1.88.1...v1.88.2)
