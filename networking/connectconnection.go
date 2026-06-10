@@ -28,6 +28,7 @@ import (
 // the [NewConnectConnectionService] method instead.
 type ConnectConnectionService struct {
 	Options []option.RequestOption
+	Cost    ConnectConnectionCostService
 }
 
 // NewConnectConnectionService generates a new service that applies the given
@@ -36,6 +37,7 @@ type ConnectConnectionService struct {
 func NewConnectConnectionService(opts ...option.RequestOption) (r ConnectConnectionService) {
 	r = ConnectConnectionService{}
 	r.Options = opts
+	r.Cost = NewConnectConnectionCostService(opts...)
 	return
 }
 

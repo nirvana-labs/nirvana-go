@@ -31,6 +31,7 @@ import (
 type VMService struct {
 	Options      []option.RequestOption
 	Availability VMAvailabilityService
+	Cost         VMCostService
 	Volumes      VMVolumeService
 	OSImages     VMOSImageService
 }
@@ -42,6 +43,7 @@ func NewVMService(opts ...option.RequestOption) (r VMService) {
 	r = VMService{}
 	r.Options = opts
 	r.Availability = NewVMAvailabilityService(opts...)
+	r.Cost = NewVMCostService(opts...)
 	r.Volumes = NewVMVolumeService(opts...)
 	r.OSImages = NewVMOSImageService(opts...)
 	return

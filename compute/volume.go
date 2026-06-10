@@ -31,6 +31,7 @@ import (
 type VolumeService struct {
 	Options      []option.RequestOption
 	Availability VolumeAvailabilityService
+	Cost         VolumeCostService
 }
 
 // NewVolumeService generates a new service that applies the given options to each
@@ -40,6 +41,7 @@ func NewVolumeService(opts ...option.RequestOption) (r VolumeService) {
 	r = VolumeService{}
 	r.Options = opts
 	r.Availability = NewVolumeAvailabilityService(opts...)
+	r.Cost = NewVolumeCostService(opts...)
 	return
 }
 

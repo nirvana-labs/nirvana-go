@@ -1,0 +1,94 @@
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+package compute_test
+
+import (
+	"context"
+	"errors"
+	"os"
+	"testing"
+
+	"github.com/nirvana-labs/nirvana-go"
+	"github.com/nirvana-labs/nirvana-go/compute"
+	"github.com/nirvana-labs/nirvana-go/internal/testutil"
+	"github.com/nirvana-labs/nirvana-go/option"
+	"github.com/nirvana-labs/nirvana-go/shared"
+)
+
+func TestVMCostNewWithOptionalParams(t *testing.T) {
+	t.Skip("Mock server tests are disabled")
+	baseURL := "http://localhost:4010"
+	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
+		baseURL = envURL
+	}
+	if !testutil.CheckTestServer(t, baseURL) {
+		return
+	}
+	client := nirvana.NewClient(
+		option.WithBaseURL(baseURL),
+		option.WithAPIKey("My API Key"),
+	)
+	_, err := client.Compute.VMs.Cost.New(context.TODO(), compute.VMCostNewParams{
+		BootVolume: compute.VMCostNewParamsBootVolume{
+			Size: 100,
+			Type: compute.VolumeTypeABS,
+			Tags: []string{"production", "ethereum"},
+		},
+		InstanceType:    "n1-standard-8",
+		Name:            "my-vm",
+		OSImageName:     "ubuntu-noble-2026-05-18",
+		ProjectID:       "123e4567-e89b-12d3-a456-426614174000",
+		PublicIPEnabled: true,
+		Region:          shared.RegionNameUsSva2,
+		SSHKey: compute.SSHKeyRequestParam{
+			PublicKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDBIASkmwNiLcdlW6927Zjt1Hf7Kw/PpEZ4Zm+wU9wn2",
+		},
+		SubnetID: "123e4567-e89b-12d3-a456-426614174000",
+		DataVolumes: []compute.VMCostNewParamsDataVolume{{
+			Name: "my-data-volume",
+			Size: 100,
+			Type: compute.VolumeTypeABS,
+			Tags: []string{"production", "ethereum"},
+		}},
+		Tags: []string{"production", "ethereum"},
+	})
+	if err != nil {
+		var apierr *nirvana.Error
+		if errors.As(err, &apierr) {
+			t.Log(string(apierr.DumpRequest(true)))
+		}
+		t.Fatalf("err should be nil: %s", err.Error())
+	}
+}
+
+func TestVMCostUpdateWithOptionalParams(t *testing.T) {
+	t.Skip("Mock server tests are disabled")
+	baseURL := "http://localhost:4010"
+	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
+		baseURL = envURL
+	}
+	if !testutil.CheckTestServer(t, baseURL) {
+		return
+	}
+	client := nirvana.NewClient(
+		option.WithBaseURL(baseURL),
+		option.WithAPIKey("My API Key"),
+	)
+	_, err := client.Compute.VMs.Cost.Update(
+		context.TODO(),
+		"vm_id",
+		compute.VMCostUpdateParams{
+			InstanceType:    nirvana.String("n1-standard-8"),
+			Name:            nirvana.String("my-vm"),
+			PublicIPEnabled: nirvana.Bool(true),
+			Tags:            []string{"production", "ethereum"},
+		},
+	)
+	if err != nil {
+		var apierr *nirvana.Error
+		if errors.As(err, &apierr) {
+			t.Log(string(apierr.DumpRequest(true)))
+		}
+		t.Fatalf("err should be nil: %s", err.Error())
+	}
+}
