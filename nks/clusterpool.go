@@ -32,6 +32,7 @@ import (
 type ClusterPoolService struct {
 	Options      []option.RequestOption
 	Availability ClusterPoolAvailabilityService
+	Cost         ClusterPoolCostService
 	Nodes        ClusterPoolNodeService
 }
 
@@ -42,6 +43,7 @@ func NewClusterPoolService(opts ...option.RequestOption) (r ClusterPoolService) 
 	r = ClusterPoolService{}
 	r.Options = opts
 	r.Availability = NewClusterPoolAvailabilityService(opts...)
+	r.Cost = NewClusterPoolCostService(opts...)
 	r.Nodes = NewClusterPoolNodeService(opts...)
 	return
 }

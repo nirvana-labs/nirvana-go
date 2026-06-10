@@ -31,6 +31,7 @@ import (
 type VPCService struct {
 	Options      []option.RequestOption
 	Availability VPCAvailabilityService
+	Cost         VPCCostService
 }
 
 // NewVPCService generates a new service that applies the given options to each
@@ -40,6 +41,7 @@ func NewVPCService(opts ...option.RequestOption) (r VPCService) {
 	r = VPCService{}
 	r.Options = opts
 	r.Availability = NewVPCAvailabilityService(opts...)
+	r.Cost = NewVPCCostService(opts...)
 	return
 }
 
