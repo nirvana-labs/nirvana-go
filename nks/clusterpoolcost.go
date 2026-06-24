@@ -69,8 +69,8 @@ type ClusterPoolCostNewParams struct {
 	Name string `json:"name" api:"required"`
 	// Node configuration.
 	NodeConfig NKSNodePoolNodeConfigParam `json:"node_config,omitzero" api:"required"`
-	// Number of nodes. Must be between 1 and 100.
-	NodeCount int64 `json:"node_count" api:"required"`
+	// Number of nodes. Must be between 0 and 100.
+	NodeCount param.Opt[int64] `json:"node_count,omitzero"`
 	// Tags to attach to the node pool.
 	Tags []string `json:"tags,omitzero"`
 	paramObj
