@@ -42,7 +42,7 @@ func TestClusterPoolCostNewWithOptionalParams(t *testing.T) {
 				Labels:       []string{"env=prod", "team=platform"},
 				Taints:       []string{"dedicated=gpu:NoSchedule"},
 			},
-			NodeCount: 3,
+			NodeCount: nirvana.Int(3),
 			Tags:      []string{"production", "ethereum"},
 		},
 	)
