@@ -31,6 +31,7 @@ type OrganizationService struct {
 	Options     []option.RequestOption
 	Memberships MembershipService
 	Address     AddressService
+	Billing     BillingService
 }
 
 // NewOrganizationService generates a new service that applies the given options to
@@ -41,6 +42,7 @@ func NewOrganizationService(opts ...option.RequestOption) (r OrganizationService
 	r.Options = opts
 	r.Memberships = NewMembershipService(opts...)
 	r.Address = NewAddressService(opts...)
+	r.Billing = NewBillingService(opts...)
 	return
 }
 
