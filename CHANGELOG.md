@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.89.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.88.8...v1.89.0) (2026-06-30)
+
+
+### Features
+
+* **stainless:** wire organizations.billing.summary into SDK config ([ca761d6](https://github.com/nirvana-labs/nirvana-go/commit/ca761d622cc188cbe640743b19b20ad4838e7f41))
+
 ## [1.88.8](https://github.com/nirvana-labs/nirvana-go/compare/v1.88.7...v1.88.8) (2026-06-29)
 
 
