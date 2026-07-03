@@ -121,6 +121,16 @@ type Organization struct {
 	// Billing email. Null when no custom billing email is set (reverts to the oldest
 	// owner's email).
 	BillingEmail string `json:"billing_email" api:"required"`
+	// Organization billing lifecycle state.
+	//
+	// Any of "unfunded", "active", "requires_action", "suspended", "closed".
+	BillingState OrganizationBillingState `json:"billing_state" api:"required"`
+	// When the organization entered its current billing state.
+	BillingStateSince time.Time `json:"billing_state_since" api:"required" format:"date-time"`
+	// How the organization is charged for resource usage.
+	//
+	// Any of "manual", "prepaid".
+	ChargingModel OrganizationChargingModel `json:"charging_model" api:"required"`
 	// When the Organization was created.
 	CreatedAt time.Time `json:"created_at" api:"required" format:"date-time"`
 	// Domains associated with the organization.
@@ -143,19 +153,22 @@ type Organization struct {
 	AuthID string `json:"auth_id"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
-		ID               respjson.Field
-		BillingEmail     respjson.Field
-		CreatedAt        respjson.Field
-		Domains          respjson.Field
-		Name             respjson.Field
-		Personal         respjson.Field
-		Services         respjson.Field
-		StripeCustomerID respjson.Field
-		Type             respjson.Field
-		UpdatedAt        respjson.Field
-		AuthID           respjson.Field
-		ExtraFields      map[string]respjson.Field
-		raw              string
+		ID                respjson.Field
+		BillingEmail      respjson.Field
+		BillingState      respjson.Field
+		BillingStateSince respjson.Field
+		ChargingModel     respjson.Field
+		CreatedAt         respjson.Field
+		Domains           respjson.Field
+		Name              respjson.Field
+		Personal          respjson.Field
+		Services          respjson.Field
+		StripeCustomerID  respjson.Field
+		Type              respjson.Field
+		UpdatedAt         respjson.Field
+		AuthID            respjson.Field
+		ExtraFields       map[string]respjson.Field
+		raw               string
 	} `json:"-"`
 }
 
@@ -164,6 +177,25 @@ func (r Organization) RawJSON() string { return r.JSON.raw }
 func (r *Organization) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
+
+// Organization billing lifecycle state.
+type OrganizationBillingState string
+
+const (
+	OrganizationBillingStateUnfunded       OrganizationBillingState = "unfunded"
+	OrganizationBillingStateActive         OrganizationBillingState = "active"
+	OrganizationBillingStateRequiresAction OrganizationBillingState = "requires_action"
+	OrganizationBillingStateSuspended      OrganizationBillingState = "suspended"
+	OrganizationBillingStateClosed         OrganizationBillingState = "closed"
+)
+
+// How the organization is charged for resource usage.
+type OrganizationChargingModel string
+
+const (
+	OrganizationChargingModelManual  OrganizationChargingModel = "manual"
+	OrganizationChargingModelPrepaid OrganizationChargingModel = "prepaid"
+)
 
 // Organization domain details.
 type OrganizationDomain struct {

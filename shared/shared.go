@@ -16,7 +16,9 @@ type paramUnion = param.APIUnion
 // aliased to make [param.APIObject] private when embedding
 type paramObj = param.APIObject
 
-// Cost quote returned by POST /cost.
+// Cost quote returned by POST /cost. current_summary and updated_summary hold the
+// org billing summary now and with this resource; omitted when the caller cannot
+// view billing.
 type CostQuote struct {
 	// Currency the quote is denominated in. Always "USD" in v1.
 	Currency string `json:"currency" api:"required"`
@@ -26,12 +28,22 @@ type CostQuote struct {
 	PricedAt time.Time `json:"priced_at" api:"required" format:"date-time"`
 	// Priced rows, one per usage dimension emitted by the resource.
 	UsageDimensions []CostQuoteUsageDimension `json:"usage_dimensions" api:"required"`
+	// Forward-looking billing summary for an organization. All costs are run-rate
+	// projections from the organization's current active usage ("≈ $X/mo at current
+	// usage").
+	CurrentSummary OrganizationBillingSummary `json:"current_summary"`
+	// Forward-looking billing summary for an organization. All costs are run-rate
+	// projections from the organization's current active usage ("≈ $X/mo at current
+	// usage").
+	UpdatedSummary OrganizationBillingSummary `json:"updated_summary"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Currency        respjson.Field
 		MonthlyTotal    respjson.Field
 		PricedAt        respjson.Field
 		UsageDimensions respjson.Field
+		CurrentSummary  respjson.Field
+		UpdatedSummary  respjson.Field
 		ExtraFields     map[string]respjson.Field
 		raw             string
 	} `json:"-"`
@@ -73,8 +85,9 @@ func (r *CostQuoteUsageDimension) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// Cost quote returned by PATCH /:id/cost: the current-state quote, the post-update
-// quote, and the signed diff.
+// Cost quote returned by PATCH /:id/cost: current-state quote, post-update quote,
+// and signed diff. current_summary and updated_summary omitted when the caller
+// cannot view billing.
 type CostQuoteUpdate struct {
 	// Quote for the proposed (post-update) resource state.
 	After CostQuoteUpdateAfter `json:"after" api:"required"`
@@ -86,15 +99,25 @@ type CostQuoteUpdate struct {
 	Diff CostQuoteUpdateDiff `json:"diff" api:"required"`
 	// Timestamp the quote was priced at.
 	PricedAt time.Time `json:"priced_at" api:"required" format:"date-time"`
+	// Forward-looking billing summary for an organization. All costs are run-rate
+	// projections from the organization's current active usage ("≈ $X/mo at current
+	// usage").
+	CurrentSummary OrganizationBillingSummary `json:"current_summary"`
+	// Forward-looking billing summary for an organization. All costs are run-rate
+	// projections from the organization's current active usage ("≈ $X/mo at current
+	// usage").
+	UpdatedSummary OrganizationBillingSummary `json:"updated_summary"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
-		After       respjson.Field
-		Before      respjson.Field
-		Currency    respjson.Field
-		Diff        respjson.Field
-		PricedAt    respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
+		After          respjson.Field
+		Before         respjson.Field
+		Currency       respjson.Field
+		Diff           respjson.Field
+		PricedAt       respjson.Field
+		CurrentSummary respjson.Field
+		UpdatedSummary respjson.Field
+		ExtraFields    map[string]respjson.Field
+		raw            string
 	} `json:"-"`
 }
 
@@ -300,6 +323,42 @@ type CostQuoteUpdateDiffUsageDimensionBefore struct {
 // Returns the unmodified JSON received from the API
 func (r CostQuoteUpdateDiffUsageDimensionBefore) RawJSON() string { return r.JSON.raw }
 func (r *CostQuoteUpdateDiffUsageDimensionBefore) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// Forward-looking billing summary for an organization. All costs are run-rate
+// projections from the organization's current active usage ("≈ $X/mo at current
+// usage").
+type OrganizationBillingSummary struct {
+	// Arbitrary-precision decimal serialized as a string (e.g. "58.40").
+	DailyCost string `json:"daily_cost" api:"required" format:"decimal"`
+	// Arbitrary-precision decimal serialized as a string (e.g. "58.40").
+	EffectiveBalance string `json:"effective_balance" api:"required" format:"decimal"`
+	// Arbitrary-precision decimal serialized as a string (e.g. "58.40").
+	MonthlyCost string `json:"monthly_cost" api:"required" format:"decimal"`
+	// Arbitrary-precision decimal serialized as a string (e.g. "58.40").
+	RechargeThresholdFraction string `json:"recharge_threshold_fraction" api:"required" format:"decimal"`
+	// Projected date the balance reaches the recharge threshold at the current
+	// run-rate. Null when there is no active usage (never charges).
+	EstimatedNextChargeAt time.Time `json:"estimated_next_charge_at" api:"nullable" format:"date-time"`
+	// Arbitrary-precision decimal serialized as a string (e.g. "58.40").
+	RunwayMonths string `json:"runway_months" api:"nullable" format:"decimal"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		DailyCost                 respjson.Field
+		EffectiveBalance          respjson.Field
+		MonthlyCost               respjson.Field
+		RechargeThresholdFraction respjson.Field
+		EstimatedNextChargeAt     respjson.Field
+		RunwayMonths              respjson.Field
+		ExtraFields               map[string]respjson.Field
+		raw                       string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r OrganizationBillingSummary) RawJSON() string { return r.JSON.raw }
+func (r *OrganizationBillingSummary) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
