@@ -16,7 +16,9 @@ type paramObj = param.APIObject
 
 type Error = apierror.Error
 
-// Cost quote returned by POST /cost.
+// Cost quote returned by POST /cost. current_summary and updated_summary hold the
+// org billing summary now and with this resource; omitted when the caller cannot
+// view billing.
 //
 // This is an alias to an internal type.
 type CostQuote = shared.CostQuote
@@ -26,8 +28,9 @@ type CostQuote = shared.CostQuote
 // This is an alias to an internal type.
 type CostQuoteUsageDimension = shared.CostQuoteUsageDimension
 
-// Cost quote returned by PATCH /:id/cost: the current-state quote, the post-update
-// quote, and the signed diff.
+// Cost quote returned by PATCH /:id/cost: current-state quote, post-update quote,
+// and signed diff. current_summary and updated_summary omitted when the caller
+// cannot view billing.
 //
 // This is an alias to an internal type.
 type CostQuoteUpdate = shared.CostQuoteUpdate
@@ -71,6 +74,13 @@ type CostQuoteUpdateDiffUsageDimensionAfter = shared.CostQuoteUpdateDiffUsageDim
 //
 // This is an alias to an internal type.
 type CostQuoteUpdateDiffUsageDimensionBefore = shared.CostQuoteUpdateDiffUsageDimensionBefore
+
+// Forward-looking billing summary for an organization. All costs are run-rate
+// projections from the organization's current active usage ("≈ $X/mo at current
+// usage").
+//
+// This is an alias to an internal type.
+type OrganizationBillingSummary = shared.OrganizationBillingSummary
 
 // Pagination response details.
 //

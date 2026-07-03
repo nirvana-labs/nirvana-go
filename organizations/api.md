@@ -42,10 +42,6 @@ Methods:
 
 ## Billing
 
-Response Types:
-
-- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/organizations">organizations</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/organizations#OrganizationBillingSummary">OrganizationBillingSummary</a>
-
 Methods:
 
-- <code title="get /v1/organizations/{organization_id}/billing/summary">client.Organizations.Billing.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/organizations#BillingService.Summary">Summary</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, organizationID <a href="https://pkg.go.dev/builtin#string">string</a>) (\*<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/organizations">organizations</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/organizations#OrganizationBillingSummary">OrganizationBillingSummary</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
+- <code title="get /v1/organizations/{organization_id}/billing/summary">client.Organizations.Billing.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/organizations#BillingService.Summary">Summary</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, organizationID <a href="https://pkg.go.dev/builtin#string">string</a>) (\*<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/shared">shared</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/shared#OrganizationBillingSummary">OrganizationBillingSummary</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>

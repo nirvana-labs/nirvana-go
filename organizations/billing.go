@@ -8,12 +8,10 @@ import (
 	"fmt"
 	"net/http"
 	"slices"
-	"time"
 
-	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
 	"github.com/nirvana-labs/nirvana-go/option"
-	"github.com/nirvana-labs/nirvana-go/packages/respjson"
+	"github.com/nirvana-labs/nirvana-go/shared"
 )
 
 // BillingService contains methods and other services that help with interacting
@@ -38,7 +36,7 @@ func NewBillingService(opts ...option.RequestOption) (r BillingService) {
 // Get the organization's billing summary: effective balance, monthly and daily
 // run-rate cost, runway, and the projected next-recharge date. Costs are run-rate
 // projections.
-func (r *BillingService) Summary(ctx context.Context, organizationID string, opts ...option.RequestOption) (res *OrganizationBillingSummary, err error) {
+func (r *BillingService) Summary(ctx context.Context, organizationID string, opts ...option.RequestOption) (res *shared.OrganizationBillingSummary, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if organizationID == "" {
 		err = errors.New("missing required organization_id parameter")
@@ -47,40 +45,4 @@ func (r *BillingService) Summary(ctx context.Context, organizationID string, opt
 	path := fmt.Sprintf("v1/organizations/%s/billing/summary", organizationID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
 	return res, err
-}
-
-// Forward-looking billing summary for an organization. All costs are run-rate
-// projections from the organization's current active usage ("≈ $X/mo at current
-// usage").
-type OrganizationBillingSummary struct {
-	// Arbitrary-precision decimal serialized as a string (e.g. "58.40").
-	DailyCost string `json:"daily_cost" api:"required" format:"decimal"`
-	// Arbitrary-precision decimal serialized as a string (e.g. "58.40").
-	EffectiveBalance string `json:"effective_balance" api:"required" format:"decimal"`
-	// Arbitrary-precision decimal serialized as a string (e.g. "58.40").
-	MonthlyCost string `json:"monthly_cost" api:"required" format:"decimal"`
-	// Arbitrary-precision decimal serialized as a string (e.g. "58.40").
-	RechargeThresholdFraction string `json:"recharge_threshold_fraction" api:"required" format:"decimal"`
-	// Projected date the balance reaches the recharge threshold at the current
-	// run-rate. Null when there is no active usage (never charges).
-	EstimatedNextChargeAt time.Time `json:"estimated_next_charge_at" api:"nullable" format:"date-time"`
-	// Arbitrary-precision decimal serialized as a string (e.g. "58.40").
-	RunwayMonths string `json:"runway_months" api:"nullable" format:"decimal"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		DailyCost                 respjson.Field
-		EffectiveBalance          respjson.Field
-		MonthlyCost               respjson.Field
-		RechargeThresholdFraction respjson.Field
-		EstimatedNextChargeAt     respjson.Field
-		RunwayMonths              respjson.Field
-		ExtraFields               map[string]respjson.Field
-		raw                       string
-	} `json:"-"`
-}
-
-// Returns the unmodified JSON received from the API
-func (r OrganizationBillingSummary) RawJSON() string { return r.JSON.raw }
-func (r *OrganizationBillingSummary) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
 }
