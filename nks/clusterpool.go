@@ -249,14 +249,15 @@ func (r *NKSNodePoolList) UnmarshalJSON(data []byte) error {
 type NKSNodePoolNodeConfigParam struct {
 	// Boot volume configuration.
 	BootVolume NKSNodePoolBootVolumeParam `json:"boot_volume,omitzero" api:"required"`
-	// Instance type name used for worker nodes.
+	// Instance type name used for worker nodes. Immutable after pool creation.
 	InstanceType string `json:"instance_type" api:"required"`
 	// Kubernetes labels to apply to each node in the pool. Each entry is "key=value".
 	// Keys under kubernetes.io, k8s.io, and nirvanalabs.io prefixes are reserved.
+	// Immutable after pool creation.
 	Labels []string `json:"labels,omitzero"`
 	// Kubernetes taints to apply to each node in the pool at creation time. Each entry
 	// is "key=value:Effect" where Effect is NoSchedule, PreferNoSchedule, or
-	// NoExecute. Taints are immutable after pool creation.
+	// NoExecute. Immutable after pool creation.
 	Taints []string `json:"taints,omitzero"`
 	paramObj
 }
@@ -322,8 +323,6 @@ type ClusterPoolUpdateParams struct {
 	Name param.Opt[string] `json:"name,omitzero"`
 	// Number of nodes.
 	NodeCount param.Opt[int64] `json:"node_count,omitzero"`
-	// Partial node configuration update.
-	NodeConfig ClusterPoolUpdateParamsNodeConfig `json:"node_config,omitzero"`
 	// Tags to attach to the node pool.
 	Tags []string `json:"tags,omitzero"`
 	paramObj
@@ -334,23 +333,6 @@ func (r ClusterPoolUpdateParams) MarshalJSON() (data []byte, err error) {
 	return param.MarshalObject(r, (*shadow)(&r))
 }
 func (r *ClusterPoolUpdateParams) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// Partial node configuration update.
-type ClusterPoolUpdateParamsNodeConfig struct {
-	// Kubernetes labels to apply to each node in the pool. Each entry is "key=value".
-	// When provided, the list fully replaces the current labels on the pool and on
-	// live nodes.
-	Labels []string `json:"labels,omitzero"`
-	paramObj
-}
-
-func (r ClusterPoolUpdateParamsNodeConfig) MarshalJSON() (data []byte, err error) {
-	type shadow ClusterPoolUpdateParamsNodeConfig
-	return param.MarshalObject(r, (*shadow)(&r))
-}
-func (r *ClusterPoolUpdateParamsNodeConfig) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 

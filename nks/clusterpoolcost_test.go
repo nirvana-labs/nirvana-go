@@ -73,10 +73,7 @@ func TestClusterPoolCostUpdateWithOptionalParams(t *testing.T) {
 		"cluster_id",
 		"pool_id",
 		nks.ClusterPoolCostUpdateParams{
-			Name: nirvana.String("my-node-pool"),
-			NodeConfig: nks.ClusterPoolCostUpdateParamsNodeConfig{
-				Labels: []string{"env=prod", "team=platform"},
-			},
+			Name:      nirvana.String("my-node-pool"),
 			NodeCount: nirvana.Int(5),
 			Tags:      []string{"production", "ethereum"},
 		},
