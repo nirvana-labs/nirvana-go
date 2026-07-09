@@ -89,8 +89,6 @@ type ClusterPoolCostUpdateParams struct {
 	Name param.Opt[string] `json:"name,omitzero"`
 	// Number of nodes.
 	NodeCount param.Opt[int64] `json:"node_count,omitzero"`
-	// Partial node configuration update.
-	NodeConfig ClusterPoolCostUpdateParamsNodeConfig `json:"node_config,omitzero"`
 	// Tags to attach to the node pool.
 	Tags []string `json:"tags,omitzero"`
 	paramObj
@@ -101,22 +99,5 @@ func (r ClusterPoolCostUpdateParams) MarshalJSON() (data []byte, err error) {
 	return param.MarshalObject(r, (*shadow)(&r))
 }
 func (r *ClusterPoolCostUpdateParams) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// Partial node configuration update.
-type ClusterPoolCostUpdateParamsNodeConfig struct {
-	// Kubernetes labels to apply to each node in the pool. Each entry is "key=value".
-	// When provided, the list fully replaces the current labels on the pool and on
-	// live nodes.
-	Labels []string `json:"labels,omitzero"`
-	paramObj
-}
-
-func (r ClusterPoolCostUpdateParamsNodeConfig) MarshalJSON() (data []byte, err error) {
-	type shadow ClusterPoolCostUpdateParamsNodeConfig
-	return param.MarshalObject(r, (*shadow)(&r))
-}
-func (r *ClusterPoolCostUpdateParamsNodeConfig) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }

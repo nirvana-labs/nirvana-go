@@ -73,10 +73,7 @@ func TestClusterPoolAvailabilityUpdateWithOptionalParams(t *testing.T) {
 		"cluster_id",
 		"pool_id",
 		nks.ClusterPoolAvailabilityUpdateParams{
-			Name: nirvana.String("my-node-pool"),
-			NodeConfig: nks.ClusterPoolAvailabilityUpdateParamsNodeConfig{
-				Labels: []string{"env=prod", "team=platform"},
-			},
+			Name:      nirvana.String("my-node-pool"),
 			NodeCount: nirvana.Int(5),
 			Tags:      []string{"production", "ethereum"},
 		},
