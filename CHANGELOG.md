@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.90.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.89.2...v1.90.0) (2026-07-10)
+
+
+### Features
+
+* **stainless:** wire billing cost, history, and top-up into SDK config ([894ae48](https://github.com/nirvana-labs/nirvana-go/commit/894ae481fe071f9f46dc066ebf9ea361a35c0a7b))
+
 ## [1.89.2](https://github.com/nirvana-labs/nirvana-go/compare/v1.89.1...v1.89.2) (2026-07-09)
 
 
