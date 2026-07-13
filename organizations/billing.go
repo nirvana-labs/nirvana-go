@@ -80,12 +80,12 @@ func (r *BillingService) Summary(ctx context.Context, organizationID string, opt
 	return res, err
 }
 
-// Charge the organization's card on file and credit its prepaid balance. Send an
-// Idempotency-Key header to make retries safe; responds 402 when the card cannot
-// be charged.
+// Charge the card on file and credit the prepaid balance. A unique Idempotency-Key
+// header is required; reuse it across retries so a timed-out top-up is not charged
+// twice.
 func (r *BillingService) TopUp(ctx context.Context, organizationID string, params BillingTopUpParams, opts ...option.RequestOption) (res *shared.OrganizationBillingSummary, err error) {
 	if !param.IsOmitted(params.IdempotencyKey) {
-		opts = append(opts, option.WithHeader("Idempotency-Key", fmt.Sprintf("%v", params.IdempotencyKey.Value)))
+		opts = append(opts, option.WithHeader("Idempotency-Key", fmt.Sprintf("%v", params.IdempotencyKey)))
 	}
 	opts = slices.Concat(r.Options, opts)
 	if organizationID == "" {
@@ -210,9 +210,9 @@ func (r *OrganizationDailyCost) UnmarshalJSON(data []byte) error {
 
 type BillingCostParams struct {
 	// Inclusive start day, YYYY-MM-DD (UTC). Defaults to 30 days before to.
-	From param.Opt[string] `query:"from,omitzero" json:"-"`
+	From param.Opt[time.Time] `query:"from,omitzero" format:"date" json:"-"`
 	// Inclusive end day, YYYY-MM-DD (UTC). Defaults to today.
-	To param.Opt[string] `query:"to,omitzero" json:"-"`
+	To param.Opt[time.Time] `query:"to,omitzero" format:"date" json:"-"`
 	paramObj
 }
 
@@ -241,9 +241,10 @@ func (r BillingHistoryParams) URLQuery() (v url.Values, err error) {
 }
 
 type BillingTopUpParams struct {
-	// Arbitrary-precision decimal serialized as a string (e.g. "58.40").
-	Amount         string            `json:"amount" api:"required" format:"decimal"`
-	IdempotencyKey param.Opt[string] `header:"Idempotency-Key,omitzero" json:"-"`
+	// Amount to charge and credit, in USD. Must be greater than 0, at most two decimal
+	// places, and at most 10000.
+	Amount         string `json:"amount" api:"required" format:"decimal"`
+	IdempotencyKey string `header:"Idempotency-Key" api:"required" json:"-"`
 	paramObj
 }
 
