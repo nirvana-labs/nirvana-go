@@ -7,6 +7,7 @@ import (
 	"errors"
 	"os"
 	"testing"
+	"time"
 
 	"github.com/nirvana-labs/nirvana-go"
 	"github.com/nirvana-labs/nirvana-go/internal/testutil"
@@ -31,8 +32,8 @@ func TestBillingCostWithOptionalParams(t *testing.T) {
 		context.TODO(),
 		"organization_id",
 		organizations.BillingCostParams{
-			From: nirvana.String("from"),
-			To:   nirvana.String("to"),
+			From: nirvana.Time(time.Now()),
+			To:   nirvana.Time(time.Now()),
 		},
 	)
 	if err != nil {
@@ -97,7 +98,7 @@ func TestBillingSummary(t *testing.T) {
 	}
 }
 
-func TestBillingTopUpWithOptionalParams(t *testing.T) {
+func TestBillingTopUp(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -114,8 +115,8 @@ func TestBillingTopUpWithOptionalParams(t *testing.T) {
 		context.TODO(),
 		"organization_id",
 		organizations.BillingTopUpParams{
-			Amount:         "-69125",
-			IdempotencyKey: nirvana.String("Idempotency-Key"),
+			Amount:         "50.00",
+			IdempotencyKey: "Idempotency-Key",
 		},
 	)
 	if err != nil {
