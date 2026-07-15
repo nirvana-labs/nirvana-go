@@ -113,6 +113,10 @@ type BillingHistoryEntry struct {
 	Type BillingHistoryEntryType `json:"type" api:"required"`
 	// Human-readable note describing the entry, when available.
 	Description string `json:"description" api:"nullable"`
+	// Link to the hosted receipt for the payment behind this entry, when one is
+	// available. Present for prepaid credits funded by a card charge; absent for
+	// manual adjustments and while a payment's receipt is still being finalized.
+	ReceiptURL string `json:"receipt_url" api:"nullable"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field
@@ -121,6 +125,7 @@ type BillingHistoryEntry struct {
 		Currency    respjson.Field
 		Type        respjson.Field
 		Description respjson.Field
+		ReceiptURL  respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`
