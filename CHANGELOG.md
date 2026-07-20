@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.91.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.90.2...v1.91.0) (2026-07-20)
+
+
+### Features
+
+* **stainless:** add billing recharge endpoint and wire into SDK config ([67f58ff](https://github.com/nirvana-labs/nirvana-go/commit/67f58ff76169d79329319e5cfbde9de4e5266f83))
+
 ## [1.90.2](https://github.com/nirvana-labs/nirvana-go/compare/v1.90.1...v1.90.2) (2026-07-15)
 
 
