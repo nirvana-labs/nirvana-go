@@ -66,6 +66,23 @@ func (r *BillingService) History(ctx context.Context, organizationID string, que
 	return res, err
 }
 
+// Charge the card on file up to the recharge target now instead of waiting for the
+// scheduled retry. Automatic-policy prepaid organizations only. Idempotency-Key
+// header required.
+func (r *BillingService) Recharge(ctx context.Context, organizationID string, body BillingRechargeParams, opts ...option.RequestOption) (res *shared.OrganizationBillingSummary, err error) {
+	if !param.IsOmitted(body.IdempotencyKey) {
+		opts = append(opts, option.WithHeader("Idempotency-Key", fmt.Sprintf("%v", body.IdempotencyKey)))
+	}
+	opts = slices.Concat(r.Options, opts)
+	if organizationID == "" {
+		err = errors.New("missing required organization_id parameter")
+		return nil, err
+	}
+	path := fmt.Sprintf("v1/organizations/%s/billing/recharge", organizationID)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
+	return res, err
+}
+
 // Get the organization's billing summary: effective balance, monthly and daily
 // run-rate cost, runway, and the projected next-recharge date. Costs are run-rate
 // projections.
@@ -243,6 +260,11 @@ func (r BillingHistoryParams) URLQuery() (v url.Values, err error) {
 		ArrayFormat:  apiquery.ArrayQueryFormatComma,
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
 	})
+}
+
+type BillingRechargeParams struct {
+	IdempotencyKey string `header:"Idempotency-Key" api:"required" json:"-"`
+	paramObj
 }
 
 type BillingTopUpParams struct {
