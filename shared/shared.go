@@ -337,7 +337,7 @@ type OrganizationBillingSummary struct {
 	// Arbitrary-precision decimal serialized as a string (e.g. "58.40").
 	MonthlyCost string `json:"monthly_cost" api:"required" format:"decimal"`
 	// Arbitrary-precision decimal serialized as a string (e.g. "58.40").
-	RechargeThresholdFraction string `json:"recharge_threshold_fraction" api:"required" format:"decimal"`
+	RechargeThresholdDays string `json:"recharge_threshold_days" api:"required" format:"decimal"`
 	// Projected date the balance reaches the recharge threshold at the current
 	// run-rate. Null when there is no active usage (never charges).
 	EstimatedNextChargeAt time.Time `json:"estimated_next_charge_at" api:"nullable" format:"date-time"`
@@ -345,14 +345,14 @@ type OrganizationBillingSummary struct {
 	RunwayMonths string `json:"runway_months" api:"nullable" format:"decimal"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
-		DailyCost                 respjson.Field
-		EffectiveBalance          respjson.Field
-		MonthlyCost               respjson.Field
-		RechargeThresholdFraction respjson.Field
-		EstimatedNextChargeAt     respjson.Field
-		RunwayMonths              respjson.Field
-		ExtraFields               map[string]respjson.Field
-		raw                       string
+		DailyCost             respjson.Field
+		EffectiveBalance      respjson.Field
+		MonthlyCost           respjson.Field
+		RechargeThresholdDays respjson.Field
+		EstimatedNextChargeAt respjson.Field
+		RunwayMonths          respjson.Field
+		ExtraFields           map[string]respjson.Field
+		raw                   string
 	} `json:"-"`
 }
 
