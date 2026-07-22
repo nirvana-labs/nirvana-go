@@ -27,7 +27,8 @@ import (
 // automatically. You should not instantiate this service directly, and instead use
 // the [NewBillingService] method instead.
 type BillingService struct {
-	Options []option.RequestOption
+	Options        []option.RequestOption
+	RechargePolicy BillingRechargePolicyService
 }
 
 // NewBillingService generates a new service that applies the given options to each
@@ -36,6 +37,7 @@ type BillingService struct {
 func NewBillingService(opts ...option.RequestOption) (r BillingService) {
 	r = BillingService{}
 	r.Options = opts
+	r.RechargePolicy = NewBillingRechargePolicyService(opts...)
 	return
 }
 
