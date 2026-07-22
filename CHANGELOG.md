@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.92.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.91.1...v1.92.0) (2026-07-22)
+
+
+### Features
+
+* **stainless:** add recharge_policy group to SDK config ([4939172](https://github.com/nirvana-labs/nirvana-go/commit/49391724aa83b241842c123f281d846c67a20967))
+
 ## [1.91.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.91.0...v1.91.1) (2026-07-22)
 
 
