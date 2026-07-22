@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.91.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.91.0...v1.91.1) (2026-07-22)
+
+
+### Chores
+
+* **nirvana-api:** update OpenAPI spec ([a1eef52](https://github.com/nirvana-labs/nirvana-go/commit/a1eef52675d8a4d4723035e07cf6004d490e5965))
+
 ## [1.91.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.90.2...v1.91.0) (2026-07-20)
 
 
