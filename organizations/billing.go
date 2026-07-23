@@ -85,6 +85,20 @@ func (r *BillingService) Recharge(ctx context.Context, organizationID string, bo
 	return res, err
 }
 
+// Get the itemized monthly usage statement: consumption grouped by project,
+// resource type, and dimension, priced from recorded usage. Defaults to the
+// current month.
+func (r *BillingService) Statements(ctx context.Context, organizationID string, query BillingStatementsParams, opts ...option.RequestOption) (res *OrganizationUsageStatement, err error) {
+	opts = slices.Concat(r.Options, opts)
+	if organizationID == "" {
+		err = errors.New("missing required organization_id parameter")
+		return nil, err
+	}
+	path := fmt.Sprintf("v1/organizations/%s/billing/statements", organizationID)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
+	return res, err
+}
+
 // Get the organization's billing summary: effective balance, monthly and daily
 // run-rate cost, runway, and the projected next-recharge date. Costs are run-rate
 // projections.
@@ -232,6 +246,155 @@ func (r *OrganizationDailyCost) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
+// Itemized usage statement for a billing month: consumption grouped by project,
+// resource type, and dimension. Costs are recorded at consumption time, not
+// re-priced.
+type OrganizationUsageStatement struct {
+	// ISO 4217 currency code.
+	Currency string `json:"currency" api:"required"`
+	// Billing month the statement covers, as YYYY-MM (UTC).
+	Month string `json:"month" api:"required"`
+	// One entry per project with consumption in the month, ordered by name.
+	Projects []StatementProject `json:"projects" api:"required"`
+	// Arbitrary-precision decimal serialized as a string (e.g. "58.40").
+	Total string `json:"total" api:"required" format:"decimal"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Currency    respjson.Field
+		Month       respjson.Field
+		Projects    respjson.Field
+		Total       respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r OrganizationUsageStatement) RawJSON() string { return r.JSON.raw }
+func (r *OrganizationUsageStatement) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// A top-level metered dimension. Heads nest components as children (cost is the
+// subtotal, unit_price null); standalone dimensions carry a unit price and an
+// empty children array.
+type StatementLineItem struct {
+	// Component dimensions nested under this one (e.g. vCPU and memory under an
+	// instance type). Empty for a leaf.
+	Children []StatementLineItemLeaf `json:"children" api:"required"`
+	// Arbitrary-precision decimal serialized as a string (e.g. "58.40").
+	Cost string `json:"cost" api:"required" format:"decimal"`
+	// Metered dimension identifier (e.g. "compute_n1_standard_8", "storage_abs_gb").
+	Dimension string `json:"dimension" api:"required"`
+	// Human-readable label for the dimension.
+	DisplayName string `json:"display_name" api:"required"`
+	// Arbitrary-precision decimal serialized as a string (e.g. "58.40").
+	QuantityHours string `json:"quantity_hours" api:"required" format:"decimal"`
+	// Arbitrary-precision decimal serialized as a string (e.g. "58.40").
+	UnitPrice string `json:"unit_price" api:"nullable" format:"decimal"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Children      respjson.Field
+		Cost          respjson.Field
+		Dimension     respjson.Field
+		DisplayName   respjson.Field
+		QuantityHours respjson.Field
+		UnitPrice     respjson.Field
+		ExtraFields   map[string]respjson.Field
+		raw           string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r StatementLineItem) RawJSON() string { return r.JSON.raw }
+func (r *StatementLineItem) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// A priced dimension line: a component nested under a head, or one rate segment of
+// a dimension whose price changed mid-period.
+type StatementLineItemLeaf struct {
+	// Arbitrary-precision decimal serialized as a string (e.g. "58.40").
+	Cost string `json:"cost" api:"required" format:"decimal"`
+	// Metered dimension identifier (e.g. "compute_vcpu", "compute_memory_gb").
+	Dimension string `json:"dimension" api:"required"`
+	// Human-readable label for the dimension.
+	DisplayName string `json:"display_name" api:"required"`
+	// Arbitrary-precision decimal serialized as a string (e.g. "58.40").
+	QuantityHours string `json:"quantity_hours" api:"required" format:"decimal"`
+	// Arbitrary-precision decimal serialized as a string (e.g. "58.40").
+	UnitPrice string `json:"unit_price" api:"required" format:"decimal"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Cost          respjson.Field
+		Dimension     respjson.Field
+		DisplayName   respjson.Field
+		QuantityHours respjson.Field
+		UnitPrice     respjson.Field
+		ExtraFields   map[string]respjson.Field
+		raw           string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r StatementLineItemLeaf) RawJSON() string { return r.JSON.raw }
+func (r *StatementLineItemLeaf) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// A single project's consumption within a usage statement.
+type StatementProject struct {
+	// Project identifier.
+	ProjectID string `json:"project_id" api:"required"`
+	// Human-readable project name.
+	ProjectName string `json:"project_name" api:"required"`
+	// Consumption grouped by resource type.
+	ResourceTypes []StatementResourceType `json:"resource_types" api:"required"`
+	// Arbitrary-precision decimal serialized as a string (e.g. "58.40").
+	Subtotal string `json:"subtotal" api:"required" format:"decimal"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		ProjectID     respjson.Field
+		ProjectName   respjson.Field
+		ResourceTypes respjson.Field
+		Subtotal      respjson.Field
+		ExtraFields   map[string]respjson.Field
+		raw           string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r StatementProject) RawJSON() string { return r.JSON.raw }
+func (r *StatementProject) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// Consumption for one resource type within a project (e.g. every VM, every
+// volume).
+type StatementResourceType struct {
+	// Top-level metered dimensions; a dimension expanded into components carries them
+	// in children.
+	Items []StatementLineItem `json:"items" api:"required"`
+	// Resource type the line items belong to (e.g. "vm", "volume", "nks_node_pool").
+	ResourceType string `json:"resource_type" api:"required"`
+	// Arbitrary-precision decimal serialized as a string (e.g. "58.40").
+	Subtotal string `json:"subtotal" api:"required" format:"decimal"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Items        respjson.Field
+		ResourceType respjson.Field
+		Subtotal     respjson.Field
+		ExtraFields  map[string]respjson.Field
+		raw          string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r StatementResourceType) RawJSON() string { return r.JSON.raw }
+func (r *StatementResourceType) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
 type BillingCostParams struct {
 	// Inclusive start day, YYYY-MM-DD (UTC). Defaults to 30 days before to.
 	From param.Opt[time.Time] `query:"from,omitzero" format:"date" json:"-"`
@@ -267,6 +430,21 @@ func (r BillingHistoryParams) URLQuery() (v url.Values, err error) {
 type BillingRechargeParams struct {
 	IdempotencyKey string `header:"Idempotency-Key" api:"required" json:"-"`
 	paramObj
+}
+
+type BillingStatementsParams struct {
+	// Billing month, YYYY-MM (UTC). Defaults to the current month.
+	Month param.Opt[string] `query:"month,omitzero" json:"-"`
+	paramObj
+}
+
+// URLQuery serializes [BillingStatementsParams]'s query parameters as
+// `url.Values`.
+func (r BillingStatementsParams) URLQuery() (v url.Values, err error) {
+	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
+		ArrayFormat:  apiquery.ArrayQueryFormatComma,
+		NestedFormat: apiquery.NestedQueryFormatBrackets,
+	})
 }
 
 type BillingTopUpParams struct {
