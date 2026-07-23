@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.93.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.92.0...v1.93.0) (2026-07-23)
+
+
+### Features
+
+* **stainless:** wire billing statements route into SDK config ([5ab8281](https://github.com/nirvana-labs/nirvana-go/commit/5ab82815c2b40dd88e47c478281bd1d946cf57b8))
+
 ## [1.92.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.91.1...v1.92.0) (2026-07-22)
 
 
