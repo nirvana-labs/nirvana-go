@@ -146,21 +146,27 @@ type BillingHistoryEntry struct {
 	Type BillingHistoryEntryType `json:"type" api:"required"`
 	// Human-readable note describing the entry, when available.
 	Description string `json:"description" api:"nullable"`
+	// Funding flow that produced this entry, for a grant: "first_charge",
+	// "auto_recharge", "manual_top_up", or "manual_recharge". Null for adjustments.
+	//
+	// Any of "first_charge", "auto_recharge", "manual_top_up", "manual_recharge".
+	FundingPurpose BillingHistoryEntryFundingPurpose `json:"funding_purpose" api:"nullable"`
 	// Link to the hosted receipt for the payment behind this entry, when one is
 	// available. Present for prepaid credits funded by a card charge; absent for
 	// manual adjustments and while a payment's receipt is still being finalized.
 	ReceiptURL string `json:"receipt_url" api:"nullable"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
-		ID          respjson.Field
-		Amount      respjson.Field
-		CreatedAt   respjson.Field
-		Currency    respjson.Field
-		Type        respjson.Field
-		Description respjson.Field
-		ReceiptURL  respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
+		ID             respjson.Field
+		Amount         respjson.Field
+		CreatedAt      respjson.Field
+		Currency       respjson.Field
+		Type           respjson.Field
+		Description    respjson.Field
+		FundingPurpose respjson.Field
+		ReceiptURL     respjson.Field
+		ExtraFields    map[string]respjson.Field
+		raw            string
 	} `json:"-"`
 }
 
@@ -169,6 +175,17 @@ func (r BillingHistoryEntry) RawJSON() string { return r.JSON.raw }
 func (r *BillingHistoryEntry) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
+
+// Funding flow that produced this entry, for a grant: "first_charge",
+// "auto_recharge", "manual_top_up", or "manual_recharge". Null for adjustments.
+type BillingHistoryEntryFundingPurpose string
+
+const (
+	BillingHistoryEntryFundingPurposeFirstCharge    BillingHistoryEntryFundingPurpose = "first_charge"
+	BillingHistoryEntryFundingPurposeAutoRecharge   BillingHistoryEntryFundingPurpose = "auto_recharge"
+	BillingHistoryEntryFundingPurposeManualTopUp    BillingHistoryEntryFundingPurpose = "manual_top_up"
+	BillingHistoryEntryFundingPurposeManualRecharge BillingHistoryEntryFundingPurpose = "manual_recharge"
+)
 
 type BillingHistoryEntryList struct {
 	Items []BillingHistoryEntry `json:"items" api:"required"`
