@@ -70,10 +70,13 @@ type AutomaticPolicyArgs struct {
 	Fixed string `json:"fixed" api:"required" format:"decimal"`
 	// Arbitrary-precision decimal serialized as a string (e.g. "58.40").
 	RunwayDays string `json:"runway_days" api:"required" format:"decimal"`
+	// Arbitrary-precision decimal serialized as a string (e.g. "58.40").
+	MonthlyCap string `json:"monthly_cap" api:"nullable" format:"decimal"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Fixed       respjson.Field
 		RunwayDays  respjson.Field
+		MonthlyCap  respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`
@@ -103,6 +106,8 @@ type AutomaticPolicyArgsParam struct {
 	Fixed string `json:"fixed" api:"required" format:"decimal"`
 	// Arbitrary-precision decimal serialized as a string (e.g. "58.40").
 	RunwayDays string `json:"runway_days" api:"required" format:"decimal"`
+	// Arbitrary-precision decimal serialized as a string (e.g. "58.40").
+	MonthlyCap param.Opt[string] `json:"monthly_cap,omitzero" format:"decimal"`
 	paramObj
 }
 

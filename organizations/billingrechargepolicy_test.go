@@ -35,6 +35,7 @@ func TestBillingRechargePolicyUpdateWithOptionalParams(t *testing.T) {
 			PolicyArgs: organizations.AutomaticPolicyArgsParam{
 				Fixed:      "-69125",
 				RunwayDays: "-69125",
+				MonthlyCap: nirvana.String("-69125"),
 			},
 		},
 	)
