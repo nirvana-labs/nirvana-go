@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.93.2](https://github.com/nirvana-labs/nirvana-go/compare/v1.93.1...v1.93.2) (2026-07-31)
+
+
+### Bug Fixes
+
+* **deps:** bump handlebars (TS) + x/crypto (terraform) for VANTA CVEs ([22f2a2a](https://github.com/nirvana-labs/nirvana-go/commit/22f2a2ad47c7e5a6adc4539205d3377c6c00f5dd))
+
+
+### Chores
+
+* **nirvana-api:** update OpenAPI spec ([22f2a2a](https://github.com/nirvana-labs/nirvana-go/commit/22f2a2ad47c7e5a6adc4539205d3377c6c00f5dd))
+
 ## [1.93.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.93.0...v1.93.1) (2026-07-24)
 
 
