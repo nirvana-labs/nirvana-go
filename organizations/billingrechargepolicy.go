@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"net/http"
 	"slices"
+	"time"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
@@ -50,8 +51,8 @@ func (r *BillingRechargePolicyService) Update(ctx context.Context, organizationI
 	return res, err
 }
 
-// Get the organization's recharge configuration: the top-up mode and the fixed and
-// proportional threshold components.
+// Get the organization's recharge configuration: the top-up mode, the fixed and
+// proportional threshold components, and when the current mode took effect.
 func (r *BillingRechargePolicyService) Get(ctx context.Context, organizationID string, opts ...option.RequestOption) (res *OrganizationRechargePolicy, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if organizationID == "" {
@@ -125,14 +126,18 @@ type OrganizationRechargePolicy struct {
 	// Policy is the top-up mode.
 	//
 	// Any of "manual", "automatic".
-	Policy RechargePolicyMode `json:"policy"`
+	Policy RechargePolicyMode `json:"policy" api:"required"`
 	// PolicyArgs carries the threshold parameters. Required when policy is
 	// "automatic"; must be omitted when policy is "manual".
-	PolicyArgs AutomaticPolicyArgs `json:"policy_args" api:"nullable"`
+	PolicyArgs AutomaticPolicyArgs `json:"policy_args" api:"required"`
+	// PolicySince is when the policy currently in force took effect. Any change moves
+	// it, including an edit to the threshold parameters of an automatic policy.
+	PolicySince time.Time `json:"policy_since" api:"required" format:"date-time"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Policy      respjson.Field
 		PolicyArgs  respjson.Field
+		PolicySince respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`
