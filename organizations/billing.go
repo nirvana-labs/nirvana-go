@@ -146,27 +146,30 @@ type BillingHistoryEntry struct {
 	Type BillingHistoryEntryType `json:"type" api:"required"`
 	// Human-readable note describing the entry, when available.
 	Description string `json:"description" api:"nullable"`
-	// Funding flow that produced this entry, for a grant: "first_charge",
-	// "auto_recharge", "manual_top_up", or "manual_recharge". Null for adjustments.
+	// Why this entry exists: for a grant, the funding flow ("first_charge",
+	// "auto_recharge", "manual_top_up", "manual_recharge") or "bonus_grant" for credit
+	// issued with no payment behind it; for an adjustment, the claw-back reason
+	// ("refund", "dispute"). Null for adjustments with no recorded reason.
 	//
-	// Any of "first_charge", "auto_recharge", "manual_top_up", "manual_recharge".
-	FundingPurpose BillingHistoryEntryFundingPurpose `json:"funding_purpose" api:"nullable"`
+	// Any of "first_charge", "auto_recharge", "manual_top_up", "manual_recharge",
+	// "bonus_grant", "refund", "dispute".
+	Purpose BillingHistoryEntryPurpose `json:"purpose" api:"nullable"`
 	// Link to the hosted receipt for the payment behind this entry, when one is
 	// available. Present for prepaid credits funded by a card charge; absent for
 	// manual adjustments and while a payment's receipt is still being finalized.
 	ReceiptURL string `json:"receipt_url" api:"nullable"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
-		ID             respjson.Field
-		Amount         respjson.Field
-		CreatedAt      respjson.Field
-		Currency       respjson.Field
-		Type           respjson.Field
-		Description    respjson.Field
-		FundingPurpose respjson.Field
-		ReceiptURL     respjson.Field
-		ExtraFields    map[string]respjson.Field
-		raw            string
+		ID          respjson.Field
+		Amount      respjson.Field
+		CreatedAt   respjson.Field
+		Currency    respjson.Field
+		Type        respjson.Field
+		Description respjson.Field
+		Purpose     respjson.Field
+		ReceiptURL  respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
 	} `json:"-"`
 }
 
@@ -176,15 +179,20 @@ func (r *BillingHistoryEntry) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// Funding flow that produced this entry, for a grant: "first_charge",
-// "auto_recharge", "manual_top_up", or "manual_recharge". Null for adjustments.
-type BillingHistoryEntryFundingPurpose string
+// Why this entry exists: for a grant, the funding flow ("first_charge",
+// "auto_recharge", "manual_top_up", "manual_recharge") or "bonus_grant" for credit
+// issued with no payment behind it; for an adjustment, the claw-back reason
+// ("refund", "dispute"). Null for adjustments with no recorded reason.
+type BillingHistoryEntryPurpose string
 
 const (
-	BillingHistoryEntryFundingPurposeFirstCharge    BillingHistoryEntryFundingPurpose = "first_charge"
-	BillingHistoryEntryFundingPurposeAutoRecharge   BillingHistoryEntryFundingPurpose = "auto_recharge"
-	BillingHistoryEntryFundingPurposeManualTopUp    BillingHistoryEntryFundingPurpose = "manual_top_up"
-	BillingHistoryEntryFundingPurposeManualRecharge BillingHistoryEntryFundingPurpose = "manual_recharge"
+	BillingHistoryEntryPurposeFirstCharge    BillingHistoryEntryPurpose = "first_charge"
+	BillingHistoryEntryPurposeAutoRecharge   BillingHistoryEntryPurpose = "auto_recharge"
+	BillingHistoryEntryPurposeManualTopUp    BillingHistoryEntryPurpose = "manual_top_up"
+	BillingHistoryEntryPurposeManualRecharge BillingHistoryEntryPurpose = "manual_recharge"
+	BillingHistoryEntryPurposeBonusGrant     BillingHistoryEntryPurpose = "bonus_grant"
+	BillingHistoryEntryPurposeRefund         BillingHistoryEntryPurpose = "refund"
+	BillingHistoryEntryPurposeDispute        BillingHistoryEntryPurpose = "dispute"
 )
 
 type BillingHistoryEntryList struct {
