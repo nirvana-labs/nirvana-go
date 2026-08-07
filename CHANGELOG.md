@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.94.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.93.4...v1.94.0) (2026-08-07)
+
+
+### Features
+
+* **stainless:** wire NKS pool-level volumes list into SDK config ([17ab5b9](https://github.com/nirvana-labs/nirvana-go/commit/17ab5b93893d193e3c0723d942632522504ca033))
+
 ## [1.93.4](https://github.com/nirvana-labs/nirvana-go/compare/v1.93.3...v1.93.4) (2026-08-07)
 
 
