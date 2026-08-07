@@ -112,6 +112,8 @@ type NKSNodeVolume struct {
 	Kind compute.VolumeKind `json:"kind" api:"required"`
 	// Name of the volume.
 	Name string `json:"name" api:"required"`
+	// Unique identifier of the node the volume is attached to.
+	NodeID string `json:"node_id" api:"required"`
 	// Size of the volume in GB.
 	Size int64 `json:"size" api:"required"`
 	// Status of the resource.
@@ -131,6 +133,7 @@ type NKSNodeVolume struct {
 		CreatedAt   respjson.Field
 		Kind        respjson.Field
 		Name        respjson.Field
+		NodeID      respjson.Field
 		Size        respjson.Field
 		Status      respjson.Field
 		Type        respjson.Field

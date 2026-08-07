@@ -148,11 +148,13 @@ type BillingHistoryEntry struct {
 	Description string `json:"description" api:"nullable"`
 	// Why this entry exists: for a grant, the funding flow ("first_charge",
 	// "auto_recharge", "manual_top_up", "manual_recharge") or "bonus_grant" for credit
-	// issued with no payment behind it; for an adjustment, the claw-back reason
-	// ("refund", "dispute"). Null for adjustments with no recorded reason.
+	// issued with no payment behind it; for an adjustment, the reason the balance was
+	// reduced ("refund", "dispute", "bonus_void" for issued credit withdrawn,
+	// "bonus_expiry" for credit that lapsed unspent). Null for adjustments with no
+	// recorded reason.
 	//
 	// Any of "first_charge", "auto_recharge", "manual_top_up", "manual_recharge",
-	// "bonus_grant", "refund", "dispute".
+	// "bonus_grant", "bonus_void", "bonus_expiry", "refund", "dispute".
 	Purpose BillingHistoryEntryPurpose `json:"purpose" api:"nullable"`
 	// Link to the hosted receipt for the payment behind this entry, when one is
 	// available. Present for prepaid credits funded by a card charge; absent for
@@ -181,8 +183,10 @@ func (r *BillingHistoryEntry) UnmarshalJSON(data []byte) error {
 
 // Why this entry exists: for a grant, the funding flow ("first_charge",
 // "auto_recharge", "manual_top_up", "manual_recharge") or "bonus_grant" for credit
-// issued with no payment behind it; for an adjustment, the claw-back reason
-// ("refund", "dispute"). Null for adjustments with no recorded reason.
+// issued with no payment behind it; for an adjustment, the reason the balance was
+// reduced ("refund", "dispute", "bonus_void" for issued credit withdrawn,
+// "bonus_expiry" for credit that lapsed unspent). Null for adjustments with no
+// recorded reason.
 type BillingHistoryEntryPurpose string
 
 const (
@@ -191,6 +195,8 @@ const (
 	BillingHistoryEntryPurposeManualTopUp    BillingHistoryEntryPurpose = "manual_top_up"
 	BillingHistoryEntryPurposeManualRecharge BillingHistoryEntryPurpose = "manual_recharge"
 	BillingHistoryEntryPurposeBonusGrant     BillingHistoryEntryPurpose = "bonus_grant"
+	BillingHistoryEntryPurposeBonusVoid      BillingHistoryEntryPurpose = "bonus_void"
+	BillingHistoryEntryPurposeBonusExpiry    BillingHistoryEntryPurpose = "bonus_expiry"
 	BillingHistoryEntryPurposeRefund         BillingHistoryEntryPurpose = "refund"
 	BillingHistoryEntryPurposeDispute        BillingHistoryEntryPurpose = "dispute"
 )
