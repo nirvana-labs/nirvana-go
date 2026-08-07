@@ -34,6 +34,7 @@ type ClusterPoolService struct {
 	Availability ClusterPoolAvailabilityService
 	Cost         ClusterPoolCostService
 	Nodes        ClusterPoolNodeService
+	Volumes      ClusterPoolVolumeService
 }
 
 // NewClusterPoolService generates a new service that applies the given options to
@@ -45,6 +46,7 @@ func NewClusterPoolService(opts ...option.RequestOption) (r ClusterPoolService) 
 	r.Availability = NewClusterPoolAvailabilityService(opts...)
 	r.Cost = NewClusterPoolCostService(opts...)
 	r.Nodes = NewClusterPoolNodeService(opts...)
+	r.Volumes = NewClusterPoolVolumeService(opts...)
 	return
 }
 
