@@ -285,10 +285,38 @@ func (r *VolumeUpdateParams) UnmarshalJSON(data []byte) error {
 type VolumeListParams struct {
 	// Project ID of resources to request
 	ProjectID string `query:"project_id" api:"required" json:"-"`
-	// Pagination cursor returned by a previous request
+	// Filter by whether the Volume is attached to a VM. Combine with vm_id and both
+	// must hold.
+	Attached param.Opt[bool] `query:"attached,omitzero" json:"-"`
+	// Pagination cursor returned by a previous request. Only valid for the same
+	// filters and sort order.
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
 	// Maximum number of items to return
 	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	// Filter by a case-insensitive substring of the Volume name
+	Name param.Opt[string] `query:"name,omitzero" json:"-"`
+	// Filter by region
+	Region param.Opt[string] `query:"region,omitzero" json:"-"`
+	// Comma-separated sort terms in precedence order, each field:asc or field:desc.
+	// Fields: created_at, updated_at, name, status, size
+	Sort param.Opt[string] `query:"sort,omitzero" json:"-"`
+	// Filter by the VM the Volume is attached to
+	VMID param.Opt[string] `query:"vm_id,omitzero" json:"-"`
+	// Filter by Volume kind
+	//
+	// Any of "boot", "data".
+	Kind VolumeListParamsKind `query:"kind,omitzero" json:"-"`
+	// Filter by Volume status
+	//
+	// Any of "pending", "creating", "updating", "ready", "deleting", "error".
+	Status VolumeListParamsStatus `query:"status,omitzero" json:"-"`
+	// Filter by tags. Repeat the parameter to require several tags; a Volume must
+	// carry all of them.
+	Tags []string `query:"tags,omitzero" json:"-"`
+	// Filter by storage type
+	//
+	// Any of "nvme", "abs".
+	Type VolumeListParamsType `query:"type,omitzero" json:"-"`
 	paramObj
 }
 
@@ -299,6 +327,34 @@ func (r VolumeListParams) URLQuery() (v url.Values, err error) {
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
 	})
 }
+
+// Filter by Volume kind
+type VolumeListParamsKind string
+
+const (
+	VolumeListParamsKindBoot VolumeListParamsKind = "boot"
+	VolumeListParamsKindData VolumeListParamsKind = "data"
+)
+
+// Filter by Volume status
+type VolumeListParamsStatus string
+
+const (
+	VolumeListParamsStatusPending  VolumeListParamsStatus = "pending"
+	VolumeListParamsStatusCreating VolumeListParamsStatus = "creating"
+	VolumeListParamsStatusUpdating VolumeListParamsStatus = "updating"
+	VolumeListParamsStatusReady    VolumeListParamsStatus = "ready"
+	VolumeListParamsStatusDeleting VolumeListParamsStatus = "deleting"
+	VolumeListParamsStatusError    VolumeListParamsStatus = "error"
+)
+
+// Filter by storage type
+type VolumeListParamsType string
+
+const (
+	VolumeListParamsTypeNvme VolumeListParamsType = "nvme"
+	VolumeListParamsTypeABS  VolumeListParamsType = "abs"
+)
 
 type VolumeAttachParams struct {
 	// ID of the VM to attach the Volume to.

@@ -440,3 +440,12 @@ func (r SourceIPRuleResponse) RawJSON() string { return r.JSON.raw }
 func (r *SourceIPRuleResponse) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
+
+// Unit the values are expressed in.
+type VMMetricUnit string
+
+const (
+	VMMetricUnitRatio VMMetricUnit = "ratio"
+	VMMetricUnitBytes VMMetricUnit = "bytes"
+	VMMetricUnitCores VMMetricUnit = "cores"
+)

@@ -58,10 +58,20 @@ func (r *VMOSImageService) ListAutoPaging(ctx context.Context, query VMOSImageLi
 }
 
 type VMOSImageListParams struct {
-	// Pagination cursor returned by a previous request
+	// Pagination cursor returned by a previous request. Only valid for the same
+	// filters and sort order.
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
+	// Filter by a case-insensitive substring of the OS Image display name
+	DisplayName param.Opt[string] `query:"display_name,omitzero" json:"-"`
 	// Maximum number of items to return
 	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	// Filter by a case-insensitive substring of the OS Image name
+	Name param.Opt[string] `query:"name,omitzero" json:"-"`
+	// Comma-separated sort terms in precedence order, each field:asc or field:desc.
+	// Fields: created_at, name, display_name, position. An image name embeds its
+	// version, so name:asc is lexicographic rather than newest-first; position is the
+	// catalog's intended display order.
+	Sort param.Opt[string] `query:"sort,omitzero" json:"-"`
 	paramObj
 }
 

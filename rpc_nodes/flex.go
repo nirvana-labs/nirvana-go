@@ -252,10 +252,23 @@ func (r *FlexUpdateParams) UnmarshalJSON(data []byte) error {
 type FlexListParams struct {
 	// Project ID of resources to request
 	ProjectID string `query:"project_id" api:"required" json:"-"`
-	// Pagination cursor returned by a previous request
+	// Filter by blockchain
+	Blockchain param.Opt[string] `query:"blockchain,omitzero" json:"-"`
+	// Pagination cursor returned by a previous request. Only valid for the same
+	// filters and sort order.
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
 	// Maximum number of items to return
 	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	// Filter by a case-insensitive substring of the RPC Node Flex name
+	Name param.Opt[string] `query:"name,omitzero" json:"-"`
+	// Filter by network
+	Network param.Opt[string] `query:"network,omitzero" json:"-"`
+	// Comma-separated sort terms in precedence order, each field:asc or field:desc.
+	// Fields: created_at, name, blockchain, network
+	Sort param.Opt[string] `query:"sort,omitzero" json:"-"`
+	// Filter by tags. Repeat the parameter to require several tags; an RPC Node Flex
+	// must carry all of them.
+	Tags []string `query:"tags,omitzero" json:"-"`
 	paramObj
 }
 

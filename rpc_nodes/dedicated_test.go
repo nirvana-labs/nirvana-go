@@ -28,9 +28,14 @@ func TestDedicatedListWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.RPCNodes.Dedicated.List(context.TODO(), rpc_nodes.DedicatedListParams{
-		ProjectID: "project_id",
-		Cursor:    nirvana.String("cursor"),
-		Limit:     nirvana.Int(10),
+		ProjectID:  "project_id",
+		Blockchain: nirvana.String("blockchain"),
+		Cursor:     nirvana.String("cursor"),
+		Limit:      nirvana.Int(10),
+		Name:       nirvana.String("name"),
+		Network:    nirvana.String("network"),
+		Sort:       nirvana.String("sort"),
+		Tags:       []string{"string"},
 	})
 	if err != nil {
 		var apierr *nirvana.Error

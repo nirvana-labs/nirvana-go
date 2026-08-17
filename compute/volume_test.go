@@ -92,8 +92,17 @@ func TestVolumeListWithOptionalParams(t *testing.T) {
 	)
 	_, err := client.Compute.Volumes.List(context.TODO(), compute.VolumeListParams{
 		ProjectID: "project_id",
+		Attached:  nirvana.Bool(true),
 		Cursor:    nirvana.String("cursor"),
+		Kind:      compute.VolumeListParamsKindBoot,
 		Limit:     nirvana.Int(10),
+		Name:      nirvana.String("name"),
+		Region:    nirvana.String("region"),
+		Sort:      nirvana.String("sort"),
+		Status:    compute.VolumeListParamsStatusPending,
+		Tags:      []string{"string"},
+		Type:      compute.VolumeListParamsTypeNvme,
+		VMID:      nirvana.String("vm_id"),
 	})
 	if err != nil {
 		var apierr *nirvana.Error

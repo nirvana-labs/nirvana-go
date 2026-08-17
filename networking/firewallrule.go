@@ -282,10 +282,27 @@ const (
 )
 
 type FirewallRuleListParams struct {
-	// Pagination cursor returned by a previous request
+	// Pagination cursor returned by a previous request. Only valid for the same VPC,
+	// filters and sort order.
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
 	// Maximum number of items to return
 	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	// Filter by a case-insensitive substring of the Firewall Rule name
+	Name param.Opt[string] `query:"name,omitzero" json:"-"`
+	// Comma-separated sort terms in precedence order, each field:asc or field:desc.
+	// Fields: created_at, updated_at, name, status, protocol
+	Sort param.Opt[string] `query:"sort,omitzero" json:"-"`
+	// Filter by protocol
+	//
+	// Any of "tcp", "udp".
+	Protocol FirewallRuleListParamsProtocol `query:"protocol,omitzero" json:"-"`
+	// Filter by Firewall Rule status
+	//
+	// Any of "pending", "creating", "updating", "ready", "deleting", "error".
+	Status FirewallRuleListParamsStatus `query:"status,omitzero" json:"-"`
+	// Filter by tags. Repeat the parameter to require several tags; a Firewall Rule
+	// must carry all of them.
+	Tags []string `query:"tags,omitzero" json:"-"`
 	paramObj
 }
 
@@ -296,3 +313,23 @@ func (r FirewallRuleListParams) URLQuery() (v url.Values, err error) {
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
 	})
 }
+
+// Filter by protocol
+type FirewallRuleListParamsProtocol string
+
+const (
+	FirewallRuleListParamsProtocolTcp FirewallRuleListParamsProtocol = "tcp"
+	FirewallRuleListParamsProtocolUdp FirewallRuleListParamsProtocol = "udp"
+)
+
+// Filter by Firewall Rule status
+type FirewallRuleListParamsStatus string
+
+const (
+	FirewallRuleListParamsStatusPending  FirewallRuleListParamsStatus = "pending"
+	FirewallRuleListParamsStatusCreating FirewallRuleListParamsStatus = "creating"
+	FirewallRuleListParamsStatusUpdating FirewallRuleListParamsStatus = "updating"
+	FirewallRuleListParamsStatusReady    FirewallRuleListParamsStatus = "ready"
+	FirewallRuleListParamsStatusDeleting FirewallRuleListParamsStatus = "deleting"
+	FirewallRuleListParamsStatusError    FirewallRuleListParamsStatus = "error"
+)

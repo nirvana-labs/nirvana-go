@@ -100,8 +100,13 @@ func TestFirewallRuleListWithOptionalParams(t *testing.T) {
 		context.TODO(),
 		"vpc_id",
 		networking.FirewallRuleListParams{
-			Cursor: nirvana.String("cursor"),
-			Limit:  nirvana.Int(10),
+			Cursor:   nirvana.String("cursor"),
+			Limit:    nirvana.Int(10),
+			Name:     nirvana.String("name"),
+			Protocol: networking.FirewallRuleListParamsProtocolTcp,
+			Sort:     nirvana.String("sort"),
+			Status:   networking.FirewallRuleListParamsStatusPending,
+			Tags:     []string{"string"},
 		},
 	)
 	if err != nil {

@@ -136,10 +136,36 @@ func (r *InstanceTypeList) UnmarshalJSON(data []byte) error {
 }
 
 type InstanceTypeListParams struct {
-	// Pagination cursor returned by a previous request
+	// Filter by chipset
+	Chipset param.Opt[string] `query:"chipset,omitzero" json:"-"`
+	// Pagination cursor returned by a previous request. Only valid for the same
+	// filters and sort order.
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
+	// Filter by family
+	Family param.Opt[string] `query:"family,omitzero" json:"-"`
 	// Maximum number of items to return
 	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	// Only Instance Types with at most this much memory, in GB
+	MemoryGBMax param.Opt[int64] `query:"memory_gb_max,omitzero" json:"-"`
+	// Only Instance Types with at least this much memory, in GB
+	MemoryGBMin param.Opt[int64] `query:"memory_gb_min,omitzero" json:"-"`
+	// Filter by a case-insensitive substring of the Instance Type name
+	Name param.Opt[string] `query:"name,omitzero" json:"-"`
+	// Only Instance Types with at most this much network bandwidth, in Gbps
+	NetworkBandwidthGbpsMax param.Opt[float64] `query:"network_bandwidth_gbps_max,omitzero" json:"-"`
+	// Only Instance Types with at least this much network bandwidth, in Gbps
+	NetworkBandwidthGbpsMin param.Opt[float64] `query:"network_bandwidth_gbps_min,omitzero" json:"-"`
+	// Filter by region
+	Region param.Opt[string] `query:"region,omitzero" json:"-"`
+	// Filter by series
+	Series param.Opt[string] `query:"series,omitzero" json:"-"`
+	// Comma-separated sort terms in precedence order, each field:asc or field:desc.
+	// Fields: series, family, name, vcpu, memory_gb, network_bandwidth_gbps
+	Sort param.Opt[string] `query:"sort,omitzero" json:"-"`
+	// Only Instance Types with at most this many vCPUs
+	VcpuMax param.Opt[int64] `query:"vcpu_max,omitzero" json:"-"`
+	// Only Instance Types with at least this many vCPUs
+	VcpuMin param.Opt[int64] `query:"vcpu_min,omitzero" json:"-"`
 	paramObj
 }
 

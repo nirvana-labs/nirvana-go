@@ -29,11 +29,13 @@ import (
 // automatically. You should not instantiate this service directly, and instead use
 // the [NewVMService] method instead.
 type VMService struct {
-	Options      []option.RequestOption
-	Availability VMAvailabilityService
-	Cost         VMCostService
-	Volumes      VMVolumeService
-	OSImages     VMOSImageService
+	Options           []option.RequestOption
+	Availability      VMAvailabilityService
+	Cost              VMCostService
+	Volumes           VMVolumeService
+	OSImages          VMOSImageService
+	Metrics           VMMetricService
+	MetricDescriptors VMMetricDescriptorService
 }
 
 // NewVMService generates a new service that applies the given options to each
@@ -46,6 +48,8 @@ func NewVMService(opts ...option.RequestOption) (r VMService) {
 	r.Cost = NewVMCostService(opts...)
 	r.Volumes = NewVMVolumeService(opts...)
 	r.OSImages = NewVMOSImageService(opts...)
+	r.Metrics = NewVMMetricService(opts...)
+	r.MetricDescriptors = NewVMMetricDescriptorService(opts...)
 	return
 }
 
@@ -408,10 +412,31 @@ func (r *VMUpdateParams) UnmarshalJSON(data []byte) error {
 type VMListParams struct {
 	// Project ID of resources to request
 	ProjectID string `query:"project_id" api:"required" json:"-"`
-	// Pagination cursor returned by a previous request
+	// Pagination cursor returned by a previous request. Only valid for the same
+	// filters and sort order.
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
 	// Maximum number of items to return
 	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	// Filter by a case-insensitive substring of the VM name
+	Name param.Opt[string] `query:"name,omitzero" json:"-"`
+	// Filter by whether a public IP is enabled
+	PublicIPEnabled param.Opt[bool] `query:"public_ip_enabled,omitzero" json:"-"`
+	// Filter by region
+	Region param.Opt[string] `query:"region,omitzero" json:"-"`
+	// Comma-separated sort terms in precedence order, each field:asc or field:desc.
+	// Fields: created_at, updated_at, name, status, vcpu, memory
+	Sort param.Opt[string] `query:"sort,omitzero" json:"-"`
+	// Filter by the subnet the VM is attached to
+	SubnetID param.Opt[string] `query:"subnet_id,omitzero" json:"-"`
+	// Filter by the VPC the VM is attached to
+	VPCID param.Opt[string] `query:"vpc_id,omitzero" json:"-"`
+	// Filter by VM status
+	//
+	// Any of "pending", "creating", "updating", "ready", "deleting", "error".
+	Status VMListParamsStatus `query:"status,omitzero" json:"-"`
+	// Filter by tags. Repeat the parameter to require several tags; a VM must carry
+	// all of them.
+	Tags []string `query:"tags,omitzero" json:"-"`
 	paramObj
 }
 
@@ -422,3 +447,15 @@ func (r VMListParams) URLQuery() (v url.Values, err error) {
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
 	})
 }
+
+// Filter by VM status
+type VMListParamsStatus string
+
+const (
+	VMListParamsStatusPending  VMListParamsStatus = "pending"
+	VMListParamsStatusCreating VMListParamsStatus = "creating"
+	VMListParamsStatusUpdating VMListParamsStatus = "updating"
+	VMListParamsStatusReady    VMListParamsStatus = "ready"
+	VMListParamsStatusDeleting VMListParamsStatus = "deleting"
+	VMListParamsStatusError    VMListParamsStatus = "error"
+)

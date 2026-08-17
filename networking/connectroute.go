@@ -58,10 +58,20 @@ func (r *ConnectRouteService) ListAutoPaging(ctx context.Context, query ConnectR
 }
 
 type ConnectRouteListParams struct {
-	// Pagination cursor returned by a previous request
+	// Pagination cursor returned by a previous request. Only valid for the same
+	// filters and sort order.
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
 	// Maximum number of items to return
 	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	// Filter by provider
+	Provider param.Opt[string] `query:"provider,omitzero" json:"-"`
+	// Filter by the provider's own region
+	ProviderRegion param.Opt[string] `query:"provider_region,omitzero" json:"-"`
+	// Filter by the Nirvana region the route reaches
+	Region param.Opt[string] `query:"region,omitzero" json:"-"`
+	// Comma-separated sort terms in precedence order, each field:asc or field:desc.
+	// Fields: created_at, provider_region, region
+	Sort param.Opt[string] `query:"sort,omitzero" json:"-"`
 	paramObj
 }
 

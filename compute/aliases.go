@@ -130,3 +130,17 @@ type SourceIPRuleParam = shared.SourceIPRuleParam
 //
 // This is an alias to an internal type.
 type SourceIPRuleResponse = shared.SourceIPRuleResponse
+
+// Unit the values are expressed in.
+//
+// This is an alias to an internal type.
+type VMMetricUnit = shared.VMMetricUnit
+
+// Equals "ratio"
+const VMMetricUnitRatio = shared.VMMetricUnitRatio
+
+// Equals "bytes"
+const VMMetricUnitBytes = shared.VMMetricUnitBytes
+
+// Equals "cores"
+const VMMetricUnitCores = shared.VMMetricUnitCores

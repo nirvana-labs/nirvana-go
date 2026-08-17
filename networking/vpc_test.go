@@ -92,6 +92,11 @@ func TestVPCListWithOptionalParams(t *testing.T) {
 		ProjectID: "project_id",
 		Cursor:    nirvana.String("cursor"),
 		Limit:     nirvana.Int(10),
+		Name:      nirvana.String("name"),
+		Region:    nirvana.String("region"),
+		Sort:      nirvana.String("sort"),
+		Status:    networking.VPCListParamsStatusPending,
+		Tags:      []string{"string"},
 	})
 	if err != nil {
 		var apierr *nirvana.Error
