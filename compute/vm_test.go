@@ -107,9 +107,17 @@ func TestVMListWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Compute.VMs.List(context.TODO(), compute.VMListParams{
-		ProjectID: "project_id",
-		Cursor:    nirvana.String("cursor"),
-		Limit:     nirvana.Int(10),
+		ProjectID:       "project_id",
+		Cursor:          nirvana.String("cursor"),
+		Limit:           nirvana.Int(10),
+		Name:            nirvana.String("name"),
+		PublicIPEnabled: nirvana.Bool(true),
+		Region:          nirvana.String("region"),
+		Sort:            nirvana.String("sort"),
+		Status:          compute.VMListParamsStatusPending,
+		SubnetID:        nirvana.String("subnet_id"),
+		Tags:            []string{"string"},
+		VPCID:           nirvana.String("vpc_id"),
 	})
 	if err != nil {
 		var apierr *nirvana.Error

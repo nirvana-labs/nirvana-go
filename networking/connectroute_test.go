@@ -28,8 +28,12 @@ func TestConnectRouteListWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Networking.Connect.Routes.List(context.TODO(), networking.ConnectRouteListParams{
-		Cursor: nirvana.String("cursor"),
-		Limit:  nirvana.Int(10),
+		Cursor:         nirvana.String("cursor"),
+		Limit:          nirvana.Int(10),
+		Provider:       nirvana.String("provider"),
+		ProviderRegion: nirvana.String("provider_region"),
+		Region:         nirvana.String("region"),
+		Sort:           nirvana.String("sort"),
 	})
 	if err != nil {
 		var apierr *nirvana.Error

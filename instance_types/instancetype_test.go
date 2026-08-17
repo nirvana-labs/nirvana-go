@@ -28,8 +28,20 @@ func TestInstanceTypeListWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.InstanceTypes.List(context.TODO(), instance_types.InstanceTypeListParams{
-		Cursor: nirvana.String("cursor"),
-		Limit:  nirvana.Int(10),
+		Chipset:                 nirvana.String("chipset"),
+		Cursor:                  nirvana.String("cursor"),
+		Family:                  nirvana.String("family"),
+		Limit:                   nirvana.Int(10),
+		MemoryGBMax:             nirvana.Int(0),
+		MemoryGBMin:             nirvana.Int(0),
+		Name:                    nirvana.String("name"),
+		NetworkBandwidthGbpsMax: nirvana.Float(0),
+		NetworkBandwidthGbpsMin: nirvana.Float(0),
+		Region:                  nirvana.String("region"),
+		Series:                  nirvana.String("series"),
+		Sort:                    nirvana.String("sort"),
+		VcpuMax:                 nirvana.Int(0),
+		VcpuMin:                 nirvana.Int(0),
 	})
 	if err != nil {
 		var apierr *nirvana.Error

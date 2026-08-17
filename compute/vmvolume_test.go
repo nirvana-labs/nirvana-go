@@ -32,7 +32,13 @@ func TestVMVolumeListWithOptionalParams(t *testing.T) {
 		"vm_id",
 		compute.VMVolumeListParams{
 			Cursor: nirvana.String("cursor"),
+			Kind:   compute.VMVolumeListParamsKindBoot,
 			Limit:  nirvana.Int(10),
+			Name:   nirvana.String("name"),
+			Sort:   nirvana.String("sort"),
+			Status: compute.VMVolumeListParamsStatusPending,
+			Tags:   []string{"string"},
+			Type:   compute.VMVolumeListParamsTypeNvme,
 		},
 	)
 	if err != nil {

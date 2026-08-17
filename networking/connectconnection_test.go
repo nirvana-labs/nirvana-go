@@ -94,9 +94,17 @@ func TestConnectConnectionListWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Networking.Connect.Connections.List(context.TODO(), networking.ConnectConnectionListParams{
-		ProjectID: "project_id",
-		Cursor:    nirvana.String("cursor"),
-		Limit:     nirvana.Int(10),
+		ProjectID:      "project_id",
+		BandwidthMbps:  50,
+		Cursor:         nirvana.String("cursor"),
+		Limit:          nirvana.Int(10),
+		Name:           nirvana.String("name"),
+		Provider:       nirvana.String("provider"),
+		ProviderRegion: nirvana.String("provider_region"),
+		Region:         nirvana.String("region"),
+		Sort:           nirvana.String("sort"),
+		Status:         networking.ConnectConnectionListParamsStatusPending,
+		Tags:           []string{"string"},
 	})
 	if err != nil {
 		var apierr *nirvana.Error

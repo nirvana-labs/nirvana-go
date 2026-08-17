@@ -159,10 +159,33 @@ func (r *ConnectConnectionUpdateParams) UnmarshalJSON(data []byte) error {
 type ConnectConnectionListParams struct {
 	// Project ID of resources to request
 	ProjectID string `query:"project_id" api:"required" json:"-"`
-	// Pagination cursor returned by a previous request
+	// Pagination cursor returned by a previous request. Only valid for the same
+	// filters and sort order.
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
 	// Maximum number of items to return
 	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	// Filter by a case-insensitive substring of the Connect Connection name
+	Name param.Opt[string] `query:"name,omitzero" json:"-"`
+	// Filter by provider
+	Provider param.Opt[string] `query:"provider,omitzero" json:"-"`
+	// Filter by the provider's own region
+	ProviderRegion param.Opt[string] `query:"provider_region,omitzero" json:"-"`
+	// Filter by Nirvana region
+	Region param.Opt[string] `query:"region,omitzero" json:"-"`
+	// Comma-separated sort terms in precedence order, each field:asc or field:desc.
+	// Fields: created_at, updated_at, name, status, bandwidth_mbps
+	Sort param.Opt[string] `query:"sort,omitzero" json:"-"`
+	// Filter by provisioned bandwidth in Mbps
+	//
+	// Any of 50, 200, 500, 1000, 2000.
+	BandwidthMbps int64 `query:"bandwidth_mbps,omitzero" json:"-"`
+	// Filter by Connect Connection status
+	//
+	// Any of "pending", "creating", "updating", "ready", "deleting", "error".
+	Status ConnectConnectionListParamsStatus `query:"status,omitzero" json:"-"`
+	// Filter by tags. Repeat the parameter to require several tags; a Connect
+	// Connection must carry all of them.
+	Tags []string `query:"tags,omitzero" json:"-"`
 	paramObj
 }
 
@@ -174,3 +197,15 @@ func (r ConnectConnectionListParams) URLQuery() (v url.Values, err error) {
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
 	})
 }
+
+// Filter by Connect Connection status
+type ConnectConnectionListParamsStatus string
+
+const (
+	ConnectConnectionListParamsStatusPending  ConnectConnectionListParamsStatus = "pending"
+	ConnectConnectionListParamsStatusCreating ConnectConnectionListParamsStatus = "creating"
+	ConnectConnectionListParamsStatusUpdating ConnectConnectionListParamsStatus = "updating"
+	ConnectConnectionListParamsStatusReady    ConnectConnectionListParamsStatus = "ready"
+	ConnectConnectionListParamsStatusDeleting ConnectConnectionListParamsStatus = "deleting"
+	ConnectConnectionListParamsStatusError    ConnectConnectionListParamsStatus = "error"
+)
