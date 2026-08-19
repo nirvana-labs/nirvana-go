@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.94.2](https://github.com/nirvana-labs/nirvana-go/compare/v1.94.1...v1.94.2) (2026-08-19)
+
+
+### Chores
+
+* **nirvana-api:** update OpenAPI spec ([edf65af](https://github.com/nirvana-labs/nirvana-go/commit/edf65af0ef27be7f4947d6cbdfb913d2d4772bc5))
+* **stlc:** restore terraform target and drop the cli metrics skips ([edf65af](https://github.com/nirvana-labs/nirvana-go/commit/edf65af0ef27be7f4947d6cbdfb913d2d4772bc5))
+
 ## [1.94.1](https://github.com/nirvana-labs/nirvana-go/compare/v1.94.0...v1.94.1) (2026-08-17)
 
 
