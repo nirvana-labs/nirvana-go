@@ -443,10 +443,24 @@ func (r BillingCostParams) URLQuery() (v url.Values, err error) {
 }
 
 type BillingHistoryParams struct {
-	// Pagination cursor returned by a previous request
+	// Only entries at or before this RFC 3339 instant
+	CreatedAtMax param.Opt[time.Time] `query:"created_at_max,omitzero" format:"date-time" json:"-"`
+	// Only entries at or after this RFC 3339 instant
+	CreatedAtMin param.Opt[time.Time] `query:"created_at_min,omitzero" format:"date-time" json:"-"`
+	// Filter by currency, as an ISO 4217 code. Case-insensitive.
+	Currency param.Opt[string] `query:"currency,omitzero" json:"-"`
+	// Pagination cursor returned by a previous request. Only valid for the same
+	// filters and sort order.
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
 	// Maximum number of items to return
 	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	// Filter by the funding flow a credit came from
+	Purpose param.Opt[string] `query:"purpose,omitzero" json:"-"`
+	// Comma-separated sort terms in precedence order, each field:asc or field:desc.
+	// Fields: created_at, amount
+	Sort param.Opt[string] `query:"sort,omitzero" json:"-"`
+	// Filter by entry type
+	Type param.Opt[string] `query:"type,omitzero" json:"-"`
 	paramObj
 }
 

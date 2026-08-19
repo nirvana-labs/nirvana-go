@@ -326,10 +326,33 @@ const (
 type OperationListParams struct {
 	// Project ID of resources to request
 	ProjectID string `query:"project_id" api:"required" json:"-"`
-	// Pagination cursor returned by a previous request
+	// Only operations started at or before this RFC 3339 instant
+	CreatedAtMax param.Opt[time.Time] `query:"created_at_max,omitzero" format:"date-time" json:"-"`
+	// Only operations started at or after this RFC 3339 instant
+	CreatedAtMin param.Opt[time.Time] `query:"created_at_min,omitzero" format:"date-time" json:"-"`
+	// Pagination cursor returned by a previous request. Only valid for the same
+	// filters and sort order.
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
 	// Maximum number of items to return
 	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	// Filter by the resource the operation acts on
+	ResourceID param.Opt[string] `query:"resource_id,omitzero" json:"-"`
+	// Comma-separated sort terms in precedence order, each field:asc or field:desc.
+	// Fields: created_at, updated_at
+	Sort param.Opt[string] `query:"sort,omitzero" json:"-"`
+	// Filter by the kind of resource the operation acts on
+	//
+	// Any of "vm", "volume", "vpc", "firewall_rule", "connect_connection",
+	// "nks_cluster", "nks_node_pool", "nks_load_balancer", "nks_node".
+	Kind OperationListParamsKind `query:"kind,omitzero" json:"-"`
+	// Filter by operation status
+	//
+	// Any of "pending", "running", "done", "failed", "unknown".
+	Status OperationListParamsStatus `query:"status,omitzero" json:"-"`
+	// Filter by operation type
+	//
+	// Any of "create", "update", "delete", "restart".
+	Type OperationListParamsType `query:"type,omitzero" json:"-"`
 	paramObj
 }
 
@@ -340,3 +363,39 @@ func (r OperationListParams) URLQuery() (v url.Values, err error) {
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
 	})
 }
+
+// Filter by the kind of resource the operation acts on
+type OperationListParamsKind string
+
+const (
+	OperationListParamsKindVM                OperationListParamsKind = "vm"
+	OperationListParamsKindVolume            OperationListParamsKind = "volume"
+	OperationListParamsKindVPC               OperationListParamsKind = "vpc"
+	OperationListParamsKindFirewallRule      OperationListParamsKind = "firewall_rule"
+	OperationListParamsKindConnectConnection OperationListParamsKind = "connect_connection"
+	OperationListParamsKindNKSCluster        OperationListParamsKind = "nks_cluster"
+	OperationListParamsKindNKSNodePool       OperationListParamsKind = "nks_node_pool"
+	OperationListParamsKindNKSLoadBalancer   OperationListParamsKind = "nks_load_balancer"
+	OperationListParamsKindNKSNode           OperationListParamsKind = "nks_node"
+)
+
+// Filter by operation status
+type OperationListParamsStatus string
+
+const (
+	OperationListParamsStatusPending OperationListParamsStatus = "pending"
+	OperationListParamsStatusRunning OperationListParamsStatus = "running"
+	OperationListParamsStatusDone    OperationListParamsStatus = "done"
+	OperationListParamsStatusFailed  OperationListParamsStatus = "failed"
+	OperationListParamsStatusUnknown OperationListParamsStatus = "unknown"
+)
+
+// Filter by operation type
+type OperationListParamsType string
+
+const (
+	OperationListParamsTypeCreate  OperationListParamsType = "create"
+	OperationListParamsTypeUpdate  OperationListParamsType = "update"
+	OperationListParamsTypeDelete  OperationListParamsType = "delete"
+	OperationListParamsTypeRestart OperationListParamsType = "restart"
+)

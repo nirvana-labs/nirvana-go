@@ -28,8 +28,11 @@ func TestFlexBlockchainListWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.RPCNodes.Flex.Blockchains.List(context.TODO(), rpc_nodes.FlexBlockchainListParams{
-		Cursor: nirvana.String("cursor"),
-		Limit:  nirvana.Int(10),
+		Blockchain: nirvana.String("blockchain"),
+		Cursor:     nirvana.String("cursor"),
+		Limit:      nirvana.Int(10),
+		Network:    nirvana.String("network"),
+		Sort:       nirvana.String("sort"),
 	})
 	if err != nil {
 		var apierr *nirvana.Error

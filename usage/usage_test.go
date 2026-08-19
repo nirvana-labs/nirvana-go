@@ -7,6 +7,7 @@ import (
 	"errors"
 	"os"
 	"testing"
+	"time"
 
 	"github.com/nirvana-labs/nirvana-go"
 	"github.com/nirvana-labs/nirvana-go/internal/testutil"
@@ -28,8 +29,15 @@ func TestUsageListWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Usage.List(context.TODO(), usage.UsageListParams{
-		Cursor: nirvana.String("cursor"),
-		Limit:  nirvana.Int(10),
+		ActiveAtMax:  nirvana.Time(time.Now()),
+		ActiveAtMin:  nirvana.Time(time.Now()),
+		Cursor:       nirvana.String("cursor"),
+		Dimension:    nirvana.String("dimension"),
+		Limit:        nirvana.Int(10),
+		Region:       nirvana.String("region"),
+		ResourceID:   nirvana.String("resource_id"),
+		ResourceType: usage.UsageListParamsResourceTypeVM,
+		Sort:         nirvana.String("sort"),
 	})
 	if err != nil {
 		var apierr *nirvana.Error

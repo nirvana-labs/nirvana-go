@@ -62,8 +62,14 @@ func TestBillingHistoryWithOptionalParams(t *testing.T) {
 		context.TODO(),
 		"organization_id",
 		organizations.BillingHistoryParams{
-			Cursor: nirvana.String("cursor"),
-			Limit:  nirvana.Int(10),
+			CreatedAtMax: nirvana.Time(time.Now()),
+			CreatedAtMin: nirvana.Time(time.Now()),
+			Currency:     nirvana.String("currency"),
+			Cursor:       nirvana.String("cursor"),
+			Limit:        nirvana.Int(10),
+			Purpose:      nirvana.String("purpose"),
+			Sort:         nirvana.String("sort"),
+			Type:         nirvana.String("type"),
 		},
 	)
 	if err != nil {

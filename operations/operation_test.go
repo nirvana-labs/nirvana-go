@@ -7,6 +7,7 @@ import (
 	"errors"
 	"os"
 	"testing"
+	"time"
 
 	"github.com/nirvana-labs/nirvana-go"
 	"github.com/nirvana-labs/nirvana-go/internal/testutil"
@@ -28,9 +29,16 @@ func TestOperationListWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Operations.List(context.TODO(), operations.OperationListParams{
-		ProjectID: "project_id",
-		Cursor:    nirvana.String("cursor"),
-		Limit:     nirvana.Int(10),
+		ProjectID:    "project_id",
+		CreatedAtMax: nirvana.Time(time.Now()),
+		CreatedAtMin: nirvana.Time(time.Now()),
+		Cursor:       nirvana.String("cursor"),
+		Kind:         operations.OperationListParamsKindVM,
+		Limit:        nirvana.Int(10),
+		ResourceID:   nirvana.String("resource_id"),
+		Sort:         nirvana.String("sort"),
+		Status:       operations.OperationListParamsStatusPending,
+		Type:         operations.OperationListParamsTypeCreate,
 	})
 	if err != nil {
 		var apierr *nirvana.Error

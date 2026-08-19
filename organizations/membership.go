@@ -146,10 +146,20 @@ func (r *OrganizationMembershipList) UnmarshalJSON(data []byte) error {
 }
 
 type MembershipListParams struct {
-	// Pagination cursor returned by a previous request
+	// Pagination cursor returned by a previous request. Only valid for the same
+	// filters and sort order.
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
 	// Maximum number of items to return
 	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	// Comma-separated sort terms in precedence order, each field:asc or field:desc.
+	// Fields: created_at, updated_at, role
+	Sort param.Opt[string] `query:"sort,omitzero" json:"-"`
+	// Filter by the member's user ID
+	UserID param.Opt[string] `query:"user_id,omitzero" json:"-"`
+	// Filter by membership role
+	//
+	// Any of "owner", "member".
+	Role MembershipListParamsRole `query:"role,omitzero" json:"-"`
 	paramObj
 }
 
@@ -160,3 +170,11 @@ func (r MembershipListParams) URLQuery() (v url.Values, err error) {
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
 	})
 }
+
+// Filter by membership role
+type MembershipListParamsRole string
+
+const (
+	MembershipListParamsRoleOwner  MembershipListParamsRole = "owner"
+	MembershipListParamsRoleMember MembershipListParamsRole = "member"
+)

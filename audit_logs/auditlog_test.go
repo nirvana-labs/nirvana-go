@@ -7,6 +7,7 @@ import (
 	"errors"
 	"os"
 	"testing"
+	"time"
 
 	"github.com/nirvana-labs/nirvana-go"
 	"github.com/nirvana-labs/nirvana-go/audit_logs"
@@ -28,8 +29,21 @@ func TestAuditLogListWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.AuditLogs.List(context.TODO(), audit_logs.AuditLogListParams{
-		Cursor: nirvana.String("cursor"),
-		Limit:  nirvana.Int(10),
+		Action:        nirvana.String("action"),
+		ActorID:       nirvana.String("actor_id"),
+		ActorType:     audit_logs.AuditLogListParamsActorTypeUser,
+		ClientIP:      nirvana.String("client_ip"),
+		CreatedAtMax:  nirvana.Time(time.Now()),
+		CreatedAtMin:  nirvana.Time(time.Now()),
+		Cursor:        nirvana.String("cursor"),
+		Limit:         nirvana.Int(10),
+		Method:        nirvana.String("method"),
+		Path:          nirvana.String("path"),
+		Sort:          nirvana.String("sort"),
+		StatusCodeMax: nirvana.Int(0),
+		StatusCodeMin: nirvana.Int(0),
+		TargetID:      nirvana.String("target_id"),
+		TargetType:    nirvana.String("target_type"),
 	})
 	if err != nil {
 		var apierr *nirvana.Error

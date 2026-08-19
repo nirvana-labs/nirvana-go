@@ -108,6 +108,10 @@ func TestAPIKeyListWithOptionalParams(t *testing.T) {
 	_, err := client.APIKeys.List(context.TODO(), api_keys.APIKeyListParams{
 		Cursor: nirvana.String("cursor"),
 		Limit:  nirvana.Int(10),
+		Name:   nirvana.String("name"),
+		Sort:   nirvana.String("sort"),
+		Status: api_keys.APIKeyListParamsStatusActive,
+		Tags:   []string{"string"},
 	})
 	if err != nil {
 		var apierr *nirvana.Error

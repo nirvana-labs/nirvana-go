@@ -58,10 +58,18 @@ func (r *FlexBlockchainService) ListAutoPaging(ctx context.Context, query FlexBl
 }
 
 type FlexBlockchainListParams struct {
-	// Pagination cursor returned by a previous request
+	// Filter by blockchain
+	Blockchain param.Opt[string] `query:"blockchain,omitzero" json:"-"`
+	// Pagination cursor returned by a previous request. Only valid for the same
+	// filters and sort order.
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
 	// Maximum number of items to return
 	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	// Filter by network
+	Network param.Opt[string] `query:"network,omitzero" json:"-"`
+	// Comma-separated sort terms in precedence order, each field:asc or field:desc.
+	// Fields: created_at, blockchain, network
+	Sort param.Opt[string] `query:"sort,omitzero" json:"-"`
 	paramObj
 }
 
