@@ -86,6 +86,9 @@ func TestProjectListWithOptionalParams(t *testing.T) {
 	_, err := client.Projects.List(context.TODO(), projects.ProjectListParams{
 		Cursor: nirvana.String("cursor"),
 		Limit:  nirvana.Int(10),
+		Name:   nirvana.String("name"),
+		Sort:   nirvana.String("sort"),
+		Tags:   []string{"string"},
 	})
 	if err != nil {
 		var apierr *nirvana.Error

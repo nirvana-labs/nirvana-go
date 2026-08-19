@@ -33,6 +33,9 @@ func TestMembershipListWithOptionalParams(t *testing.T) {
 		organizations.MembershipListParams{
 			Cursor: nirvana.String("cursor"),
 			Limit:  nirvana.Int(10),
+			Role:   organizations.MembershipListParamsRoleOwner,
+			Sort:   nirvana.String("sort"),
+			UserID: nirvana.String("user_id"),
 		},
 	)
 	if err != nil {

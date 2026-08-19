@@ -312,10 +312,20 @@ func (r *OrganizationUpdateParams) UnmarshalJSON(data []byte) error {
 }
 
 type OrganizationListParams struct {
-	// Pagination cursor returned by a previous request
+	// Pagination cursor returned by a previous request. Only valid for the same
+	// filters and sort order.
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
 	// Maximum number of items to return
 	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	// Filter by a case-insensitive substring of the organization name
+	Name param.Opt[string] `query:"name,omitzero" json:"-"`
+	// Comma-separated sort terms in precedence order, each field:asc or field:desc.
+	// Fields: created_at, updated_at, name
+	Sort param.Opt[string] `query:"sort,omitzero" json:"-"`
+	// Filter by organization type
+	//
+	// Any of "personal", "company".
+	Type OrganizationListParamsType `query:"type,omitzero" json:"-"`
 	paramObj
 }
 
@@ -326,3 +336,11 @@ func (r OrganizationListParams) URLQuery() (v url.Values, err error) {
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
 	})
 }
+
+// Filter by organization type
+type OrganizationListParamsType string
+
+const (
+	OrganizationListParamsTypePersonal OrganizationListParamsType = "personal"
+	OrganizationListParamsTypeCompany  OrganizationListParamsType = "company"
+)

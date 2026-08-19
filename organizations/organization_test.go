@@ -86,6 +86,9 @@ func TestOrganizationListWithOptionalParams(t *testing.T) {
 	_, err := client.Organizations.List(context.TODO(), organizations.OrganizationListParams{
 		Cursor: nirvana.String("cursor"),
 		Limit:  nirvana.Int(10),
+		Name:   nirvana.String("name"),
+		Sort:   nirvana.String("sort"),
+		Type:   organizations.OrganizationListParamsTypePersonal,
 	})
 	if err != nil {
 		var apierr *nirvana.Error

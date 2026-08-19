@@ -445,7 +445,9 @@ func (r *SourceIPRuleResponse) UnmarshalJSON(data []byte) error {
 type VMMetricUnit string
 
 const (
-	VMMetricUnitRatio VMMetricUnit = "ratio"
-	VMMetricUnitBytes VMMetricUnit = "bytes"
-	VMMetricUnitCores VMMetricUnit = "cores"
+	VMMetricUnitRatio               VMMetricUnit = "ratio"
+	VMMetricUnitBytes               VMMetricUnit = "bytes"
+	VMMetricUnitCores               VMMetricUnit = "cores"
+	VMMetricUnitBytesPerSecond      VMMetricUnit = "bytes_per_second"
+	VMMetricUnitOperationsPerSecond VMMetricUnit = "operations_per_second"
 )

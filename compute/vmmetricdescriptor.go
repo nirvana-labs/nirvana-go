@@ -60,7 +60,7 @@ type VMMetricDescriptor struct {
 	Nullable bool `json:"nullable" api:"required"`
 	// Unit the values are expressed in.
 	//
-	// Any of "ratio", "bytes", "cores".
+	// Any of "ratio", "bytes", "cores", "bytes_per_second", "operations_per_second".
 	Unit shared.VMMetricUnit `json:"unit" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {

@@ -85,7 +85,7 @@ type VMMetricSeries struct {
 	Points []VMMetricPoint `json:"points" api:"required"`
 	// Unit the values are expressed in.
 	//
-	// Any of "ratio", "bytes", "cores".
+	// Any of "ratio", "bytes", "cores", "bytes_per_second", "operations_per_second".
 	Unit shared.VMMetricUnit `json:"unit" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -179,7 +179,13 @@ type VMMetricListParams struct {
 	// Any of "compute.nirvanalabs.io/vm/cpu/used_cores",
 	// "compute.nirvanalabs.io/vm/cpu/utilization",
 	// "compute.nirvanalabs.io/vm/memory/used_bytes",
-	// "compute.nirvanalabs.io/vm/memory/utilization".
+	// "compute.nirvanalabs.io/vm/memory/utilization",
+	// "compute.nirvanalabs.io/vm/disk/read_bytes",
+	// "compute.nirvanalabs.io/vm/disk/write_bytes",
+	// "compute.nirvanalabs.io/vm/disk/read_ops",
+	// "compute.nirvanalabs.io/vm/disk/write_ops",
+	// "compute.nirvanalabs.io/vm/network/rx_bytes",
+	// "compute.nirvanalabs.io/vm/network/tx_bytes".
 	Metric []string `query:"metric,omitzero" json:"-"`
 	// Width of one period, and so the spacing between points. An interval holding more
 	// than 1440 periods is rejected; the error names a period that fits.

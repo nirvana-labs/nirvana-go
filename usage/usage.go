@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"net/url"
 	"slices"
+	"time"
 
 	"github.com/nirvana-labs/nirvana-go/internal/apijson"
 	"github.com/nirvana-labs/nirvana-go/internal/apiquery"
@@ -198,10 +199,30 @@ const (
 )
 
 type UsageListParams struct {
-	// Pagination cursor returned by a previous request
+	// Only resources metered at or before this RFC 3339 instant
+	ActiveAtMax param.Opt[time.Time] `query:"active_at_max,omitzero" format:"date-time" json:"-"`
+	// Only resources metered at or after this RFC 3339 instant; a window a usage row
+	// must overlap
+	ActiveAtMin param.Opt[time.Time] `query:"active_at_min,omitzero" format:"date-time" json:"-"`
+	// Pagination cursor returned by a previous request. Only valid for the same
+	// filters and sort order.
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
+	// Only resources with usage in this dimension
+	Dimension param.Opt[string] `query:"dimension,omitzero" json:"-"`
 	// Maximum number of items to return
 	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	// Filter by region
+	Region param.Opt[string] `query:"region,omitzero" json:"-"`
+	// Filter by a single resource
+	ResourceID param.Opt[string] `query:"resource_id,omitzero" json:"-"`
+	// Sort term as field:asc or field:desc. Field: created_at, the resource's earliest
+	// usage row matching the filters
+	Sort param.Opt[string] `query:"sort,omitzero" json:"-"`
+	// Filter by the kind of resource metered
+	//
+	// Any of "vm", "volume", "vpc", "connect_connection", "nks_cluster",
+	// "nks_node_pool", "nks_load_balancer".
+	ResourceType UsageListParamsResourceType `query:"resource_type,omitzero" json:"-"`
 	paramObj
 }
 
@@ -212,3 +233,16 @@ func (r UsageListParams) URLQuery() (v url.Values, err error) {
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
 	})
 }
+
+// Filter by the kind of resource metered
+type UsageListParamsResourceType string
+
+const (
+	UsageListParamsResourceTypeVM                UsageListParamsResourceType = "vm"
+	UsageListParamsResourceTypeVolume            UsageListParamsResourceType = "volume"
+	UsageListParamsResourceTypeVPC               UsageListParamsResourceType = "vpc"
+	UsageListParamsResourceTypeConnectConnection UsageListParamsResourceType = "connect_connection"
+	UsageListParamsResourceTypeNKSCluster        UsageListParamsResourceType = "nks_cluster"
+	UsageListParamsResourceTypeNKSNodePool       UsageListParamsResourceType = "nks_node_pool"
+	UsageListParamsResourceTypeNKSLoadBalancer   UsageListParamsResourceType = "nks_load_balancer"
+)

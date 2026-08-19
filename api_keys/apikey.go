@@ -347,10 +347,23 @@ func (r *APIKeyUpdateParamsPermission) UnmarshalJSON(data []byte) error {
 }
 
 type APIKeyListParams struct {
-	// Pagination cursor returned by a previous request
+	// Pagination cursor returned by a previous request. Only valid for the same
+	// filters and sort order.
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
 	// Maximum number of items to return
 	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	// Filter by a case-insensitive substring of the API key name
+	Name param.Opt[string] `query:"name,omitzero" json:"-"`
+	// Comma-separated sort terms in precedence order, each field:asc or field:desc.
+	// Fields: created_at, updated_at, name, expires_at
+	Sort param.Opt[string] `query:"sort,omitzero" json:"-"`
+	// Filter by API key status, read against the current instant
+	//
+	// Any of "active", "inactive", "expired".
+	Status APIKeyListParamsStatus `query:"status,omitzero" json:"-"`
+	// Filter by tags. Repeat the parameter to require several tags; an API key must
+	// carry all of them.
+	Tags []string `query:"tags,omitzero" json:"-"`
 	paramObj
 }
 
@@ -361,3 +374,12 @@ func (r APIKeyListParams) URLQuery() (v url.Values, err error) {
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
 	})
 }
+
+// Filter by API key status, read against the current instant
+type APIKeyListParamsStatus string
+
+const (
+	APIKeyListParamsStatusActive   APIKeyListParamsStatus = "active"
+	APIKeyListParamsStatusInactive APIKeyListParamsStatus = "inactive"
+	APIKeyListParamsStatusExpired  APIKeyListParamsStatus = "expired"
+)

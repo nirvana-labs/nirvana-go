@@ -195,10 +195,40 @@ const (
 )
 
 type AuditLogListParams struct {
-	// Pagination cursor returned by a previous request
+	// Filter by recorded action
+	Action param.Opt[string] `query:"action,omitzero" json:"-"`
+	// Filter by the acting user or API key
+	ActorID param.Opt[string] `query:"actor_id,omitzero" json:"-"`
+	// Filter by client IP address, matched exactly
+	ClientIP param.Opt[string] `query:"client_ip,omitzero" json:"-"`
+	// Only entries at or before this RFC 3339 instant
+	CreatedAtMax param.Opt[time.Time] `query:"created_at_max,omitzero" format:"date-time" json:"-"`
+	// Only entries at or after this RFC 3339 instant
+	CreatedAtMin param.Opt[time.Time] `query:"created_at_min,omitzero" format:"date-time" json:"-"`
+	// Pagination cursor returned by a previous request. Only valid for the same
+	// filters and sort order.
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
 	// Maximum number of items to return
 	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	// Filter by HTTP method
+	Method param.Opt[string] `query:"method,omitzero" json:"-"`
+	// Filter by a case-insensitive substring of the request path
+	Path param.Opt[string] `query:"path,omitzero" json:"-"`
+	// Comma-separated sort terms in precedence order, each field:asc or field:desc.
+	// Fields: created_at, status_code
+	Sort param.Opt[string] `query:"sort,omitzero" json:"-"`
+	// Only entries with a status code at or below this
+	StatusCodeMax param.Opt[int64] `query:"status_code_max,omitzero" json:"-"`
+	// Only entries with a status code at or above this, e.g. 400 for failures only
+	StatusCodeMin param.Opt[int64] `query:"status_code_min,omitzero" json:"-"`
+	// Filter by the resource acted on
+	TargetID param.Opt[string] `query:"target_id,omitzero" json:"-"`
+	// Filter by the kind of resource acted on
+	TargetType param.Opt[string] `query:"target_type,omitzero" json:"-"`
+	// Filter by the kind of actor that acted
+	//
+	// Any of "user", "api_key".
+	ActorType AuditLogListParamsActorType `query:"actor_type,omitzero" json:"-"`
 	paramObj
 }
 
@@ -209,3 +239,11 @@ func (r AuditLogListParams) URLQuery() (v url.Values, err error) {
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
 	})
 }
+
+// Filter by the kind of actor that acted
+type AuditLogListParamsActorType string
+
+const (
+	AuditLogListParamsActorTypeUser   AuditLogListParamsActorType = "user"
+	AuditLogListParamsActorTypeAPIKey AuditLogListParamsActorType = "api_key"
+)

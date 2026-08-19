@@ -144,3 +144,9 @@ const VMMetricUnitBytes = shared.VMMetricUnitBytes
 
 // Equals "cores"
 const VMMetricUnitCores = shared.VMMetricUnitCores
+
+// Equals "bytes_per_second"
+const VMMetricUnitBytesPerSecond = shared.VMMetricUnitBytesPerSecond
+
+// Equals "operations_per_second"
+const VMMetricUnitOperationsPerSecond = shared.VMMetricUnitOperationsPerSecond
