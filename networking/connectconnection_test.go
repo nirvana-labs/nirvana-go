@@ -103,7 +103,7 @@ func TestConnectConnectionListWithOptionalParams(t *testing.T) {
 		ProviderRegion: nirvana.String("provider_region"),
 		Region:         nirvana.String("region"),
 		Sort:           nirvana.String("sort"),
-		Status:         networking.ConnectConnectionListParamsStatusPending,
+		Status:         networking.ConnectConnectionListParamsStatusReady,
 		Tags:           []string{"string"},
 	})
 	if err != nil {

@@ -339,10 +339,29 @@ func (r *ClusterPoolUpdateParams) UnmarshalJSON(data []byte) error {
 }
 
 type ClusterPoolListParams struct {
-	// Pagination cursor returned by a previous request
+	// Pagination cursor returned by a previous request. Only valid for the same
+	// filters and sort order.
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
+	// Filter by the instance type the pool's nodes run
+	InstanceType param.Opt[string] `query:"instance_type,omitzero" json:"-"`
 	// Maximum number of items to return
 	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	// Filter by a case-insensitive substring of the node pool name
+	Name param.Opt[string] `query:"name,omitzero" json:"-"`
+	// Only pools with at most this many nodes
+	NodeCountMax param.Opt[int64] `query:"node_count_max,omitzero" json:"-"`
+	// Only pools with at least this many nodes
+	NodeCountMin param.Opt[int64] `query:"node_count_min,omitzero" json:"-"`
+	// Comma-separated sort terms in precedence order, each field:asc or field:desc.
+	// Fields: created_at, updated_at, name, status, node_count
+	Sort param.Opt[string] `query:"sort,omitzero" json:"-"`
+	// Filter by node pool status
+	//
+	// Any of "pending", "creating", "updating", "ready", "deleting", "error".
+	Status ClusterPoolListParamsStatus `query:"status,omitzero" json:"-"`
+	// Filter by tags. Repeat the parameter to require several tags; a node pool must
+	// carry all of them.
+	Tags []string `query:"tags,omitzero" json:"-"`
 	paramObj
 }
 
@@ -353,3 +372,15 @@ func (r ClusterPoolListParams) URLQuery() (v url.Values, err error) {
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
 	})
 }
+
+// Filter by node pool status
+type ClusterPoolListParamsStatus string
+
+const (
+	ClusterPoolListParamsStatusPending  ClusterPoolListParamsStatus = "pending"
+	ClusterPoolListParamsStatusCreating ClusterPoolListParamsStatus = "creating"
+	ClusterPoolListParamsStatusUpdating ClusterPoolListParamsStatus = "updating"
+	ClusterPoolListParamsStatusReady    ClusterPoolListParamsStatus = "ready"
+	ClusterPoolListParamsStatusDeleting ClusterPoolListParamsStatus = "deleting"
+	ClusterPoolListParamsStatusError    ClusterPoolListParamsStatus = "error"
+)

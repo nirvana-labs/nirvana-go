@@ -144,10 +144,26 @@ func (r *NKSControllerList) UnmarshalJSON(data []byte) error {
 }
 
 type ClusterControllerListParams struct {
-	// Pagination cursor returned by a previous request
+	// Pagination cursor returned by a previous request. Only valid for the same
+	// filters and sort order.
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
+	// Filter by whether a private address has been assigned yet
+	HasPrivateIP param.Opt[bool] `query:"has_private_ip,omitzero" json:"-"`
+	// Filter by the controller's instance type
+	InstanceType param.Opt[string] `query:"instance_type,omitzero" json:"-"`
 	// Maximum number of items to return
 	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	// Filter by a case-insensitive substring of the controller name
+	Name param.Opt[string] `query:"name,omitzero" json:"-"`
+	// Filter by the controller's private address
+	PrivateIP param.Opt[string] `query:"private_ip,omitzero" json:"-"`
+	// Comma-separated sort terms in precedence order, each field:asc or field:desc.
+	// Fields: created_at, updated_at, name, status
+	Sort param.Opt[string] `query:"sort,omitzero" json:"-"`
+	// Filter by controller status
+	//
+	// Any of "pending", "creating", "updating", "ready", "deleting", "error".
+	Status ClusterControllerListParamsStatus `query:"status,omitzero" json:"-"`
 	paramObj
 }
 
@@ -159,3 +175,15 @@ func (r ClusterControllerListParams) URLQuery() (v url.Values, err error) {
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
 	})
 }
+
+// Filter by controller status
+type ClusterControllerListParamsStatus string
+
+const (
+	ClusterControllerListParamsStatusPending  ClusterControllerListParamsStatus = "pending"
+	ClusterControllerListParamsStatusCreating ClusterControllerListParamsStatus = "creating"
+	ClusterControllerListParamsStatusUpdating ClusterControllerListParamsStatus = "updating"
+	ClusterControllerListParamsStatusReady    ClusterControllerListParamsStatus = "ready"
+	ClusterControllerListParamsStatusDeleting ClusterControllerListParamsStatus = "deleting"
+	ClusterControllerListParamsStatusError    ClusterControllerListParamsStatus = "error"
+)

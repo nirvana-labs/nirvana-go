@@ -14,7 +14,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/quotas"
 )
 
-func TestQuotaList(t *testing.T) {
+func TestQuotaListWithOptionalParams(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -27,7 +27,12 @@ func TestQuotaList(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Quotas.List(context.TODO())
+	_, err := client.Quotas.List(context.TODO(), quotas.QuotaListParams{
+		Cursor: nirvana.String("cursor"),
+		Limit:  nirvana.Int(10),
+		Region: nirvana.String("region"),
+		Sort:   nirvana.String("sort"),
+	})
 	if err != nil {
 		var apierr *nirvana.Error
 		if errors.As(err, &apierr) {

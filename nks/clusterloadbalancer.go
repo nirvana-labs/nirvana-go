@@ -182,10 +182,24 @@ func (r *ClusterLoadBalancerUpdateParams) UnmarshalJSON(data []byte) error {
 }
 
 type ClusterLoadBalancerListParams struct {
-	// Pagination cursor returned by a previous request
+	// Pagination cursor returned by a previous request. Only valid for the same
+	// filters and sort order.
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
 	// Maximum number of items to return
 	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	// Filter by Kubernetes namespace
+	Namespace param.Opt[string] `query:"namespace,omitzero" json:"-"`
+	// Filter by whether the load balancer is exposed publicly
+	PublicIPEnabled param.Opt[bool] `query:"public_ip_enabled,omitzero" json:"-"`
+	// Filter by a case-insensitive substring of the Kubernetes service name
+	ServiceName param.Opt[string] `query:"service_name,omitzero" json:"-"`
+	// Comma-separated sort terms in precedence order, each field:asc or field:desc.
+	// Fields: created_at, updated_at, namespace, service_name, status
+	Sort param.Opt[string] `query:"sort,omitzero" json:"-"`
+	// Filter by load balancer status
+	//
+	// Any of "pending", "creating", "updating", "ready", "deleting", "error".
+	Status ClusterLoadBalancerListParamsStatus `query:"status,omitzero" json:"-"`
 	paramObj
 }
 
@@ -197,3 +211,15 @@ func (r ClusterLoadBalancerListParams) URLQuery() (v url.Values, err error) {
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
 	})
 }
+
+// Filter by load balancer status
+type ClusterLoadBalancerListParamsStatus string
+
+const (
+	ClusterLoadBalancerListParamsStatusPending  ClusterLoadBalancerListParamsStatus = "pending"
+	ClusterLoadBalancerListParamsStatusCreating ClusterLoadBalancerListParamsStatus = "creating"
+	ClusterLoadBalancerListParamsStatusUpdating ClusterLoadBalancerListParamsStatus = "updating"
+	ClusterLoadBalancerListParamsStatusReady    ClusterLoadBalancerListParamsStatus = "ready"
+	ClusterLoadBalancerListParamsStatusDeleting ClusterLoadBalancerListParamsStatus = "deleting"
+	ClusterLoadBalancerListParamsStatusError    ClusterLoadBalancerListParamsStatus = "error"
+)

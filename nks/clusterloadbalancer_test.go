@@ -61,8 +61,13 @@ func TestClusterLoadBalancerListWithOptionalParams(t *testing.T) {
 		context.TODO(),
 		"cluster_id",
 		nks.ClusterLoadBalancerListParams{
-			Cursor: nirvana.String("cursor"),
-			Limit:  nirvana.Int(10),
+			Cursor:          nirvana.String("cursor"),
+			Limit:           nirvana.Int(10),
+			Namespace:       nirvana.String("namespace"),
+			PublicIPEnabled: nirvana.Bool(true),
+			ServiceName:     nirvana.String("service_name"),
+			Sort:            nirvana.String("sort"),
+			Status:          nks.ClusterLoadBalancerListParamsStatusReady,
 		},
 	)
 	if err != nil {

@@ -99,7 +99,7 @@ func TestVolumeListWithOptionalParams(t *testing.T) {
 		Name:      nirvana.String("name"),
 		Region:    nirvana.String("region"),
 		Sort:      nirvana.String("sort"),
-		Status:    compute.VolumeListParamsStatusPending,
+		Status:    compute.VolumeListParamsStatusReady,
 		Tags:      []string{"string"},
 		Type:      compute.VolumeListParamsTypeNvme,
 		VMID:      nirvana.String("vm_id"),

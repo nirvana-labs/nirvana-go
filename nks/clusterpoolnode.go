@@ -170,10 +170,24 @@ func (r *NKSNodeList) UnmarshalJSON(data []byte) error {
 }
 
 type ClusterPoolNodeListParams struct {
-	// Pagination cursor returned by a previous request
+	// Pagination cursor returned by a previous request. Only valid for the same
+	// filters and sort order.
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
+	// Filter by whether a private address has been assigned yet
+	HasPrivateIP param.Opt[bool] `query:"has_private_ip,omitzero" json:"-"`
 	// Maximum number of items to return
 	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	// Filter by a case-insensitive substring of the node name
+	Name param.Opt[string] `query:"name,omitzero" json:"-"`
+	// Filter by the node's private address
+	PrivateIP param.Opt[string] `query:"private_ip,omitzero" json:"-"`
+	// Comma-separated sort terms in precedence order, each field:asc or field:desc.
+	// Fields: created_at, updated_at, name, status
+	Sort param.Opt[string] `query:"sort,omitzero" json:"-"`
+	// Filter by node status
+	//
+	// Any of "pending", "creating", "updating", "ready", "deleting", "error".
+	Status ClusterPoolNodeListParamsStatus `query:"status,omitzero" json:"-"`
 	paramObj
 }
 
@@ -185,3 +199,15 @@ func (r ClusterPoolNodeListParams) URLQuery() (v url.Values, err error) {
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
 	})
 }
+
+// Filter by node status
+type ClusterPoolNodeListParamsStatus string
+
+const (
+	ClusterPoolNodeListParamsStatusPending  ClusterPoolNodeListParamsStatus = "pending"
+	ClusterPoolNodeListParamsStatusCreating ClusterPoolNodeListParamsStatus = "creating"
+	ClusterPoolNodeListParamsStatusUpdating ClusterPoolNodeListParamsStatus = "updating"
+	ClusterPoolNodeListParamsStatusReady    ClusterPoolNodeListParamsStatus = "ready"
+	ClusterPoolNodeListParamsStatusDeleting ClusterPoolNodeListParamsStatus = "deleting"
+	ClusterPoolNodeListParamsStatusError    ClusterPoolNodeListParamsStatus = "error"
+)

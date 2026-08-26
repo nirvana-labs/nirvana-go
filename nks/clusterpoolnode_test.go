@@ -32,8 +32,13 @@ func TestClusterPoolNodeListWithOptionalParams(t *testing.T) {
 		"cluster_id",
 		"pool_id",
 		nks.ClusterPoolNodeListParams{
-			Cursor: nirvana.String("cursor"),
-			Limit:  nirvana.Int(10),
+			Cursor:       nirvana.String("cursor"),
+			HasPrivateIP: nirvana.Bool(true),
+			Limit:        nirvana.Int(10),
+			Name:         nirvana.String("name"),
+			PrivateIP:    nirvana.String("private_ip"),
+			Sort:         nirvana.String("sort"),
+			Status:       nks.ClusterPoolNodeListParamsStatusReady,
 		},
 	)
 	if err != nil {

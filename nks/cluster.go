@@ -252,10 +252,31 @@ func (r *ClusterUpdateParams) UnmarshalJSON(data []byte) error {
 type ClusterListParams struct {
 	// Project ID of resources to request
 	ProjectID string `query:"project_id" api:"required" json:"-"`
-	// Pagination cursor returned by a previous request
+	// Filter by whether autoscaling is enabled
+	Autoscaling param.Opt[bool] `query:"autoscaling,omitzero" json:"-"`
+	// Pagination cursor returned by a previous request. Only valid for the same
+	// filters and sort order.
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
+	// Filter by Kubernetes version, matched exactly
+	KubernetesVersion param.Opt[string] `query:"kubernetes_version,omitzero" json:"-"`
 	// Maximum number of items to return
 	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	// Filter by a case-insensitive substring of the Cluster name
+	Name param.Opt[string] `query:"name,omitzero" json:"-"`
+	// Filter by region
+	Region param.Opt[string] `query:"region,omitzero" json:"-"`
+	// Comma-separated sort terms in precedence order, each field:asc or field:desc.
+	// Fields: created_at, updated_at, name, status
+	Sort param.Opt[string] `query:"sort,omitzero" json:"-"`
+	// Filter by the VPC the Cluster is in
+	VPCID param.Opt[string] `query:"vpc_id,omitzero" json:"-"`
+	// Filter by Cluster status
+	//
+	// Any of "pending", "creating", "updating", "ready", "deleting", "error".
+	Status ClusterListParamsStatus `query:"status,omitzero" json:"-"`
+	// Filter by tags. Repeat the parameter to require several tags; a Cluster must
+	// carry all of them.
+	Tags []string `query:"tags,omitzero" json:"-"`
 	paramObj
 }
 
@@ -266,3 +287,15 @@ func (r ClusterListParams) URLQuery() (v url.Values, err error) {
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
 	})
 }
+
+// Filter by Cluster status
+type ClusterListParamsStatus string
+
+const (
+	ClusterListParamsStatusPending  ClusterListParamsStatus = "pending"
+	ClusterListParamsStatusCreating ClusterListParamsStatus = "creating"
+	ClusterListParamsStatusUpdating ClusterListParamsStatus = "updating"
+	ClusterListParamsStatusReady    ClusterListParamsStatus = "ready"
+	ClusterListParamsStatusDeleting ClusterListParamsStatus = "deleting"
+	ClusterListParamsStatusError    ClusterListParamsStatus = "error"
+)

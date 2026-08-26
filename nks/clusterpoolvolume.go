@@ -68,10 +68,32 @@ func (r *ClusterPoolVolumeService) ListAutoPaging(ctx context.Context, clusterID
 }
 
 type ClusterPoolVolumeListParams struct {
-	// Pagination cursor returned by a previous request
+	// Pagination cursor returned by a previous request. Only valid for the same
+	// filters and sort order.
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
 	// Maximum number of items to return
 	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	// Filter by a case-insensitive substring of the volume name
+	Name param.Opt[string] `query:"name,omitzero" json:"-"`
+	// Only volumes of at most this size
+	SizeGBMax param.Opt[int64] `query:"size_gb_max,omitzero" json:"-"`
+	// Only volumes of at least this size
+	SizeGBMin param.Opt[int64] `query:"size_gb_min,omitzero" json:"-"`
+	// Comma-separated sort terms in precedence order, each field:asc or field:desc.
+	// Fields: created_at, updated_at, name, status, size_gb
+	Sort param.Opt[string] `query:"sort,omitzero" json:"-"`
+	// Filter by volume kind
+	//
+	// Any of "boot", "data".
+	Kind ClusterPoolVolumeListParamsKind `query:"kind,omitzero" json:"-"`
+	// Filter by volume status
+	//
+	// Any of "pending", "creating", "updating", "ready", "deleting", "error".
+	Status ClusterPoolVolumeListParamsStatus `query:"status,omitzero" json:"-"`
+	// Filter by storage type
+	//
+	// Any of "abs".
+	Type ClusterPoolVolumeListParamsType `query:"type,omitzero" json:"-"`
 	paramObj
 }
 
@@ -83,3 +105,30 @@ func (r ClusterPoolVolumeListParams) URLQuery() (v url.Values, err error) {
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
 	})
 }
+
+// Filter by volume kind
+type ClusterPoolVolumeListParamsKind string
+
+const (
+	ClusterPoolVolumeListParamsKindBoot ClusterPoolVolumeListParamsKind = "boot"
+	ClusterPoolVolumeListParamsKindData ClusterPoolVolumeListParamsKind = "data"
+)
+
+// Filter by volume status
+type ClusterPoolVolumeListParamsStatus string
+
+const (
+	ClusterPoolVolumeListParamsStatusPending  ClusterPoolVolumeListParamsStatus = "pending"
+	ClusterPoolVolumeListParamsStatusCreating ClusterPoolVolumeListParamsStatus = "creating"
+	ClusterPoolVolumeListParamsStatusUpdating ClusterPoolVolumeListParamsStatus = "updating"
+	ClusterPoolVolumeListParamsStatusReady    ClusterPoolVolumeListParamsStatus = "ready"
+	ClusterPoolVolumeListParamsStatusDeleting ClusterPoolVolumeListParamsStatus = "deleting"
+	ClusterPoolVolumeListParamsStatusError    ClusterPoolVolumeListParamsStatus = "error"
+)
+
+// Filter by storage type
+type ClusterPoolVolumeListParamsType string
+
+const (
+	ClusterPoolVolumeListParamsTypeABS ClusterPoolVolumeListParamsType = "abs"
+)

@@ -169,10 +169,32 @@ func (r *NKSNodeVolumeList) UnmarshalJSON(data []byte) error {
 }
 
 type ClusterPoolNodeVolumeListParams struct {
-	// Pagination cursor returned by a previous request
+	// Pagination cursor returned by a previous request. Only valid for the same
+	// filters and sort order.
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
 	// Maximum number of items to return
 	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	// Filter by a case-insensitive substring of the volume name
+	Name param.Opt[string] `query:"name,omitzero" json:"-"`
+	// Only volumes of at most this size
+	SizeGBMax param.Opt[int64] `query:"size_gb_max,omitzero" json:"-"`
+	// Only volumes of at least this size
+	SizeGBMin param.Opt[int64] `query:"size_gb_min,omitzero" json:"-"`
+	// Comma-separated sort terms in precedence order, each field:asc or field:desc.
+	// Fields: created_at, updated_at, name, status, size_gb
+	Sort param.Opt[string] `query:"sort,omitzero" json:"-"`
+	// Filter by volume kind
+	//
+	// Any of "boot", "data".
+	Kind ClusterPoolNodeVolumeListParamsKind `query:"kind,omitzero" json:"-"`
+	// Filter by volume status
+	//
+	// Any of "pending", "creating", "updating", "ready", "deleting", "error".
+	Status ClusterPoolNodeVolumeListParamsStatus `query:"status,omitzero" json:"-"`
+	// Filter by storage type
+	//
+	// Any of "abs".
+	Type ClusterPoolNodeVolumeListParamsType `query:"type,omitzero" json:"-"`
 	paramObj
 }
 
@@ -184,3 +206,30 @@ func (r ClusterPoolNodeVolumeListParams) URLQuery() (v url.Values, err error) {
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
 	})
 }
+
+// Filter by volume kind
+type ClusterPoolNodeVolumeListParamsKind string
+
+const (
+	ClusterPoolNodeVolumeListParamsKindBoot ClusterPoolNodeVolumeListParamsKind = "boot"
+	ClusterPoolNodeVolumeListParamsKindData ClusterPoolNodeVolumeListParamsKind = "data"
+)
+
+// Filter by volume status
+type ClusterPoolNodeVolumeListParamsStatus string
+
+const (
+	ClusterPoolNodeVolumeListParamsStatusPending  ClusterPoolNodeVolumeListParamsStatus = "pending"
+	ClusterPoolNodeVolumeListParamsStatusCreating ClusterPoolNodeVolumeListParamsStatus = "creating"
+	ClusterPoolNodeVolumeListParamsStatusUpdating ClusterPoolNodeVolumeListParamsStatus = "updating"
+	ClusterPoolNodeVolumeListParamsStatusReady    ClusterPoolNodeVolumeListParamsStatus = "ready"
+	ClusterPoolNodeVolumeListParamsStatusDeleting ClusterPoolNodeVolumeListParamsStatus = "deleting"
+	ClusterPoolNodeVolumeListParamsStatusError    ClusterPoolNodeVolumeListParamsStatus = "error"
+)
+
+// Filter by storage type
+type ClusterPoolNodeVolumeListParamsType string
+
+const (
+	ClusterPoolNodeVolumeListParamsTypeABS ClusterPoolNodeVolumeListParamsType = "abs"
+)

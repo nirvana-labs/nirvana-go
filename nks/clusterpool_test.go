@@ -104,8 +104,15 @@ func TestClusterPoolListWithOptionalParams(t *testing.T) {
 		context.TODO(),
 		"cluster_id",
 		nks.ClusterPoolListParams{
-			Cursor: nirvana.String("cursor"),
-			Limit:  nirvana.Int(10),
+			Cursor:       nirvana.String("cursor"),
+			InstanceType: nirvana.String("instance_type"),
+			Limit:        nirvana.Int(10),
+			Name:         nirvana.String("name"),
+			NodeCountMax: nirvana.Int(0),
+			NodeCountMin: nirvana.Int(0),
+			Sort:         nirvana.String("sort"),
+			Status:       nks.ClusterPoolListParamsStatusReady,
+			Tags:         []string{"string"},
 		},
 	)
 	if err != nil {
