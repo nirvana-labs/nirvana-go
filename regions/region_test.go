@@ -28,8 +28,17 @@ func TestRegionListWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Regions.List(context.TODO(), regions.RegionListParams{
-		Cursor: nirvana.String("cursor"),
-		Limit:  nirvana.Int(10),
+		Availability:      regions.RegionListParamsAvailabilityLive,
+		ComputeVMs:        nirvana.Bool(true),
+		Cursor:            nirvana.String("cursor"),
+		Limit:             nirvana.Int(10),
+		NetworkingConnect: nirvana.Bool(true),
+		NetworkingVPCs:    nirvana.Bool(true),
+		NKSAutoscaling:    nirvana.Bool(true),
+		NKSClusters:       nirvana.Bool(true),
+		Sort:              nirvana.String("sort"),
+		StorageABS:        nirvana.Bool(true),
+		StorageLocalNvme:  nirvana.Bool(true),
 	})
 	if err != nil {
 		var apierr *nirvana.Error

@@ -95,7 +95,7 @@ func TestVPCListWithOptionalParams(t *testing.T) {
 		Name:      nirvana.String("name"),
 		Region:    nirvana.String("region"),
 		Sort:      nirvana.String("sort"),
-		Status:    networking.VPCListParamsStatusPending,
+		Status:    networking.VPCListParamsStatusReady,
 		Tags:      []string{"string"},
 	})
 	if err != nil {

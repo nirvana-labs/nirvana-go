@@ -148,10 +148,28 @@ func (r *PersistentVolumeClaimList) UnmarshalJSON(data []byte) error {
 }
 
 type ClusterPersistentVolumeClaimListParams struct {
-	// Pagination cursor returned by a previous request
+	// Pagination cursor returned by a previous request. Only valid for the same
+	// filters and sort order.
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
 	// Maximum number of items to return
 	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	// Filter by a case-insensitive substring of the claim name
+	Name param.Opt[string] `query:"name,omitzero" json:"-"`
+	// Only claims of at most this size
+	SizeGBMax param.Opt[int64] `query:"size_gb_max,omitzero" json:"-"`
+	// Only claims of at least this size
+	SizeGBMin param.Opt[int64] `query:"size_gb_min,omitzero" json:"-"`
+	// Comma-separated sort terms in precedence order, each field:asc or field:desc.
+	// Fields: created_at, updated_at, name, status, size_gb
+	Sort param.Opt[string] `query:"sort,omitzero" json:"-"`
+	// Filter by persistent volume claim status
+	//
+	// Any of "pending", "creating", "updating", "ready", "deleting", "error".
+	Status ClusterPersistentVolumeClaimListParamsStatus `query:"status,omitzero" json:"-"`
+	// Filter by storage type
+	//
+	// Any of "abs".
+	Type ClusterPersistentVolumeClaimListParamsType `query:"type,omitzero" json:"-"`
 	paramObj
 }
 
@@ -163,3 +181,22 @@ func (r ClusterPersistentVolumeClaimListParams) URLQuery() (v url.Values, err er
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
 	})
 }
+
+// Filter by persistent volume claim status
+type ClusterPersistentVolumeClaimListParamsStatus string
+
+const (
+	ClusterPersistentVolumeClaimListParamsStatusPending  ClusterPersistentVolumeClaimListParamsStatus = "pending"
+	ClusterPersistentVolumeClaimListParamsStatusCreating ClusterPersistentVolumeClaimListParamsStatus = "creating"
+	ClusterPersistentVolumeClaimListParamsStatusUpdating ClusterPersistentVolumeClaimListParamsStatus = "updating"
+	ClusterPersistentVolumeClaimListParamsStatusReady    ClusterPersistentVolumeClaimListParamsStatus = "ready"
+	ClusterPersistentVolumeClaimListParamsStatusDeleting ClusterPersistentVolumeClaimListParamsStatus = "deleting"
+	ClusterPersistentVolumeClaimListParamsStatusError    ClusterPersistentVolumeClaimListParamsStatus = "error"
+)
+
+// Filter by storage type
+type ClusterPersistentVolumeClaimListParamsType string
+
+const (
+	ClusterPersistentVolumeClaimListParamsTypeABS ClusterPersistentVolumeClaimListParamsType = "abs"
+)

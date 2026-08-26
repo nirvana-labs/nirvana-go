@@ -32,8 +32,15 @@ func TestClusterPoolVolumeListWithOptionalParams(t *testing.T) {
 		"cluster_id",
 		"pool_id",
 		nks.ClusterPoolVolumeListParams{
-			Cursor: nirvana.String("cursor"),
-			Limit:  nirvana.Int(10),
+			Cursor:    nirvana.String("cursor"),
+			Kind:      nks.ClusterPoolVolumeListParamsKindBoot,
+			Limit:     nirvana.Int(10),
+			Name:      nirvana.String("name"),
+			SizeGBMax: nirvana.Int(0),
+			SizeGBMin: nirvana.Int(0),
+			Sort:      nirvana.String("sort"),
+			Status:    nks.ClusterPoolVolumeListParamsStatusReady,
+			Type:      nks.ClusterPoolVolumeListParamsTypeABS,
 		},
 	)
 	if err != nil {

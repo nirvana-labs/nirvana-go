@@ -114,7 +114,7 @@ func TestVMListWithOptionalParams(t *testing.T) {
 		PublicIPEnabled: nirvana.Bool(true),
 		Region:          nirvana.String("region"),
 		Sort:            nirvana.String("sort"),
-		Status:          compute.VMListParamsStatusPending,
+		Status:          compute.VMListParamsStatusReady,
 		SubnetID:        nirvana.String("subnet_id"),
 		Tags:            []string{"string"},
 		VPCID:           nirvana.String("vpc_id"),

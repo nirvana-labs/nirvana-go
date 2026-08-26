@@ -220,10 +220,32 @@ func (r *RegionList) UnmarshalJSON(data []byte) error {
 }
 
 type RegionListParams struct {
-	// Pagination cursor returned by a previous request
+	// Only regions where Virtual Machines are available
+	ComputeVMs param.Opt[bool] `query:"compute_vms,omitzero" json:"-"`
+	// Pagination cursor returned by a previous request. Only valid for the same
+	// filters and sort order.
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
 	// Maximum number of items to return
 	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	// Only regions where Nirvana Connect is available
+	NetworkingConnect param.Opt[bool] `query:"networking_connect,omitzero" json:"-"`
+	// Only regions where VPCs are available
+	NetworkingVPCs param.Opt[bool] `query:"networking_vpcs,omitzero" json:"-"`
+	// Only regions where NKS node pool autoscaling is available
+	NKSAutoscaling param.Opt[bool] `query:"nks_autoscaling,omitzero" json:"-"`
+	// Only regions where NKS clusters are available
+	NKSClusters param.Opt[bool] `query:"nks_clusters,omitzero" json:"-"`
+	// Comma-separated sort terms in precedence order, each field:asc or field:desc.
+	// Fields: longitude, name, availability
+	Sort param.Opt[string] `query:"sort,omitzero" json:"-"`
+	// Only regions where Accelerated Block Storage is available
+	StorageABS param.Opt[bool] `query:"storage_abs,omitzero" json:"-"`
+	// Only regions where locally-attached NVMe storage is available
+	StorageLocalNvme param.Opt[bool] `query:"storage_local_nvme,omitzero" json:"-"`
+	// Filter by region availability
+	//
+	// Any of "live", "preview", "maintenance", "sunset".
+	Availability RegionListParamsAvailability `query:"availability,omitzero" json:"-"`
 	paramObj
 }
 
@@ -234,3 +256,13 @@ func (r RegionListParams) URLQuery() (v url.Values, err error) {
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
 	})
 }
+
+// Filter by region availability
+type RegionListParamsAvailability string
+
+const (
+	RegionListParamsAvailabilityLive        RegionListParamsAvailability = "live"
+	RegionListParamsAvailabilityPreview     RegionListParamsAvailability = "preview"
+	RegionListParamsAvailabilityMaintenance RegionListParamsAvailability = "maintenance"
+	RegionListParamsAvailabilitySunset      RegionListParamsAvailability = "sunset"
+)

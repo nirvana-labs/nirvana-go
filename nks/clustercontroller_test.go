@@ -31,8 +31,14 @@ func TestClusterControllerListWithOptionalParams(t *testing.T) {
 		context.TODO(),
 		"cluster_id",
 		nks.ClusterControllerListParams{
-			Cursor: nirvana.String("cursor"),
-			Limit:  nirvana.Int(10),
+			Cursor:       nirvana.String("cursor"),
+			HasPrivateIP: nirvana.Bool(true),
+			InstanceType: nirvana.String("instance_type"),
+			Limit:        nirvana.Int(10),
+			Name:         nirvana.String("name"),
+			PrivateIP:    nirvana.String("private_ip"),
+			Sort:         nirvana.String("sort"),
+			Status:       nks.ClusterControllerListParamsStatusReady,
 		},
 	)
 	if err != nil {

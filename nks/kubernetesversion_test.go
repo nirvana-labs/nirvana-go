@@ -30,6 +30,8 @@ func TestKubernetesVersionListWithOptionalParams(t *testing.T) {
 	_, err := client.NKS.KubernetesVersions.List(context.TODO(), nks.KubernetesVersionListParams{
 		Cursor: nirvana.String("cursor"),
 		Limit:  nirvana.Int(10),
+		Name:   nirvana.String("name"),
+		Sort:   nirvana.String("sort"),
 	})
 	if err != nil {
 		var apierr *nirvana.Error

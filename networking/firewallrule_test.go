@@ -105,7 +105,7 @@ func TestFirewallRuleListWithOptionalParams(t *testing.T) {
 			Name:     nirvana.String("name"),
 			Protocol: networking.FirewallRuleListParamsProtocolTcp,
 			Sort:     nirvana.String("sort"),
-			Status:   networking.FirewallRuleListParamsStatusPending,
+			Status:   networking.FirewallRuleListParamsStatusReady,
 			Tags:     []string{"string"},
 		},
 	)

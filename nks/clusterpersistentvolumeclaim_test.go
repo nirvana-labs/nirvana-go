@@ -31,8 +31,14 @@ func TestClusterPersistentVolumeClaimListWithOptionalParams(t *testing.T) {
 		context.TODO(),
 		"cluster_id",
 		nks.ClusterPersistentVolumeClaimListParams{
-			Cursor: nirvana.String("cursor"),
-			Limit:  nirvana.Int(10),
+			Cursor:    nirvana.String("cursor"),
+			Limit:     nirvana.Int(10),
+			Name:      nirvana.String("name"),
+			SizeGBMax: nirvana.Int(0),
+			SizeGBMin: nirvana.Int(0),
+			Sort:      nirvana.String("sort"),
+			Status:    nks.ClusterPersistentVolumeClaimListParamsStatusReady,
+			Type:      nks.ClusterPersistentVolumeClaimListParamsTypeABS,
 		},
 	)
 	if err != nil {

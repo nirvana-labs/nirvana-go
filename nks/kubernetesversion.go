@@ -85,10 +85,16 @@ func (r *KubernetesVersion) UnmarshalJSON(data []byte) error {
 }
 
 type KubernetesVersionListParams struct {
-	// Pagination cursor returned by a previous request
+	// Pagination cursor returned by a previous request. Only valid for the same
+	// filters and sort order.
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
 	// Maximum number of items to return
 	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	// Filter by a case-insensitive substring of the version name, e.g. 1.34
+	Name param.Opt[string] `query:"name,omitzero" json:"-"`
+	// Comma-separated sort terms in precedence order, each field:asc or field:desc.
+	// Fields: created_at, version
+	Sort param.Opt[string] `query:"sort,omitzero" json:"-"`
 	paramObj
 }
 
