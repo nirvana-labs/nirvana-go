@@ -1,5 +1,21 @@
 # Changelog
 
+## [2.0.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.94.3...v2.0.0) (2026-09-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* **api:** remove Nirvana Connect [CORE-4847]
+
+### Features
+
+* **api:** remove Nirvana Connect [CORE-4847] ([1375afb](https://github.com/nirvana-labs/nirvana-go/commit/1375afb1f11c35cc645feae590358030c1ac388c))
+
+
+### Bug Fixes
+
+* **sdk:** Restore cli + terraform targets and clear grpc GHSA-vp52-pcj8-j9qc ([1375afb](https://github.com/nirvana-labs/nirvana-go/commit/1375afb1f11c35cc645feae590358030c1ac388c))
+
 ## [1.94.3](https://github.com/nirvana-labs/nirvana-go/compare/v1.94.2...v1.94.3) (2026-08-26)
 
 
