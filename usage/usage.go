@@ -90,8 +90,8 @@ type Usage struct {
 	ResourceID string            `json:"resource_id" api:"required"`
 	// Kind of metered resource a ledger row belongs to.
 	//
-	// Any of "vm", "volume", "vpc", "connect_connection", "nks_cluster",
-	// "nks_node_pool", "nks_load_balancer".
+	// Any of "vm", "volume", "vpc", "nks_cluster", "nks_node_pool",
+	// "nks_load_balancer".
 	ResourceType UsageResourceType `json:"resource_type" api:"required"`
 	StartedAt    string            `json:"started_at" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -189,13 +189,12 @@ func (r *UsageList) UnmarshalJSON(data []byte) error {
 type UsageResourceType string
 
 const (
-	UsageResourceTypeVM                UsageResourceType = "vm"
-	UsageResourceTypeVolume            UsageResourceType = "volume"
-	UsageResourceTypeVPC               UsageResourceType = "vpc"
-	UsageResourceTypeConnectConnection UsageResourceType = "connect_connection"
-	UsageResourceTypeNKSCluster        UsageResourceType = "nks_cluster"
-	UsageResourceTypeNKSNodePool       UsageResourceType = "nks_node_pool"
-	UsageResourceTypeNKSLoadBalancer   UsageResourceType = "nks_load_balancer"
+	UsageResourceTypeVM              UsageResourceType = "vm"
+	UsageResourceTypeVolume          UsageResourceType = "volume"
+	UsageResourceTypeVPC             UsageResourceType = "vpc"
+	UsageResourceTypeNKSCluster      UsageResourceType = "nks_cluster"
+	UsageResourceTypeNKSNodePool     UsageResourceType = "nks_node_pool"
+	UsageResourceTypeNKSLoadBalancer UsageResourceType = "nks_load_balancer"
 )
 
 type UsageListParams struct {
@@ -220,8 +219,8 @@ type UsageListParams struct {
 	Sort param.Opt[string] `query:"sort,omitzero" json:"-"`
 	// Filter by the kind of resource metered
 	//
-	// Any of "vm", "volume", "vpc", "connect_connection", "nks_cluster",
-	// "nks_node_pool", "nks_load_balancer".
+	// Any of "vm", "volume", "vpc", "nks_cluster", "nks_node_pool",
+	// "nks_load_balancer".
 	ResourceType UsageListParamsResourceType `query:"resource_type,omitzero" json:"-"`
 	paramObj
 }
@@ -238,11 +237,10 @@ func (r UsageListParams) URLQuery() (v url.Values, err error) {
 type UsageListParamsResourceType string
 
 const (
-	UsageListParamsResourceTypeVM                UsageListParamsResourceType = "vm"
-	UsageListParamsResourceTypeVolume            UsageListParamsResourceType = "volume"
-	UsageListParamsResourceTypeVPC               UsageListParamsResourceType = "vpc"
-	UsageListParamsResourceTypeConnectConnection UsageListParamsResourceType = "connect_connection"
-	UsageListParamsResourceTypeNKSCluster        UsageListParamsResourceType = "nks_cluster"
-	UsageListParamsResourceTypeNKSNodePool       UsageListParamsResourceType = "nks_node_pool"
-	UsageListParamsResourceTypeNKSLoadBalancer   UsageListParamsResourceType = "nks_load_balancer"
+	UsageListParamsResourceTypeVM              UsageListParamsResourceType = "vm"
+	UsageListParamsResourceTypeVolume          UsageListParamsResourceType = "volume"
+	UsageListParamsResourceTypeVPC             UsageListParamsResourceType = "vpc"
+	UsageListParamsResourceTypeNKSCluster      UsageListParamsResourceType = "nks_cluster"
+	UsageListParamsResourceTypeNKSNodePool     UsageListParamsResourceType = "nks_node_pool"
+	UsageListParamsResourceTypeNKSLoadBalancer UsageListParamsResourceType = "nks_load_balancer"
 )
