@@ -165,18 +165,15 @@ func (r *QuotaList) UnmarshalJSON(data []byte) error {
 // Networking quota.
 type QuotaNetworking struct {
 	// Quota dimension detail.
-	ConnectConnections QuotaDimensionDetail `json:"connect_connections" api:"required"`
-	// Quota dimension detail.
 	PublicIPs QuotaDimensionDetail `json:"public_ips" api:"required"`
 	// Quota dimension detail.
 	VPCs QuotaDimensionDetail `json:"vpcs" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
-		ConnectConnections respjson.Field
-		PublicIPs          respjson.Field
-		VPCs               respjson.Field
-		ExtraFields        map[string]respjson.Field
-		raw                string
+		PublicIPs   respjson.Field
+		VPCs        respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
 	} `json:"-"`
 }
 

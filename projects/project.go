@@ -164,8 +164,6 @@ func (r *ProjectBlockchainResources) UnmarshalJSON(data []byte) error {
 
 // Cloud infrastructure resources.
 type ProjectCloudResources struct {
-	// Number of Connect connections in the project.
-	ConnectConnections int64 `json:"connect_connections" api:"required"`
 	// Number of NKS clusters in the project.
 	NKSClusters int64 `json:"nks_clusters" api:"required"`
 	// Number of NKS node pools in the project.
@@ -178,14 +176,13 @@ type ProjectCloudResources struct {
 	VPCs int64 `json:"vpcs" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
-		ConnectConnections respjson.Field
-		NKSClusters        respjson.Field
-		NKSNodePools       respjson.Field
-		VMs                respjson.Field
-		Volumes            respjson.Field
-		VPCs               respjson.Field
-		ExtraFields        map[string]respjson.Field
-		raw                string
+		NKSClusters  respjson.Field
+		NKSNodePools respjson.Field
+		VMs          respjson.Field
+		Volumes      respjson.Field
+		VPCs         respjson.Field
+		ExtraFields  map[string]respjson.Field
+		raw          string
 	} `json:"-"`
 }
 

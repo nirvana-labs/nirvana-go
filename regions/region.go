@@ -129,13 +129,10 @@ func (r *RegionCompute) UnmarshalJSON(data []byte) error {
 
 // Networking products available in this region.
 type RegionNetworking struct {
-	// Connect indicates if Nirvana Connect is available.
-	Connect bool `json:"connect" api:"required"`
 	// VPCs indicates if Virtual Private Clouds are available.
 	VPCs bool `json:"vpcs" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
-		Connect     respjson.Field
 		VPCs        respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
@@ -227,8 +224,6 @@ type RegionListParams struct {
 	Cursor param.Opt[string] `query:"cursor,omitzero" json:"-"`
 	// Maximum number of items to return
 	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
-	// Only regions where Nirvana Connect is available
-	NetworkingConnect param.Opt[bool] `query:"networking_connect,omitzero" json:"-"`
 	// Only regions where VPCs are available
 	NetworkingVPCs param.Opt[bool] `query:"networking_vpcs,omitzero" json:"-"`
 	// Only regions where NKS node pool autoscaling is available
