@@ -8,10 +8,10 @@ import (
 	"os"
 	"testing"
 
-	"github.com/nirvana-labs/nirvana-go"
-	"github.com/nirvana-labs/nirvana-go/internal/testutil"
-	"github.com/nirvana-labs/nirvana-go/option"
-	"github.com/nirvana-labs/nirvana-go/rpc_nodes"
+	"github.com/nirvana-labs/nirvana-go/v2"
+	"github.com/nirvana-labs/nirvana-go/v2/internal/testutil"
+	"github.com/nirvana-labs/nirvana-go/v2/option"
+	"github.com/nirvana-labs/nirvana-go/v2/rpc_nodes"
 )
 
 func TestFlexBlockchainListWithOptionalParams(t *testing.T) {

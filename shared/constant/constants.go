@@ -3,7 +3,7 @@
 package constant
 
 import (
-	shimjson "github.com/nirvana-labs/nirvana-go/internal/encoding/json"
+	shimjson "github.com/nirvana-labs/nirvana-go/v2/internal/encoding/json"
 )
 
 type Constant[T any] interface {

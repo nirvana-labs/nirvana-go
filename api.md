@@ -1,20 +1,20 @@
 # Shared Params Types
 
-- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/shared">shared</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/shared#RegionName">RegionName</a>
-- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/shared">shared</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/shared#ResourceStatus">ResourceStatus</a>
-- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/shared">shared</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/shared#SourceIPRuleParam">SourceIPRuleParam</a>
-- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/shared">shared</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/shared#VMMetricUnit">VMMetricUnit</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/v2/shared">shared</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/v2/shared#RegionName">RegionName</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/v2/shared">shared</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/v2/shared#ResourceStatus">ResourceStatus</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/v2/shared">shared</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/v2/shared#SourceIPRuleParam">SourceIPRuleParam</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/v2/shared">shared</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/v2/shared#VMMetricUnit">VMMetricUnit</a>
 
 # Shared Response Types
 
-- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/shared">shared</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/shared#CostQuote">CostQuote</a>
-- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/shared">shared</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/shared#CostQuoteUpdate">CostQuoteUpdate</a>
-- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/shared">shared</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/shared#OrganizationBillingSummary">OrganizationBillingSummary</a>
-- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/shared">shared</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/shared#Pagination">Pagination</a>
-- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/shared">shared</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/shared#RegionName">RegionName</a>
-- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/shared">shared</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/shared#ResourceStatus">ResourceStatus</a>
-- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/shared">shared</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/shared#SourceIPRuleResponse">SourceIPRuleResponse</a>
-- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/shared">shared</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/shared#VMMetricUnit">VMMetricUnit</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/v2/shared">shared</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/v2/shared#CostQuote">CostQuote</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/v2/shared">shared</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/v2/shared#CostQuoteUpdate">CostQuoteUpdate</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/v2/shared">shared</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/v2/shared#OrganizationBillingSummary">OrganizationBillingSummary</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/v2/shared">shared</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/v2/shared#Pagination">Pagination</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/v2/shared">shared</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/v2/shared#RegionName">RegionName</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/v2/shared">shared</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/v2/shared#ResourceStatus">ResourceStatus</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/v2/shared">shared</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/v2/shared#SourceIPRuleResponse">SourceIPRuleResponse</a>
+- <a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/v2/shared">shared</a>.<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/v2/shared#VMMetricUnit">VMMetricUnit</a>
 
 # [User](user/api.md)
 
