@@ -18,10 +18,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/nirvana-labs/nirvana-go/internal"
-	"github.com/nirvana-labs/nirvana-go/internal/apierror"
-	"github.com/nirvana-labs/nirvana-go/internal/apiform"
-	"github.com/nirvana-labs/nirvana-go/internal/apiquery"
+	"github.com/nirvana-labs/nirvana-go/v2/internal"
+	"github.com/nirvana-labs/nirvana-go/v2/internal/apierror"
+	"github.com/nirvana-labs/nirvana-go/v2/internal/apiform"
+	"github.com/nirvana-labs/nirvana-go/v2/internal/apiquery"
 )
 
 func getDefaultHeaders() map[string]string {

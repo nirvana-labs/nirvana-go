@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	shimjson "github.com/nirvana-labs/nirvana-go/internal/encoding/json"
+	shimjson "github.com/nirvana-labs/nirvana-go/v2/internal/encoding/json"
 
 	"github.com/tidwall/sjson"
 )

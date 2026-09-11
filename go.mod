@@ -1,4 +1,4 @@
-module github.com/nirvana-labs/nirvana-go
+module github.com/nirvana-labs/nirvana-go/v2
 
 go 1.22
 

@@ -1,8 +1,8 @@
 package paramutil
 
 import (
-	"github.com/nirvana-labs/nirvana-go/packages/param"
-	"github.com/nirvana-labs/nirvana-go/packages/respjson"
+	"github.com/nirvana-labs/nirvana-go/v2/packages/param"
+	"github.com/nirvana-labs/nirvana-go/v2/packages/respjson"
 )
 
 func AddrIfPresent[T comparable](v param.Opt[T]) *T {

@@ -1,7 +1,7 @@
 package apijson
 
 import (
-	"github.com/nirvana-labs/nirvana-go/packages/respjson"
+	"github.com/nirvana-labs/nirvana-go/v2/packages/respjson"
 	"reflect"
 )
 
