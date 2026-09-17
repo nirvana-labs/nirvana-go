@@ -6,9 +6,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/nirvana-labs/nirvana-go"
-	"github.com/nirvana-labs/nirvana-go/lib"
-	"github.com/nirvana-labs/nirvana-go/operations"
+	"github.com/nirvana-labs/nirvana-go/v2"
+	"github.com/nirvana-labs/nirvana-go/v2/lib"
+	"github.com/nirvana-labs/nirvana-go/v2/operations"
 )
 
 // mockOperationsService implements a mock for testing

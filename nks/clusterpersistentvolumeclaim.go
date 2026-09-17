@@ -11,15 +11,15 @@ import (
 	"slices"
 	"time"
 
-	"github.com/nirvana-labs/nirvana-go/compute"
-	"github.com/nirvana-labs/nirvana-go/internal/apijson"
-	"github.com/nirvana-labs/nirvana-go/internal/apiquery"
-	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
-	"github.com/nirvana-labs/nirvana-go/option"
-	"github.com/nirvana-labs/nirvana-go/packages/pagination"
-	"github.com/nirvana-labs/nirvana-go/packages/param"
-	"github.com/nirvana-labs/nirvana-go/packages/respjson"
-	"github.com/nirvana-labs/nirvana-go/shared"
+	"github.com/nirvana-labs/nirvana-go/v2/compute"
+	"github.com/nirvana-labs/nirvana-go/v2/internal/apijson"
+	"github.com/nirvana-labs/nirvana-go/v2/internal/apiquery"
+	"github.com/nirvana-labs/nirvana-go/v2/internal/requestconfig"
+	"github.com/nirvana-labs/nirvana-go/v2/option"
+	"github.com/nirvana-labs/nirvana-go/v2/packages/pagination"
+	"github.com/nirvana-labs/nirvana-go/v2/packages/param"
+	"github.com/nirvana-labs/nirvana-go/v2/packages/respjson"
+	"github.com/nirvana-labs/nirvana-go/v2/shared"
 )
 
 // ClusterPersistentVolumeClaimService contains methods and other services that

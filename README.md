@@ -2,7 +2,7 @@
 
 <!-- x-release-please-start-version -->
 
-<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go"><img src="https://pkg.go.dev/badge/github.com/nirvana-labs/nirvana-go.svg" alt="Go Reference"></a>
+<a href="https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/v2"><img src="https://pkg.go.dev/badge/github.com/nirvana-labs/nirvana-go/v2.svg" alt="Go Reference"></a>
 
 <!-- x-release-please-end -->
 
@@ -28,7 +28,7 @@ Use the Nirvana Labs MCP Server to enable AI assistants to interact with this AP
 
 ```go
 import (
-	"github.com/nirvana-labs/nirvana-go" // imported as nirvana
+	"github.com/nirvana-labs/nirvana-go/v2" // imported as nirvana
 )
 ```
 
@@ -39,7 +39,7 @@ Or to pin the version:
 <!-- x-release-please-start-version -->
 
 ```sh
-go get -u 'github.com/nirvana-labs/nirvana-go@v2.0.0'
+go get -u 'github.com/nirvana-labs/nirvana-go/v2@v2.0.0'
 ```
 
 <!-- x-release-please-end -->
@@ -59,10 +59,10 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/nirvana-labs/nirvana-go"
-	"github.com/nirvana-labs/nirvana-go/compute"
-	"github.com/nirvana-labs/nirvana-go/option"
-	"github.com/nirvana-labs/nirvana-go/shared"
+	"github.com/nirvana-labs/nirvana-go/v2"
+	"github.com/nirvana-labs/nirvana-go/v2/compute"
+	"github.com/nirvana-labs/nirvana-go/v2/option"
+	"github.com/nirvana-labs/nirvana-go/v2/shared"
 )
 
 func main() {
@@ -304,7 +304,7 @@ client.Compute.VMs.New(context.TODO(), ...,
 
 The request option `option.WithDebugLog(nil)` may be helpful while debugging.
 
-See the [full list of request options](https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/option).
+See the [full list of request options](https://pkg.go.dev/github.com/nirvana-labs/nirvana-go/v2/option).
 
 ### Pagination
 

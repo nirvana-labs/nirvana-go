@@ -11,14 +11,14 @@ import (
 	"slices"
 	"time"
 
-	"github.com/nirvana-labs/nirvana-go/internal/apijson"
-	"github.com/nirvana-labs/nirvana-go/internal/apiquery"
-	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
-	"github.com/nirvana-labs/nirvana-go/option"
-	"github.com/nirvana-labs/nirvana-go/packages/pagination"
-	"github.com/nirvana-labs/nirvana-go/packages/param"
-	"github.com/nirvana-labs/nirvana-go/packages/respjson"
-	"github.com/nirvana-labs/nirvana-go/shared"
+	"github.com/nirvana-labs/nirvana-go/v2/internal/apijson"
+	"github.com/nirvana-labs/nirvana-go/v2/internal/apiquery"
+	"github.com/nirvana-labs/nirvana-go/v2/internal/requestconfig"
+	"github.com/nirvana-labs/nirvana-go/v2/option"
+	"github.com/nirvana-labs/nirvana-go/v2/packages/pagination"
+	"github.com/nirvana-labs/nirvana-go/v2/packages/param"
+	"github.com/nirvana-labs/nirvana-go/v2/packages/respjson"
+	"github.com/nirvana-labs/nirvana-go/v2/shared"
 )
 
 // MembershipService contains methods and other services that help with interacting
@@ -93,7 +93,7 @@ type OrganizationMembership struct {
 	OrganizationID string `json:"organization_id" api:"required"`
 	// Role of the user in the organization.
 	//
-	// Any of "owner", "member".
+	// Any of "owner", "admin", "billing", "member".
 	Role OrganizationMembershipRole `json:"role" api:"required"`
 	// When the membership was updated.
 	UpdatedAt time.Time `json:"updated_at" api:"required" format:"date-time"`
@@ -122,8 +122,10 @@ func (r *OrganizationMembership) UnmarshalJSON(data []byte) error {
 type OrganizationMembershipRole string
 
 const (
-	OrganizationMembershipRoleOwner  OrganizationMembershipRole = "owner"
-	OrganizationMembershipRoleMember OrganizationMembershipRole = "member"
+	OrganizationMembershipRoleOwner   OrganizationMembershipRole = "owner"
+	OrganizationMembershipRoleAdmin   OrganizationMembershipRole = "admin"
+	OrganizationMembershipRoleBilling OrganizationMembershipRole = "billing"
+	OrganizationMembershipRoleMember  OrganizationMembershipRole = "member"
 )
 
 type OrganizationMembershipList struct {
@@ -158,7 +160,7 @@ type MembershipListParams struct {
 	UserID param.Opt[string] `query:"user_id,omitzero" json:"-"`
 	// Filter by membership role
 	//
-	// Any of "owner", "member".
+	// Any of "owner", "admin", "billing", "member".
 	Role MembershipListParamsRole `query:"role,omitzero" json:"-"`
 	paramObj
 }
@@ -175,6 +177,8 @@ func (r MembershipListParams) URLQuery() (v url.Values, err error) {
 type MembershipListParamsRole string
 
 const (
-	MembershipListParamsRoleOwner  MembershipListParamsRole = "owner"
-	MembershipListParamsRoleMember MembershipListParamsRole = "member"
+	MembershipListParamsRoleOwner   MembershipListParamsRole = "owner"
+	MembershipListParamsRoleAdmin   MembershipListParamsRole = "admin"
+	MembershipListParamsRoleBilling MembershipListParamsRole = "billing"
+	MembershipListParamsRoleMember  MembershipListParamsRole = "member"
 )

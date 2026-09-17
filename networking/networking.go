@@ -3,7 +3,7 @@
 package networking
 
 import (
-	"github.com/nirvana-labs/nirvana-go/option"
+	"github.com/nirvana-labs/nirvana-go/v2/option"
 )
 
 // NetworkingService contains methods and other services that help with interacting

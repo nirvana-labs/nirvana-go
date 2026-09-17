@@ -1,7 +1,7 @@
 package sentinel
 
 import (
-	"github.com/nirvana-labs/nirvana-go/internal/encoding/json/shims"
+	"github.com/nirvana-labs/nirvana-go/v2/internal/encoding/json/shims"
 	"reflect"
 	"sync"
 )

@@ -3,9 +3,9 @@
 package networking
 
 import (
-	"github.com/nirvana-labs/nirvana-go/internal/apierror"
-	"github.com/nirvana-labs/nirvana-go/packages/param"
-	"github.com/nirvana-labs/nirvana-go/shared"
+	"github.com/nirvana-labs/nirvana-go/v2/internal/apierror"
+	"github.com/nirvana-labs/nirvana-go/v2/packages/param"
+	"github.com/nirvana-labs/nirvana-go/v2/shared"
 )
 
 // aliased to make [param.APIUnion] private when embedding

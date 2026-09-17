@@ -1,8 +1,8 @@
 package sentinel_test
 
 import (
-	"github.com/nirvana-labs/nirvana-go/internal/encoding/json/sentinel"
-	"github.com/nirvana-labs/nirvana-go/packages/param"
+	"github.com/nirvana-labs/nirvana-go/v2/internal/encoding/json/sentinel"
+	"github.com/nirvana-labs/nirvana-go/v2/packages/param"
 	"reflect"
 	"slices"
 	"testing"

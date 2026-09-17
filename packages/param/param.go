@@ -2,7 +2,7 @@ package param
 
 import (
 	"encoding/json"
-	"github.com/nirvana-labs/nirvana-go/internal/encoding/json/sentinel"
+	"github.com/nirvana-labs/nirvana-go/v2/internal/encoding/json/sentinel"
 	"reflect"
 )
 
