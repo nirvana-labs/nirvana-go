@@ -3,7 +3,7 @@
 package nks
 
 import (
-	"github.com/nirvana-labs/nirvana-go/option"
+	"github.com/nirvana-labs/nirvana-go/v2/option"
 )
 
 // NKSService contains methods and other services that help with interacting with

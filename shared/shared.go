@@ -5,9 +5,9 @@ package shared
 import (
 	"time"
 
-	"github.com/nirvana-labs/nirvana-go/internal/apijson"
-	"github.com/nirvana-labs/nirvana-go/packages/param"
-	"github.com/nirvana-labs/nirvana-go/packages/respjson"
+	"github.com/nirvana-labs/nirvana-go/v2/internal/apijson"
+	"github.com/nirvana-labs/nirvana-go/v2/packages/param"
+	"github.com/nirvana-labs/nirvana-go/v2/packages/respjson"
 )
 
 // aliased to make [param.APIUnion] private when embedding

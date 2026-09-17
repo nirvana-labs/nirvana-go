@@ -7,8 +7,8 @@ import (
 	"testing"
 	"time"
 
-	shimjson "github.com/nirvana-labs/nirvana-go/internal/encoding/json"
-	"github.com/nirvana-labs/nirvana-go/packages/param"
+	shimjson "github.com/nirvana-labs/nirvana-go/v2/internal/encoding/json"
+	"github.com/nirvana-labs/nirvana-go/v2/packages/param"
 )
 
 type Struct struct {

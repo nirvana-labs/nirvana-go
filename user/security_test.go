@@ -8,11 +8,11 @@ import (
 	"os"
 	"testing"
 
-	"github.com/nirvana-labs/nirvana-go"
-	"github.com/nirvana-labs/nirvana-go/internal/testutil"
-	"github.com/nirvana-labs/nirvana-go/option"
-	"github.com/nirvana-labs/nirvana-go/shared"
-	"github.com/nirvana-labs/nirvana-go/user"
+	"github.com/nirvana-labs/nirvana-go/v2"
+	"github.com/nirvana-labs/nirvana-go/v2/internal/testutil"
+	"github.com/nirvana-labs/nirvana-go/v2/option"
+	"github.com/nirvana-labs/nirvana-go/v2/shared"
+	"github.com/nirvana-labs/nirvana-go/v2/user"
 )
 
 func TestSecurityUpdateWithOptionalParams(t *testing.T) {

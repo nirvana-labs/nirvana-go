@@ -9,7 +9,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/nirvana-labs/nirvana-go/packages/param"
+	"github.com/nirvana-labs/nirvana-go/v2/packages/param"
 )
 
 var encoders sync.Map // map[reflect.Type]encoderFunc

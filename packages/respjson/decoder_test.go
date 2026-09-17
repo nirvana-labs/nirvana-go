@@ -3,8 +3,8 @@ package respjson_test
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/nirvana-labs/nirvana-go/internal/apijson"
-	rj "github.com/nirvana-labs/nirvana-go/packages/respjson"
+	"github.com/nirvana-labs/nirvana-go/v2/internal/apijson"
+	rj "github.com/nirvana-labs/nirvana-go/v2/packages/respjson"
 	"reflect"
 	"testing"
 )

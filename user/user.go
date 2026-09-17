@@ -7,10 +7,10 @@ import (
 	"net/http"
 	"slices"
 
-	"github.com/nirvana-labs/nirvana-go/internal/apijson"
-	"github.com/nirvana-labs/nirvana-go/internal/requestconfig"
-	"github.com/nirvana-labs/nirvana-go/option"
-	"github.com/nirvana-labs/nirvana-go/packages/respjson"
+	"github.com/nirvana-labs/nirvana-go/v2/internal/apijson"
+	"github.com/nirvana-labs/nirvana-go/v2/internal/requestconfig"
+	"github.com/nirvana-labs/nirvana-go/v2/option"
+	"github.com/nirvana-labs/nirvana-go/v2/packages/respjson"
 )
 
 // UserService contains methods and other services that help with interacting with
