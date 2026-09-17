@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.1.0](https://github.com/nirvana-labs/nirvana-go/compare/v2.0.0...v2.1.0) (2026-09-17)
+
+
+### Features
+
+* add admin and billing membership roles to the SDKs [CORE-4880] ([849ac2d](https://github.com/nirvana-labs/nirvana-go/commit/849ac2d0326af6d35994abf028543cc318cf7df7))
+
+
+### Bug Fixes
+
+* **deps:** bump hono to 4.13.7 in the TS SDK to clear 3 GHSAs ([849ac2d](https://github.com/nirvana-labs/nirvana-go/commit/849ac2d0326af6d35994abf028543cc318cf7df7))
+* **go:** update custom-code imports for the v2 module path ([849ac2d](https://github.com/nirvana-labs/nirvana-go/commit/849ac2d0326af6d35994abf028543cc318cf7df7))
+
 ## [2.0.0](https://github.com/nirvana-labs/nirvana-go/compare/v1.94.3...v2.0.0) (2026-09-08)
 
 
