@@ -113,9 +113,9 @@ func (r *BillingService) Summary(ctx context.Context, organizationID string, opt
 	return res, err
 }
 
-// Charge the card on file and credit the prepaid balance. A unique Idempotency-Key
-// header is required; reuse it across retries so a timed-out top-up is not charged
-// twice.
+// Charge the card on file and credit the prepaid balance. An Idempotency-Key
+// header is required. Reuse the same key when retrying, so a top-up that timed out
+// isn't charged twice.
 func (r *BillingService) TopUp(ctx context.Context, organizationID string, params BillingTopUpParams, opts ...option.RequestOption) (res *shared.OrganizationBillingSummary, err error) {
 	if !param.IsOmitted(params.IdempotencyKey) {
 		opts = append(opts, option.WithHeader("Idempotency-Key", fmt.Sprintf("%v", params.IdempotencyKey)))
