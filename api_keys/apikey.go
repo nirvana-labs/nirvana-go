@@ -202,7 +202,7 @@ type APIKeyPermission struct {
 	//
 	// Any of "vm", "vpc", "volume", "rpc_node_dedicated", "rpc_node_flex",
 	// "nks_cluster", "nks_node_pool", "project", "api_key", "organization",
-	// "audit_log", "usage".
+	// "audit_log", "usage", "billing", "billing_x402".
 	ResourceType APIPermissionResourceType `json:"resource_type" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -243,6 +243,8 @@ const (
 	APIPermissionResourceTypeOrganization     APIPermissionResourceType = "organization"
 	APIPermissionResourceTypeAuditLog         APIPermissionResourceType = "audit_log"
 	APIPermissionResourceTypeUsage            APIPermissionResourceType = "usage"
+	APIPermissionResourceTypeBilling          APIPermissionResourceType = "billing"
+	APIPermissionResourceTypeBillingX402      APIPermissionResourceType = "billing_x402"
 )
 
 type APIKeyNewParams struct {
@@ -283,7 +285,7 @@ type APIKeyNewParamsPermission struct {
 	//
 	// Any of "vm", "vpc", "volume", "rpc_node_dedicated", "rpc_node_flex",
 	// "nks_cluster", "nks_node_pool", "project", "api_key", "organization",
-	// "audit_log", "usage".
+	// "audit_log", "usage", "billing", "billing_x402".
 	ResourceType APIPermissionResourceType `json:"resource_type,omitzero" api:"required"`
 	paramObj
 }
@@ -332,7 +334,7 @@ type APIKeyUpdateParamsPermission struct {
 	//
 	// Any of "vm", "vpc", "volume", "rpc_node_dedicated", "rpc_node_flex",
 	// "nks_cluster", "nks_node_pool", "project", "api_key", "organization",
-	// "audit_log", "usage".
+	// "audit_log", "usage", "billing", "billing_x402".
 	ResourceType APIPermissionResourceType `json:"resource_type,omitzero" api:"required"`
 	paramObj
 }
