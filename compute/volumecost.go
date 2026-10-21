@@ -69,7 +69,7 @@ type VolumeCostNewParams struct {
 	Size int64 `json:"size" api:"required"`
 	// Type of the Volume.
 	//
-	// Any of "nvme", "abs".
+	// Any of "nvme", "abs", "longhorn".
 	Type VolumeType `json:"type,omitzero" api:"required"`
 	// ID of the VM the Volume is attached to.
 	VMID param.Opt[string] `json:"vm_id,omitzero"`
@@ -89,7 +89,7 @@ func (r *VolumeCostNewParams) UnmarshalJSON(data []byte) error {
 type VolumeCostUpdateParams struct {
 	// Name of the Volume.
 	Name param.Opt[string] `json:"name,omitzero"`
-	// Size of the Volume in GB.
+	// Size of the Volume in GB. Longhorn volumes cannot be resized.
 	Size param.Opt[int64] `json:"size,omitzero"`
 	// Tags to attach to the Volume.
 	Tags []string `json:"tags,omitzero"`

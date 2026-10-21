@@ -14,6 +14,36 @@ import (
 	"github.com/nirvana-labs/nirvana-go/v2/organizations"
 )
 
+func TestMembershipUpdate(t *testing.T) {
+	t.Skip("Mock server tests are disabled")
+	baseURL := "http://localhost:4010"
+	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
+		baseURL = envURL
+	}
+	if !testutil.CheckTestServer(t, baseURL) {
+		return
+	}
+	client := nirvana.NewClient(
+		option.WithBaseURL(baseURL),
+		option.WithAPIKey("My API Key"),
+	)
+	_, err := client.Organizations.Memberships.Update(
+		context.TODO(),
+		"organization_id",
+		"membership_id",
+		organizations.MembershipUpdateParams{
+			Role: organizations.MembershipUpdateParamsRoleOwner,
+		},
+	)
+	if err != nil {
+		var apierr *nirvana.Error
+		if errors.As(err, &apierr) {
+			t.Log(string(apierr.DumpRequest(true)))
+		}
+		t.Fatalf("err should be nil: %s", err.Error())
+	}
+}
+
 func TestMembershipListWithOptionalParams(t *testing.T) {
 	t.Skip("Mock server tests are disabled")
 	baseURL := "http://localhost:4010"
@@ -37,6 +67,33 @@ func TestMembershipListWithOptionalParams(t *testing.T) {
 			Sort:   nirvana.String("sort"),
 			UserID: nirvana.String("user_id"),
 		},
+	)
+	if err != nil {
+		var apierr *nirvana.Error
+		if errors.As(err, &apierr) {
+			t.Log(string(apierr.DumpRequest(true)))
+		}
+		t.Fatalf("err should be nil: %s", err.Error())
+	}
+}
+
+func TestMembershipDelete(t *testing.T) {
+	t.Skip("Mock server tests are disabled")
+	baseURL := "http://localhost:4010"
+	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
+		baseURL = envURL
+	}
+	if !testutil.CheckTestServer(t, baseURL) {
+		return
+	}
+	client := nirvana.NewClient(
+		option.WithBaseURL(baseURL),
+		option.WithAPIKey("My API Key"),
+	)
+	err := client.Organizations.Memberships.Delete(
+		context.TODO(),
+		"organization_id",
+		"membership_id",
 	)
 	if err != nil {
 		var apierr *nirvana.Error

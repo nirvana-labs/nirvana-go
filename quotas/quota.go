@@ -216,10 +216,13 @@ type QuotaStorage struct {
 	ABS QuotaDimensionDetail `json:"abs" api:"required"`
 	// Quota dimension detail.
 	LocalNvme QuotaDimensionDetail `json:"local_nvme" api:"required"`
+	// Quota dimension detail.
+	Longhorn QuotaDimensionDetail `json:"longhorn" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ABS         respjson.Field
 		LocalNvme   respjson.Field
+		Longhorn    respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`
