@@ -1,5 +1,22 @@
 # Changelog
 
+## [2.2.0](https://github.com/nirvana-labs/nirvana-go/compare/v2.1.1...v2.2.0) (2026-10-21)
+
+
+### Features
+
+* **stainless:** wire organization membership management into SDK config [CORE-4920] ([5c3eb83](https://github.com/nirvana-labs/nirvana-go/commit/5c3eb83d2cbd0756ff6b6d33daa4d056c334cd8b))
+
+
+### Bug Fixes
+
+* **deps:** clear Dependabot alerts in the TS SDK and config repo ([5c3eb83](https://github.com/nirvana-labs/nirvana-go/commit/5c3eb83d2cbd0756ff6b6d33daa4d056c334cd8b))
+
+
+### Chores
+
+* update OpenAPI spec, sync tracking files and drop terraform for one cycle ([5c3eb83](https://github.com/nirvana-labs/nirvana-go/commit/5c3eb83d2cbd0756ff6b6d33daa4d056c334cd8b))
+
 ## [2.1.1](https://github.com/nirvana-labs/nirvana-go/compare/v2.1.0...v2.1.1) (2026-09-28)
 
 
