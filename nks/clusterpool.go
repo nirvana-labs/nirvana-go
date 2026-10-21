@@ -190,7 +190,7 @@ type NKSNodePoolBootVolumeParam struct {
 	Size int64 `json:"size" api:"required"`
 	// Type of the Volume.
 	//
-	// Any of "nvme", "abs".
+	// Any of "nvme", "abs", "longhorn".
 	Type compute.VolumeType `json:"type,omitzero" api:"required"`
 	paramObj
 }
@@ -209,7 +209,7 @@ type NKSNodePoolBootVolumeResponse struct {
 	Size int64 `json:"size" api:"required"`
 	// Type of the Volume.
 	//
-	// Any of "nvme", "abs".
+	// Any of "nvme", "abs", "longhorn".
 	Type compute.VolumeType `json:"type" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {

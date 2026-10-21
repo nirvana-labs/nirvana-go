@@ -123,7 +123,7 @@ type NKSNodeVolume struct {
 	Status shared.ResourceStatus `json:"status" api:"required"`
 	// Type of the Volume.
 	//
-	// Any of "nvme", "abs".
+	// Any of "nvme", "abs", "longhorn".
 	Type compute.VolumeType `json:"type" api:"required"`
 	// When the volume was last updated.
 	UpdatedAt time.Time `json:"updated_at" api:"required" format:"date-time"`

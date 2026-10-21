@@ -493,7 +493,7 @@ func (r BillingStatementsParams) URLQuery() (v url.Values, err error) {
 }
 
 type BillingTopUpParams struct {
-	// Amount to charge and credit, in USD. Must be greater than 0, at most two decimal
+	// Amount to charge and credit, in USD. Must be at least 1.00, at most two decimal
 	// places, and at most 10000.
 	Amount         string `json:"amount" api:"required" format:"decimal"`
 	IdempotencyKey string `header:"Idempotency-Key" api:"required" json:"-"`

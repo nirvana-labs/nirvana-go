@@ -165,7 +165,7 @@ type Volume struct {
 	Tags []string `json:"tags" api:"required"`
 	// Type of the Volume.
 	//
-	// Any of "nvme", "abs".
+	// Any of "nvme", "abs", "longhorn".
 	Type VolumeType `json:"type" api:"required"`
 	// When the Volume was updated.
 	UpdatedAt time.Time `json:"updated_at" api:"required" format:"date-time"`
@@ -230,8 +230,9 @@ func (r *VolumeList) UnmarshalJSON(data []byte) error {
 type VolumeType string
 
 const (
-	VolumeTypeNvme VolumeType = "nvme"
-	VolumeTypeABS  VolumeType = "abs"
+	VolumeTypeNvme     VolumeType = "nvme"
+	VolumeTypeABS      VolumeType = "abs"
+	VolumeTypeLonghorn VolumeType = "longhorn"
 )
 
 type VolumeNewParams struct {
@@ -247,7 +248,7 @@ type VolumeNewParams struct {
 	Size int64 `json:"size" api:"required"`
 	// Type of the Volume.
 	//
-	// Any of "nvme", "abs".
+	// Any of "nvme", "abs", "longhorn".
 	Type VolumeType `json:"type,omitzero" api:"required"`
 	// ID of the VM the Volume is attached to.
 	VMID param.Opt[string] `json:"vm_id,omitzero"`
@@ -267,7 +268,7 @@ func (r *VolumeNewParams) UnmarshalJSON(data []byte) error {
 type VolumeUpdateParams struct {
 	// Name of the Volume.
 	Name param.Opt[string] `json:"name,omitzero"`
-	// Size of the Volume in GB.
+	// Size of the Volume in GB. Longhorn volumes cannot be resized.
 	Size param.Opt[int64] `json:"size,omitzero"`
 	// Tags to attach to the Volume.
 	Tags []string `json:"tags,omitzero"`
@@ -315,7 +316,7 @@ type VolumeListParams struct {
 	Tags []string `query:"tags,omitzero" json:"-"`
 	// Filter by storage type
 	//
-	// Any of "nvme", "abs".
+	// Any of "nvme", "abs", "longhorn".
 	Type VolumeListParamsType `query:"type,omitzero" json:"-"`
 	paramObj
 }
@@ -352,8 +353,9 @@ const (
 type VolumeListParamsType string
 
 const (
-	VolumeListParamsTypeNvme VolumeListParamsType = "nvme"
-	VolumeListParamsTypeABS  VolumeListParamsType = "abs"
+	VolumeListParamsTypeNvme     VolumeListParamsType = "nvme"
+	VolumeListParamsTypeABS      VolumeListParamsType = "abs"
+	VolumeListParamsTypeLonghorn VolumeListParamsType = "longhorn"
 )
 
 type VolumeAttachParams struct {

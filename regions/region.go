@@ -172,10 +172,13 @@ type RegionStorage struct {
 	ABS bool `json:"abs" api:"required"`
 	// LocalNVMe indicates if locally-attached NVMe storage is available.
 	LocalNvme bool `json:"local_nvme" api:"required"`
+	// Longhorn indicates if Longhorn replicated block storage is available.
+	Longhorn bool `json:"longhorn" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ABS         respjson.Field
 		LocalNvme   respjson.Field
+		Longhorn    respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`
@@ -237,6 +240,8 @@ type RegionListParams struct {
 	StorageABS param.Opt[bool] `query:"storage_abs,omitzero" json:"-"`
 	// Only regions where locally-attached NVMe storage is available
 	StorageLocalNvme param.Opt[bool] `query:"storage_local_nvme,omitzero" json:"-"`
+	// Only regions where Longhorn replicated block storage is available
+	StorageLonghorn param.Opt[bool] `query:"storage_longhorn,omitzero" json:"-"`
 	// Filter by region availability
 	//
 	// Any of "live", "preview", "maintenance", "sunset".
