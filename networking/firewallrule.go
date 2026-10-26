@@ -138,6 +138,9 @@ type FirewallRule struct {
 	DestinationAddress string `json:"destination_address" api:"required"`
 	// Destination ports of the Firewall Rule.
 	DestinationPorts []string `json:"destination_ports" api:"required"`
+	// What manages the resource, or null when nothing does. A managed resource can be
+	// read but not changed.
+	ManagedBy FirewallRuleManagedBy `json:"managed_by" api:"required"`
 	// Name of the Firewall Rule.
 	Name string `json:"name" api:"required"`
 	// Protocol of the Firewall Rule.
@@ -164,6 +167,7 @@ type FirewallRule struct {
 		CreatedAt          respjson.Field
 		DestinationAddress respjson.Field
 		DestinationPorts   respjson.Field
+		ManagedBy          respjson.Field
 		Name               respjson.Field
 		Protocol           respjson.Field
 		SourceAddress      respjson.Field
@@ -179,6 +183,30 @@ type FirewallRule struct {
 // Returns the unmodified JSON received from the API
 func (r FirewallRule) RawJSON() string { return r.JSON.raw }
 func (r *FirewallRule) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// What manages the resource, or null when nothing does. A managed resource can be
+// read but not changed.
+type FirewallRuleManagedBy struct {
+	// ID of the thing managing the resource.
+	ID string `json:"id" api:"required"`
+	// Kind of thing managing the resource.
+	//
+	// Any of "sandbox_environment".
+	Type string `json:"type" api:"required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		ID          respjson.Field
+		Type        respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r FirewallRuleManagedBy) RawJSON() string { return r.JSON.raw }
+func (r *FirewallRuleManagedBy) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 

@@ -150,6 +150,9 @@ type VPC struct {
 	CreatedAt time.Time `json:"created_at" api:"required" format:"date-time"`
 	// IDs of the Firewall Rules associated with the VPC.
 	FirewallRuleIDs []string `json:"firewall_rule_ids" api:"required"`
+	// What manages the resource, or null when nothing does. A managed resource can be
+	// read but not changed.
+	ManagedBy VPCManagedBy `json:"managed_by" api:"required"`
 	// Name of the VPC.
 	Name string `json:"name" api:"required"`
 	// Project ID the VPC belongs to.
@@ -174,6 +177,7 @@ type VPC struct {
 		ID              respjson.Field
 		CreatedAt       respjson.Field
 		FirewallRuleIDs respjson.Field
+		ManagedBy       respjson.Field
 		Name            respjson.Field
 		ProjectID       respjson.Field
 		Region          respjson.Field
@@ -189,6 +193,30 @@ type VPC struct {
 // Returns the unmodified JSON received from the API
 func (r VPC) RawJSON() string { return r.JSON.raw }
 func (r *VPC) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// What manages the resource, or null when nothing does. A managed resource can be
+// read but not changed.
+type VPCManagedBy struct {
+	// ID of the thing managing the resource.
+	ID string `json:"id" api:"required"`
+	// Kind of thing managing the resource.
+	//
+	// Any of "sandbox_environment".
+	Type string `json:"type" api:"required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		ID          respjson.Field
+		Type        respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r VPCManagedBy) RawJSON() string { return r.JSON.raw }
+func (r *VPCManagedBy) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 

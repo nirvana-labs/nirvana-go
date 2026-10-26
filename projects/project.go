@@ -114,6 +114,9 @@ type Project struct {
 	ID string `json:"id" api:"required"`
 	// When the Project was created.
 	CreatedAt time.Time `json:"created_at" api:"required" format:"date-time"`
+	// What manages the resource, or null when nothing does. A managed resource can be
+	// read but not changed.
+	ManagedBy ProjectManagedBy `json:"managed_by" api:"required"`
 	// Project name.
 	Name string `json:"name" api:"required"`
 	// Resource counts for the project.
@@ -126,6 +129,7 @@ type Project struct {
 	JSON struct {
 		ID          respjson.Field
 		CreatedAt   respjson.Field
+		ManagedBy   respjson.Field
 		Name        respjson.Field
 		Resources   respjson.Field
 		Tags        respjson.Field
@@ -138,6 +142,30 @@ type Project struct {
 // Returns the unmodified JSON received from the API
 func (r Project) RawJSON() string { return r.JSON.raw }
 func (r *Project) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// What manages the resource, or null when nothing does. A managed resource can be
+// read but not changed.
+type ProjectManagedBy struct {
+	// ID of the thing managing the resource.
+	ID string `json:"id" api:"required"`
+	// Kind of thing managing the resource.
+	//
+	// Any of "sandbox_environment".
+	Type string `json:"type" api:"required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		ID          respjson.Field
+		Type        respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r ProjectManagedBy) RawJSON() string { return r.JSON.raw }
+func (r *ProjectManagedBy) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 

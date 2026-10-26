@@ -132,6 +132,9 @@ type NKSCluster struct {
 	CreatedAt time.Time `json:"created_at" api:"required" format:"date-time"`
 	// Kubernetes version of the Cluster.
 	KubernetesVersion string `json:"kubernetes_version" api:"required"`
+	// What manages the resource, or null when nothing does. A managed resource can be
+	// read but not changed.
+	ManagedBy NKSClusterManagedBy `json:"managed_by" api:"required"`
 	// Name of the Cluster.
 	Name string `json:"name" api:"required"`
 	// IDs of pools belonging to this Cluster.
@@ -163,6 +166,7 @@ type NKSCluster struct {
 		Autoscaling       respjson.Field
 		CreatedAt         respjson.Field
 		KubernetesVersion respjson.Field
+		ManagedBy         respjson.Field
 		Name              respjson.Field
 		PoolIDs           respjson.Field
 		PrivateIP         respjson.Field
@@ -181,6 +185,30 @@ type NKSCluster struct {
 // Returns the unmodified JSON received from the API
 func (r NKSCluster) RawJSON() string { return r.JSON.raw }
 func (r *NKSCluster) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// What manages the resource, or null when nothing does. A managed resource can be
+// read but not changed.
+type NKSClusterManagedBy struct {
+	// ID of the thing managing the resource.
+	ID string `json:"id" api:"required"`
+	// Kind of thing managing the resource.
+	//
+	// Any of "sandbox_environment".
+	Type string `json:"type" api:"required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		ID          respjson.Field
+		Type        respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r NKSClusterManagedBy) RawJSON() string { return r.JSON.raw }
+func (r *NKSClusterManagedBy) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
