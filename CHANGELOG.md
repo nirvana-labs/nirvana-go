@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.2.1](https://github.com/nirvana-labs/nirvana-go/compare/v2.2.0...v2.2.1) (2026-10-26)
+
+
+### Chores
+
+* **nirvana-api:** update OpenAPI spec ([355989e](https://github.com/nirvana-labs/nirvana-go/commit/355989e72371931756607e8be0ff27846615721d))
+* **stlc:** move cli and terraform to the v2 Go SDK, restore terraform, drop membership cli skips [CORE-4996] ([355989e](https://github.com/nirvana-labs/nirvana-go/commit/355989e72371931756607e8be0ff27846615721d))
+
 ## [2.2.0](https://github.com/nirvana-labs/nirvana-go/compare/v2.1.1...v2.2.0) (2026-10-21)
 
 
