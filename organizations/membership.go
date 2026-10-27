@@ -128,6 +128,12 @@ type OrganizationMembership struct {
 	ID string `json:"id" api:"required"`
 	// When the membership was created.
 	CreatedAt time.Time `json:"created_at" api:"required" format:"date-time"`
+	// Email address of the user.
+	Email string `json:"email" api:"required"`
+	// First name of the user.
+	FirstName string `json:"first_name" api:"required"`
+	// Last name of the user.
+	LastName string `json:"last_name" api:"required"`
 	// Organization ID.
 	OrganizationID string `json:"organization_id" api:"required"`
 	// Role of the user in the organization.
@@ -142,6 +148,9 @@ type OrganizationMembership struct {
 	JSON struct {
 		ID             respjson.Field
 		CreatedAt      respjson.Field
+		Email          respjson.Field
+		FirstName      respjson.Field
+		LastName       respjson.Field
 		OrganizationID respjson.Field
 		Role           respjson.Field
 		UpdatedAt      respjson.Field
