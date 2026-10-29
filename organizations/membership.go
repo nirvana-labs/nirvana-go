@@ -122,6 +122,19 @@ func (r *MembershipService) Get(ctx context.Context, organizationID string, memb
 	return res, err
 }
 
+// Get the authenticated user's own membership in an organization, including their
+// role. Available to every member of the organization, whatever their role.
+func (r *MembershipService) Me(ctx context.Context, organizationID string, opts ...option.RequestOption) (res *OrganizationMembership, err error) {
+	opts = slices.Concat(r.Options, opts)
+	if organizationID == "" {
+		err = errors.New("missing required organization_id parameter")
+		return nil, err
+	}
+	path := fmt.Sprintf("v1/organizations/%s/memberships/me", organizationID)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
+	return res, err
+}
+
 // Organization membership details.
 type OrganizationMembership struct {
 	// Membership ID.
