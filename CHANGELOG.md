@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.0](https://github.com/nirvana-labs/nirvana-go/compare/v2.2.2...v2.3.0) (2026-10-29)
+
+
+### Features
+
+* add organizations.memberships.me to the SDKs [CORE-5031] ([25792e5](https://github.com/nirvana-labs/nirvana-go/commit/25792e51c09b3af661ebea9fc8966694e9c86336))
+
 ## [2.2.2](https://github.com/nirvana-labs/nirvana-go/compare/v2.2.1...v2.2.2) (2026-10-27)
 
 
