@@ -200,9 +200,10 @@ type APIKeyPermission struct {
 	Permission APIPermissionLevel `json:"permission" api:"required"`
 	// Resource type this permission applies to.
 	//
-	// Any of "vm", "vpc", "volume", "rpc_node_dedicated", "rpc_node_flex",
-	// "nks_cluster", "nks_node_pool", "project", "api_key", "organization",
-	// "audit_log", "usage", "billing", "billing_x402".
+	// Any of "vm", "vpc", "volume", "bucket", "object_storage_key",
+	// "rpc_node_dedicated", "rpc_node_flex", "nks_cluster", "nks_node_pool",
+	// "project", "api_key", "organization", "audit_log", "usage", "billing",
+	// "billing_x402", "sandbox_cluster", "sandbox".
 	ResourceType APIPermissionResourceType `json:"resource_type" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -234,6 +235,8 @@ const (
 	APIPermissionResourceTypeVM               APIPermissionResourceType = "vm"
 	APIPermissionResourceTypeVPC              APIPermissionResourceType = "vpc"
 	APIPermissionResourceTypeVolume           APIPermissionResourceType = "volume"
+	APIPermissionResourceTypeBucket           APIPermissionResourceType = "bucket"
+	APIPermissionResourceTypeObjectStorageKey APIPermissionResourceType = "object_storage_key"
 	APIPermissionResourceTypeRPCNodeDedicated APIPermissionResourceType = "rpc_node_dedicated"
 	APIPermissionResourceTypeRPCNodeFlex      APIPermissionResourceType = "rpc_node_flex"
 	APIPermissionResourceTypeNKSCluster       APIPermissionResourceType = "nks_cluster"
@@ -245,6 +248,8 @@ const (
 	APIPermissionResourceTypeUsage            APIPermissionResourceType = "usage"
 	APIPermissionResourceTypeBilling          APIPermissionResourceType = "billing"
 	APIPermissionResourceTypeBillingX402      APIPermissionResourceType = "billing_x402"
+	APIPermissionResourceTypeSandboxCluster   APIPermissionResourceType = "sandbox_cluster"
+	APIPermissionResourceTypeSandbox          APIPermissionResourceType = "sandbox"
 )
 
 type APIKeyNewParams struct {
@@ -283,9 +288,10 @@ type APIKeyNewParamsPermission struct {
 	Permission APIPermissionLevel `json:"permission,omitzero" api:"required"`
 	// Resource type this permission applies to.
 	//
-	// Any of "vm", "vpc", "volume", "rpc_node_dedicated", "rpc_node_flex",
-	// "nks_cluster", "nks_node_pool", "project", "api_key", "organization",
-	// "audit_log", "usage", "billing", "billing_x402".
+	// Any of "vm", "vpc", "volume", "bucket", "object_storage_key",
+	// "rpc_node_dedicated", "rpc_node_flex", "nks_cluster", "nks_node_pool",
+	// "project", "api_key", "organization", "audit_log", "usage", "billing",
+	// "billing_x402", "sandbox_cluster", "sandbox".
 	ResourceType APIPermissionResourceType `json:"resource_type,omitzero" api:"required"`
 	paramObj
 }
@@ -332,9 +338,10 @@ type APIKeyUpdateParamsPermission struct {
 	Permission APIPermissionLevel `json:"permission,omitzero" api:"required"`
 	// Resource type this permission applies to.
 	//
-	// Any of "vm", "vpc", "volume", "rpc_node_dedicated", "rpc_node_flex",
-	// "nks_cluster", "nks_node_pool", "project", "api_key", "organization",
-	// "audit_log", "usage", "billing", "billing_x402".
+	// Any of "vm", "vpc", "volume", "bucket", "object_storage_key",
+	// "rpc_node_dedicated", "rpc_node_flex", "nks_cluster", "nks_node_pool",
+	// "project", "api_key", "organization", "audit_log", "usage", "billing",
+	// "billing_x402", "sandbox_cluster", "sandbox".
 	ResourceType APIPermissionResourceType `json:"resource_type,omitzero" api:"required"`
 	paramObj
 }

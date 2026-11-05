@@ -150,9 +150,11 @@ func (r *Project) UnmarshalJSON(data []byte) error {
 type ProjectManagedBy struct {
 	// ID of the thing managing the resource.
 	ID string `json:"id" api:"required"`
-	// Kind of thing managing the resource.
+	// Kind of thing managing the resource: a sandbox cluster, or managed_sandboxes for
+	// the project that holds an organization's sandbox clusters, identified by the
+	// organization ID.
 	//
-	// Any of "sandbox_environment".
+	// Any of "sandbox_cluster", "managed_sandboxes".
 	Type string `json:"type" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {

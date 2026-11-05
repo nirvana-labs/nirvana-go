@@ -87,7 +87,7 @@ type InstanceType struct {
 	NetworkBandwidthGbps float64 `json:"network_bandwidth_gbps" api:"required"`
 	// Region the resource is in.
 	//
-	// Any of "us-sva-2".
+	// Any of "us-sva-2", "us-wdc-1".
 	Region shared.RegionName `json:"region" api:"required"`
 	Series string            `json:"series" api:"required"`
 	// When the Instance Type was updated.
@@ -181,4 +181,5 @@ type InstanceTypeGetParamsRegion string
 
 const (
 	InstanceTypeGetParamsRegionUsSva2 InstanceTypeGetParamsRegion = "us-sva-2"
+	InstanceTypeGetParamsRegionUsWdc1 InstanceTypeGetParamsRegion = "us-wdc-1"
 )

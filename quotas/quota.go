@@ -79,7 +79,7 @@ type Quota struct {
 	NKS QuotaNKS `json:"nks" api:"required"`
 	// Region the resource is in.
 	//
-	// Any of "us-sva-2".
+	// Any of "us-sva-2", "us-wdc-1".
 	Region shared.RegionName `json:"region" api:"required"`
 	// Storage quota.
 	Storage QuotaStorage `json:"storage" api:"required"`
@@ -260,4 +260,5 @@ type QuotaGetParamsRegion string
 
 const (
 	QuotaGetParamsRegionUsSva2 QuotaGetParamsRegion = "us-sva-2"
+	QuotaGetParamsRegionUsWdc1 QuotaGetParamsRegion = "us-wdc-1"
 )

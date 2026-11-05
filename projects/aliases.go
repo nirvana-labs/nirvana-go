@@ -95,6 +95,9 @@ type RegionName = shared.RegionName
 // Equals "us-sva-2"
 const RegionNameUsSva2 = shared.RegionNameUsSva2
 
+// Equals "us-wdc-1"
+const RegionNameUsWdc1 = shared.RegionNameUsWdc1
+
 // Status of the resource.
 //
 // This is an alias to an internal type.
