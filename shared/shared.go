@@ -388,6 +388,7 @@ type RegionName string
 
 const (
 	RegionNameUsSva2 RegionName = "us-sva-2"
+	RegionNameUsWdc1 RegionName = "us-wdc-1"
 )
 
 // Status of the resource.

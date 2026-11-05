@@ -86,7 +86,8 @@ type Operation struct {
 	Details OperationDetails `json:"details" api:"required"`
 	// Kind of Operation.
 	//
-	// Any of "vm", "volume", "vpc", "firewall_rule", "nks_cluster", "nks_node_pool".
+	// Any of "vm", "volume", "vpc", "firewall_rule", "nks_cluster", "nks_node_pool",
+	// "sandbox_cluster", "bucket".
 	Kind OperationKind `json:"kind" api:"required"`
 	// Project ID the Operation belongs to.
 	ProjectID string `json:"project_id" api:"required"`
@@ -275,12 +276,14 @@ func (r *OperationFieldDiffToUnion) UnmarshalJSON(data []byte) error {
 type OperationKind string
 
 const (
-	OperationKindVM           OperationKind = "vm"
-	OperationKindVolume       OperationKind = "volume"
-	OperationKindVPC          OperationKind = "vpc"
-	OperationKindFirewallRule OperationKind = "firewall_rule"
-	OperationKindNKSCluster   OperationKind = "nks_cluster"
-	OperationKindNKSNodePool  OperationKind = "nks_node_pool"
+	OperationKindVM             OperationKind = "vm"
+	OperationKindVolume         OperationKind = "volume"
+	OperationKindVPC            OperationKind = "vpc"
+	OperationKindFirewallRule   OperationKind = "firewall_rule"
+	OperationKindNKSCluster     OperationKind = "nks_cluster"
+	OperationKindNKSNodePool    OperationKind = "nks_node_pool"
+	OperationKindSandboxCluster OperationKind = "sandbox_cluster"
+	OperationKindBucket         OperationKind = "bucket"
 )
 
 type OperationList struct {
@@ -343,7 +346,8 @@ type OperationListParams struct {
 	// Filter by the kind of resource the operation acts on
 	//
 	// Any of "vm", "volume", "vpc", "firewall_rule", "connect_connection",
-	// "nks_cluster", "nks_node_pool", "nks_load_balancer", "nks_node".
+	// "nks_cluster", "nks_node_pool", "nks_load_balancer", "nks_node",
+	// "sandbox_cluster", "bucket".
 	Kind OperationListParamsKind `query:"kind,omitzero" json:"-"`
 	// Filter by operation status
 	//
@@ -377,6 +381,8 @@ const (
 	OperationListParamsKindNKSNodePool       OperationListParamsKind = "nks_node_pool"
 	OperationListParamsKindNKSLoadBalancer   OperationListParamsKind = "nks_load_balancer"
 	OperationListParamsKindNKSNode           OperationListParamsKind = "nks_node"
+	OperationListParamsKindSandboxCluster    OperationListParamsKind = "sandbox_cluster"
+	OperationListParamsKindBucket            OperationListParamsKind = "bucket"
 )
 
 // Filter by operation status

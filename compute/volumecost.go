@@ -63,7 +63,7 @@ type VolumeCostNewParams struct {
 	ProjectID string `json:"project_id" api:"required"`
 	// Region the resource is in.
 	//
-	// Any of "us-sva-2".
+	// Any of "us-sva-2", "us-wdc-1".
 	Region shared.RegionName `json:"region,omitzero" api:"required"`
 	// Size of the Volume in GB.
 	Size int64 `json:"size" api:"required"`
@@ -89,7 +89,7 @@ func (r *VolumeCostNewParams) UnmarshalJSON(data []byte) error {
 type VolumeCostUpdateParams struct {
 	// Name of the Volume.
 	Name param.Opt[string] `json:"name,omitzero"`
-	// Size of the Volume in GB. Longhorn volumes cannot be resized.
+	// Size of the Volume in GB.
 	Size param.Opt[int64] `json:"size,omitzero"`
 	// Tags to attach to the Volume.
 	Tags []string `json:"tags,omitzero"`

@@ -23,6 +23,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/v2/quotas"
 	"github.com/nirvana-labs/nirvana-go/v2/regions"
 	"github.com/nirvana-labs/nirvana-go/v2/rpc_nodes"
+	"github.com/nirvana-labs/nirvana-go/v2/sandbox_clusters"
 	"github.com/nirvana-labs/nirvana-go/v2/usage"
 	"github.com/nirvana-labs/nirvana-go/v2/user"
 )
@@ -31,21 +32,22 @@ import (
 // interacting with the Nirvana Labs API. You should not instantiate this client
 // directly, and instead use the [NewClient] method instead.
 type Client struct {
-	Options       []option.RequestOption
-	User          user.UserService
-	APIKeys       api_keys.APIKeyService
-	Operations    operations.OperationService
-	Organizations organizations.OrganizationService
-	Quotas        quotas.QuotaService
-	Usage         usage.UsageService
-	AuditLogs     audit_logs.AuditLogService
-	Projects      projects.ProjectService
-	Regions       regions.RegionService
-	InstanceTypes instance_types.InstanceTypeService
-	Compute       compute.ComputeService
-	Networking    networking.NetworkingService
-	RPCNodes      rpc_nodes.RPCNodeService
-	NKS           nks.NKSService
+	Options         []option.RequestOption
+	User            user.UserService
+	APIKeys         api_keys.APIKeyService
+	Operations      operations.OperationService
+	Organizations   organizations.OrganizationService
+	Quotas          quotas.QuotaService
+	Usage           usage.UsageService
+	AuditLogs       audit_logs.AuditLogService
+	Projects        projects.ProjectService
+	Regions         regions.RegionService
+	InstanceTypes   instance_types.InstanceTypeService
+	Compute         compute.ComputeService
+	Networking      networking.NetworkingService
+	RPCNodes        rpc_nodes.RPCNodeService
+	NKS             nks.NKSService
+	SandboxClusters sandbox_clusters.SandboxClusterService
 }
 
 // DefaultClientOptions read from the environment (NIRVANA_LABS_API_KEY,
@@ -92,6 +94,7 @@ func NewClient(opts ...option.RequestOption) (r Client) {
 	r.Networking = networking.NewNetworkingService(opts...)
 	r.RPCNodes = rpc_nodes.NewRPCNodeService(opts...)
 	r.NKS = nks.NewNKSService(opts...)
+	r.SandboxClusters = sandbox_clusters.NewSandboxClusterService(opts...)
 
 	return
 }

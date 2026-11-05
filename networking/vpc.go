@@ -159,7 +159,7 @@ type VPC struct {
 	ProjectID string `json:"project_id" api:"required"`
 	// Region the resource is in.
 	//
-	// Any of "us-sva-2".
+	// Any of "us-sva-2", "us-wdc-1".
 	Region shared.RegionName `json:"region" api:"required"`
 	// Status of the resource.
 	//
@@ -201,9 +201,11 @@ func (r *VPC) UnmarshalJSON(data []byte) error {
 type VPCManagedBy struct {
 	// ID of the thing managing the resource.
 	ID string `json:"id" api:"required"`
-	// Kind of thing managing the resource.
+	// Kind of thing managing the resource: a sandbox cluster, or managed_sandboxes for
+	// the project that holds an organization's sandbox clusters, identified by the
+	// organization ID.
 	//
-	// Any of "sandbox_environment".
+	// Any of "sandbox_cluster", "managed_sandboxes".
 	Type string `json:"type" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -246,7 +248,7 @@ type VPCNewParams struct {
 	ProjectID string `json:"project_id" api:"required"`
 	// Region the resource is in.
 	//
-	// Any of "us-sva-2".
+	// Any of "us-sva-2", "us-wdc-1".
 	Region shared.RegionName `json:"region,omitzero" api:"required"`
 	// Name of the subnet to create.
 	SubnetName string `json:"subnet_name" api:"required"`
