@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.4.0](https://github.com/nirvana-labs/nirvana-go/compare/v2.3.0...v2.4.0) (2026-11-05)
+
+
+### Features
+
+* add sandbox_clusters to the SDKs and sync the OpenAPI spec ([15ff5aa](https://github.com/nirvana-labs/nirvana-go/commit/15ff5aa46cac84833a091a7b8234c2e7980110c6))
+
 ## [2.3.0](https://github.com/nirvana-labs/nirvana-go/compare/v2.2.2...v2.3.0) (2026-10-29)
 
 
