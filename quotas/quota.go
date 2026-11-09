@@ -81,7 +81,11 @@ type Quota struct {
 	//
 	// Any of "us-sva-2", "us-wdc-1".
 	Region shared.RegionName `json:"region" api:"required"`
-	// Storage quota.
+	// Storage quota. object_storage is the data stored in the organization's buckets
+	// in the region, in GB (10^9 bytes), rounded up per project. It is measured
+	// periodically, so it can trail recent writes by several minutes and can exceed
+	// the limit. New buckets cannot be created once used reaches the limit; a limit of
+	// 0 means object storage is not available to the organization in the region.
 	Storage QuotaStorage `json:"storage" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
@@ -210,7 +214,11 @@ func (r *QuotaNKS) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// Storage quota.
+// Storage quota. object_storage is the data stored in the organization's buckets
+// in the region, in GB (10^9 bytes), rounded up per project. It is measured
+// periodically, so it can trail recent writes by several minutes and can exceed
+// the limit. New buckets cannot be created once used reaches the limit; a limit of
+// 0 means object storage is not available to the organization in the region.
 type QuotaStorage struct {
 	// Quota dimension detail.
 	ABS QuotaDimensionDetail `json:"abs" api:"required"`
@@ -218,13 +226,16 @@ type QuotaStorage struct {
 	LocalNvme QuotaDimensionDetail `json:"local_nvme" api:"required"`
 	// Quota dimension detail.
 	Longhorn QuotaDimensionDetail `json:"longhorn" api:"required"`
+	// Quota dimension detail.
+	ObjectStorage QuotaDimensionDetail `json:"object_storage" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
-		ABS         respjson.Field
-		LocalNvme   respjson.Field
-		Longhorn    respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
+		ABS           respjson.Field
+		LocalNvme     respjson.Field
+		Longhorn      respjson.Field
+		ObjectStorage respjson.Field
+		ExtraFields   map[string]respjson.Field
+		raw           string
 	} `json:"-"`
 }
 

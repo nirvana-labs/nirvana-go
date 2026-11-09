@@ -201,11 +201,9 @@ func (r *VPC) UnmarshalJSON(data []byte) error {
 type VPCManagedBy struct {
 	// ID of the thing managing the resource.
 	ID string `json:"id" api:"required"`
-	// Kind of thing managing the resource: a sandbox cluster, or managed_sandboxes for
-	// the project that holds an organization's sandbox clusters, identified by the
-	// organization ID.
+	// Kind of thing managing the resource.
 	//
-	// Any of "sandbox_cluster", "managed_sandboxes".
+	// Any of "sandbox_cluster".
 	Type string `json:"type" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {

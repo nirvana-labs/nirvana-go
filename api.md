@@ -45,3 +45,5 @@
 # [NKS](nks/api.md)
 
 # [SandboxClusters](sandbox_clusters/api.md)
+
+# [Storage](storage/api.md)
