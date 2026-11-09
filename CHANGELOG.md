@@ -1,5 +1,22 @@
 # Changelog
 
+## [3.0.0](https://github.com/nirvana-labs/nirvana-go/compare/v2.4.0...v3.0.0) (2026-11-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* **api:** manage sandbox clusters by ID
+
+### Features
+
+* add object storage to the SDKs ([ee8d0cb](https://github.com/nirvana-labs/nirvana-go/commit/ee8d0cbd60f751f3e9ea818899c80387ea5346a1))
+* **api:** manage sandbox clusters by ID ([ee8d0cb](https://github.com/nirvana-labs/nirvana-go/commit/ee8d0cbd60f751f3e9ea818899c80387ea5346a1))
+
+
+### Chores
+
+* **nirvana-api:** update OpenAPI spec ([ee8d0cb](https://github.com/nirvana-labs/nirvana-go/commit/ee8d0cbd60f751f3e9ea818899c80387ea5346a1))
+
 ## [2.4.0](https://github.com/nirvana-labs/nirvana-go/compare/v2.3.0...v2.4.0) (2026-11-05)
 
 
