@@ -395,13 +395,14 @@ const (
 type ResourceStatus string
 
 const (
-	ResourceStatusPending  ResourceStatus = "pending"
-	ResourceStatusCreating ResourceStatus = "creating"
-	ResourceStatusUpdating ResourceStatus = "updating"
-	ResourceStatusReady    ResourceStatus = "ready"
-	ResourceStatusDeleting ResourceStatus = "deleting"
-	ResourceStatusDeleted  ResourceStatus = "deleted"
-	ResourceStatusError    ResourceStatus = "error"
+	ResourceStatusPending   ResourceStatus = "pending"
+	ResourceStatusCreating  ResourceStatus = "creating"
+	ResourceStatusUpdating  ResourceStatus = "updating"
+	ResourceStatusReady     ResourceStatus = "ready"
+	ResourceStatusDeleting  ResourceStatus = "deleting"
+	ResourceStatusDeleted   ResourceStatus = "deleted"
+	ResourceStatusError     ResourceStatus = "error"
+	ResourceStatusSuspended ResourceStatus = "suspended"
 )
 
 // IP filter rules.

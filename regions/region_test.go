@@ -39,6 +39,7 @@ func TestRegionListWithOptionalParams(t *testing.T) {
 		StorageABS:       nirvana.Bool(true),
 		StorageLocalNvme: nirvana.Bool(true),
 		StorageLonghorn:  nirvana.Bool(true),
+		StorageObject:    nirvana.Bool(true),
 	})
 	if err != nil {
 		var apierr *nirvana.Error

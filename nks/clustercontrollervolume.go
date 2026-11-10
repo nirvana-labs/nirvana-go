@@ -109,7 +109,7 @@ type NKSControllerVolume struct {
 	// Status of the resource.
 	//
 	// Any of "pending", "creating", "updating", "ready", "deleting", "deleted",
-	// "error".
+	// "error", "suspended".
 	Status shared.ResourceStatus `json:"status" api:"required"`
 	// Type of the Volume.
 	//

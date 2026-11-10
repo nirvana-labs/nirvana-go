@@ -159,7 +159,7 @@ type Volume struct {
 	// Status of the resource.
 	//
 	// Any of "pending", "creating", "updating", "ready", "deleting", "deleted",
-	// "error".
+	// "error", "suspended".
 	Status shared.ResourceStatus `json:"status" api:"required"`
 	// Tags to attach to the Volume.
 	Tags []string `json:"tags" api:"required"`
