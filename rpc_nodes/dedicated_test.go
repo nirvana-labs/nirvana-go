@@ -8,10 +8,10 @@ import (
 	"os"
 	"testing"
 
-	"github.com/nirvana-labs/nirvana-go/v2"
-	"github.com/nirvana-labs/nirvana-go/v2/internal/testutil"
-	"github.com/nirvana-labs/nirvana-go/v2/option"
-	"github.com/nirvana-labs/nirvana-go/v2/rpc_nodes"
+	"github.com/nirvana-labs/nirvana-go/v3"
+	"github.com/nirvana-labs/nirvana-go/v3/internal/testutil"
+	"github.com/nirvana-labs/nirvana-go/v3/option"
+	"github.com/nirvana-labs/nirvana-go/v3/rpc_nodes"
 )
 
 func TestDedicatedListWithOptionalParams(t *testing.T) {

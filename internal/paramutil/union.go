@@ -2,7 +2,7 @@ package paramutil
 
 import (
 	"fmt"
-	"github.com/nirvana-labs/nirvana-go/v2/packages/param"
+	"github.com/nirvana-labs/nirvana-go/v3/packages/param"
 	"reflect"
 )
 

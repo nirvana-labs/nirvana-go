@@ -2,8 +2,8 @@ package apijson_test
 
 import (
 	"encoding/json"
-	"github.com/nirvana-labs/nirvana-go/v2/internal/apijson"
-	"github.com/nirvana-labs/nirvana-go/v2/packages/respjson"
+	"github.com/nirvana-labs/nirvana-go/v3/internal/apijson"
+	"github.com/nirvana-labs/nirvana-go/v3/packages/respjson"
 	"testing"
 )
 

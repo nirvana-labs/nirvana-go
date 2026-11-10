@@ -3,9 +3,9 @@
 package storage
 
 import (
-	"github.com/nirvana-labs/nirvana-go/v2/internal/apierror"
-	"github.com/nirvana-labs/nirvana-go/v2/packages/param"
-	"github.com/nirvana-labs/nirvana-go/v2/shared"
+	"github.com/nirvana-labs/nirvana-go/v3/internal/apierror"
+	"github.com/nirvana-labs/nirvana-go/v3/packages/param"
+	"github.com/nirvana-labs/nirvana-go/v3/shared"
 )
 
 // aliased to make [param.APIUnion] private when embedding

@@ -3,7 +3,7 @@
 package compute
 
 import (
-	"github.com/nirvana-labs/nirvana-go/v2/option"
+	"github.com/nirvana-labs/nirvana-go/v3/option"
 )
 
 // ComputeService contains methods and other services that help with interacting

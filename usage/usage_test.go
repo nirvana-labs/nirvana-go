@@ -9,10 +9,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/nirvana-labs/nirvana-go/v2"
-	"github.com/nirvana-labs/nirvana-go/v2/internal/testutil"
-	"github.com/nirvana-labs/nirvana-go/v2/option"
-	"github.com/nirvana-labs/nirvana-go/v2/usage"
+	"github.com/nirvana-labs/nirvana-go/v3"
+	"github.com/nirvana-labs/nirvana-go/v3/internal/testutil"
+	"github.com/nirvana-labs/nirvana-go/v3/option"
+	"github.com/nirvana-labs/nirvana-go/v3/usage"
 )
 
 func TestUsageListWithOptionalParams(t *testing.T) {

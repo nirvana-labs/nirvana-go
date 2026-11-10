@@ -5,8 +5,8 @@ import (
 	"errors"
 	"time"
 
-	"github.com/nirvana-labs/nirvana-go/v2"
-	"github.com/nirvana-labs/nirvana-go/v2/operations"
+	"github.com/nirvana-labs/nirvana-go/v3"
+	"github.com/nirvana-labs/nirvana-go/v3/operations"
 )
 
 const (
