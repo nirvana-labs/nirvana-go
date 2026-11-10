@@ -135,13 +135,16 @@ type Bucket struct {
 	//
 	// Any of "us-sva-2", "us-wdc-1".
 	Region shared.RegionName `json:"region" api:"required"`
+	// Region S3 clients must sign their requests for (the SigV4 region). Configure it
+	// as the region of any S3 client or SDK used with the Bucket.
+	SigningRegion string `json:"signing_region" api:"required"`
 	// Total size of the objects in the Bucket, in bytes. Updated periodically, so it
 	// can lag behind recent writes.
 	SizeBytes int64 `json:"size_bytes" api:"required"`
 	// Status of the resource.
 	//
 	// Any of "pending", "creating", "updating", "ready", "deleting", "deleted",
-	// "error".
+	// "error", "suspended".
 	Status shared.ResourceStatus `json:"status" api:"required"`
 	// Tags attached to the Bucket.
 	Tags []string `json:"tags" api:"required"`
@@ -151,20 +154,21 @@ type Bucket struct {
 	URL string `json:"url" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
-		ID          respjson.Field
-		CreatedAt   respjson.Field
-		Endpoint    respjson.Field
-		Name        respjson.Field
-		ObjectCount respjson.Field
-		ProjectID   respjson.Field
-		Region      respjson.Field
-		SizeBytes   respjson.Field
-		Status      respjson.Field
-		Tags        respjson.Field
-		UpdatedAt   respjson.Field
-		URL         respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
+		ID            respjson.Field
+		CreatedAt     respjson.Field
+		Endpoint      respjson.Field
+		Name          respjson.Field
+		ObjectCount   respjson.Field
+		ProjectID     respjson.Field
+		Region        respjson.Field
+		SigningRegion respjson.Field
+		SizeBytes     respjson.Field
+		Status        respjson.Field
+		Tags          respjson.Field
+		UpdatedAt     respjson.Field
+		URL           respjson.Field
+		ExtraFields   map[string]respjson.Field
+		raw           string
 	} `json:"-"`
 }
 

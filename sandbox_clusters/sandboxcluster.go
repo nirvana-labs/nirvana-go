@@ -133,7 +133,7 @@ type SandboxCluster struct {
 	// Status of the resource.
 	//
 	// Any of "pending", "creating", "updating", "ready", "deleting", "deleted",
-	// "error".
+	// "error", "suspended".
 	Status shared.ResourceStatus `json:"status" api:"required"`
 	// Tags attached to the Sandbox Cluster.
 	Tags []string `json:"tags" api:"required"`

@@ -127,7 +127,7 @@ type NKSNode struct {
 	// Status of the resource.
 	//
 	// Any of "pending", "creating", "updating", "ready", "deleting", "deleted",
-	// "error".
+	// "error", "suspended".
 	Status shared.ResourceStatus `json:"status" api:"required"`
 	// When the node was last updated.
 	UpdatedAt time.Time `json:"updated_at" api:"required" format:"date-time"`

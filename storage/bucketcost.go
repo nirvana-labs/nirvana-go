@@ -33,7 +33,8 @@ func NewBucketCostService(opts ...option.RequestOption) (r BucketCostService) {
 	return
 }
 
-// Return a priced cost quote for the proposed Bucket.
+// Return a priced monthly cost quote for the proposed Bucket storing size_gb of
+// data. A Bucket is charged per GB it stores, prorated by the hour.
 func (r *BucketCostService) New(ctx context.Context, body BucketCostNewParams, opts ...option.RequestOption) (res *shared.CostQuote, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/storage/buckets/cost"
@@ -54,6 +55,9 @@ type BucketCostNewParams struct {
 	//
 	// Any of "us-sva-2", "us-wdc-1".
 	Region shared.RegionName `json:"region,omitzero" api:"required"`
+	// Amount of data to price the Bucket at storing, in GB (1 GB = 10^9 bytes). A
+	// Bucket is charged for what it stores, so a quote without it is empty.
+	SizeGB param.Opt[int64] `json:"size_gb,omitzero"`
 	// Tags to attach to the Bucket.
 	Tags []string `json:"tags,omitzero"`
 	paramObj

@@ -124,6 +124,9 @@ const ResourceStatusDeleted = shared.ResourceStatusDeleted
 // Equals "error"
 const ResourceStatusError = shared.ResourceStatusError
 
+// Equals "suspended"
+const ResourceStatusSuspended = shared.ResourceStatusSuspended
+
 // IP filter rules.
 //
 // This is an alias to an internal type.

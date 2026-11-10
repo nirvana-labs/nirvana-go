@@ -32,6 +32,7 @@ func TestBucketCostNewWithOptionalParams(t *testing.T) {
 		Name:      "my-bucket",
 		ProjectID: "123e4567-e89b-12d3-a456-426614174000",
 		Region:    shared.RegionNameUsSva2,
+		SizeGB:    nirvana.Int(1000),
 		Tags:      []string{"production", "ethereum"},
 	})
 	if err != nil {

@@ -126,6 +126,11 @@ type ObjectStorageKey struct {
 	//
 	// Any of "us-sva-2", "us-wdc-1".
 	Region shared.RegionName `json:"region" api:"required"`
+	// Status of the resource.
+	//
+	// Any of "pending", "creating", "updating", "ready", "deleting", "deleted",
+	// "error", "suspended".
+	Status shared.ResourceStatus `json:"status" api:"required"`
 	// When the Object Storage Key was updated.
 	UpdatedAt time.Time `json:"updated_at" api:"required" format:"date-time"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -136,6 +141,7 @@ type ObjectStorageKey struct {
 		Name        respjson.Field
 		ProjectID   respjson.Field
 		Region      respjson.Field
+		Status      respjson.Field
 		UpdatedAt   respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
@@ -187,6 +193,11 @@ type ObjectStorageKeyWithSecret struct {
 	// S3 secret access key. It is only returned here and cannot be retrieved again:
 	// store it securely, or delete the key and create a new one if it is lost.
 	Secret string `json:"secret" api:"required"`
+	// Status of the resource.
+	//
+	// Any of "pending", "creating", "updating", "ready", "deleting", "deleted",
+	// "error", "suspended".
+	Status shared.ResourceStatus `json:"status" api:"required"`
 	// When the Object Storage Key was updated.
 	UpdatedAt time.Time `json:"updated_at" api:"required" format:"date-time"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -198,6 +209,7 @@ type ObjectStorageKeyWithSecret struct {
 		ProjectID   respjson.Field
 		Region      respjson.Field
 		Secret      respjson.Field
+		Status      respjson.Field
 		UpdatedAt   respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
