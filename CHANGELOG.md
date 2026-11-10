@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.0.1](https://github.com/nirvana-labs/nirvana-go/compare/v3.0.0...v3.0.1) (2026-11-10)
+
+
+### Bug Fixes
+
+* **go:** reseal lib/ custom code for the v3 module path ([fea37a2](https://github.com/nirvana-labs/nirvana-go/commit/fea37a2444e85e638d133eca77c94acdd60fb0b3))
+
 ## [3.0.0](https://github.com/nirvana-labs/nirvana-go/compare/v2.4.0...v3.0.0) (2026-11-09)
 
 
