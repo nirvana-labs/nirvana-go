@@ -9,11 +9,11 @@ import (
 	"net/http"
 	"slices"
 
-	"github.com/nirvana-labs/nirvana-go/v2/internal/apijson"
-	"github.com/nirvana-labs/nirvana-go/v2/internal/requestconfig"
-	"github.com/nirvana-labs/nirvana-go/v2/option"
-	"github.com/nirvana-labs/nirvana-go/v2/packages/param"
-	"github.com/nirvana-labs/nirvana-go/v2/shared"
+	"github.com/nirvana-labs/nirvana-go/v3/internal/apijson"
+	"github.com/nirvana-labs/nirvana-go/v3/internal/requestconfig"
+	"github.com/nirvana-labs/nirvana-go/v3/option"
+	"github.com/nirvana-labs/nirvana-go/v3/packages/param"
+	"github.com/nirvana-labs/nirvana-go/v3/shared"
 )
 
 // VolumeCostService contains methods and other services that help with interacting

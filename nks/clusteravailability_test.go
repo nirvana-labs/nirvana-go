@@ -8,11 +8,11 @@ import (
 	"os"
 	"testing"
 
-	"github.com/nirvana-labs/nirvana-go/v2"
-	"github.com/nirvana-labs/nirvana-go/v2/internal/testutil"
-	"github.com/nirvana-labs/nirvana-go/v2/nks"
-	"github.com/nirvana-labs/nirvana-go/v2/option"
-	"github.com/nirvana-labs/nirvana-go/v2/shared"
+	"github.com/nirvana-labs/nirvana-go/v3"
+	"github.com/nirvana-labs/nirvana-go/v3/internal/testutil"
+	"github.com/nirvana-labs/nirvana-go/v3/nks"
+	"github.com/nirvana-labs/nirvana-go/v3/option"
+	"github.com/nirvana-labs/nirvana-go/v3/shared"
 )
 
 func TestClusterAvailabilityNewWithOptionalParams(t *testing.T) {

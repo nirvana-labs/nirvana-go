@@ -3,7 +3,7 @@
 package rpc_nodes
 
 import (
-	"github.com/nirvana-labs/nirvana-go/v2/option"
+	"github.com/nirvana-labs/nirvana-go/v3/option"
 )
 
 // RPCNodeService contains methods and other services that help with interacting

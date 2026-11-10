@@ -3,7 +3,7 @@ package param
 import (
 	"encoding/json"
 	"fmt"
-	shimjson "github.com/nirvana-labs/nirvana-go/v2/internal/encoding/json"
+	shimjson "github.com/nirvana-labs/nirvana-go/v3/internal/encoding/json"
 	"time"
 )
 

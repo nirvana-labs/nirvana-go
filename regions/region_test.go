@@ -8,10 +8,10 @@ import (
 	"os"
 	"testing"
 
-	"github.com/nirvana-labs/nirvana-go/v2"
-	"github.com/nirvana-labs/nirvana-go/v2/internal/testutil"
-	"github.com/nirvana-labs/nirvana-go/v2/option"
-	"github.com/nirvana-labs/nirvana-go/v2/regions"
+	"github.com/nirvana-labs/nirvana-go/v3"
+	"github.com/nirvana-labs/nirvana-go/v3/internal/testutil"
+	"github.com/nirvana-labs/nirvana-go/v3/option"
+	"github.com/nirvana-labs/nirvana-go/v3/regions"
 )
 
 func TestRegionListWithOptionalParams(t *testing.T) {

@@ -10,11 +10,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/nirvana-labs/nirvana-go/v2"
-	"github.com/nirvana-labs/nirvana-go/v2/compute"
-	"github.com/nirvana-labs/nirvana-go/v2/internal"
-	"github.com/nirvana-labs/nirvana-go/v2/option"
-	"github.com/nirvana-labs/nirvana-go/v2/shared"
+	"github.com/nirvana-labs/nirvana-go/v3"
+	"github.com/nirvana-labs/nirvana-go/v3/compute"
+	"github.com/nirvana-labs/nirvana-go/v3/internal"
+	"github.com/nirvana-labs/nirvana-go/v3/option"
+	"github.com/nirvana-labs/nirvana-go/v3/shared"
 )
 
 type closureTransport struct {
