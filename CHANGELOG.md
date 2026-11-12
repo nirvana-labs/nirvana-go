@@ -1,5 +1,18 @@
 # Changelog
 
+## [3.1.0](https://github.com/nirvana-labs/nirvana-go/compare/v3.0.2...v3.1.0) (2026-11-12)
+
+
+### Features
+
+* object storage in the CLI and Terraform provider [CORE-5047] ([86e95cd](https://github.com/nirvana-labs/nirvana-go/commit/86e95cd4d0edd2a1a2a0729f14fd9ef14e1f7cad))
+* **stlc:** map sandbox_clusters.cost.create ([86e95cd](https://github.com/nirvana-labs/nirvana-go/commit/86e95cd4d0edd2a1a2a0729f14fd9ef14e1f7cad))
+
+
+### Chores
+
+* **nirvana-api:** update OpenAPI spec ([86e95cd](https://github.com/nirvana-labs/nirvana-go/commit/86e95cd4d0edd2a1a2a0729f14fd9ef14e1f7cad))
+
 ## [3.0.2](https://github.com/nirvana-labs/nirvana-go/compare/v3.0.1...v3.0.2) (2026-11-10)
 
 
