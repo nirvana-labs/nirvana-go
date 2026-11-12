@@ -91,7 +91,7 @@ type Usage struct {
 	// Kind of metered resource a ledger row belongs to.
 	//
 	// Any of "vm", "volume", "vpc", "nks_cluster", "nks_node_pool",
-	// "nks_load_balancer", "object_storage_user".
+	// "nks_load_balancer", "object_storage_user", "sandbox_cluster".
 	ResourceType UsageResourceType `json:"resource_type" api:"required"`
 	StartedAt    string            `json:"started_at" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -196,6 +196,7 @@ const (
 	UsageResourceTypeNKSNodePool       UsageResourceType = "nks_node_pool"
 	UsageResourceTypeNKSLoadBalancer   UsageResourceType = "nks_load_balancer"
 	UsageResourceTypeObjectStorageUser UsageResourceType = "object_storage_user"
+	UsageResourceTypeSandboxCluster    UsageResourceType = "sandbox_cluster"
 )
 
 type UsageListParams struct {
@@ -221,7 +222,7 @@ type UsageListParams struct {
 	// Filter by the kind of resource metered
 	//
 	// Any of "vm", "volume", "vpc", "nks_cluster", "nks_node_pool",
-	// "nks_load_balancer", "object_storage_user".
+	// "nks_load_balancer", "object_storage_user", "sandbox_cluster".
 	ResourceType UsageListParamsResourceType `query:"resource_type,omitzero" json:"-"`
 	paramObj
 }
@@ -245,4 +246,5 @@ const (
 	UsageListParamsResourceTypeNKSNodePool       UsageListParamsResourceType = "nks_node_pool"
 	UsageListParamsResourceTypeNKSLoadBalancer   UsageListParamsResourceType = "nks_load_balancer"
 	UsageListParamsResourceTypeObjectStorageUser UsageListParamsResourceType = "object_storage_user"
+	UsageListParamsResourceTypeSandboxCluster    UsageListParamsResourceType = "sandbox_cluster"
 )

@@ -30,6 +30,7 @@ import (
 // the [NewSandboxClusterService] method instead.
 type SandboxClusterService struct {
 	Options []option.RequestOption
+	Cost    CostService
 }
 
 // NewSandboxClusterService generates a new service that applies the given options
@@ -38,6 +39,7 @@ type SandboxClusterService struct {
 func NewSandboxClusterService(opts ...option.RequestOption) (r SandboxClusterService) {
 	r = SandboxClusterService{}
 	r.Options = opts
+	r.Cost = NewCostService(opts...)
 	return
 }
 
