@@ -91,7 +91,9 @@ func (r *BucketService) ListAutoPaging(ctx context.Context, query BucketListPara
 
 // Delete a Bucket. The Bucket is deleted asynchronously: follow the returned
 // operation until it is done. A Bucket that still holds objects is only deleted
-// with force.
+// with force: without it, the request is refused with 409 BUCKET_NOT_EMPTY and no
+// operation is started, and objects written after the request is accepted fail the
+// operation instead.
 func (r *BucketService) Delete(ctx context.Context, bucketID string, body BucketDeleteParams, opts ...option.RequestOption) (res *operations.Operation, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if bucketID == "" {
