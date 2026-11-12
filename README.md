@@ -39,7 +39,7 @@ Or to pin the version:
 <!-- x-release-please-start-version -->
 
 ```sh
-go get -u 'github.com/nirvana-labs/nirvana-go/v3@v3.0.2'
+go get -u 'github.com/nirvana-labs/nirvana-go/v3@v3.1.0'
 ```
 
 <!-- x-release-please-end -->
