@@ -192,10 +192,18 @@ func (r *ProjectBlockchainResources) UnmarshalJSON(data []byte) error {
 
 // Cloud infrastructure resources.
 type ProjectCloudResources struct {
+	// Number of buckets in the project.
+	Buckets int64 `json:"buckets" api:"required"`
 	// Number of NKS clusters in the project.
 	NKSClusters int64 `json:"nks_clusters" api:"required"`
 	// Number of NKS node pools in the project.
 	NKSNodePools int64 `json:"nks_node_pools" api:"required"`
+	// Number of sandbox clusters in the project.
+	SandboxClusters int64 `json:"sandbox_clusters" api:"required"`
+	// Number of worker nodes across the project's sandbox clusters.
+	SandboxNodes int64 `json:"sandbox_nodes" api:"required"`
+	// Number of sandboxes in the project.
+	Sandboxes int64 `json:"sandboxes" api:"required"`
 	// Number of VMs in the project.
 	VMs int64 `json:"vms" api:"required"`
 	// Number of volumes in the project.
@@ -204,13 +212,17 @@ type ProjectCloudResources struct {
 	VPCs int64 `json:"vpcs" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
-		NKSClusters  respjson.Field
-		NKSNodePools respjson.Field
-		VMs          respjson.Field
-		Volumes      respjson.Field
-		VPCs         respjson.Field
-		ExtraFields  map[string]respjson.Field
-		raw          string
+		Buckets         respjson.Field
+		NKSClusters     respjson.Field
+		NKSNodePools    respjson.Field
+		SandboxClusters respjson.Field
+		SandboxNodes    respjson.Field
+		Sandboxes       respjson.Field
+		VMs             respjson.Field
+		Volumes         respjson.Field
+		VPCs            respjson.Field
+		ExtraFields     map[string]respjson.Field
+		raw             string
 	} `json:"-"`
 }
 

@@ -91,7 +91,7 @@ type Usage struct {
 	// Kind of metered resource a ledger row belongs to.
 	//
 	// Any of "vm", "volume", "vpc", "nks_cluster", "nks_node_pool",
-	// "nks_load_balancer", "object_storage_user", "sandbox_cluster".
+	// "nks_load_balancer", "object_storage_user", "sandbox_cluster", "sandbox".
 	ResourceType UsageResourceType `json:"resource_type" api:"required"`
 	StartedAt    string            `json:"started_at" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -197,6 +197,7 @@ const (
 	UsageResourceTypeNKSLoadBalancer   UsageResourceType = "nks_load_balancer"
 	UsageResourceTypeObjectStorageUser UsageResourceType = "object_storage_user"
 	UsageResourceTypeSandboxCluster    UsageResourceType = "sandbox_cluster"
+	UsageResourceTypeSandbox           UsageResourceType = "sandbox"
 )
 
 type UsageListParams struct {
@@ -219,10 +220,10 @@ type UsageListParams struct {
 	// Sort term as field:asc or field:desc. Field: created_at, the resource's earliest
 	// usage row matching the filters
 	Sort param.Opt[string] `query:"sort,omitzero" json:"-"`
-	// Filter by the kind of resource metered
+	// Filter by metered resource kind
 	//
 	// Any of "vm", "volume", "vpc", "nks_cluster", "nks_node_pool",
-	// "nks_load_balancer", "object_storage_user", "sandbox_cluster".
+	// "nks_load_balancer", "object_storage_user", "sandbox_cluster", "sandbox".
 	ResourceType UsageListParamsResourceType `query:"resource_type,omitzero" json:"-"`
 	paramObj
 }
@@ -235,7 +236,7 @@ func (r UsageListParams) URLQuery() (v url.Values, err error) {
 	})
 }
 
-// Filter by the kind of resource metered
+// Filter by metered resource kind
 type UsageListParamsResourceType string
 
 const (
@@ -247,4 +248,5 @@ const (
 	UsageListParamsResourceTypeNKSLoadBalancer   UsageListParamsResourceType = "nks_load_balancer"
 	UsageListParamsResourceTypeObjectStorageUser UsageListParamsResourceType = "object_storage_user"
 	UsageListParamsResourceTypeSandboxCluster    UsageListParamsResourceType = "sandbox_cluster"
+	UsageListParamsResourceTypeSandbox           UsageListParamsResourceType = "sandbox"
 )
