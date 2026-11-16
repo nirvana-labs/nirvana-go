@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.2.0](https://github.com/nirvana-labs/nirvana-go/compare/v3.1.0...v3.2.0) (2026-11-16)
+
+
+### Features
+
+* **stlc:** ship sandbox_clusters.cost in the cli, pin nirvana-go v3.1.0 ([4064612](https://github.com/nirvana-labs/nirvana-go/commit/4064612817c3d20cc14f1d0eb129142ef39024ca))
+
+
+### Chores
+
+* **nirvana-api:** update OpenAPI spec ([4064612](https://github.com/nirvana-labs/nirvana-go/commit/4064612817c3d20cc14f1d0eb129142ef39024ca))
+
 ## [3.1.0](https://github.com/nirvana-labs/nirvana-go/compare/v3.0.2...v3.1.0) (2026-11-12)
 
 
