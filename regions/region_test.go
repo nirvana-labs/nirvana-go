@@ -37,8 +37,8 @@ func TestRegionListWithOptionalParams(t *testing.T) {
 		NKSClusters:      nirvana.Bool(true),
 		Sort:             nirvana.String("sort"),
 		StorageABS:       nirvana.Bool(true),
+		StorageCeph:      nirvana.Bool(true),
 		StorageLocalNvme: nirvana.Bool(true),
-		StorageLonghorn:  nirvana.Bool(true),
 		StorageObject:    nirvana.Bool(true),
 	})
 	if err != nil {
