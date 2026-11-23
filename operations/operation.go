@@ -87,7 +87,7 @@ type Operation struct {
 	// Kind of Operation.
 	//
 	// Any of "vm", "volume", "vpc", "firewall_rule", "nks_cluster", "nks_node_pool",
-	// "sandbox_cluster", "bucket".
+	// "sandbox_cluster", "sandbox_vm", "bucket".
 	Kind OperationKind `json:"kind" api:"required"`
 	// Project ID the Operation belongs to.
 	ProjectID string `json:"project_id" api:"required"`
@@ -99,7 +99,7 @@ type Operation struct {
 	Status OperationStatus `json:"status" api:"required"`
 	// Type of Operation.
 	//
-	// Any of "create", "update", "delete", "restart".
+	// Any of "create", "update", "delete", "restart", "pause", "resume".
 	Type OperationType `json:"type" api:"required"`
 	// When the Operation was updated.
 	UpdatedAt time.Time `json:"updated_at" api:"required" format:"date-time"`
@@ -283,6 +283,7 @@ const (
 	OperationKindNKSCluster     OperationKind = "nks_cluster"
 	OperationKindNKSNodePool    OperationKind = "nks_node_pool"
 	OperationKindSandboxCluster OperationKind = "sandbox_cluster"
+	OperationKindSandboxVM      OperationKind = "sandbox_vm"
 	OperationKindBucket         OperationKind = "bucket"
 )
 
@@ -324,6 +325,8 @@ const (
 	OperationTypeUpdate  OperationType = "update"
 	OperationTypeDelete  OperationType = "delete"
 	OperationTypeRestart OperationType = "restart"
+	OperationTypePause   OperationType = "pause"
+	OperationTypeResume  OperationType = "resume"
 )
 
 type OperationListParams struct {

@@ -202,6 +202,8 @@ type ProjectCloudResources struct {
 	SandboxClusters int64 `json:"sandbox_clusters" api:"required"`
 	// Number of worker nodes across the project's sandbox clusters.
 	SandboxNodes int64 `json:"sandbox_nodes" api:"required"`
+	// Number of sandbox VMs in the project.
+	SandboxVMs int64 `json:"sandbox_vms" api:"required"`
 	// Number of sandboxes in the project.
 	Sandboxes int64 `json:"sandboxes" api:"required"`
 	// Number of VMs in the project.
@@ -217,6 +219,7 @@ type ProjectCloudResources struct {
 		NKSNodePools    respjson.Field
 		SandboxClusters respjson.Field
 		SandboxNodes    respjson.Field
+		SandboxVMs      respjson.Field
 		Sandboxes       respjson.Field
 		VMs             respjson.Field
 		Volumes         respjson.Field
