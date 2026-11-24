@@ -246,6 +246,8 @@ type OrganizationServices struct {
 	Cloud bool `json:"cloud" api:"required"`
 	// Whether just-in-time provisioning is enabled for the organization.
 	JitProvisioning bool `json:"jit_provisioning" api:"required"`
+	// Whether the organization can create sandbox VMs.
+	SandboxVMs bool `json:"sandbox_vms" api:"required"`
 	// Whether SCIM provisioning is enabled for the organization.
 	SCIM bool `json:"scim" api:"required"`
 	// Whether SIEM integration is enabled for the organization.
@@ -256,6 +258,7 @@ type OrganizationServices struct {
 	JSON struct {
 		Cloud           respjson.Field
 		JitProvisioning respjson.Field
+		SandboxVMs      respjson.Field
 		SCIM            respjson.Field
 		SIEM            respjson.Field
 		SSO             respjson.Field

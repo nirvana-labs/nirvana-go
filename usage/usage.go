@@ -91,7 +91,8 @@ type Usage struct {
 	// Kind of metered resource a ledger row belongs to.
 	//
 	// Any of "vm", "volume", "vpc", "nks_cluster", "nks_node_pool",
-	// "nks_load_balancer", "object_storage_user", "sandbox_cluster", "sandbox".
+	// "nks_load_balancer", "object_storage_user", "sandbox_cluster", "sandbox_vm",
+	// "sandbox".
 	ResourceType UsageResourceType `json:"resource_type" api:"required"`
 	StartedAt    string            `json:"started_at" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
@@ -197,6 +198,7 @@ const (
 	UsageResourceTypeNKSLoadBalancer   UsageResourceType = "nks_load_balancer"
 	UsageResourceTypeObjectStorageUser UsageResourceType = "object_storage_user"
 	UsageResourceTypeSandboxCluster    UsageResourceType = "sandbox_cluster"
+	UsageResourceTypeSandboxVM         UsageResourceType = "sandbox_vm"
 	UsageResourceTypeSandbox           UsageResourceType = "sandbox"
 )
 
