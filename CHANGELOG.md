@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.2.2](https://github.com/nirvana-labs/nirvana-go/compare/v3.2.1...v3.2.2) (2026-11-24)
+
+
+### Bug Fixes
+
+* **deps:** reseal TS, CLI and terraform to clear Dependabot alerts ([507d995](https://github.com/nirvana-labs/nirvana-go/commit/507d99595d79f092d0fb91efc6bcf0a5ce6adfd1))
+
+
+### Chores
+
+* **nirvana-api:** update OpenAPI spec ([507d995](https://github.com/nirvana-labs/nirvana-go/commit/507d99595d79f092d0fb91efc6bcf0a5ce6adfd1))
+
 ## [3.2.1](https://github.com/nirvana-labs/nirvana-go/compare/v3.2.0...v3.2.1) (2026-11-17)
 
 
