@@ -81,8 +81,9 @@ type Quota struct {
 	//
 	// Any of "us-sva-2", "us-wdc-1".
 	Region shared.RegionName `json:"region" api:"required"`
-	// Sandbox quota. vcpu and memory_gb count the nodes of the organization's sandbox
-	// clusters in the region.
+	// Sandbox quota. vms counts the organization's Sandbox VMs in the region in every
+	// power state; vcpu and memory_gb count the nodes of its sandbox clusters and its
+	// running Sandbox VMs.
 	Sandboxes QuotaSandboxes `json:"sandboxes" api:"required"`
 	// Storage quota. object_storage is the data stored in the organization's buckets
 	// in the region, in GB (10^9 bytes), rounded up per project. It is measured
@@ -109,8 +110,9 @@ func (r *Quota) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// Sandbox quota. vcpu and memory_gb count the nodes of the organization's sandbox
-// clusters in the region.
+// Sandbox quota. vms counts the organization's Sandbox VMs in the region in every
+// power state; vcpu and memory_gb count the nodes of its sandbox clusters and its
+// running Sandbox VMs.
 type QuotaSandboxes struct {
 	// Quota dimension detail.
 	Clusters QuotaDimensionDetail `json:"clusters" api:"required"`
@@ -118,11 +120,14 @@ type QuotaSandboxes struct {
 	MemoryGB QuotaDimensionDetail `json:"memory_gb" api:"required"`
 	// Quota dimension detail.
 	Vcpu QuotaDimensionDetail `json:"vcpu" api:"required"`
+	// Quota dimension detail.
+	VMs QuotaDimensionDetail `json:"vms" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Clusters    respjson.Field
 		MemoryGB    respjson.Field
 		Vcpu        respjson.Field
+		VMs         respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`

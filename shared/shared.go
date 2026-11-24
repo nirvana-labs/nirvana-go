@@ -336,6 +336,9 @@ type OrganizationBillingSummary struct {
 	EffectiveBalance string `json:"effective_balance" api:"required" format:"decimal"`
 	// Arbitrary-precision decimal serialized as a string (e.g. "58.40").
 	MonthlyCost string `json:"monthly_cost" api:"required" format:"decimal"`
+	// Credits the organization earns automatically through the startup credits
+	// program, one per step. Empty when the organization is not part of the program.
+	PromotionalCredits []OrganizationBillingSummaryPromotionalCredit `json:"promotional_credits" api:"required"`
 	// Arbitrary-precision decimal serialized as a string (e.g. "58.40").
 	RechargeThresholdDays string `json:"recharge_threshold_days" api:"required" format:"decimal"`
 	// Projected date the balance reaches the recharge threshold at the current
@@ -348,6 +351,7 @@ type OrganizationBillingSummary struct {
 		DailyCost             respjson.Field
 		EffectiveBalance      respjson.Field
 		MonthlyCost           respjson.Field
+		PromotionalCredits    respjson.Field
 		RechargeThresholdDays respjson.Field
 		EstimatedNextChargeAt respjson.Field
 		RunwayMonths          respjson.Field
@@ -359,6 +363,37 @@ type OrganizationBillingSummary struct {
 // Returns the unmodified JSON received from the API
 func (r OrganizationBillingSummary) RawJSON() string { return r.JSON.raw }
 func (r *OrganizationBillingSummary) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// Where an organization stands on one credit it can earn automatically.
+type OrganizationBillingSummaryPromotionalCredit struct {
+	// Arbitrary-precision decimal serialized as a string (e.g. "58.40").
+	Amount string `json:"amount" api:"required" format:"decimal"`
+	// Step that earns the credit: creating the organization, or saving a payment
+	// method on it.
+	//
+	// Any of "organization_created", "payment_method_added".
+	Kind string `json:"kind" api:"required"`
+	// Whether the credit can still be earned ("available"), was earned and is being
+	// issued ("pending"), or was issued ("granted"). A granted credit reaches the
+	// balance shortly after it is issued.
+	//
+	// Any of "available", "pending", "granted".
+	Status string `json:"status" api:"required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Amount      respjson.Field
+		Kind        respjson.Field
+		Status      respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r OrganizationBillingSummaryPromotionalCredit) RawJSON() string { return r.JSON.raw }
+func (r *OrganizationBillingSummaryPromotionalCredit) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 

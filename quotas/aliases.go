@@ -82,6 +82,11 @@ type CostQuoteUpdateDiffUsageDimensionBefore = shared.CostQuoteUpdateDiffUsageDi
 // This is an alias to an internal type.
 type OrganizationBillingSummary = shared.OrganizationBillingSummary
 
+// Where an organization stands on one credit it can earn automatically.
+//
+// This is an alias to an internal type.
+type OrganizationBillingSummaryPromotionalCredit = shared.OrganizationBillingSummaryPromotionalCredit
+
 // Pagination response details.
 //
 // This is an alias to an internal type.
