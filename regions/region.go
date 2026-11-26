@@ -170,14 +170,11 @@ func (r *RegionNKS) UnmarshalJSON(data []byte) error {
 type RegionStorage struct {
 	// ABS indicates if Accelerated Block Storage is available.
 	ABS bool `json:"abs" api:"required"`
-	// LocalNVMe indicates if locally-attached NVMe storage is available.
-	LocalNvme bool `json:"local_nvme" api:"required"`
 	// Object storage (S3-compatible buckets) is available.
 	Object bool `json:"object" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ABS         respjson.Field
-		LocalNvme   respjson.Field
 		Object      respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
@@ -238,8 +235,6 @@ type RegionListParams struct {
 	Sort param.Opt[string] `query:"sort,omitzero" json:"-"`
 	// Only regions where Accelerated Block Storage is available
 	StorageABS param.Opt[bool] `query:"storage_abs,omitzero" json:"-"`
-	// Only regions where locally-attached NVMe storage is available
-	StorageLocalNvme param.Opt[bool] `query:"storage_local_nvme,omitzero" json:"-"`
 	// Only regions where object storage (S3-compatible buckets) is available
 	StorageObject param.Opt[bool] `query:"storage_object,omitzero" json:"-"`
 	// Filter by region availability

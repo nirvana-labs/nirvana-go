@@ -225,7 +225,8 @@ type UsageListParams struct {
 	// Filter by metered resource kind
 	//
 	// Any of "vm", "volume", "vpc", "nks_cluster", "nks_node_pool",
-	// "nks_load_balancer", "object_storage_user", "sandbox_cluster", "sandbox".
+	// "nks_load_balancer", "object_storage_user", "sandbox_cluster", "sandbox_vm",
+	// "sandbox".
 	ResourceType UsageListParamsResourceType `query:"resource_type,omitzero" json:"-"`
 	paramObj
 }
@@ -250,5 +251,6 @@ const (
 	UsageListParamsResourceTypeNKSLoadBalancer   UsageListParamsResourceType = "nks_load_balancer"
 	UsageListParamsResourceTypeObjectStorageUser UsageListParamsResourceType = "object_storage_user"
 	UsageListParamsResourceTypeSandboxCluster    UsageListParamsResourceType = "sandbox_cluster"
+	UsageListParamsResourceTypeSandboxVM         UsageListParamsResourceType = "sandbox_vm"
 	UsageListParamsResourceTypeSandbox           UsageListParamsResourceType = "sandbox"
 )

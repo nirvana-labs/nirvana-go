@@ -101,7 +101,7 @@ func TestVolumeListWithOptionalParams(t *testing.T) {
 		Sort:      nirvana.String("sort"),
 		Status:    compute.VolumeListParamsStatusReady,
 		Tags:      []string{"string"},
-		Type:      compute.VolumeListParamsTypeNvme,
+		Type:      compute.VolumeListParamsTypeABS,
 		VMID:      nirvana.String("vm_id"),
 	})
 	if err != nil {

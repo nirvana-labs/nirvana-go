@@ -165,7 +165,7 @@ type Volume struct {
 	Tags []string `json:"tags" api:"required"`
 	// Type of the Volume.
 	//
-	// Any of "nvme", "abs".
+	// Any of "abs".
 	Type VolumeType `json:"type" api:"required"`
 	// When the Volume was updated.
 	UpdatedAt time.Time `json:"updated_at" api:"required" format:"date-time"`
@@ -230,8 +230,7 @@ func (r *VolumeList) UnmarshalJSON(data []byte) error {
 type VolumeType string
 
 const (
-	VolumeTypeNvme VolumeType = "nvme"
-	VolumeTypeABS  VolumeType = "abs"
+	VolumeTypeABS VolumeType = "abs"
 )
 
 type VolumeNewParams struct {
@@ -247,7 +246,7 @@ type VolumeNewParams struct {
 	Size int64 `json:"size" api:"required"`
 	// Type of the Volume.
 	//
-	// Any of "nvme", "abs".
+	// Any of "abs".
 	Type VolumeType `json:"type,omitzero" api:"required"`
 	// ID of the VM the Volume is attached to.
 	VMID param.Opt[string] `json:"vm_id,omitzero"`
@@ -315,7 +314,7 @@ type VolumeListParams struct {
 	Tags []string `query:"tags,omitzero" json:"-"`
 	// Filter by storage type
 	//
-	// Any of "nvme", "abs".
+	// Any of "abs".
 	Type VolumeListParamsType `query:"type,omitzero" json:"-"`
 	paramObj
 }
@@ -352,8 +351,7 @@ const (
 type VolumeListParamsType string
 
 const (
-	VolumeListParamsTypeNvme VolumeListParamsType = "nvme"
-	VolumeListParamsTypeABS  VolumeListParamsType = "abs"
+	VolumeListParamsTypeABS VolumeListParamsType = "abs"
 )
 
 type VolumeAttachParams struct {

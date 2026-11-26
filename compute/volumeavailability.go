@@ -70,7 +70,7 @@ type VolumeAvailabilityNewParams struct {
 	Size int64 `json:"size" api:"required"`
 	// Type of the Volume.
 	//
-	// Any of "nvme", "abs".
+	// Any of "abs".
 	Type VolumeType `json:"type,omitzero" api:"required"`
 	// ID of the VM the Volume is attached to.
 	VMID param.Opt[string] `json:"vm_id,omitzero"`

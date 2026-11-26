@@ -350,7 +350,7 @@ type OperationListParams struct {
 	//
 	// Any of "vm", "volume", "vpc", "firewall_rule", "connect_connection",
 	// "nks_cluster", "nks_node_pool", "nks_load_balancer", "nks_node",
-	// "sandbox_cluster", "bucket".
+	// "sandbox_cluster", "sandbox_vm", "bucket".
 	Kind OperationListParamsKind `query:"kind,omitzero" json:"-"`
 	// Filter by operation status
 	//
@@ -358,7 +358,7 @@ type OperationListParams struct {
 	Status OperationListParamsStatus `query:"status,omitzero" json:"-"`
 	// Filter by operation type
 	//
-	// Any of "create", "update", "delete", "restart".
+	// Any of "create", "update", "delete", "restart", "pause", "resume".
 	Type OperationListParamsType `query:"type,omitzero" json:"-"`
 	paramObj
 }
@@ -385,6 +385,7 @@ const (
 	OperationListParamsKindNKSLoadBalancer   OperationListParamsKind = "nks_load_balancer"
 	OperationListParamsKindNKSNode           OperationListParamsKind = "nks_node"
 	OperationListParamsKindSandboxCluster    OperationListParamsKind = "sandbox_cluster"
+	OperationListParamsKindSandboxVM         OperationListParamsKind = "sandbox_vm"
 	OperationListParamsKindBucket            OperationListParamsKind = "bucket"
 )
 
@@ -407,4 +408,6 @@ const (
 	OperationListParamsTypeUpdate  OperationListParamsType = "update"
 	OperationListParamsTypeDelete  OperationListParamsType = "delete"
 	OperationListParamsTypeRestart OperationListParamsType = "restart"
+	OperationListParamsTypePause   OperationListParamsType = "pause"
+	OperationListParamsTypeResume  OperationListParamsType = "resume"
 )
