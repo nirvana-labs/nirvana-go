@@ -46,4 +46,6 @@
 
 # [SandboxClusters](sandbox_clusters/api.md)
 
+# [SandboxVMs](sandbox_vms/api.md)
+
 # [Storage](storage/api.md)

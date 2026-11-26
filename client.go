@@ -24,6 +24,7 @@ import (
 	"github.com/nirvana-labs/nirvana-go/v3/regions"
 	"github.com/nirvana-labs/nirvana-go/v3/rpc_nodes"
 	"github.com/nirvana-labs/nirvana-go/v3/sandbox_clusters"
+	"github.com/nirvana-labs/nirvana-go/v3/sandbox_vms"
 	"github.com/nirvana-labs/nirvana-go/v3/storage"
 	"github.com/nirvana-labs/nirvana-go/v3/usage"
 	"github.com/nirvana-labs/nirvana-go/v3/user"
@@ -49,6 +50,7 @@ type Client struct {
 	RPCNodes        rpc_nodes.RPCNodeService
 	NKS             nks.NKSService
 	SandboxClusters sandbox_clusters.SandboxClusterService
+	SandboxVMs      sandbox_vms.SandboxVMService
 	Storage         storage.StorageService
 }
 
@@ -97,6 +99,7 @@ func NewClient(opts ...option.RequestOption) (r Client) {
 	r.RPCNodes = rpc_nodes.NewRPCNodeService(opts...)
 	r.NKS = nks.NewNKSService(opts...)
 	r.SandboxClusters = sandbox_clusters.NewSandboxClusterService(opts...)
+	r.SandboxVMs = sandbox_vms.NewSandboxVMService(opts...)
 	r.Storage = storage.NewStorageService(opts...)
 
 	return
