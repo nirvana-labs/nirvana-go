@@ -257,15 +257,12 @@ type QuotaStorage struct {
 	// Quota dimension detail.
 	ABS QuotaDimensionDetail `json:"abs" api:"required"`
 	// Quota dimension detail.
-	Ceph QuotaDimensionDetail `json:"ceph" api:"required"`
-	// Quota dimension detail.
 	LocalNvme QuotaDimensionDetail `json:"local_nvme" api:"required"`
 	// Quota dimension detail.
 	ObjectStorage QuotaDimensionDetail `json:"object_storage" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ABS           respjson.Field
-		Ceph          respjson.Field
 		LocalNvme     respjson.Field
 		ObjectStorage respjson.Field
 		ExtraFields   map[string]respjson.Field

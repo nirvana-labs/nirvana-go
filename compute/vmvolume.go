@@ -87,7 +87,7 @@ type VMVolumeListParams struct {
 	Tags []string `query:"tags,omitzero" json:"-"`
 	// Filter by storage type
 	//
-	// Any of "nvme", "abs", "ceph".
+	// Any of "nvme", "abs".
 	Type VMVolumeListParamsType `query:"type,omitzero" json:"-"`
 	paramObj
 }
@@ -126,5 +126,4 @@ type VMVolumeListParamsType string
 const (
 	VMVolumeListParamsTypeNvme VMVolumeListParamsType = "nvme"
 	VMVolumeListParamsTypeABS  VMVolumeListParamsType = "abs"
-	VMVolumeListParamsTypeCeph VMVolumeListParamsType = "ceph"
 )

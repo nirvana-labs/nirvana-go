@@ -165,7 +165,7 @@ type Volume struct {
 	Tags []string `json:"tags" api:"required"`
 	// Type of the Volume.
 	//
-	// Any of "nvme", "abs", "ceph".
+	// Any of "nvme", "abs".
 	Type VolumeType `json:"type" api:"required"`
 	// When the Volume was updated.
 	UpdatedAt time.Time `json:"updated_at" api:"required" format:"date-time"`
@@ -232,7 +232,6 @@ type VolumeType string
 const (
 	VolumeTypeNvme VolumeType = "nvme"
 	VolumeTypeABS  VolumeType = "abs"
-	VolumeTypeCeph VolumeType = "ceph"
 )
 
 type VolumeNewParams struct {
@@ -248,7 +247,7 @@ type VolumeNewParams struct {
 	Size int64 `json:"size" api:"required"`
 	// Type of the Volume.
 	//
-	// Any of "nvme", "abs", "ceph".
+	// Any of "nvme", "abs".
 	Type VolumeType `json:"type,omitzero" api:"required"`
 	// ID of the VM the Volume is attached to.
 	VMID param.Opt[string] `json:"vm_id,omitzero"`
@@ -316,7 +315,7 @@ type VolumeListParams struct {
 	Tags []string `query:"tags,omitzero" json:"-"`
 	// Filter by storage type
 	//
-	// Any of "nvme", "abs", "ceph".
+	// Any of "nvme", "abs".
 	Type VolumeListParamsType `query:"type,omitzero" json:"-"`
 	paramObj
 }
@@ -355,7 +354,6 @@ type VolumeListParamsType string
 const (
 	VolumeListParamsTypeNvme VolumeListParamsType = "nvme"
 	VolumeListParamsTypeABS  VolumeListParamsType = "abs"
-	VolumeListParamsTypeCeph VolumeListParamsType = "ceph"
 )
 
 type VolumeAttachParams struct {
