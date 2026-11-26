@@ -191,11 +191,13 @@ func (r *NKSCluster) UnmarshalJSON(data []byte) error {
 // What manages the resource, or null when nothing does. A managed resource can be
 // read but not changed.
 type NKSClusterManagedBy struct {
-	// ID of the thing managing the resource.
+	// ID of the thing managing the resource. For a vpc_egress_policy, the ID of the
+	// VPC.
 	ID string `json:"id" api:"required"`
-	// Kind of thing managing the resource.
+	// Kind of thing managing the resource. A vpc_egress_policy manages the Firewall
+	// Rules that block outbound traffic to ports commonly used for abuse.
 	//
-	// Any of "sandbox_cluster".
+	// Any of "sandbox_cluster", "vpc_egress_policy".
 	Type string `json:"type" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {

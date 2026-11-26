@@ -132,12 +132,23 @@ func (r *FirewallRuleService) Get(ctx context.Context, vpcID string, firewallRul
 type FirewallRule struct {
 	// Unique identifier for the Firewall Rule.
 	ID string `json:"id" api:"required"`
+	// What the Firewall Rule does with the traffic it matches. Rules you create allow
+	// traffic.
+	//
+	// Any of "allow", "deny".
+	Action FirewallRuleAction `json:"action" api:"required"`
 	// When the Firewall Rule was created.
 	CreatedAt time.Time `json:"created_at" api:"required" format:"date-time"`
-	// Destination address of the Firewall Rule. Either VPC CIDR or VM in VPC.
+	// Destination address of the Firewall Rule. For an ingress rule, either VPC CIDR
+	// or VM in VPC.
 	DestinationAddress string `json:"destination_address" api:"required"`
 	// Destination ports of the Firewall Rule.
 	DestinationPorts []string `json:"destination_ports" api:"required"`
+	// Direction of the traffic the Firewall Rule matches. Rules you create are ingress
+	// rules.
+	//
+	// Any of "ingress", "egress".
+	Direction FirewallRuleDirection `json:"direction" api:"required"`
 	// What manages the resource, or null when nothing does. A managed resource can be
 	// read but not changed.
 	ManagedBy FirewallRuleManagedBy `json:"managed_by" api:"required"`
@@ -148,7 +159,7 @@ type FirewallRule struct {
 	// Any of "tcp", "udp".
 	Protocol FirewallRuleProtocol `json:"protocol" api:"required"`
 	// Source address of the Firewall Rule. Address of 0.0.0.0 requires a CIDR mask
-	// of 0.
+	// of 0. For an egress rule, the VPC CIDR.
 	SourceAddress string `json:"source_address" api:"required"`
 	// Status of the resource.
 	//
@@ -164,9 +175,11 @@ type FirewallRule struct {
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID                 respjson.Field
+		Action             respjson.Field
 		CreatedAt          respjson.Field
 		DestinationAddress respjson.Field
 		DestinationPorts   respjson.Field
+		Direction          respjson.Field
 		ManagedBy          respjson.Field
 		Name               respjson.Field
 		Protocol           respjson.Field
@@ -186,14 +199,34 @@ func (r *FirewallRule) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
+// What the Firewall Rule does with the traffic it matches. Rules you create allow
+// traffic.
+type FirewallRuleAction string
+
+const (
+	FirewallRuleActionAllow FirewallRuleAction = "allow"
+	FirewallRuleActionDeny  FirewallRuleAction = "deny"
+)
+
+// Direction of the traffic the Firewall Rule matches. Rules you create are ingress
+// rules.
+type FirewallRuleDirection string
+
+const (
+	FirewallRuleDirectionIngress FirewallRuleDirection = "ingress"
+	FirewallRuleDirectionEgress  FirewallRuleDirection = "egress"
+)
+
 // What manages the resource, or null when nothing does. A managed resource can be
 // read but not changed.
 type FirewallRuleManagedBy struct {
-	// ID of the thing managing the resource.
+	// ID of the thing managing the resource. For a vpc_egress_policy, the ID of the
+	// VPC.
 	ID string `json:"id" api:"required"`
-	// Kind of thing managing the resource.
+	// Kind of thing managing the resource. A vpc_egress_policy manages the Firewall
+	// Rules that block outbound traffic to ports commonly used for abuse.
 	//
-	// Any of "sandbox_cluster".
+	// Any of "sandbox_cluster", "vpc_egress_policy".
 	Type string `json:"type" api:"required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {

@@ -101,7 +101,7 @@ type VMAvailabilityNewParamsBootVolume struct {
 	Size int64 `json:"size" api:"required"`
 	// Type of the Volume.
 	//
-	// Any of "nvme", "abs", "ceph".
+	// Any of "nvme", "abs".
 	Type VolumeType `json:"type,omitzero" api:"required"`
 	// Tags to attach to the Volume.
 	Tags []string `json:"tags,omitzero"`
@@ -126,7 +126,7 @@ type VMAvailabilityNewParamsDataVolume struct {
 	Size int64 `json:"size" api:"required"`
 	// Type of the Volume.
 	//
-	// Any of "nvme", "abs", "ceph".
+	// Any of "nvme", "abs".
 	Type VolumeType `json:"type,omitzero" api:"required"`
 	// Tags to attach to the Volume.
 	Tags []string `json:"tags,omitzero"`
