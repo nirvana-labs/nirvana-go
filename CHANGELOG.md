@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.3.0](https://github.com/nirvana-labs/nirvana-go/compare/v3.2.4...v3.3.0) (2026-11-26)
+
+
+### Features
+
+* **stlc:** map sandbox_vms and add the missing list-filter enums ([f23702e](https://github.com/nirvana-labs/nirvana-go/commit/f23702e06669dab563b6df95ac52aa2c6b283277))
+
+
+### Chores
+
+* **nirvana-api:** update OpenAPI spec ([f23702e](https://github.com/nirvana-labs/nirvana-go/commit/f23702e06669dab563b6df95ac52aa2c6b283277))
+
 ## [3.2.4](https://github.com/nirvana-labs/nirvana-go/compare/v3.2.3...v3.2.4) (2026-11-26)
 
 
